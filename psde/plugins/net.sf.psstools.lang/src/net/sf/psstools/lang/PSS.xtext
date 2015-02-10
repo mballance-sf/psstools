@@ -1,0 +1,253 @@
+grammar net.sf.psstools.lang.PSS with org.eclipse.xtext.common.Terminals
+
+generate pSS "http://www.sf.net/psstools/lang/PSS"
+
+Model:
+	topLevel+=portable_stimulus_description*;
+
+portable_stimulus_description: 
+	graph_declaration | 
+	struct_declaration |
+	interface_declaration /* |
+	include_statement |
+	data_declaration |
+	bins_declaration |
+	package_declaration */
+;
+
+graph_or_struct_declaration:
+	graph_declaration|struct_declaration
+;
+
+graph_struct_ifc_declaration:
+	graph_declaration|struct_declaration|interface_declaration
+;
+
+graph_declaration:
+	'graph' name=ID ('(' (ports+=port_declaration (',' ports+=port_declaration)*)? ')')?
+		('extends' super=[graph_or_struct_declaration])? '{'
+		body+=graph_body_item*
+	'}'
+;
+
+port_declaration:
+	('export')? ifc_type=[interface_declaration] name=ID
+;
+
+
+
+struct_declaration:
+	'struct' name=ID ('extends' super=[struct_declaration])? '{'
+	body+=struct_body_item*
+	'}'
+;
+
+struct_graph_body_item:
+	overrides_declaration |	
+	constraint_declaration
+;
+
+struct_body_item:
+	struct_graph_body_item |
+	struct_data_declaration /*
+	bins_declaration |
+	bin_scheme_declaration */
+;
+
+graph_body_item:
+	struct_graph_body_item |
+	graph_data_declaration |
+	symbol_declaration |
+	symbol_definition
+;
+
+symbol_definition:
+	name=ID ':=' rule=rule_production
+;
+
+rule_production: 
+	stmt_or_block
+;
+
+stmt_or_block:
+	repeat_stmt | alt_stmt 
+	;
+	
+alt_stmt:
+	stmt_primary ({alt_stmt.left=current} '|' right=stmt_primary)*
+;
+
+stmt_primary:
+	seq '|' right=stmt_primary |
+	seq_stmt |
+	'{' {stmt_primary} stmt_list+=stmt_or_block* '}'
+;
+
+seq:
+	items+=seq_item (',' items+=seq_item)*
+;
+
+seq_item:
+	hierarchical_id ('(' parameters=ifc_call_parameter_list ')')?
+;
+
+ifc_call_parameter_list:
+	parameters+=hierarchical_id (',' parameters+=hierarchical_id)*
+;
+
+
+seq_stmt:
+	seq ';'
+;
+
+repeat_stmt:
+	'repeat' stmt=stmt_or_block 
+;
+
+/********************************************************************
+ * Overrides
+ */
+ 
+overrides_declaration:
+	{overides_declaration} 'override' '{' overrides+=override_stmt* '}'
+;
+
+override_stmt:
+	type_override | instance_override
+;
+
+type_override:
+	'type' src=ID 'with' dest=ID ';'
+;
+
+instance_override:
+	'instance' src=hierarchical_id 'with' dest=ID ';'
+;
+
+/********************************************************************
+ * Constraints
+ */
+constraint_declaration:
+	'constraint' name=ID '{'
+	body+=constraint_body_item*
+	'}'
+;
+
+constraint_body_item:
+	expression_or_dist_item |
+/*	uniqueness_constraint_item |
+	implication_constraint_item | */
+	if_constraint_item |
+	foreach_constraint_item
+;
+
+expression_or_dist_item:
+	// TODO: dist item
+	expression ';'
+;
+
+// TODO:
+if_constraint_item:
+	'if' '(' if_expr=expression ')' true_case=constraint_set /* ('else' false_set=constraint_set)? */
+;
+
+foreach_constraint_item:
+	'foreach' '(' expr=expression ')' body=constraint_set
+;
+
+constraint_set:
+	items+=constraint_body_item | '{' {constraint_set} items+=constraint_body_item* '}'
+;
+
+/********************************************************************
+ * Expressions
+ */
+expression:
+	add_expr
+;
+
+add_expr returns expression:
+	mul_expr ({add_expr.left=current} '+' right=mul_expr)*
+;
+
+mul_expr returns expression:
+	primary ({mul_expr.left=current} '*' right=primary)*
+;
+
+primary returns expression:
+	literal | 
+	'(' expression ')' |
+	hierarchical_id
+;
+
+hierarchical_id:
+	value=ID ('.' ID)*
+;
+
+literal:
+	value=INT
+;
+
+
+interface_declaration:
+	'interface' name=ID ('extends' super=[interface_declaration])? '{'
+	body+=interface_body_item*
+	'}'
+;
+
+interface_body_item:
+	action_declaration
+;
+
+action_declaration:
+	'action' name=ID '(' (ports+=action_portlist (',' ports+=action_portlist)* )? ')' ';'
+;
+
+action_portlist:
+	(io_direction)? (type=[struct_declaration]|primitive_datatype) name=ID
+;
+
+io_direction:
+	'input' | 'output' | 'inout'
+;
+
+graph_data_declaration:
+	('rand')? type=graph_datatype names+=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? 
+		(',' names+=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')?)* ';'
+;
+
+symbol_declaration:
+	'symbol' name=ID (':=' inline_rule=stmt_or_block ';')? |
+	'symbol' names+=ID (',' names+=ID (':=' inline_rule=stmt_or_block)?) ';'
+;
+
+port_map:
+	'.' port=ID '(' map=hierarchical_id ')'
+;
+
+struct_data_declaration:
+	('rand')? type=struct_datatype names+=ID (',' names+=ID)* ';'
+;
+
+graph_datatype:
+	primitive_datatype |
+	graph_typename=[graph_struct_ifc_declaration]
+;
+
+struct_datatype:
+	primitive_datatype |
+	struct_typename=[struct_declaration]
+;
+
+primitive_datatype:
+	('signed'|'unsigned')? integer_type 
+;
+
+integer_type:
+	'int' |
+	'bit' ('[' range_lhs=INT ':' range_lhs=INT ']')?
+;
+
+//graph_instance:
+//	type=[graph_declaration] name=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? ';'
+//;

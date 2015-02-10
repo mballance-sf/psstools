@@ -1,0 +1,234 @@
+
+<project name="PSDE Feature" default="build">
+    <property environment="env"/>
+
+    <!-- Import the version info -->
+    <property file="${basedir}/../etc/psstools.info"/>
+	<!--
+    <property file="${basedir}/../etc/sveditor_${version_type}.info"/>
+      -->
+    <property file="${basedir}/build.properties"/>
+
+    <property name="gef_zest" location="${env.SVE_ADDINS}/gef_zest"/>
+	
+
+    <condition property="sf_update_dir"
+	value="update"
+	else="update_testing">
+	<equals arg1="${version_type}" arg2="release"/>
+    </condition>
+
+    <property name="eclipse.home" location="${env.ECLIPSE_HOME}"/>
+	<condition property="eclipsec" 
+		value="${env.ECLIPSE_HOME}/eclipsec" 
+		else="${env.ECLIPSE_HOME}/eclipse">
+		<os family="windows"/>
+	</condition>
+	
+    <property name="feature.version" value="${version}"/>
+
+    <!-- Options used by the Eclipse build -->
+    <property name="buildId" value="${feature.version}"/>
+
+    <!-- build.qualifier -->
+	<!--
+    <property name="configs" value="${os}, ${ws}, ${arch}"/>
+      -->
+    <property name="buildDirectory"   value="${basedir}/../build"/>
+    <property name="buildResult"   value="${basedir}/../buildResult"/>
+
+    <property name="srcdir" value="${basedir}/../psde"/>
+    <property name="docs.dir" value="${srcdir}/docs"/>
+    <property name="repository" value="${basedir}/../archive_tmp/repository"/>
+
+    <taskdef name="xmltask"
+        classname="com.oopsconsultancy.xmltask.ant.XmlTask">
+      <classpath path="${basedir}/xmltask.jar"/>
+    </taskdef>
+        
+    <target name="build" depends="compile, mkarchive">
+		<delete dir="${buildDirectory}"/>
+    </target>
+
+    <target name="compile"> 
+        <delete dir="${buildDirectory}"/>
+        <mkdir dir="${buildDirectory}"/>
+        <mkdir dir="${buildResult}"/>
+
+        <copy todir="${buildDirectory}">
+            <fileset dir="${srcdir}">
+                <include name="plugins/**"/>
+                <include name="features/**"/>
+                <exclude name="**/*.svn/**"/>
+                <exclude name="**/*.git/**"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${buildDirectory}" overwrite="true">
+            <fileset dir="${srcdir}" 
+                includes="features/**/*.xml, plugins/**/*.xml, plugins/**/*.MF, plugins/**/*.properties"/>
+            <filterset begintoken="1" endtoken="3">
+                <filter token=".2." value="${feature.version}"/>
+            </filterset>
+        </copy>
+
+        <antcall target="build_feature">
+            <param name="feature.id" value="net.sf.psstools.ide.feature"/>
+        </antcall>
+    </target>
+
+    <target name="build_feature">
+    	<echo message="==> buildScript type=${type} id=${feature.id}"/>
+        <eclipse.buildScript
+            elements="${type}@${feature.id}"
+            buildDirectory="${buildDirectory}"
+            baseLocation="${eclipse.home}"
+            configInfo="${os},${ws},${arch}"
+            forceContextQualifier="${forceContextQualifier}"
+            generateFeatureVersionSuffix="true"/>
+    	<echo message="&lt;== buildScript type=${type} id=${feature.id}"/>
+
+        <ant antfile="${buildDirectory}/features/${feature.id}/build.xml"
+            dir="${buildDirectory}/features/${feature.id}"
+            target="build.jars"/>
+        <ant antfile="${buildDirectory}/assemble.${feature.id}.${os}.${ws}.${arch}.xml"
+             dir="${buildDirectory}"/>
+		<copy tofile="${buildResult}/psde-feature-${feature.version}.zip"
+			file="${buildDirectory}/${feature.id}-${feature.version}-${os}.${ws}.${arch}.zip"/>
+	    </target>
+
+
+    <!-- ************************************************************
+         * mkarchive
+         *
+         * Build an archived update site of the release
+         ************************************************************ -->
+    <target name="mkarchive">
+        <delete dir="${basedir}/../archive_tmp"/>
+        <mkdir dir="${basedir}/../archive_tmp"/>
+        <mkdir dir="${basedir}/../archive_tmp/features"/>
+        <mkdir dir="${basedir}/../archive_tmp/plugins"/>
+
+        <ant antfile="${buildDirectory}/features/${feature.id}/build.xml"
+            dir="${buildDirectory}/features/${feature.id}"
+            target="build.update.jar">
+            <property name="feature.destination" value="${basedir}/../archive_tmp/features"/>
+            <property name="plugin.destination" value="${basedir}/../archive_tmp/plugins"/>
+        </ant>
+
+        <copy todir="${basedir}/../archive_tmp">
+            <fileset dir="${srcdir}/features/${feature.id}">
+                <include name="category.xml"/>
+            </fileset>
+            <filterset begintoken="1" endtoken="3">
+                <filter token=".2." value="${feature.version}"/>
+            </filterset>
+        </copy>
+
+    	<!--
+        <copy todir="${basedir}/../archive_tmp/features">
+            <fileset dir="${gef_zest}/eclipse/features">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+
+        <copy todir="${basedir}/../archive_tmp/plugins">
+            <fileset dir="${gef_zest}/eclipse/plugins">
+                <include name="**/*"/>
+            </fileset>
+        </copy>
+          -->
+
+        <!-- Create the P2 repository -->
+        <p2.publish.featuresAndBundles
+            metadataRepository="file:${repository}"
+            artifactRepository="file:${repository}"
+            publishArtifacts="true"
+            compress="false"
+            source="${basedir}/../archive_tmp"/>
+
+        <!-- Categorize the items in the repository -->
+        <exec executable="${eclipsec}" failonerror="true">
+            <arg value="-console"/>
+            <arg value="-consoleLog"/>
+            <arg value="-nosplash"/>
+            <arg value="-application"/>
+            <arg value="org.eclipse.equinox.p2.publisher.CategoryPublisher"/>
+            <arg value="-metadataRepository"/>
+            <arg value="file:/${repository}"/>
+            <arg value="-categoryDefinition"/>
+            <arg value="file:/${basedir}/../archive_tmp/category.xml"/>
+            <arg value="-categoryQualifier"/>
+        </exec>
+
+    	<!--
+        <xmltask source="${repository}/artifacts.xml"
+                 dest="${repository}/artifacts_1.xml">
+        	<replace path="/repository/@name" 
+			withText="http://sveditor.sourceforge.net/${sf_update_dir}"/>
+        </xmltask>
+
+        <move file="${repository}/artifacts_1.xml"
+              tofile="${repository}/artifacts.xml"/>
+
+        <xmltask source="${repository}/content.xml"
+                 dest="${repository}/content_1.xml">
+        	<replace path="/repository/@name" 
+			withText="http://sveditor.sourceforge.net/${sf_update_dir}"/>
+        </xmltask>
+
+        <move file="${repository}/content_1.xml"
+              tofile="${repository}/content.xml"/>
+			-->
+
+
+        <jar destfile="${buildResult}/psde-${feature.version}.jar"
+             basedir="${repository}"
+             includes="*.xml, features/**, plugins/**"/>
+
+    	<!--
+		<copy todir="${basedir}/../archive_tmp" overwrite="true">
+			<fileset dir="${basedir}/../etc" includes="mappings_${version_type}.xml"/>
+			<filterset begintoken="1" endtoken="3">
+				<filter token=".2." value="${feature.version}"/>
+			</filterset>
+		</copy>
+
+        <xmltask source="${basedir}/../archive_tmp/mappings_${version_type}.xml">
+            <copy path="/repository/mappings" 
+                  buffer="artifacts_mappings"/>
+        </xmltask>
+                  
+        <xmltask source="${repository}/artifacts.xml"
+                 dest="${repository}/artifacts_1.xml">
+            <remove path="/repository/mappings"/>
+            <insert path="/repository/properties" position="after"
+                file="${basedir}/../archive_tmp/mappings_${version_type}.xml"/>
+        </xmltask>
+
+        <move file="${repository}/artifacts_1.xml"
+              tofile="${repository}/artifacts.xml"/>
+		-->
+
+        <zip destfile="${repository}/artifacts.jar"
+             basedir="${repository}" includes="artifacts.xml"/>
+        <zip destfile="${repository}/content.jar"
+             basedir="${repository}" includes="content.xml"/>
+        <delete>
+            <fileset dir="${repository}" includes="*.xml"/>
+        </delete>
+
+		<zip destfile="${buildResult}/psde-release-${feature.version}.zip">
+			<fileset dir="${repository}">
+				<include name="*.jar"/>
+				<include name="features/**"/>
+				<include name="plugins/**"/>
+			</fileset>
+		</zip>
+
+        <delete dir="${basedir}/../archive_tmp"/>
+    </target>
+
+</project>
+
+

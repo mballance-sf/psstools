@@ -1,0 +1,7 @@
+
+buildResult/
+*.class
+bin/
+src-gen/
+generated/
+
