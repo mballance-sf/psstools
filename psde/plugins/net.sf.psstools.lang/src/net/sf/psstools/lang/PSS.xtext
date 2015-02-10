@@ -133,12 +133,17 @@ constraint_declaration:
 	'}'
 ;
 
-constraint_body_item:
+constraint_body_no_if_item:
 	expression_or_dist_item |
 /*	uniqueness_constraint_item |
 	implication_constraint_item | */
-	if_constraint_item |
 	foreach_constraint_item
+
+;
+
+constraint_body_item:
+	constraint_body_no_if_item |
+	if_constraint_item
 ;
 
 expression_or_dist_item:
@@ -146,9 +151,8 @@ expression_or_dist_item:
 	expression ';'
 ;
 
-// TODO:
 if_constraint_item:
-	'if' '(' if_expr=expression ')' true_case=constraint_set /* ('else' false_set=constraint_set)? */
+	'if' '(' if_expr=expression ')' true_case=constraint_set (=> 'else' false_set=constraint_set )? 
 ;
 
 foreach_constraint_item:
@@ -158,6 +162,7 @@ foreach_constraint_item:
 constraint_set:
 	items+=constraint_body_item | '{' {constraint_set} items+=constraint_body_item* '}'
 ;
+
 
 /********************************************************************
  * Expressions
