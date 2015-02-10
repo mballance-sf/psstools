@@ -78,7 +78,7 @@ alt_stmt:
 ;
 
 stmt_primary:
-	seq '|' right=stmt_primary |
+	alts+=seq '|' alts+=stmt_primary |
 	seq_stmt |
 	'{' {stmt_primary} stmt_list+=stmt_or_block* '}'
 ;
@@ -162,30 +162,69 @@ constraint_set:
 /********************************************************************
  * Expressions
  */
-expression:
-	add_expr
+expression: 
+	condition_expr
+	;
+	
+condition_expr returns expression:
+	logical_or_expr ({condition_expr.left=current} '?' true_expr=logical_or_expr ':' false_expr=logical_or_expr)*
+	; 
+
+//	add_expr
+//;
+
+logical_or_expr returns expression:
+	logical_and_expr ({logical_or_expr.left=current} '&&' right=logical_and_expr)*
 ;
 
-add_expr returns expression:
-	mul_expr ({add_expr.left=current} '+' right=mul_expr)*
+logical_and_expr returns expression:
+	binary_or_expr ({logical_and_expr.left=current} '||' right=binary_or_expr)*	
 ;
 
-mul_expr returns expression:
-	primary ({mul_expr.left=current} '*' right=primary)*
+binary_or_expr returns expression:
+	binary_xor_expr ({logical_or_expr.left=current} '|' right=binary_xor_expr)*
+;
+
+binary_xor_expr returns expression:
+	binary_and_expr ({binary_xor_expr.left=current} '^' right=binary_and_expr)*
+;
+
+binary_and_expr returns expression:
+	logical_equality_expr ({binary_and_expr.left=current} '&' right=logical_equality_expr)*
+;
+
+logical_equality_expr returns expression:
+	logical_inequality_expr ({logical_equality_expr.left=current} ('=='|'!=') right=logical_inequality_expr)*
+;
+
+logical_inequality_expr returns expression:
+	binary_shift_expr ({logical_inequality_expr.left=current} ('<'|'<='|'>'|'>='|'inside') right=binary_shift_expr)*
+;
+
+binary_shift_expr returns expression:
+	binary_add_sub_expr ({binary_shift_expr.left=current} ('<<'|'>>') right=binary_add_sub_expr)*
+;
+
+binary_add_sub_expr returns expression:
+	binary_mul_div_mod_expr ({binary_add_sub_expr.left=current} ('+'|'-') right=binary_mul_div_mod_expr)*
+;
+
+binary_mul_div_mod_expr returns expression:
+	binary_exp_expr ({binary_mul_div_mod_expr.left=current} ('*'|'/'|'%') right=binary_exp_expr)*
+;
+
+binary_exp_expr returns expression:
+	unary_expr ({binary_exp_expr.left=current} '**' right=unary_expr)*
+;
+
+unary_expr returns expression:
+	('+'|'-'|'!'|'~'|'&'|'|'|'^')? primary
 ;
 
 primary returns expression:
 	literal | 
 	'(' expression ')' |
 	hierarchical_id
-;
-
-hierarchical_id:
-	value=ID ('.' ID)*
-;
-
-literal:
-	value=INT
 ;
 
 
@@ -244,8 +283,19 @@ primitive_datatype:
 ;
 
 integer_type:
-	'int' |
-	'bit' ('[' range_lhs=INT ':' range_lhs=INT ']')?
+	{integer_type} 'int' |
+	{integer_type} 'bit' ('[' range_lhs=INT ':' range_rhs=INT ']')?
+;
+
+/********************************************************************
+ * Identifiers, literals, etc
+ */
+hierarchical_id:
+	value=ID ('.' ID)*
+;
+
+literal:
+	value=INT
 ;
 
 //graph_instance:
