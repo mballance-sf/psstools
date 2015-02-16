@@ -3,9 +3,11 @@
  */
 package net.sf.psstools.lang.generator
 
+import net.sf.psstools.lang.pSS.graph_declaration
+import net.sf.psstools.lang.pSS.rule_production
 import org.eclipse.emf.ecore.resource.Resource
-import org.eclipse.xtext.generator.IGenerator
 import org.eclipse.xtext.generator.IFileSystemAccess
+import org.eclipse.xtext.generator.IGenerator
 
 /**
  * Generates code from your model files on save.
@@ -15,6 +17,20 @@ import org.eclipse.xtext.generator.IFileSystemAccess
 class PSSGenerator implements IGenerator {
 	
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
+//		try {
+//			throw new Exception();
+//		} catch (Exception e) {
+//			e.printStackTrace
+//		}
+//		for(e: resource.allContents.toIterable.filter(graph_declaration)) {
+//			System.out.println("graph: " + e);
+//			for (i : e.body) {
+//				System.out.println("  body: " + i);
+//			}
+//			for (r: e.body.filter(rule_production)) {
+//				System.out.println("  rule: " + r);
+//			}
+//		}
 //		fsa.generateFile('greetings.txt', 'People to greet: ' + 
 //			resource.allContents
 //				.filter(typeof(Greeting))

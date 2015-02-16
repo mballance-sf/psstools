@@ -10,6 +10,13 @@
        genModel = "model/generated/PSS.genmodel" /> 
 	
   </extension>
+  <extension
+        point="org.eclipse.xtext.builder.participant">
+     <participant
+           class="net.sf.psstools.lang.builder.IncrementalBuildParticipant"
+           fileExtensions=".pss">
+     </participant>
+  </extension>
 
 
 

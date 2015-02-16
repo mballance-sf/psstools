@@ -394,5 +394,29 @@
             extensions="pss">
     </provider>
   </extension>
+  <extension
+        point="org.eclipse.ui.popupMenus">
+     <viewerContribution
+           id="net.sf.psstools.lang.ui.viewerContribution1"
+           targetID="net.sf.psstools.lang.PSS.EditorContext">
+        <action
+              class="net.sf.psstools.lang.ui.Action1"
+              id="net.sf.psstools.lang.ui.action1"
+              label="ABC">
+        </action>
+        <menu
+              id="net.sf.psstools.lang.ui.menu1"
+              label="FOO">
+        </menu>
+     </viewerContribution>
+     <viewerContribution
+           id="net.sf.psstools.lang.ui.viewerContribution2"
+           targetID="org.eclipse.ui.popup.any">
+        <menu
+              id="net.sf.psstools.lang.ui.menu2"
+              label="label">
+        </menu>
+     </viewerContribution>
+  </extension>
 
 </plugin>

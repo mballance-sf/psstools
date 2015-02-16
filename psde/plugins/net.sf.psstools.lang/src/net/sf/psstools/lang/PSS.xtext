@@ -316,6 +316,18 @@ hierarchical_id:
 
 literal:
 	value=INT
+/*	  decimal_number 
+	| octal_number
+	| binary_number
+	| hex_number */;
+	
+decimal_number:
+	value=INT |
+	(size)?	
+;
+
+size:
+	value=INT
 ;
 
 //graph_instance:
