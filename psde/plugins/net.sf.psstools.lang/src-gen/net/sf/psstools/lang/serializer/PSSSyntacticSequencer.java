@@ -154,7 +154,7 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     'unsigned'? | 'signed'?
+	 *     'signed'? | 'unsigned'?
 	 */
 	protected void emit_primitive_datatype_SignedKeyword_0_0_q_or_UnsignedKeyword_0_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -162,7 +162,7 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     ('unsigned' | 'signed')?
+	 *     ('signed' | 'unsigned')?
 	 */
 	protected void emit_primitive_datatype___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -179,13 +179,13 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	/**
 	 * Syntax:
 	 *     (
-	     '!' | 
-	     '^' | 
-	     '~' | 
-	     '-' | 
-	     '&' | 
 	     '+' | 
-	     '|'
+	     '-' | 
+	     '!' | 
+	     '~' | 
+	     '&' | 
+	     '|' | 
+	     '^'
 	 )?
 	 */
 	protected void emit_unary_expr___AmpersandKeyword_0_4_or_CircumflexAccentKeyword_0_6_or_ExclamationMarkKeyword_0_2_or_HyphenMinusKeyword_0_1_or_PlusSignKeyword_0_0_or_TildeKeyword_0_3_or_VerticalLineKeyword_0_5__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {

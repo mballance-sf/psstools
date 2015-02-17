@@ -42,14 +42,16 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInterface_declarationParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//portable_stimulus_description:
-		//	graph_declaration | struct_declaration | / * |
+		//	graph_declaration | struct_declaration |
+		//	/ * |
 		//	include_statement |
 		//	data_declaration |
 		//	bins_declaration |
 		//	package_declaration * / interface_declaration;
 		public ParserRule getRule() { return rule; }
 
-		//graph_declaration | struct_declaration | / * |
+		//graph_declaration | struct_declaration |
+		/// * |
 		//	include_statement |
 		//	data_declaration |
 		//	bins_declaration |
@@ -619,7 +621,7 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cItemsSeq_itemParserRuleCall_1_1_0 = (RuleCall)cItemsAssignment_1_1.eContents().get(0);
 		
 		////	alts+=seq '|' alts+=stmt_primary |
-		//seq:
+		// seq:
 		//	items+=seq_item ("," items+=seq_item)*;
 		public ParserRule getRule() { return rule; }
 
@@ -976,15 +978,15 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
 		
 		//expression_or_dist_item: // TODO: dist item
-		//	expression ("->" impl_constraint=constraint_set | ";");
+		// expression ("->" impl_constraint=constraint_set | ";");
 		public ParserRule getRule() { return rule; }
 
 		//// TODO: dist item
-		//expression ("->" impl_constraint=constraint_set | ";")
+		// expression ("->" impl_constraint=constraint_set | ";")
 		public Group getGroup() { return cGroup; }
 
 		//// TODO: dist item
-		//expression
+		// expression
 		public RuleCall getExpressionParserRuleCall_0() { return cExpressionParserRuleCall_0; }
 
 		//"->" impl_constraint=constraint_set | ";"
@@ -1159,7 +1161,8 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * The expression grammar below is refactored to eliminate left 
 		// * recursion and properly implement operator precedence
-		// * / expression:
+		// * /
+		//expression:
 		//	condition_expr;
 		public ParserRule getRule() { return rule; }
 
@@ -2584,8 +2587,9 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cValueINTTerminalRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		////graph_instance:
-		////	type=[graph_declaration] name=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? ';'
-		////;
+		// //	type=[graph_declaration] name=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? ';'
+		// //;
+		//
 		//size:
 		//	value=INT;
 		public ParserRule getRule() { return rule; }
@@ -2776,7 +2780,8 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//portable_stimulus_description:
-	//	graph_declaration | struct_declaration | / * |
+	//	graph_declaration | struct_declaration |
+	//	/ * |
 	//	include_statement |
 	//	data_declaration |
 	//	bins_declaration |
@@ -2945,7 +2950,7 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////	alts+=seq '|' alts+=stmt_primary |
-	//seq:
+	// seq:
 	//	items+=seq_item ("," items+=seq_item)*;
 	public SeqElements getSeqAccess() {
 		return pSeq;
@@ -3061,7 +3066,7 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//expression_or_dist_item: // TODO: dist item
-	//	expression ("->" impl_constraint=constraint_set | ";");
+	// expression ("->" impl_constraint=constraint_set | ";");
 	public Expression_or_dist_itemElements getExpression_or_dist_itemAccess() {
 		return pExpression_or_dist_item;
 	}
@@ -3109,7 +3114,8 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * The expression grammar below is refactored to eliminate left 
 	// * recursion and properly implement operator precedence
-	// * / expression:
+	// * /
+	//expression:
 	//	condition_expr;
 	public ExpressionElements getExpressionAccess() {
 		return pExpression;
@@ -3428,8 +3434,9 @@ public class PSSGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	////graph_instance:
-	////	type=[graph_declaration] name=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? ';'
-	////;
+	// //	type=[graph_declaration] name=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? ';'
+	// //;
+	//
 	//size:
 	//	value=INT;
 	public SizeElements getSizeAccess() {
