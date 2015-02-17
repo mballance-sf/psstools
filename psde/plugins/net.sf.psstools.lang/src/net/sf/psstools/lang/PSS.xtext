@@ -237,8 +237,10 @@ binary_exp_expr returns expression:
 	unary_expr ({binary_exp_expr.left=current} '**' right=unary_expr)*
 ;
 
+unary_op: '+' | '-' | '!' | '~' | '&' | '|' | '^';
+
 unary_expr returns expression:
-	('+'|'-'|'!'|'~'|'&'|'|'|'^')? primary
+	(unary_op)? primary
 ;
 
 primary returns expression:
