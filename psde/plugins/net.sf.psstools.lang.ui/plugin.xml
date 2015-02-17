@@ -425,5 +425,14 @@
            commandId="net.sf.psstools.lang.ui.viewGraph">
      </handler>
   </extension>
+  <extension
+        point="org.eclipse.ui.views">
+     <view
+           class="net.sf.psstools.lang.ui.views.EBnfView"
+           id="net.sf.psstools.lang.ui.eBNFView"
+           name="eBNF View"
+           restorable="true">
+     </view>
+  </extension>
 
 </plugin>

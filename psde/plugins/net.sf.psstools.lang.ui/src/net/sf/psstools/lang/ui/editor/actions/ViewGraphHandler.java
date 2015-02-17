@@ -62,15 +62,20 @@ public class ViewGraphHandler extends AbstractHandler implements IHandler {
 					EObject eobj = NodeModelUtils.findActualSemanticObjectFor(n);
 					
 					System.out.println("eobj: " + eobj);
-					
-					for (EObject c : eobj.eContents()) {
-						System.out.println("  c: " + c);
-					}
+		
+					traverse("", eobj);
 				}
 			});
 		}
 
 		return null;
+	}
+	
+	private void traverse(String ind, EObject eobj) {
+		System.out.println(ind + " eobj=" + eobj);
+		for (EObject c : eobj.eContents()) {
+			traverse(ind + "  ", c);
+		}
 	}
 
 
