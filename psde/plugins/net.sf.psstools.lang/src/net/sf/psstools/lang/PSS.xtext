@@ -23,24 +23,25 @@ graph_struct_ifc_declaration:
 	graph_declaration|struct_declaration|interface_declaration
 ;
 
+
 graph_declaration:
-	'graph' name=ID 
+	'graph' name=graph_identifier 
 		(
 			'(' 
 				(ports+=port_declaration (',' ports+=port_declaration)*)? 
 			')'
 		)?
-		('extends' super=[graph_or_struct_declaration])? '{'
+		('extends' super=[graph_or_struct_declaration|graph_or_struct_identifier])? '{'
 		body+=graph_body_item*
 	'}'
 ;
 
 port_declaration:
-	('export')? ifc_type=[interface_declaration] name=ID
+	('export')? ifc_type=[interface_declaration|interface_identifier] name=identifier
 ;
 
 struct_declaration:
-	'struct' name=ID ('extends' super=[struct_declaration])? '{'
+	'struct' name=identifier ('extends' super=[struct_declaration])? '{'
 	body+=struct_body_item*
 	'}'
 ;
@@ -312,6 +313,13 @@ integer_type:
 /********************************************************************
  * Identifiers, literals, etc
  */
+ 
+graph_identifier: identifier;
+struct_identifier: identifier;
+interface_identifier: identifier;
+graph_or_struct_identifier: graph_identifier | struct_identifier;
+graph_struct_interface_identiifer: graph_identifier | struct_identifier | interface_identifier;
+
 hierarchical_id:
 	value=ID ('.' ID)*
 ;
@@ -330,6 +338,10 @@ decimal_number:
 
 size:
 	value=INT
+;
+
+terminal identifier:
+	('^')?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
 ;
 
 //graph_instance:
