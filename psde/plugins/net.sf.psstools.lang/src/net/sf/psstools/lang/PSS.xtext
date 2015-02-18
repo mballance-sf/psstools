@@ -8,9 +8,9 @@ Model:
 portable_stimulus_description: 
 	graph_declaration | 
 	struct_declaration |
-	interface_declaration /* |
+	interface_declaration |
+	data_declaration /* |
 	include_statement |
-	data_declaration |
 	bins_declaration |
 	package_declaration */
 ;
@@ -137,6 +137,45 @@ instance_override:
 ;
 
 /********************************************************************
+ * Data Declarations
+ */
+ data_declaration:
+ 	('rand')? typedef_declaration |
+ 	('rand')? enum_declaration |
+ 	('rand')? scalar_declaration /* |
+ 	('rand')? array_declaration 	
+ 	*/
+ ;
+ 
+ typedef_declaration:
+ 	'typedef' src=ID dest=ID ';' 
+ ;
+  
+ enum_declaration:
+  	'enum' (data_type = integer_type)? '{' 
+  		items+=ID (',' items+=ID)*
+  		'}' name=ID ';'
+  ;
+ 
+ scalar_declaration:
+ 	(signed_scalar /* | scalar_signed */ ) ('[' lhs=expression ':' rhs=expression ']')? 
+ 	('inside ['items+=domain_spec (','items+=domain_spec)*']')?
+ ;
+ 
+ signed_scalar:
+ 	('signed' | 'unsigned')? name=ID
+ ;
+ 
+ scalar_signed:
+ 	name=ID ('signed' | 'unsigned')?
+ ;
+ 
+ domain_spec:
+ 	(range_lhs=INT '..' range_rhs=INT) |
+ 	(range_lhs=INT)
+ ;
+ 
+ /********************************************************************
  * Constraints
  */
 constraint_declaration:
