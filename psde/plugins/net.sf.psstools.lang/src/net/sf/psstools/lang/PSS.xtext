@@ -85,6 +85,7 @@ rule_production:
 rule_stmt_or_block:
 	rule_repeat_stmt | rule_stmt_alt_parallel_seq /*  | rule_if_production */
 	;
+
 	
 rule_stmt_alt_parallel_seq:
 	rule_stmt_primary ({alt_stmt.left=current} '|' right=rule_stmt_primary)*
@@ -108,10 +109,9 @@ rule_sequence:
 ;
 
 rule_seq_item:
-	hierarchical_id (
-		'(' action_params=parameter_list ')' |
-		with_clause=rule_with_clause
-		)?
+	action=interface_action_id '(' action_params=parameter_list ')' |
+	param=identifier '=' rhs=hierarchical_id |
+	item=identifier (with_clause=rule_with_clause)?
 ;
 
 rule_with_clause:
@@ -125,6 +125,10 @@ parameter_list:
 rule_repeat_stmt:
 	'repeat' ('(' expr=expression ')')? stmt=rule_stmt_or_block 
 ;
+
+//rule_if_production:
+//	'if' constraint_block 
+//;
 
 /********************************************************************
  * Overrides
@@ -239,7 +243,11 @@ foreach_constraint_item:
 ;
 
 constraint_set:
-	items+=constraint_body_item | '{' {constraint_set} items+=constraint_body_item* '}'
+	items+=constraint_body_item | items+=constraint_block
+;
+
+constraint_block:
+	'{' {constraint_set} items+=constraint_body_item* '}'
 ;
 
 /********************************************************************
