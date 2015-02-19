@@ -1,5 +1,6 @@
 package net.sf.psstools.lang.ui.views;
 
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,18 +15,29 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.XtextPackage;
+import org.eclipse.xtext.XtextStandaloneSetup;
 import org.eclipse.xtext.impl.AbstractElementImpl;
 import org.eclipse.xtext.impl.AlternativesImpl;
 import org.eclipse.xtext.impl.AssignmentImpl;
+import org.eclipse.xtext.impl.CrossReferenceImpl;
 import org.eclipse.xtext.impl.GroupImpl;
 import org.eclipse.xtext.impl.KeywordImpl;
 import org.eclipse.xtext.impl.ParserRuleImpl;
 import org.eclipse.xtext.impl.RuleCallImpl;
+import org.eclipse.xtext.impl.TypeRefImpl;
+import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.parser.IParser;
+import org.eclipse.xtext.parser.antlr.XtextParser;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
+import org.eclipse.xtext.ui.editor.model.XtextDocumentUtil;
+import org.eclipse.xtext.util.StringInputStream;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.eclipse.xtext.xtext.GrammarResource;
+
+import com.google.inject.Injector;
 
 public class EBnfView extends ViewPart implements IPartListener {
 	private StyledText				fText;
@@ -48,14 +60,31 @@ public class EBnfView extends ViewPart implements IPartListener {
 		if (part instanceof XtextEditor) {
 			XtextEditor xed = (XtextEditor)part;
 			final IXtextDocument xd = xed.getDocument();
-
+	
+			Injector guiceInjector = new XtextStandaloneSetup().createInjectorAndDoEMFRegistration();
+			IParser parser = guiceInjector.getInstance(XtextParser.class);
+			StringInputStream in = new StringInputStream(
+					xed.getDocumentProvider().getDocument(xed.getEditorInput()).get());
+			InputStreamReader rdr = new InputStreamReader(in);
+			IParseResult result = parser.parse(rdr);
+		
+			System.out.println("result: " + result);
+			
+			EObject root = result.getRootASTElement();
+			recurse("", root);
+			
 			
 //			if (xd != fLastDoc) {
 				xd.readOnly(new IUnitOfWork.Void<XtextResource>() {
 					public void process(XtextResource resource) throws Exception {
 						if (resource instanceof GrammarResource) {
 							TextPresentationStringBuilder sb = new TextPresentationStringBuilder();
+							try {
 							traverse(sb, "", resource.getContents().get(0));
+//							traverse(sb, "", root);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
 							fText.setText(sb.toString());
 							TextPresentation.applyTextPresentation(
 									sb.presentation(), fText);
@@ -66,7 +95,13 @@ public class EBnfView extends ViewPart implements IPartListener {
 //			}
 		}
 	}
-	
+
+	private void recurse(String ind, EObject obj) {
+		System.out.println(ind + obj.toString());
+		for (EObject eo : obj.eContents()) {
+			recurse(ind + "  ", eo);
+		}
+	}
 	
 	private void traverse(TextPresentationStringBuilder sb, String ind, EObject obj) {
 		if (obj instanceof ParserRuleImpl) {
@@ -135,7 +170,12 @@ public class EBnfView extends ViewPart implements IPartListener {
 			RuleCallImpl rc = (RuleCallImpl)obj;
 
 			sb.insertWS();
-			sb.append(rc.getRule().getName());
+//			sb.append(rc.getRule().getName());
+			if (rc.basicGetRule() != null) {
+				sb.append(rc.basicGetRule().getName());
+			} else {
+//				System.out.println("ruleCall: " + rc + " " + rc.eGet(XtextPackage.RULE_CALL, false, false));
+			}
 		} else if (obj instanceof GroupImpl) {
 			for (EObject eo : obj.eContents()) {
 				production(sb, ind, eo);
@@ -144,6 +184,17 @@ public class EBnfView extends ViewPart implements IPartListener {
 			KeywordImpl k = (KeywordImpl)obj;
 			sb.insertWS();
 			sb.keyword(k.getValue());
+		} else if (obj instanceof CrossReferenceImpl) {
+			CrossReferenceImpl cr = (CrossReferenceImpl)obj;
+			for (EObject eo : obj.eContents()) {
+				production(sb, ind, eo);
+			}
+		} else if (obj instanceof RuleCallImpl) {
+			RuleCallImpl rc = (RuleCallImpl)obj;
+			sb.insertWS();
+//			sb.append(rc.getRule().getName());
+			sb.append(rc.basicGetRule().getName());
+		} else if (obj instanceof TypeRefImpl) {
 		}
 	
 		if (!closing.equals("")) {
