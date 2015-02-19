@@ -89,6 +89,13 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
       case PSSPackage.OVERRIDE_STMT: return createoverride_stmt();
       case PSSPackage.TYPE_OVERRIDE: return createtype_override();
       case PSSPackage.INSTANCE_OVERRIDE: return createinstance_override();
+      case PSSPackage.DATA_DECLARATION: return createdata_declaration();
+      case PSSPackage.TYPEDEF_DECLARATION: return createtypedef_declaration();
+      case PSSPackage.ENUM_DECLARATION: return createenum_declaration();
+      case PSSPackage.SCALAR_DECLARATION: return createscalar_declaration();
+      case PSSPackage.SIGNED_SCALAR: return createsigned_scalar();
+      case PSSPackage.SCALAR_SIGNED: return createscalar_signed();
+      case PSSPackage.DOMAIN_SPEC: return createdomain_spec();
       case PSSPackage.CONSTRAINT_DECLARATION: return createconstraint_declaration();
       case PSSPackage.CONSTRAINT_BODY_NO_IF_ITEM: return createconstraint_body_no_if_item();
       case PSSPackage.CONSTRAINT_BODY_ITEM: return createconstraint_body_item();
@@ -403,6 +410,83 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
   {
     instance_overrideImpl instance_override = new instance_overrideImpl();
     return instance_override;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public data_declaration createdata_declaration()
+  {
+    data_declarationImpl data_declaration = new data_declarationImpl();
+    return data_declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public typedef_declaration createtypedef_declaration()
+  {
+    typedef_declarationImpl typedef_declaration = new typedef_declarationImpl();
+    return typedef_declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public enum_declaration createenum_declaration()
+  {
+    enum_declarationImpl enum_declaration = new enum_declarationImpl();
+    return enum_declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public scalar_declaration createscalar_declaration()
+  {
+    scalar_declarationImpl scalar_declaration = new scalar_declarationImpl();
+    return scalar_declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public signed_scalar createsigned_scalar()
+  {
+    signed_scalarImpl signed_scalar = new signed_scalarImpl();
+    return signed_scalar;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public scalar_signed createscalar_signed()
+  {
+    scalar_signedImpl scalar_signed = new scalar_signedImpl();
+    return scalar_signed;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public domain_spec createdomain_spec()
+  {
+    domain_specImpl domain_spec = new domain_specImpl();
+    return domain_spec;
   }
 
   /**

@@ -248,6 +248,69 @@ public interface PSSFactory extends EFactory
   instance_override createinstance_override();
 
   /**
+   * Returns a new object of class '<em>data declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>data declaration</em>'.
+   * @generated
+   */
+  data_declaration createdata_declaration();
+
+  /**
+   * Returns a new object of class '<em>typedef declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>typedef declaration</em>'.
+   * @generated
+   */
+  typedef_declaration createtypedef_declaration();
+
+  /**
+   * Returns a new object of class '<em>enum declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>enum declaration</em>'.
+   * @generated
+   */
+  enum_declaration createenum_declaration();
+
+  /**
+   * Returns a new object of class '<em>scalar declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>scalar declaration</em>'.
+   * @generated
+   */
+  scalar_declaration createscalar_declaration();
+
+  /**
+   * Returns a new object of class '<em>signed scalar</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>signed scalar</em>'.
+   * @generated
+   */
+  signed_scalar createsigned_scalar();
+
+  /**
+   * Returns a new object of class '<em>scalar signed</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>scalar signed</em>'.
+   * @generated
+   */
+  scalar_signed createscalar_signed();
+
+  /**
+   * Returns a new object of class '<em>domain spec</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>domain spec</em>'.
+   * @generated
+   */
+  domain_spec createdomain_spec();
+
+  /**
    * Returns a new object of class '<em>constraint declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

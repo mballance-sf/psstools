@@ -17,6 +17,8 @@ import net.sf.psstools.lang.pSS.condition_expr;
 import net.sf.psstools.lang.pSS.constraint_declaration;
 import net.sf.psstools.lang.pSS.constraint_set;
 import net.sf.psstools.lang.pSS.decimal_number;
+import net.sf.psstools.lang.pSS.domain_spec;
+import net.sf.psstools.lang.pSS.enum_declaration;
 import net.sf.psstools.lang.pSS.expression;
 import net.sf.psstools.lang.pSS.foreach_constraint_item;
 import net.sf.psstools.lang.pSS.graph_data_declaration;
@@ -37,7 +39,9 @@ import net.sf.psstools.lang.pSS.overides_declaration;
 import net.sf.psstools.lang.pSS.port_declaration;
 import net.sf.psstools.lang.pSS.port_map;
 import net.sf.psstools.lang.pSS.repeat_stmt;
+import net.sf.psstools.lang.pSS.scalar_signed;
 import net.sf.psstools.lang.pSS.seq;
+import net.sf.psstools.lang.pSS.signed_scalar;
 import net.sf.psstools.lang.pSS.size;
 import net.sf.psstools.lang.pSS.stmt_alt;
 import net.sf.psstools.lang.pSS.stmt_parallel;
@@ -48,6 +52,7 @@ import net.sf.psstools.lang.pSS.struct_declaration;
 import net.sf.psstools.lang.pSS.symbol_declaration;
 import net.sf.psstools.lang.pSS.symbol_definition;
 import net.sf.psstools.lang.pSS.type_override;
+import net.sf.psstools.lang.pSS.typedef_declaration;
 import net.sf.psstools.lang.services.PSSGrammarAccess;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
@@ -310,6 +315,20 @@ public class PSSSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
+			case PSSPackage.DOMAIN_SPEC:
+				if(context == grammarAccess.getDomain_specRule()) {
+					sequence_domain_spec(context, (domain_spec) semanticObject); 
+					return; 
+				}
+				else break;
+			case PSSPackage.ENUM_DECLARATION:
+				if(context == grammarAccess.getData_declarationRule() ||
+				   context == grammarAccess.getEnum_declarationRule() ||
+				   context == grammarAccess.getPortable_stimulus_descriptionRule()) {
+					sequence_enum_declaration(context, (enum_declaration) semanticObject); 
+					return; 
+				}
+				else break;
 			case PSSPackage.EXPRESSION:
 				if(context == grammarAccess.getConstraint_body_itemRule() ||
 				   context == grammarAccess.getConstraint_body_no_if_itemRule() ||
@@ -559,6 +578,12 @@ public class PSSSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 					return; 
 				}
 				else break;
+			case PSSPackage.SCALAR_SIGNED:
+				if(context == grammarAccess.getScalar_signedRule()) {
+					sequence_scalar_signed(context, (scalar_signed) semanticObject); 
+					return; 
+				}
+				else break;
 			case PSSPackage.SEQ:
 				if(context == grammarAccess.getAlt_stmtRule() ||
 				   context == grammarAccess.getAlt_stmtAccess().getAlt_stmtLeftAction_1_0() ||
@@ -571,6 +596,18 @@ public class PSSSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				   context == grammarAccess.getStmt_parallelAccess().getStmt_parallelLeftAction_1_0() ||
 				   context == grammarAccess.getStmt_primaryRule()) {
 					sequence_seq(context, (seq) semanticObject); 
+					return; 
+				}
+				else break;
+			case PSSPackage.SIGNED_SCALAR:
+				if(context == grammarAccess.getData_declarationRule() ||
+				   context == grammarAccess.getPortable_stimulus_descriptionRule() ||
+				   context == grammarAccess.getScalar_declarationRule()) {
+					sequence_scalar_declaration_signed_scalar(context, (signed_scalar) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSigned_scalarRule()) {
+					sequence_signed_scalar(context, (signed_scalar) semanticObject); 
 					return; 
 				}
 				else break;
@@ -657,6 +694,14 @@ public class PSSSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 				if(context == grammarAccess.getOverride_stmtRule() ||
 				   context == grammarAccess.getType_overrideRule()) {
 					sequence_type_override(context, (type_override) semanticObject); 
+					return; 
+				}
+				else break;
+			case PSSPackage.TYPEDEF_DECLARATION:
+				if(context == grammarAccess.getData_declarationRule() ||
+				   context == grammarAccess.getPortable_stimulus_descriptionRule() ||
+				   context == grammarAccess.getTypedef_declarationRule()) {
+					sequence_typedef_declaration(context, (typedef_declaration) semanticObject); 
 					return; 
 				}
 				else break;
@@ -908,6 +953,24 @@ public class PSSSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     value=INT?
 	 */
 	protected void sequence_decimal_number(EObject context, decimal_number semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((range_lhs=INT range_rhs=INT) | range_lhs=INT)
+	 */
+	protected void sequence_domain_spec(EObject context, domain_spec semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (data_type=integer_type? items+=ID items+=ID* name=ID)
+	 */
+	protected void sequence_enum_declaration(EObject context, enum_declaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1196,9 +1259,43 @@ public class PSSSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (name=ID (lhs=expression rhs=expression)? (items+=domain_spec items+=domain_spec*)?)
+	 */
+	protected void sequence_scalar_declaration_signed_scalar(EObject context, signed_scalar semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_scalar_signed(EObject context, scalar_signed semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, PSSPackage.Literals.SCALAR_SIGNED__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, PSSPackage.Literals.SCALAR_SIGNED__NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getScalar_signedAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (items+=seq_item items+=seq_item*)
 	 */
 	protected void sequence_seq(EObject context, seq semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 */
+	protected void sequence_signed_scalar(EObject context, signed_scalar semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1323,6 +1420,25 @@ public class PSSSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getType_overrideAccess().getSrcIDTerminalRuleCall_1_0(), semanticObject.getSrc());
 		feeder.accept(grammarAccess.getType_overrideAccess().getDestIDTerminalRuleCall_3_0(), semanticObject.getDest());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (src=ID dest=ID)
+	 */
+	protected void sequence_typedef_declaration(EObject context, typedef_declaration semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, PSSPackage.Literals.TYPEDEF_DECLARATION__SRC) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, PSSPackage.Literals.TYPEDEF_DECLARATION__SRC));
+			if(transientValues.isValueTransient(semanticObject, PSSPackage.Literals.TYPEDEF_DECLARATION__DEST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, PSSPackage.Literals.TYPEDEF_DECLARATION__DEST));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getTypedef_declarationAccess().getSrcIDTerminalRuleCall_1_0(), semanticObject.getSrc());
+		feeder.accept(grammarAccess.getTypedef_declarationAccess().getDestIDTerminalRuleCall_2_0(), semanticObject.getDest());
 		feeder.finish();
 	}
 }

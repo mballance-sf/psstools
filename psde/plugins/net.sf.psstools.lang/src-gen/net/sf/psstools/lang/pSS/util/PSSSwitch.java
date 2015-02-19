@@ -284,6 +284,65 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case PSSPackage.DATA_DECLARATION:
+      {
+        data_declaration data_declaration = (data_declaration)theEObject;
+        T result = casedata_declaration(data_declaration);
+        if (result == null) result = caseportable_stimulus_description(data_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.TYPEDEF_DECLARATION:
+      {
+        typedef_declaration typedef_declaration = (typedef_declaration)theEObject;
+        T result = casetypedef_declaration(typedef_declaration);
+        if (result == null) result = casedata_declaration(typedef_declaration);
+        if (result == null) result = caseportable_stimulus_description(typedef_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.ENUM_DECLARATION:
+      {
+        enum_declaration enum_declaration = (enum_declaration)theEObject;
+        T result = caseenum_declaration(enum_declaration);
+        if (result == null) result = casedata_declaration(enum_declaration);
+        if (result == null) result = caseportable_stimulus_description(enum_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.SCALAR_DECLARATION:
+      {
+        scalar_declaration scalar_declaration = (scalar_declaration)theEObject;
+        T result = casescalar_declaration(scalar_declaration);
+        if (result == null) result = casedata_declaration(scalar_declaration);
+        if (result == null) result = caseportable_stimulus_description(scalar_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.SIGNED_SCALAR:
+      {
+        signed_scalar signed_scalar = (signed_scalar)theEObject;
+        T result = casesigned_scalar(signed_scalar);
+        if (result == null) result = casescalar_declaration(signed_scalar);
+        if (result == null) result = casedata_declaration(signed_scalar);
+        if (result == null) result = caseportable_stimulus_description(signed_scalar);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.SCALAR_SIGNED:
+      {
+        scalar_signed scalar_signed = (scalar_signed)theEObject;
+        T result = casescalar_signed(scalar_signed);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.DOMAIN_SPEC:
+      {
+        domain_spec domain_spec = (domain_spec)theEObject;
+        T result = casedomain_spec(domain_spec);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case PSSPackage.CONSTRAINT_DECLARATION:
       {
         constraint_declaration constraint_declaration = (constraint_declaration)theEObject;
@@ -1011,6 +1070,118 @@ public class PSSSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseinstance_override(instance_override object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>data declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>data declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedata_declaration(data_declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>typedef declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>typedef declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casetypedef_declaration(typedef_declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>enum declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>enum declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseenum_declaration(enum_declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>scalar declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>scalar declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casescalar_declaration(scalar_declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>signed scalar</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>signed scalar</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casesigned_scalar(signed_scalar object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>scalar signed</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>scalar signed</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casescalar_signed(scalar_signed object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>domain spec</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>domain spec</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedomain_spec(domain_spec object)
   {
     return null;
   }

@@ -200,6 +200,41 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
         return createinstance_overrideAdapter();
       }
       @Override
+      public Adapter casedata_declaration(data_declaration object)
+      {
+        return createdata_declarationAdapter();
+      }
+      @Override
+      public Adapter casetypedef_declaration(typedef_declaration object)
+      {
+        return createtypedef_declarationAdapter();
+      }
+      @Override
+      public Adapter caseenum_declaration(enum_declaration object)
+      {
+        return createenum_declarationAdapter();
+      }
+      @Override
+      public Adapter casescalar_declaration(scalar_declaration object)
+      {
+        return createscalar_declarationAdapter();
+      }
+      @Override
+      public Adapter casesigned_scalar(signed_scalar object)
+      {
+        return createsigned_scalarAdapter();
+      }
+      @Override
+      public Adapter casescalar_signed(scalar_signed object)
+      {
+        return createscalar_signedAdapter();
+      }
+      @Override
+      public Adapter casedomain_spec(domain_spec object)
+      {
+        return createdomain_specAdapter();
+      }
+      @Override
       public Adapter caseconstraint_declaration(constraint_declaration object)
       {
         return createconstraint_declarationAdapter();
@@ -772,6 +807,111 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createinstance_overrideAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.data_declaration <em>data declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.data_declaration
+   * @generated
+   */
+  public Adapter createdata_declarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.typedef_declaration <em>typedef declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.typedef_declaration
+   * @generated
+   */
+  public Adapter createtypedef_declarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.enum_declaration <em>enum declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.enum_declaration
+   * @generated
+   */
+  public Adapter createenum_declarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.scalar_declaration <em>scalar declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.scalar_declaration
+   * @generated
+   */
+  public Adapter createscalar_declarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.signed_scalar <em>signed scalar</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.signed_scalar
+   * @generated
+   */
+  public Adapter createsigned_scalarAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.scalar_signed <em>scalar signed</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.scalar_signed
+   * @generated
+   */
+  public Adapter createscalar_signedAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.domain_spec <em>domain spec</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.domain_spec
+   * @generated
+   */
+  public Adapter createdomain_specAdapter()
   {
     return null;
   }

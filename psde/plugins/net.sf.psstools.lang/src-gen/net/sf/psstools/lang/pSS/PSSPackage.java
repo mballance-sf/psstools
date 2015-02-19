@@ -838,6 +838,247 @@ public interface PSSPackage extends EPackage
   int INSTANCE_OVERRIDE_FEATURE_COUNT = OVERRIDE_STMT_FEATURE_COUNT + 1;
 
   /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.data_declarationImpl <em>data declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.data_declarationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdata_declaration()
+   * @generated
+   */
+  int DATA_DECLARATION = 25;
+
+  /**
+   * The number of structural features of the '<em>data declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_DECLARATION_FEATURE_COUNT = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.typedef_declarationImpl <em>typedef declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.typedef_declarationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gettypedef_declaration()
+   * @generated
+   */
+  int TYPEDEF_DECLARATION = 26;
+
+  /**
+   * The feature id for the '<em><b>Src</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF_DECLARATION__SRC = DATA_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Dest</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF_DECLARATION__DEST = DATA_DECLARATION_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>typedef declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPEDEF_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.enum_declarationImpl <em>enum declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.enum_declarationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getenum_declaration()
+   * @generated
+   */
+  int ENUM_DECLARATION = 27;
+
+  /**
+   * The feature id for the '<em><b>Data type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_DECLARATION__DATA_TYPE = DATA_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Items</b></em>' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_DECLARATION__ITEMS = DATA_DECLARATION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_DECLARATION__NAME = DATA_DECLARATION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>enum declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ENUM_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.scalar_declarationImpl <em>scalar declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.scalar_declarationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_declaration()
+   * @generated
+   */
+  int SCALAR_DECLARATION = 28;
+
+  /**
+   * The number of structural features of the '<em>scalar declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCALAR_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.signed_scalarImpl <em>signed scalar</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.signed_scalarImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsigned_scalar()
+   * @generated
+   */
+  int SIGNED_SCALAR = 29;
+
+  /**
+   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIGNED_SCALAR__LHS = SCALAR_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIGNED_SCALAR__RHS = SCALAR_DECLARATION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Items</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIGNED_SCALAR__ITEMS = SCALAR_DECLARATION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIGNED_SCALAR__NAME = SCALAR_DECLARATION_FEATURE_COUNT + 3;
+
+  /**
+   * The number of structural features of the '<em>signed scalar</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SIGNED_SCALAR_FEATURE_COUNT = SCALAR_DECLARATION_FEATURE_COUNT + 4;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.scalar_signedImpl <em>scalar signed</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.scalar_signedImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_signed()
+   * @generated
+   */
+  int SCALAR_SIGNED = 30;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCALAR_SIGNED__NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>scalar signed</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCALAR_SIGNED_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.domain_specImpl <em>domain spec</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.domain_specImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdomain_spec()
+   * @generated
+   */
+  int DOMAIN_SPEC = 31;
+
+  /**
+   * The feature id for the '<em><b>Range lhs</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SPEC__RANGE_LHS = 0;
+
+  /**
+   * The feature id for the '<em><b>Range rhs</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SPEC__RANGE_RHS = 1;
+
+  /**
+   * The number of structural features of the '<em>domain spec</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SPEC_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constraint_declarationImpl <em>constraint declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -845,7 +1086,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_declaration()
    * @generated
    */
-  int CONSTRAINT_DECLARATION = 25;
+  int CONSTRAINT_DECLARATION = 32;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -882,7 +1123,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_body_item()
    * @generated
    */
-  int CONSTRAINT_BODY_ITEM = 27;
+  int CONSTRAINT_BODY_ITEM = 34;
 
   /**
    * The number of structural features of the '<em>constraint body item</em>' class.
@@ -901,7 +1142,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_body_no_if_item()
    * @generated
    */
-  int CONSTRAINT_BODY_NO_IF_ITEM = 26;
+  int CONSTRAINT_BODY_NO_IF_ITEM = 33;
 
   /**
    * The number of structural features of the '<em>constraint body no if item</em>' class.
@@ -920,7 +1161,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexpression_or_dist_item()
    * @generated
    */
-  int EXPRESSION_OR_DIST_ITEM = 28;
+  int EXPRESSION_OR_DIST_ITEM = 35;
 
   /**
    * The number of structural features of the '<em>expression or dist item</em>' class.
@@ -939,7 +1180,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getif_constraint_item()
    * @generated
    */
-  int IF_CONSTRAINT_ITEM = 29;
+  int IF_CONSTRAINT_ITEM = 36;
 
   /**
    * The feature id for the '<em><b>If expr</b></em>' containment reference.
@@ -985,7 +1226,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getforeach_constraint_item()
    * @generated
    */
-  int FOREACH_CONSTRAINT_ITEM = 30;
+  int FOREACH_CONSTRAINT_ITEM = 37;
 
   /**
    * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -1022,7 +1263,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_set()
    * @generated
    */
-  int CONSTRAINT_SET = 31;
+  int CONSTRAINT_SET = 38;
 
   /**
    * The feature id for the '<em><b>Items</b></em>' containment reference list.
@@ -1050,7 +1291,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexpression()
    * @generated
    */
-  int EXPRESSION = 32;
+  int EXPRESSION = 39;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -1114,7 +1355,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_declaration()
    * @generated
    */
-  int INTERFACE_DECLARATION = 33;
+  int INTERFACE_DECLARATION = 40;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1160,7 +1401,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_body_item()
    * @generated
    */
-  int INTERFACE_BODY_ITEM = 34;
+  int INTERFACE_BODY_ITEM = 41;
 
   /**
    * The number of structural features of the '<em>interface body item</em>' class.
@@ -1179,7 +1420,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getaction_declaration()
    * @generated
    */
-  int ACTION_DECLARATION = 35;
+  int ACTION_DECLARATION = 42;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1216,7 +1457,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getaction_portlist()
    * @generated
    */
-  int ACTION_PORTLIST = 36;
+  int ACTION_PORTLIST = 43;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1253,7 +1494,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_data_declaration()
    * @generated
    */
-  int GRAPH_DATA_DECLARATION = 37;
+  int GRAPH_DATA_DECLARATION = 44;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -1299,7 +1540,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsymbol_declaration()
    * @generated
    */
-  int SYMBOL_DECLARATION = 38;
+  int SYMBOL_DECLARATION = 45;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1345,7 +1586,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getport_map()
    * @generated
    */
-  int PORT_MAP = 39;
+  int PORT_MAP = 46;
 
   /**
    * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -1382,7 +1623,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_data_declaration()
    * @generated
    */
-  int STRUCT_DATA_DECLARATION = 40;
+  int STRUCT_DATA_DECLARATION = 47;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' containment reference.
@@ -1419,7 +1660,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_datatype()
    * @generated
    */
-  int GRAPH_DATATYPE = 41;
+  int GRAPH_DATATYPE = 48;
 
   /**
    * The feature id for the '<em><b>Graph typename</b></em>' reference.
@@ -1447,7 +1688,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_datatype()
    * @generated
    */
-  int STRUCT_DATATYPE = 42;
+  int STRUCT_DATATYPE = 49;
 
   /**
    * The feature id for the '<em><b>Struct typename</b></em>' reference.
@@ -1475,7 +1716,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getprimitive_datatype()
    * @generated
    */
-  int PRIMITIVE_DATATYPE = 43;
+  int PRIMITIVE_DATATYPE = 50;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1530,7 +1771,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinteger_type()
    * @generated
    */
-  int INTEGER_TYPE = 44;
+  int INTEGER_TYPE = 51;
 
   /**
    * The feature id for the '<em><b>Type</b></em>' reference.
@@ -1603,7 +1844,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gethierarchical_id()
    * @generated
    */
-  int HIERARCHICAL_ID = 45;
+  int HIERARCHICAL_ID = 52;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference.
@@ -1640,7 +1881,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getliteral()
    * @generated
    */
-  int LITERAL = 46;
+  int LITERAL = 53;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1668,7 +1909,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdecimal_number()
    * @generated
    */
-  int DECIMAL_NUMBER = 47;
+  int DECIMAL_NUMBER = 54;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1696,7 +1937,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsize()
    * @generated
    */
-  int SIZE = 48;
+  int SIZE = 55;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1724,7 +1965,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getoverides_declaration()
    * @generated
    */
-  int OVERIDES_DECLARATION = 49;
+  int OVERIDES_DECLARATION = 56;
 
   /**
    * The feature id for the '<em><b>Overrides</b></em>' containment reference list.
@@ -1752,7 +1993,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getcondition_expr()
    * @generated
    */
-  int CONDITION_EXPR = 50;
+  int CONDITION_EXPR = 57;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -1834,7 +2075,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_or_expr()
    * @generated
    */
-  int LOGICAL_OR_EXPR = 51;
+  int LOGICAL_OR_EXPR = 58;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -1907,7 +2148,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_and_expr()
    * @generated
    */
-  int LOGICAL_AND_EXPR = 52;
+  int LOGICAL_AND_EXPR = 59;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -1980,7 +2221,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_xor_expr()
    * @generated
    */
-  int BINARY_XOR_EXPR = 53;
+  int BINARY_XOR_EXPR = 60;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2053,7 +2294,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_and_expr()
    * @generated
    */
-  int BINARY_AND_EXPR = 54;
+  int BINARY_AND_EXPR = 61;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2126,7 +2367,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_equality_expr()
    * @generated
    */
-  int LOGICAL_EQUALITY_EXPR = 55;
+  int LOGICAL_EQUALITY_EXPR = 62;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2208,7 +2449,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_inequality_expr()
    * @generated
    */
-  int LOGICAL_INEQUALITY_EXPR = 56;
+  int LOGICAL_INEQUALITY_EXPR = 63;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2290,7 +2531,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_shift_expr()
    * @generated
    */
-  int BINARY_SHIFT_EXPR = 57;
+  int BINARY_SHIFT_EXPR = 64;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2372,7 +2613,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_add_sub_expr()
    * @generated
    */
-  int BINARY_ADD_SUB_EXPR = 58;
+  int BINARY_ADD_SUB_EXPR = 65;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2454,7 +2695,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_mul_div_mod_expr()
    * @generated
    */
-  int BINARY_MUL_DIV_MOD_EXPR = 59;
+  int BINARY_MUL_DIV_MOD_EXPR = 66;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2536,7 +2777,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_exp_expr()
    * @generated
    */
-  int BINARY_EXP_EXPR = 60;
+  int BINARY_EXP_EXPR = 67;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -3082,6 +3323,208 @@ public interface PSSPackage extends EPackage
    * @generated
    */
   EReference getinstance_override_Src();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.data_declaration <em>data declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>data declaration</em>'.
+   * @see net.sf.psstools.lang.pSS.data_declaration
+   * @generated
+   */
+  EClass getdata_declaration();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.typedef_declaration <em>typedef declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>typedef declaration</em>'.
+   * @see net.sf.psstools.lang.pSS.typedef_declaration
+   * @generated
+   */
+  EClass gettypedef_declaration();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.typedef_declaration#getSrc <em>Src</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Src</em>'.
+   * @see net.sf.psstools.lang.pSS.typedef_declaration#getSrc()
+   * @see #gettypedef_declaration()
+   * @generated
+   */
+  EAttribute gettypedef_declaration_Src();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.typedef_declaration#getDest <em>Dest</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Dest</em>'.
+   * @see net.sf.psstools.lang.pSS.typedef_declaration#getDest()
+   * @see #gettypedef_declaration()
+   * @generated
+   */
+  EAttribute gettypedef_declaration_Dest();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.enum_declaration <em>enum declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>enum declaration</em>'.
+   * @see net.sf.psstools.lang.pSS.enum_declaration
+   * @generated
+   */
+  EClass getenum_declaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.enum_declaration#getData_type <em>Data type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Data type</em>'.
+   * @see net.sf.psstools.lang.pSS.enum_declaration#getData_type()
+   * @see #getenum_declaration()
+   * @generated
+   */
+  EReference getenum_declaration_Data_type();
+
+  /**
+   * Returns the meta object for the attribute list '{@link net.sf.psstools.lang.pSS.enum_declaration#getItems <em>Items</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute list '<em>Items</em>'.
+   * @see net.sf.psstools.lang.pSS.enum_declaration#getItems()
+   * @see #getenum_declaration()
+   * @generated
+   */
+  EAttribute getenum_declaration_Items();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.enum_declaration#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see net.sf.psstools.lang.pSS.enum_declaration#getName()
+   * @see #getenum_declaration()
+   * @generated
+   */
+  EAttribute getenum_declaration_Name();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.scalar_declaration <em>scalar declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>scalar declaration</em>'.
+   * @see net.sf.psstools.lang.pSS.scalar_declaration
+   * @generated
+   */
+  EClass getscalar_declaration();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.signed_scalar <em>signed scalar</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>signed scalar</em>'.
+   * @see net.sf.psstools.lang.pSS.signed_scalar
+   * @generated
+   */
+  EClass getsigned_scalar();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.signed_scalar#getLhs <em>Lhs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Lhs</em>'.
+   * @see net.sf.psstools.lang.pSS.signed_scalar#getLhs()
+   * @see #getsigned_scalar()
+   * @generated
+   */
+  EReference getsigned_scalar_Lhs();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.signed_scalar#getRhs <em>Rhs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Rhs</em>'.
+   * @see net.sf.psstools.lang.pSS.signed_scalar#getRhs()
+   * @see #getsigned_scalar()
+   * @generated
+   */
+  EReference getsigned_scalar_Rhs();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.signed_scalar#getItems <em>Items</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Items</em>'.
+   * @see net.sf.psstools.lang.pSS.signed_scalar#getItems()
+   * @see #getsigned_scalar()
+   * @generated
+   */
+  EReference getsigned_scalar_Items();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.signed_scalar#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see net.sf.psstools.lang.pSS.signed_scalar#getName()
+   * @see #getsigned_scalar()
+   * @generated
+   */
+  EAttribute getsigned_scalar_Name();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.scalar_signed <em>scalar signed</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>scalar signed</em>'.
+   * @see net.sf.psstools.lang.pSS.scalar_signed
+   * @generated
+   */
+  EClass getscalar_signed();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.scalar_signed#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see net.sf.psstools.lang.pSS.scalar_signed#getName()
+   * @see #getscalar_signed()
+   * @generated
+   */
+  EAttribute getscalar_signed_Name();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.domain_spec <em>domain spec</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>domain spec</em>'.
+   * @see net.sf.psstools.lang.pSS.domain_spec
+   * @generated
+   */
+  EClass getdomain_spec();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.domain_spec#getRange_lhs <em>Range lhs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Range lhs</em>'.
+   * @see net.sf.psstools.lang.pSS.domain_spec#getRange_lhs()
+   * @see #getdomain_spec()
+   * @generated
+   */
+  EAttribute getdomain_spec_Range_lhs();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.domain_spec#getRange_rhs <em>Range rhs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Range rhs</em>'.
+   * @see net.sf.psstools.lang.pSS.domain_spec#getRange_rhs()
+   * @see #getdomain_spec()
+   * @generated
+   */
+  EAttribute getdomain_spec_Range_rhs();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.constraint_declaration <em>constraint declaration</em>}'.
@@ -4499,6 +4942,172 @@ public interface PSSPackage extends EPackage
      * @generated
      */
     EReference INSTANCE_OVERRIDE__SRC = eINSTANCE.getinstance_override_Src();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.data_declarationImpl <em>data declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.data_declarationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdata_declaration()
+     * @generated
+     */
+    EClass DATA_DECLARATION = eINSTANCE.getdata_declaration();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.typedef_declarationImpl <em>typedef declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.typedef_declarationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gettypedef_declaration()
+     * @generated
+     */
+    EClass TYPEDEF_DECLARATION = eINSTANCE.gettypedef_declaration();
+
+    /**
+     * The meta object literal for the '<em><b>Src</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPEDEF_DECLARATION__SRC = eINSTANCE.gettypedef_declaration_Src();
+
+    /**
+     * The meta object literal for the '<em><b>Dest</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPEDEF_DECLARATION__DEST = eINSTANCE.gettypedef_declaration_Dest();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.enum_declarationImpl <em>enum declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.enum_declarationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getenum_declaration()
+     * @generated
+     */
+    EClass ENUM_DECLARATION = eINSTANCE.getenum_declaration();
+
+    /**
+     * The meta object literal for the '<em><b>Data type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ENUM_DECLARATION__DATA_TYPE = eINSTANCE.getenum_declaration_Data_type();
+
+    /**
+     * The meta object literal for the '<em><b>Items</b></em>' attribute list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENUM_DECLARATION__ITEMS = eINSTANCE.getenum_declaration_Items();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ENUM_DECLARATION__NAME = eINSTANCE.getenum_declaration_Name();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.scalar_declarationImpl <em>scalar declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.scalar_declarationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_declaration()
+     * @generated
+     */
+    EClass SCALAR_DECLARATION = eINSTANCE.getscalar_declaration();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.signed_scalarImpl <em>signed scalar</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.signed_scalarImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsigned_scalar()
+     * @generated
+     */
+    EClass SIGNED_SCALAR = eINSTANCE.getsigned_scalar();
+
+    /**
+     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SIGNED_SCALAR__LHS = eINSTANCE.getsigned_scalar_Lhs();
+
+    /**
+     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SIGNED_SCALAR__RHS = eINSTANCE.getsigned_scalar_Rhs();
+
+    /**
+     * The meta object literal for the '<em><b>Items</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SIGNED_SCALAR__ITEMS = eINSTANCE.getsigned_scalar_Items();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SIGNED_SCALAR__NAME = eINSTANCE.getsigned_scalar_Name();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.scalar_signedImpl <em>scalar signed</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.scalar_signedImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_signed()
+     * @generated
+     */
+    EClass SCALAR_SIGNED = eINSTANCE.getscalar_signed();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SCALAR_SIGNED__NAME = eINSTANCE.getscalar_signed_Name();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.domain_specImpl <em>domain spec</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.domain_specImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdomain_spec()
+     * @generated
+     */
+    EClass DOMAIN_SPEC = eINSTANCE.getdomain_spec();
+
+    /**
+     * The meta object literal for the '<em><b>Range lhs</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOMAIN_SPEC__RANGE_LHS = eINSTANCE.getdomain_spec_Range_lhs();
+
+    /**
+     * The meta object literal for the '<em><b>Range rhs</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOMAIN_SPEC__RANGE_RHS = eINSTANCE.getdomain_spec_Range_rhs();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.constraint_declarationImpl <em>constraint declaration</em>}' class.

@@ -54,6 +54,9 @@ public class InternalPSSLexer extends Lexer {
     public static final int T__64=64;
     public static final int T__21=21;
     public static final int T__65=65;
+    public static final int T__70=70;
+    public static final int T__71=71;
+    public static final int T__72=72;
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
     public static final int T__37=37;
@@ -63,6 +66,7 @@ public class InternalPSSLexer extends Lexer {
     public static final int T__34=34;
     public static final int T__35=35;
     public static final int T__36=36;
+    public static final int T__73=73;
     public static final int EOF=-1;
     public static final int T__30=30;
     public static final int T__31=31;
@@ -98,10 +102,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:11:7: ( ';' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:11:9: ';'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:11:7: ( 'signed' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:11:9: 'signed'
             {
-            match(';'); 
+            match("signed"); 
+
 
             }
 
@@ -118,10 +123,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12:7: ( '==' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12:9: '=='
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12:7: ( 'unsigned' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12:9: 'unsigned'
             {
-            match("=="); 
+            match("unsigned"); 
 
 
             }
@@ -139,11 +144,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:13:7: ( '!=' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:13:9: '!='
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:13:7: ( ';' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:13:9: ';'
             {
-            match("!="); 
-
+            match(';'); 
 
             }
 
@@ -160,10 +164,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14:7: ( '<' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14:9: '<'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14:7: ( '==' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14:9: '=='
             {
-            match('<'); 
+            match("=="); 
+
 
             }
 
@@ -180,10 +185,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:15:7: ( '<=' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:15:9: '<='
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:15:7: ( '!=' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:15:9: '!='
             {
-            match("<="); 
+            match("!="); 
 
 
             }
@@ -201,10 +206,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:16:7: ( '>' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:16:9: '>'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:16:7: ( '<' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:16:9: '<'
             {
-            match('>'); 
+            match('<'); 
 
             }
 
@@ -221,10 +226,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:17:7: ( '>=' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:17:9: '>='
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:17:7: ( '<=' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:17:9: '<='
             {
-            match(">="); 
+            match("<="); 
 
 
             }
@@ -242,11 +247,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:18:7: ( 'inside' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:18:9: 'inside'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:18:7: ( '>' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:18:9: '>'
             {
-            match("inside"); 
-
+            match('>'); 
 
             }
 
@@ -263,10 +267,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:19:7: ( '<<' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:19:9: '<<'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:19:7: ( '>=' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:19:9: '>='
             {
-            match("<<"); 
+            match(">="); 
 
 
             }
@@ -284,10 +288,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:20:7: ( '>>' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:20:9: '>>'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:20:7: ( 'inside' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:20:9: 'inside'
             {
-            match(">>"); 
+            match("inside"); 
 
 
             }
@@ -305,10 +309,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:21:7: ( '+' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:21:9: '+'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:21:7: ( '<<' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:21:9: '<<'
             {
-            match('+'); 
+            match("<<"); 
+
 
             }
 
@@ -325,10 +330,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:22:7: ( '-' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:22:9: '-'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:22:7: ( '>>' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:22:9: '>>'
             {
-            match('-'); 
+            match(">>"); 
+
 
             }
 
@@ -345,10 +351,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:23:7: ( '*' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:23:9: '*'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:23:7: ( '+' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:23:9: '+'
             {
-            match('*'); 
+            match('+'); 
 
             }
 
@@ -365,10 +371,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:24:7: ( '/' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:24:9: '/'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:24:7: ( '-' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:24:9: '-'
             {
-            match('/'); 
+            match('-'); 
 
             }
 
@@ -385,10 +391,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:25:7: ( '%' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:25:9: '%'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:25:7: ( '*' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:25:9: '*'
             {
-            match('%'); 
+            match('*'); 
 
             }
 
@@ -405,10 +411,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:26:7: ( '!' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:26:9: '!'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:26:7: ( '/' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:26:9: '/'
             {
-            match('!'); 
+            match('/'); 
 
             }
 
@@ -425,10 +431,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:27:7: ( '~' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:27:9: '~'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:27:7: ( '%' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:27:9: '%'
             {
-            match('~'); 
+            match('%'); 
 
             }
 
@@ -445,10 +451,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:28:7: ( '&' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:28:9: '&'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:28:7: ( '!' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:28:9: '!'
             {
-            match('&'); 
+            match('!'); 
 
             }
 
@@ -465,10 +471,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:29:7: ( '|' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:29:9: '|'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:29:7: ( '~' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:29:9: '~'
             {
-            match('|'); 
+            match('~'); 
 
             }
 
@@ -485,10 +491,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:30:7: ( '^' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:30:9: '^'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:30:7: ( '&' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:30:9: '&'
             {
-            match('^'); 
+            match('&'); 
 
             }
 
@@ -505,11 +511,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__31;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:31:7: ( 'input' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:31:9: 'input'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:31:7: ( '|' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:31:9: '|'
             {
-            match("input"); 
-
+            match('|'); 
 
             }
 
@@ -526,11 +531,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__32;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:32:7: ( 'output' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:32:9: 'output'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:32:7: ( '^' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:32:9: '^'
             {
-            match("output"); 
-
+            match('^'); 
 
             }
 
@@ -547,10 +551,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__33;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:33:7: ( 'inout' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:33:9: 'inout'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:33:7: ( 'input' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:33:9: 'input'
             {
-            match("inout"); 
+            match("input"); 
 
 
             }
@@ -568,10 +572,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__34;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:34:7: ( 'signed' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:34:9: 'signed'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:34:7: ( 'output' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:34:9: 'output'
             {
-            match("signed"); 
+            match("output"); 
 
 
             }
@@ -589,10 +593,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__35;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:35:7: ( 'unsigned' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:35:9: 'unsigned'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:35:7: ( 'inout' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:35:9: 'inout'
             {
-            match("unsigned"); 
+            match("inout"); 
 
 
             }
@@ -920,10 +924,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:51:7: ( 'constraint' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:51:9: 'constraint'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:51:7: ( 'rand' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:51:9: 'rand'
             {
-            match("constraint"); 
+            match("rand"); 
 
 
             }
@@ -941,10 +945,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:52:7: ( '->' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:52:9: '->'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:52:7: ( 'typedef' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:52:9: 'typedef'
             {
-            match("->"); 
+            match("typedef"); 
 
 
             }
@@ -962,10 +966,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:53:7: ( 'if' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:53:9: 'if'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:53:7: ( 'enum' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:53:9: 'enum'
             {
-            match("if"); 
+            match("enum"); 
 
 
             }
@@ -983,11 +987,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:54:7: ( 'else' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:54:9: 'else'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:54:7: ( '[' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:54:9: '['
             {
-            match("else"); 
-
+            match('['); 
 
             }
 
@@ -1004,11 +1007,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:55:7: ( 'foreach' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:55:9: 'foreach'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:55:7: ( ':' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:55:9: ':'
             {
-            match("foreach"); 
-
+            match(':'); 
 
             }
 
@@ -1025,10 +1027,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:56:7: ( '?' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:56:9: '?'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:56:7: ( ']' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:56:9: ']'
             {
-            match('?'); 
+            match(']'); 
 
             }
 
@@ -1045,10 +1047,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:57:7: ( ':' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:57:9: ':'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:57:7: ( 'inside [' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:57:9: 'inside ['
             {
-            match(':'); 
+            match("inside ["); 
+
 
             }
 
@@ -1065,10 +1068,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:58:7: ( '&&' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:58:9: '&&'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:58:7: ( '..' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:58:9: '..'
             {
-            match("&&"); 
+            match(".."); 
 
 
             }
@@ -1086,10 +1089,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:59:7: ( '||' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:59:9: '||'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:59:7: ( 'constraint' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:59:9: 'constraint'
             {
-            match("||"); 
+            match("constraint"); 
 
 
             }
@@ -1107,10 +1110,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:60:7: ( '**' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:60:9: '**'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:60:7: ( '->' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:60:9: '->'
             {
-            match("**"); 
+            match("->"); 
 
 
             }
@@ -1128,10 +1131,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:61:7: ( '[' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:61:9: '['
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:61:7: ( 'if' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:61:9: 'if'
             {
-            match('['); 
+            match("if"); 
+
 
             }
 
@@ -1148,10 +1152,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:62:7: ( ']' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:62:9: ']'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:62:7: ( 'else' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:62:9: 'else'
             {
-            match(']'); 
+            match("else"); 
+
 
             }
 
@@ -1168,10 +1173,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:63:7: ( 'interface' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:63:9: 'interface'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:63:7: ( 'foreach' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:63:9: 'foreach'
             {
-            match("interface"); 
+            match("foreach"); 
 
 
             }
@@ -1189,11 +1194,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:64:7: ( 'action' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:64:9: 'action'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:64:7: ( '?' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:64:9: '?'
             {
-            match("action"); 
-
+            match('?'); 
 
             }
 
@@ -1210,10 +1214,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:65:7: ( 'rand' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:65:9: 'rand'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:65:7: ( '&&' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:65:9: '&&'
             {
-            match("rand"); 
+            match("&&"); 
 
 
             }
@@ -1231,10 +1235,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:66:7: ( 'symbol' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:66:9: 'symbol'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:66:7: ( '||' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:66:9: '||'
             {
-            match("symbol"); 
+            match("||"); 
 
 
             }
@@ -1252,10 +1256,11 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:67:7: ( '.' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:67:9: '.'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:67:7: ( '**' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:67:9: '**'
             {
-            match('.'); 
+            match("**"); 
+
 
             }
 
@@ -1272,10 +1277,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:68:7: ( 'int' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:68:9: 'int'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:68:7: ( 'interface' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:68:9: 'interface'
             {
-            match("int"); 
+            match("interface"); 
 
 
             }
@@ -1293,10 +1298,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:69:7: ( 'bit' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:69:9: 'bit'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:69:7: ( 'action' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:69:9: 'action'
             {
-            match("bit"); 
+            match("action"); 
 
 
             }
@@ -1309,15 +1314,98 @@ public class InternalPSSLexer extends Lexer {
     }
     // $ANTLR end "T__69"
 
+    // $ANTLR start "T__70"
+    public final void mT__70() throws RecognitionException {
+        try {
+            int _type = T__70;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:70:7: ( 'symbol' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:70:9: 'symbol'
+            {
+            match("symbol"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__70"
+
+    // $ANTLR start "T__71"
+    public final void mT__71() throws RecognitionException {
+        try {
+            int _type = T__71;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:71:7: ( '.' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:71:9: '.'
+            {
+            match('.'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__71"
+
+    // $ANTLR start "T__72"
+    public final void mT__72() throws RecognitionException {
+        try {
+            int _type = T__72;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:72:7: ( 'int' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:72:9: 'int'
+            {
+            match("int"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__72"
+
+    // $ANTLR start "T__73"
+    public final void mT__73() throws RecognitionException {
+        try {
+            int _type = T__73;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:73:7: ( 'bit' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:73:9: 'bit'
+            {
+            match("bit"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__73"
+
     // $ANTLR start "RULE_ID"
     public final void mRULE_ID() throws RecognitionException {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12319:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12319:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14015:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14015:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12319:11: ( '^' )?
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14015:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1326,7 +1414,7 @@ public class InternalPSSLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12319:11: '^'
+                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14015:11: '^'
                     {
                     match('^'); 
 
@@ -1344,7 +1432,7 @@ public class InternalPSSLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12319:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14015:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -1393,10 +1481,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12321:10: ( ( '0' .. '9' )+ )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12321:12: ( '0' .. '9' )+
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14017:10: ( ( '0' .. '9' )+ )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14017:12: ( '0' .. '9' )+
             {
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12321:12: ( '0' .. '9' )+
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14017:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -1410,7 +1498,7 @@ public class InternalPSSLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12321:13: '0' .. '9'
+            	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14017:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1442,10 +1530,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1463,10 +1551,10 @@ public class InternalPSSLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -1482,7 +1570,7 @@ public class InternalPSSLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:21: '\\\\' .
+                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1490,7 +1578,7 @@ public class InternalPSSLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1515,10 +1603,10 @@ public class InternalPSSLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -1534,7 +1622,7 @@ public class InternalPSSLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:54: '\\\\' .
+                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1542,7 +1630,7 @@ public class InternalPSSLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12323:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14019:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1585,12 +1673,12 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12325:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12325:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14021:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14021:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12325:24: ( options {greedy=false; } : . )*
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14021:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -1615,7 +1703,7 @@ public class InternalPSSLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12325:52: .
+            	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14021:52: .
             	    {
             	    matchAny(); 
 
@@ -1645,12 +1733,12 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -1663,7 +1751,7 @@ public class InternalPSSLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1683,7 +1771,7 @@ public class InternalPSSLexer extends Lexer {
                 }
             } while (true);
 
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:40: ( ( '\\r' )? '\\n' )?
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1692,9 +1780,9 @@ public class InternalPSSLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:41: ( '\\r' )? '\\n'
+                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:41: ( '\\r' )? '\\n'
                     {
-                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:41: ( '\\r' )?
+                    // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -1703,7 +1791,7 @@ public class InternalPSSLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12327:41: '\\r'
+                            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14023:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1735,10 +1823,10 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12329:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12329:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14025:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14025:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12329:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14025:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -1792,8 +1880,8 @@ public class InternalPSSLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12331:16: ( . )
-            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:12331:18: .
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14027:16: ( . )
+            // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:14027:18: .
             {
             matchAny(); 
 
@@ -1808,8 +1896,8 @@ public class InternalPSSLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt12=66;
+        // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt12=70;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
@@ -2226,49 +2314,77 @@ public class InternalPSSLexer extends Lexer {
                 }
                 break;
             case 60 :
-                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:364: RULE_ID
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:364: T__70
+                {
+                mT__70(); 
+
+                }
+                break;
+            case 61 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:370: T__71
+                {
+                mT__71(); 
+
+                }
+                break;
+            case 62 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:376: T__72
+                {
+                mT__72(); 
+
+                }
+                break;
+            case 63 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:382: T__73
+                {
+                mT__73(); 
+
+                }
+                break;
+            case 64 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:388: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 61 :
-                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:372: RULE_INT
+            case 65 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:396: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 62 :
-                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:381: RULE_STRING
+            case 66 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:405: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 63 :
-                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:393: RULE_ML_COMMENT
+            case 67 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:417: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 64 :
-                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:409: RULE_SL_COMMENT
+            case 68 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:433: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 65 :
-                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:425: RULE_WS
+            case 69 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:449: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 66 :
-                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:433: RULE_ANY_OTHER
+            case 70 :
+                // ../net.sf.psstools.lang.ui/src-gen/net/sf/psstools/lang/ui/contentassist/antlr/internal/InternalPSS.g:1:457: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -2282,187 +2398,190 @@ public class InternalPSSLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\2\uffff\1\53\1\57\1\62\1\65\1\70\1\uffff\1\73\1\75\1\100\2\uffff"+
-        "\1\104\1\106\1\107\4\70\5\uffff\1\70\1\127\5\70\3\uffff\1\70\1\uffff"+
-        "\1\70\2\uffff\2\53\14\uffff\1\70\1\153\20\uffff\7\70\5\uffff\2\70"+
-        "\2\uffff\6\70\3\uffff\1\70\1\uffff\1\70\3\uffff\3\70\1\u0083\1\uffff"+
-        "\21\70\1\u0095\5\70\1\uffff\11\70\1\u00a4\1\70\1\u00a6\1\u00a7\1"+
-        "\u00a8\3\70\1\uffff\2\70\1\u00ae\1\u00af\7\70\1\u00b7\2\70\1\uffff"+
-        "\1\70\3\uffff\3\70\1\u00be\1\70\2\uffff\1\70\1\u00c1\1\70\1\u00c3"+
-        "\1\u00c4\1\u00c5\1\70\1\uffff\1\70\1\u00c8\1\u00c9\2\70\1\u00cc"+
-        "\1\uffff\2\70\1\uffff\1\70\3\uffff\1\70\1\u00d1\2\uffff\1\70\1\u00d3"+
-        "\1\uffff\1\u00d4\1\70\1\u00d6\1\u00d7\1\uffff\1\70\2\uffff\1\u00d9"+
-        "\2\uffff\1\70\1\uffff\1\u00db\1\uffff";
+        "\1\uffff\2\57\1\uffff\1\53\1\64\1\67\1\72\1\57\1\uffff\1\77\1\101"+
+        "\1\104\2\uffff\1\110\1\112\1\113\2\57\5\uffff\1\57\1\130\3\57\2"+
+        "\uffff\1\140\2\57\1\uffff\2\57\2\uffff\2\53\2\uffff\3\57\1\uffff"+
+        "\1\57\12\uffff\1\57\1\161\17\uffff\3\57\5\uffff\3\57\2\uffff\4\57"+
+        "\4\uffff\2\57\1\uffff\2\57\3\uffff\7\57\1\u008a\1\uffff\16\57\1"+
+        "\u0099\11\57\1\uffff\5\57\1\u00a8\1\u00a9\1\57\1\u00ab\1\u00ad\1"+
+        "\u00ae\3\57\1\uffff\6\57\1\u00b8\1\u00b9\3\57\1\u00bd\2\57\2\uffff"+
+        "\1\57\1\uffff\1\57\2\uffff\3\57\1\u00c5\1\u00c6\1\u00c7\1\57\1\u00ca"+
+        "\1\57\2\uffff\1\57\1\u00cd\1\57\1\uffff\1\57\1\u00d0\1\u00d1\3\57"+
+        "\1\u00d5\3\uffff\1\57\2\uffff\2\57\1\uffff\1\57\1\u00da\2\uffff"+
+        "\1\u00db\1\57\1\u00dd\1\uffff\1\u00de\1\u00df\1\57\1\u00e1\2\uffff"+
+        "\1\57\3\uffff\1\u00e3\1\uffff\1\57\1\uffff\1\u00e5\1\uffff";
     static final String DFA12_eofS =
-        "\u00dc\uffff";
+        "\u00e6\uffff";
     static final String DFA12_minS =
-        "\1\0\1\uffff\2\75\1\74\1\75\1\146\1\uffff\1\76\2\52\2\uffff\1\46"+
-        "\1\174\1\101\1\165\1\151\1\156\1\162\5\uffff\1\154\1\75\1\141\1"+
-        "\171\1\151\2\157\3\uffff\1\143\1\uffff\1\151\2\uffff\2\0\14\uffff"+
-        "\1\157\1\60\20\uffff\1\164\1\145\1\147\1\162\1\155\1\163\1\141\5"+
-        "\uffff\1\160\1\163\2\uffff\1\160\1\156\1\160\1\164\1\156\1\162\3"+
-        "\uffff\1\164\1\uffff\1\164\3\uffff\1\151\2\165\1\60\1\uffff\1\160"+
-        "\1\162\1\156\1\165\1\142\1\151\1\160\1\145\1\157\2\145\1\144\1\145"+
-        "\1\150\1\163\1\145\1\151\1\60\1\144\1\141\2\164\1\162\1\uffff\1"+
-        "\165\1\162\1\145\1\143\1\157\1\147\1\150\1\156\1\162\1\60\1\141"+
-        "\3\60\1\164\1\141\1\157\1\uffff\1\145\1\156\2\60\1\146\1\164\1\151"+
-        "\1\144\1\164\1\154\1\156\1\60\1\144\1\164\1\uffff\1\164\3\uffff"+
-        "\1\162\1\143\1\156\1\60\1\143\2\uffff\1\141\1\60\1\144\3\60\1\145"+
-        "\1\uffff\1\163\2\60\1\141\1\150\1\60\1\uffff\1\145\1\143\1\uffff"+
-        "\1\145\3\uffff\1\144\1\60\2\uffff\1\151\1\60\1\uffff\1\60\1\145"+
-        "\2\60\1\uffff\1\156\2\uffff\1\60\2\uffff\1\164\1\uffff\1\60\1\uffff";
+        "\1\0\1\151\1\156\1\uffff\2\75\1\74\1\75\1\146\1\uffff\1\76\2\52"+
+        "\2\uffff\1\46\1\174\1\101\1\165\1\162\5\uffff\1\154\1\75\1\141\1"+
+        "\171\1\151\2\uffff\1\56\2\157\1\uffff\1\143\1\151\2\uffff\2\0\2"+
+        "\uffff\1\147\1\162\1\155\1\uffff\1\163\12\uffff\1\157\1\60\17\uffff"+
+        "\1\164\1\145\1\141\5\uffff\1\160\1\165\1\163\2\uffff\1\160\1\156"+
+        "\1\160\1\164\4\uffff\1\156\1\162\1\uffff\2\164\3\uffff\1\156\1\165"+
+        "\1\142\2\151\2\165\1\60\1\uffff\1\160\1\162\1\160\1\145\1\157\1"+
+        "\155\2\145\1\144\1\145\1\150\1\163\1\145\1\151\1\60\1\145\1\143"+
+        "\1\157\1\147\1\144\1\141\2\164\1\162\1\uffff\1\165\1\162\1\150\1"+
+        "\156\1\162\2\60\1\141\3\60\1\164\1\141\1\157\1\uffff\1\144\1\164"+
+        "\1\154\1\156\1\145\1\156\2\60\1\146\1\164\1\151\1\60\1\144\1\164"+
+        "\2\uffff\1\164\1\uffff\1\145\2\uffff\1\162\1\143\1\156\3\60\1\145"+
+        "\1\40\1\143\2\uffff\1\141\1\60\1\144\1\uffff\1\163\2\60\1\146\1"+
+        "\141\1\150\1\60\3\uffff\1\144\2\uffff\1\145\1\143\1\uffff\1\145"+
+        "\1\60\2\uffff\1\60\1\151\1\60\1\uffff\2\60\1\145\1\60\2\uffff\1"+
+        "\156\3\uffff\1\60\1\uffff\1\164\1\uffff\1\60\1\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\uffff\3\75\1\76\1\156\1\uffff\1\76\1\52\1\57\2\uffff"+
-        "\1\46\1\174\1\172\1\166\1\171\1\156\1\162\5\uffff\1\170\1\75\1\145"+
-        "\1\171\1\151\2\157\3\uffff\1\143\1\uffff\1\151\2\uffff\2\uffff\14"+
-        "\uffff\1\164\1\172\20\uffff\1\164\1\145\1\147\1\162\1\155\1\163"+
-        "\1\141\5\uffff\1\164\1\163\2\uffff\1\160\1\156\1\160\1\164\1\156"+
-        "\1\162\3\uffff\1\164\1\uffff\1\164\3\uffff\1\164\2\165\1\172\1\uffff"+
-        "\1\160\1\162\1\156\1\165\1\142\1\151\1\160\1\145\1\157\2\145\1\144"+
-        "\1\145\1\150\1\163\1\145\1\151\1\172\1\144\1\141\2\164\1\162\1\uffff"+
-        "\1\165\1\162\1\145\1\143\1\157\1\147\1\150\1\156\1\162\1\172\1\141"+
-        "\3\172\1\164\1\141\1\157\1\uffff\1\145\1\156\2\172\1\146\1\164\1"+
-        "\151\1\144\1\164\1\154\1\156\1\172\1\144\1\164\1\uffff\1\164\3\uffff"+
-        "\1\162\1\143\1\156\1\172\1\143\2\uffff\1\141\1\172\1\144\3\172\1"+
-        "\145\1\uffff\1\163\2\172\1\141\1\150\1\172\1\uffff\1\145\1\143\1"+
-        "\uffff\1\145\3\uffff\1\144\1\172\2\uffff\1\151\1\172\1\uffff\1\172"+
-        "\1\145\2\172\1\uffff\1\156\2\uffff\1\172\2\uffff\1\164\1\uffff\1"+
-        "\172\1\uffff";
+        "\1\uffff\1\171\1\156\1\uffff\3\75\1\76\1\156\1\uffff\1\76\1\52"+
+        "\1\57\2\uffff\1\46\1\174\1\172\1\166\1\162\5\uffff\1\170\1\75\1"+
+        "\145\1\171\1\151\2\uffff\1\56\2\157\1\uffff\1\143\1\151\2\uffff"+
+        "\2\uffff\2\uffff\1\147\1\162\1\155\1\uffff\1\163\12\uffff\1\164"+
+        "\1\172\17\uffff\1\164\1\145\1\141\5\uffff\1\164\1\165\1\163\2\uffff"+
+        "\1\160\1\156\1\160\1\164\4\uffff\1\156\1\162\1\uffff\2\164\3\uffff"+
+        "\1\156\1\165\1\142\1\151\1\164\2\165\1\172\1\uffff\1\160\1\162\1"+
+        "\160\1\145\1\157\1\155\2\145\1\144\1\145\1\150\1\163\1\145\1\151"+
+        "\1\172\1\145\1\143\1\157\1\147\1\144\1\141\2\164\1\162\1\uffff\1"+
+        "\165\1\162\1\150\1\156\1\162\2\172\1\141\3\172\1\164\1\141\1\157"+
+        "\1\uffff\1\144\1\164\1\154\1\156\1\145\1\156\2\172\1\146\1\164\1"+
+        "\151\1\172\1\144\1\164\2\uffff\1\164\1\uffff\1\145\2\uffff\1\162"+
+        "\1\143\1\156\3\172\1\145\1\172\1\143\2\uffff\1\141\1\172\1\144\1"+
+        "\uffff\1\163\2\172\1\146\1\141\1\150\1\172\3\uffff\1\144\2\uffff"+
+        "\1\145\1\143\1\uffff\1\145\1\172\2\uffff\1\172\1\151\1\172\1\uffff"+
+        "\2\172\1\145\1\172\2\uffff\1\156\3\uffff\1\172\1\uffff\1\164\1\uffff"+
+        "\1\172\1\uffff";
     static final String DFA12_acceptS =
-        "\1\uffff\1\1\5\uffff\1\13\3\uffff\1\17\1\21\7\uffff\1\33\1\34\1"+
-        "\35\1\36\1\37\7\uffff\1\56\1\63\1\64\1\uffff\1\71\1\uffff\1\74\1"+
-        "\75\2\uffff\1\101\1\102\1\1\1\2\1\3\1\20\1\5\1\11\1\4\1\7\1\12\1"+
-        "\6\2\uffff\1\74\1\13\1\52\1\14\1\62\1\15\1\77\1\100\1\16\1\17\1"+
-        "\21\1\60\1\22\1\61\1\23\1\24\7\uffff\1\33\1\34\1\35\1\36\1\37\2"+
-        "\uffff\1\43\1\57\6\uffff\1\56\1\63\1\64\1\uffff\1\71\1\uffff\1\75"+
-        "\1\76\1\101\4\uffff\1\53\27\uffff\1\72\21\uffff\1\73\16\uffff\1"+
-        "\54\1\uffff\1\67\1\46\1\47\5\uffff\1\25\1\27\7\uffff\1\32\6\uffff"+
-        "\1\10\2\uffff\1\26\1\uffff\1\30\1\42\1\70\2\uffff\1\41\1\44\2\uffff"+
-        "\1\66\4\uffff\1\40\1\uffff\1\55\1\50\1\uffff\1\45\1\31\1\uffff\1"+
-        "\65\1\uffff\1\51";
+        "\3\uffff\1\3\5\uffff\1\15\3\uffff\1\21\1\23\5\uffff\1\33\1\34\1"+
+        "\35\1\36\1\37\5\uffff\1\54\1\56\3\uffff\1\66\2\uffff\1\100\1\101"+
+        "\2\uffff\1\105\1\106\3\uffff\1\100\1\uffff\1\3\1\4\1\5\1\22\1\7"+
+        "\1\13\1\6\1\11\1\14\1\10\2\uffff\1\15\1\62\1\16\1\71\1\17\1\103"+
+        "\1\104\1\20\1\21\1\23\1\67\1\24\1\70\1\25\1\26\3\uffff\1\33\1\34"+
+        "\1\35\1\36\1\37\3\uffff\1\43\1\55\4\uffff\1\54\1\56\1\60\1\75\2"+
+        "\uffff\1\66\2\uffff\1\101\1\102\1\105\10\uffff\1\63\30\uffff\1\76"+
+        "\16\uffff\1\77\16\uffff\1\53\1\64\1\uffff\1\51\1\uffff\1\46\1\47"+
+        "\11\uffff\1\27\1\31\3\uffff\1\32\7\uffff\1\1\1\42\1\74\1\uffff\1"+
+        "\57\1\12\2\uffff\1\30\2\uffff\1\41\1\44\3\uffff\1\73\4\uffff\1\40"+
+        "\1\52\1\uffff\1\65\1\2\1\50\1\uffff\1\45\1\uffff\1\72\1\uffff\1"+
+        "\61";
     static final String DFA12_specialS =
-        "\1\2\47\uffff\1\0\1\1\u00b2\uffff}>";
+        "\1\1\47\uffff\1\0\1\2\u00bc\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\53\2\52\2\53\1\52\22\53\1\52\1\3\1\50\2\53\1\13\1\15\1"+
-            "\51\1\26\1\27\1\11\1\7\1\30\1\10\1\44\1\12\12\47\1\32\1\1\1"+
-            "\4\1\2\1\5\1\40\1\53\32\46\1\41\1\53\1\42\1\17\1\46\1\53\1\43"+
-            "\1\45\1\36\1\46\1\31\1\37\1\23\1\46\1\6\5\46\1\20\2\46\1\33"+
-            "\1\21\1\34\1\22\1\46\1\35\3\46\1\24\1\16\1\25\1\14\uff81\53",
+            "\11\53\2\52\2\53\1\52\22\53\1\52\1\5\1\50\2\53\1\15\1\17\1"+
+            "\51\1\26\1\27\1\13\1\11\1\30\1\12\1\40\1\14\12\47\1\32\1\3\1"+
+            "\6\1\4\1\7\1\43\1\53\32\46\1\36\1\53\1\37\1\21\1\46\1\53\1\44"+
+            "\1\45\1\41\1\46\1\31\1\42\1\23\1\46\1\10\5\46\1\22\2\46\1\33"+
+            "\1\1\1\34\1\2\1\46\1\35\3\46\1\24\1\20\1\25\1\16\uff81\53",
+            "\1\54\12\uffff\1\55\4\uffff\1\56",
+            "\1\60",
             "",
-            "\1\55",
-            "\1\56",
-            "\1\61\1\60",
-            "\1\63\1\64",
-            "\1\67\7\uffff\1\66",
+            "\1\62",
+            "\1\63",
+            "\1\66\1\65",
+            "\1\70\1\71",
+            "\1\74\7\uffff\1\73",
             "",
-            "\1\72",
-            "\1\74",
-            "\1\76\4\uffff\1\77",
+            "\1\76",
+            "\1\100",
+            "\1\102\4\uffff\1\103",
             "",
             "",
-            "\1\103",
-            "\1\105",
-            "\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\1\110\1\111",
-            "\1\112\12\uffff\1\113\4\uffff\1\114",
-            "\1\115",
+            "\1\107",
+            "\1\111",
+            "\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\114\1\115",
             "\1\116",
             "",
             "",
             "",
             "",
             "",
-            "\1\125\13\uffff\1\124",
-            "\1\126",
-            "\1\131\3\uffff\1\130",
-            "\1\132",
+            "\1\126\1\uffff\1\125\11\uffff\1\124",
+            "\1\127",
+            "\1\132\3\uffff\1\131",
             "\1\133",
             "\1\134",
-            "\1\135",
             "",
             "",
-            "",
+            "\1\137",
             "\1\141",
+            "\1\142",
             "",
-            "\1\143",
-            "",
-            "",
-            "\0\145",
-            "\0\145",
+            "\1\144",
+            "\1\145",
             "",
             "",
+            "\0\147",
+            "\0\147",
             "",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "\1\151\1\150\2\uffff\1\147\1\152",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\151",
+            "\1\152",
+            "\1\153",
             "",
             "\1\154",
-            "\1\155",
-            "\1\156",
-            "\1\157",
-            "\1\160",
-            "\1\161",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "\1\157\1\156\2\uffff\1\155\1\160",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\162",
+            "\1\163",
+            "\1\164",
             "",
             "",
             "",
             "",
             "",
-            "\1\164\3\uffff\1\163",
-            "\1\165",
-            "",
-            "",
-            "\1\166",
+            "\1\166\3\uffff\1\165",
             "\1\167",
             "\1\170",
+            "",
+            "",
             "\1\171",
             "\1\172",
             "\1\173",
-            "",
-            "",
-            "",
             "\1\174",
             "",
+            "",
+            "",
+            "",
             "\1\175",
+            "\1\176",
             "",
-            "",
-            "",
-            "\1\176\12\uffff\1\177",
+            "\1\177",
             "\1\u0080",
-            "\1\u0081",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\4\70\1\u0082\25"+
-            "\70",
             "",
+            "",
+            "",
+            "\1\u0081",
+            "\1\u0082",
+            "\1\u0083",
             "\1\u0084",
-            "\1\u0085",
-            "\1\u0086",
+            "\1\u0085\12\uffff\1\u0086",
             "\1\u0087",
             "\1\u0088",
-            "\1\u0089",
-            "\1\u008a",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\4\57\1\u0089\25"+
+            "\57",
+            "",
             "\1\u008b",
             "\1\u008c",
             "\1\u008d",
@@ -2473,13 +2592,12 @@ public class InternalPSSLexer extends Lexer {
             "\1\u0092",
             "\1\u0093",
             "\1\u0094",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
+            "\1\u0095",
             "\1\u0096",
             "\1\u0097",
             "\1\u0098",
-            "\1\u0099",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\1\u009a",
-            "",
             "\1\u009b",
             "\1\u009c",
             "\1\u009d",
@@ -2488,85 +2606,99 @@ public class InternalPSSLexer extends Lexer {
             "\1\u00a0",
             "\1\u00a1",
             "\1\u00a2",
-            "\1\u00a3",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\1\u00a5",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\1\u00a9",
-            "\1\u00aa",
-            "\1\u00ab",
             "",
-            "\1\u00ac",
-            "\1\u00ad",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
+            "\1\u00a3",
+            "\1\u00a4",
+            "\1\u00a5",
+            "\1\u00a6",
+            "\1\u00a7",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00aa",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\3\57\1\u00ac\26"+
+            "\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00af",
             "\1\u00b0",
             "\1\u00b1",
+            "",
             "\1\u00b2",
             "\1\u00b3",
             "\1\u00b4",
             "\1\u00b5",
             "\1\u00b6",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\1\u00b8",
-            "\1\u00b9",
-            "",
+            "\1\u00b7",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\1\u00ba",
-            "",
-            "",
-            "",
             "\1\u00bb",
             "\1\u00bc",
-            "\1\u00bd",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00be",
             "\1\u00bf",
             "",
             "",
             "\1\u00c0",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
+            "",
+            "\1\u00c1",
+            "",
+            "",
             "\1\u00c2",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\1\u00c6",
-            "",
-            "\1\u00c7",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\1\u00ca",
+            "\1\u00c3",
+            "\1\u00c4",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00c8",
+            "\1\u00c9\17\uffff\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff"+
+            "\32\57",
             "\1\u00cb",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
             "",
-            "\1\u00cd",
+            "",
+            "\1\u00cc",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\1\u00ce",
             "",
             "\1\u00cf",
-            "",
-            "",
-            "",
-            "\1\u00d0",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "",
-            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "\1\u00d2",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
+            "\1\u00d3",
+            "\1\u00d4",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\1\u00d5",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
             "",
+            "",
+            "\1\u00d6",
+            "",
+            "",
+            "\1\u00d7",
             "\1\u00d8",
             "",
+            "\1\u00d9",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
+            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00dc",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "\1\u00e0",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             "",
             "",
-            "\1\u00da",
+            "\1\u00e2",
             "",
-            "\12\70\7\uffff\32\70\4\uffff\1\70\1\uffff\32\70",
+            "",
+            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
+            "",
+            "\1\u00e4",
+            "",
+            "\12\57\7\uffff\32\57\4\uffff\1\57\1\uffff\32\57",
             ""
     };
 
@@ -2600,7 +2732,7 @@ public class InternalPSSLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | T__35 | T__36 | T__37 | T__38 | T__39 | T__40 | T__41 | T__42 | T__43 | T__44 | T__45 | T__46 | T__47 | T__48 | T__49 | T__50 | T__51 | T__52 | T__53 | T__54 | T__55 | T__56 | T__57 | T__58 | T__59 | T__60 | T__61 | T__62 | T__63 | T__64 | T__65 | T__66 | T__67 | T__68 | T__69 | T__70 | T__71 | T__72 | T__73 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -2610,61 +2742,51 @@ public class InternalPSSLexer extends Lexer {
                         int LA12_40 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_40>='\u0000' && LA12_40<='\uFFFF')) ) {s = 101;}
+                        if ( ((LA12_40>='\u0000' && LA12_40<='\uFFFF')) ) {s = 103;}
 
                         else s = 43;
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA12_41 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_41>='\u0000' && LA12_41<='\uFFFF')) ) {s = 101;}
-
-                        else s = 43;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA12_0 = input.LA(1);
 
                         s = -1;
-                        if ( (LA12_0==';') ) {s = 1;}
+                        if ( (LA12_0=='s') ) {s = 1;}
 
-                        else if ( (LA12_0=='=') ) {s = 2;}
+                        else if ( (LA12_0=='u') ) {s = 2;}
 
-                        else if ( (LA12_0=='!') ) {s = 3;}
+                        else if ( (LA12_0==';') ) {s = 3;}
 
-                        else if ( (LA12_0=='<') ) {s = 4;}
+                        else if ( (LA12_0=='=') ) {s = 4;}
 
-                        else if ( (LA12_0=='>') ) {s = 5;}
+                        else if ( (LA12_0=='!') ) {s = 5;}
 
-                        else if ( (LA12_0=='i') ) {s = 6;}
+                        else if ( (LA12_0=='<') ) {s = 6;}
 
-                        else if ( (LA12_0=='+') ) {s = 7;}
+                        else if ( (LA12_0=='>') ) {s = 7;}
 
-                        else if ( (LA12_0=='-') ) {s = 8;}
+                        else if ( (LA12_0=='i') ) {s = 8;}
 
-                        else if ( (LA12_0=='*') ) {s = 9;}
+                        else if ( (LA12_0=='+') ) {s = 9;}
 
-                        else if ( (LA12_0=='/') ) {s = 10;}
+                        else if ( (LA12_0=='-') ) {s = 10;}
 
-                        else if ( (LA12_0=='%') ) {s = 11;}
+                        else if ( (LA12_0=='*') ) {s = 11;}
 
-                        else if ( (LA12_0=='~') ) {s = 12;}
+                        else if ( (LA12_0=='/') ) {s = 12;}
 
-                        else if ( (LA12_0=='&') ) {s = 13;}
+                        else if ( (LA12_0=='%') ) {s = 13;}
 
-                        else if ( (LA12_0=='|') ) {s = 14;}
+                        else if ( (LA12_0=='~') ) {s = 14;}
 
-                        else if ( (LA12_0=='^') ) {s = 15;}
+                        else if ( (LA12_0=='&') ) {s = 15;}
 
-                        else if ( (LA12_0=='o') ) {s = 16;}
+                        else if ( (LA12_0=='|') ) {s = 16;}
 
-                        else if ( (LA12_0=='s') ) {s = 17;}
+                        else if ( (LA12_0=='^') ) {s = 17;}
 
-                        else if ( (LA12_0=='u') ) {s = 18;}
+                        else if ( (LA12_0=='o') ) {s = 18;}
 
                         else if ( (LA12_0=='g') ) {s = 19;}
 
@@ -2688,19 +2810,19 @@ public class InternalPSSLexer extends Lexer {
 
                         else if ( (LA12_0=='w') ) {s = 29;}
 
-                        else if ( (LA12_0=='c') ) {s = 30;}
+                        else if ( (LA12_0=='[') ) {s = 30;}
 
-                        else if ( (LA12_0=='f') ) {s = 31;}
+                        else if ( (LA12_0==']') ) {s = 31;}
 
-                        else if ( (LA12_0=='?') ) {s = 32;}
+                        else if ( (LA12_0=='.') ) {s = 32;}
 
-                        else if ( (LA12_0=='[') ) {s = 33;}
+                        else if ( (LA12_0=='c') ) {s = 33;}
 
-                        else if ( (LA12_0==']') ) {s = 34;}
+                        else if ( (LA12_0=='f') ) {s = 34;}
 
-                        else if ( (LA12_0=='a') ) {s = 35;}
+                        else if ( (LA12_0=='?') ) {s = 35;}
 
-                        else if ( (LA12_0=='.') ) {s = 36;}
+                        else if ( (LA12_0=='a') ) {s = 36;}
 
                         else if ( (LA12_0=='b') ) {s = 37;}
 
@@ -2715,6 +2837,16 @@ public class InternalPSSLexer extends Lexer {
                         else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 42;}
 
                         else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||(LA12_0>='#' && LA12_0<='$')||LA12_0=='@'||LA12_0=='\\'||LA12_0=='`'||(LA12_0>='\u007F' && LA12_0<='\uFFFF')) ) {s = 43;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA12_41 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_41>='\u0000' && LA12_41<='\uFFFF')) ) {s = 103;}
+
+                        else s = 43;
 
                         if ( s>=0 ) return s;
                         break;

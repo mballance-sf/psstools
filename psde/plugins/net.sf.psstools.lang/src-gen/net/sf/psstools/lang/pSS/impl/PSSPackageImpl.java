@@ -19,7 +19,10 @@ import net.sf.psstools.lang.pSS.constraint_body_item;
 import net.sf.psstools.lang.pSS.constraint_body_no_if_item;
 import net.sf.psstools.lang.pSS.constraint_declaration;
 import net.sf.psstools.lang.pSS.constraint_set;
+import net.sf.psstools.lang.pSS.data_declaration;
 import net.sf.psstools.lang.pSS.decimal_number;
+import net.sf.psstools.lang.pSS.domain_spec;
+import net.sf.psstools.lang.pSS.enum_declaration;
 import net.sf.psstools.lang.pSS.expression;
 import net.sf.psstools.lang.pSS.expression_or_dist_item;
 import net.sf.psstools.lang.pSS.foreach_constraint_item;
@@ -50,8 +53,11 @@ import net.sf.psstools.lang.pSS.portable_stimulus_description;
 import net.sf.psstools.lang.pSS.primitive_datatype;
 import net.sf.psstools.lang.pSS.repeat_stmt;
 import net.sf.psstools.lang.pSS.rule_production;
+import net.sf.psstools.lang.pSS.scalar_declaration;
+import net.sf.psstools.lang.pSS.scalar_signed;
 import net.sf.psstools.lang.pSS.seq;
 import net.sf.psstools.lang.pSS.seq_item;
+import net.sf.psstools.lang.pSS.signed_scalar;
 import net.sf.psstools.lang.pSS.size;
 import net.sf.psstools.lang.pSS.stmt_alt;
 import net.sf.psstools.lang.pSS.stmt_or_block;
@@ -65,6 +71,7 @@ import net.sf.psstools.lang.pSS.struct_graph_body_item;
 import net.sf.psstools.lang.pSS.symbol_declaration;
 import net.sf.psstools.lang.pSS.symbol_definition;
 import net.sf.psstools.lang.pSS.type_override;
+import net.sf.psstools.lang.pSS.typedef_declaration;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -255,6 +262,55 @@ public class PSSPackageImpl extends EPackageImpl implements PSSPackage
    * @generated
    */
   private EClass instance_overrideEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass data_declarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typedef_declarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass enum_declarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass scalar_declarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass signed_scalarEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass scalar_signedEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass domain_specEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -1029,6 +1085,196 @@ public class PSSPackageImpl extends EPackageImpl implements PSSPackage
   public EReference getinstance_override_Src()
   {
     return (EReference)instance_overrideEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getdata_declaration()
+  {
+    return data_declarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass gettypedef_declaration()
+  {
+    return typedef_declarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute gettypedef_declaration_Src()
+  {
+    return (EAttribute)typedef_declarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute gettypedef_declaration_Dest()
+  {
+    return (EAttribute)typedef_declarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getenum_declaration()
+  {
+    return enum_declarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getenum_declaration_Data_type()
+  {
+    return (EReference)enum_declarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getenum_declaration_Items()
+  {
+    return (EAttribute)enum_declarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getenum_declaration_Name()
+  {
+    return (EAttribute)enum_declarationEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getscalar_declaration()
+  {
+    return scalar_declarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getsigned_scalar()
+  {
+    return signed_scalarEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getsigned_scalar_Lhs()
+  {
+    return (EReference)signed_scalarEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getsigned_scalar_Rhs()
+  {
+    return (EReference)signed_scalarEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getsigned_scalar_Items()
+  {
+    return (EReference)signed_scalarEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getsigned_scalar_Name()
+  {
+    return (EAttribute)signed_scalarEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getscalar_signed()
+  {
+    return scalar_signedEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getscalar_signed_Name()
+  {
+    return (EAttribute)scalar_signedEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getdomain_spec()
+  {
+    return domain_specEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getdomain_spec_Range_lhs()
+  {
+    return (EAttribute)domain_specEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getdomain_spec_Range_rhs()
+  {
+    return (EAttribute)domain_specEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -2052,6 +2298,32 @@ public class PSSPackageImpl extends EPackageImpl implements PSSPackage
     instance_overrideEClass = createEClass(INSTANCE_OVERRIDE);
     createEReference(instance_overrideEClass, INSTANCE_OVERRIDE__SRC);
 
+    data_declarationEClass = createEClass(DATA_DECLARATION);
+
+    typedef_declarationEClass = createEClass(TYPEDEF_DECLARATION);
+    createEAttribute(typedef_declarationEClass, TYPEDEF_DECLARATION__SRC);
+    createEAttribute(typedef_declarationEClass, TYPEDEF_DECLARATION__DEST);
+
+    enum_declarationEClass = createEClass(ENUM_DECLARATION);
+    createEReference(enum_declarationEClass, ENUM_DECLARATION__DATA_TYPE);
+    createEAttribute(enum_declarationEClass, ENUM_DECLARATION__ITEMS);
+    createEAttribute(enum_declarationEClass, ENUM_DECLARATION__NAME);
+
+    scalar_declarationEClass = createEClass(SCALAR_DECLARATION);
+
+    signed_scalarEClass = createEClass(SIGNED_SCALAR);
+    createEReference(signed_scalarEClass, SIGNED_SCALAR__LHS);
+    createEReference(signed_scalarEClass, SIGNED_SCALAR__RHS);
+    createEReference(signed_scalarEClass, SIGNED_SCALAR__ITEMS);
+    createEAttribute(signed_scalarEClass, SIGNED_SCALAR__NAME);
+
+    scalar_signedEClass = createEClass(SCALAR_SIGNED);
+    createEAttribute(scalar_signedEClass, SCALAR_SIGNED__NAME);
+
+    domain_specEClass = createEClass(DOMAIN_SPEC);
+    createEAttribute(domain_specEClass, DOMAIN_SPEC__RANGE_LHS);
+    createEAttribute(domain_specEClass, DOMAIN_SPEC__RANGE_RHS);
+
     constraint_declarationEClass = createEClass(CONSTRAINT_DECLARATION);
     createEAttribute(constraint_declarationEClass, CONSTRAINT_DECLARATION__NAME);
     createEReference(constraint_declarationEClass, CONSTRAINT_DECLARATION__BODY);
@@ -2229,6 +2501,11 @@ public class PSSPackageImpl extends EPackageImpl implements PSSPackage
     overrides_declarationEClass.getESuperTypes().add(this.getstruct_graph_body_item());
     type_overrideEClass.getESuperTypes().add(this.getoverride_stmt());
     instance_overrideEClass.getESuperTypes().add(this.getoverride_stmt());
+    data_declarationEClass.getESuperTypes().add(this.getportable_stimulus_description());
+    typedef_declarationEClass.getESuperTypes().add(this.getdata_declaration());
+    enum_declarationEClass.getESuperTypes().add(this.getdata_declaration());
+    scalar_declarationEClass.getESuperTypes().add(this.getdata_declaration());
+    signed_scalarEClass.getESuperTypes().add(this.getscalar_declaration());
     constraint_declarationEClass.getESuperTypes().add(this.getstruct_graph_body_item());
     constraint_body_no_if_itemEClass.getESuperTypes().add(this.getconstraint_body_item());
     expression_or_dist_itemEClass.getESuperTypes().add(this.getconstraint_body_no_if_item());
@@ -2331,6 +2608,32 @@ public class PSSPackageImpl extends EPackageImpl implements PSSPackage
 
     initEClass(instance_overrideEClass, instance_override.class, "instance_override", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getinstance_override_Src(), this.gethierarchical_id(), null, "src", null, 0, 1, instance_override.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(data_declarationEClass, data_declaration.class, "data_declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(typedef_declarationEClass, typedef_declaration.class, "typedef_declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(gettypedef_declaration_Src(), ecorePackage.getEString(), "src", null, 0, 1, typedef_declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(gettypedef_declaration_Dest(), ecorePackage.getEString(), "dest", null, 0, 1, typedef_declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(enum_declarationEClass, enum_declaration.class, "enum_declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getenum_declaration_Data_type(), this.getinteger_type(), null, "data_type", null, 0, 1, enum_declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getenum_declaration_Items(), ecorePackage.getEString(), "items", null, 0, -1, enum_declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getenum_declaration_Name(), ecorePackage.getEString(), "name", null, 0, 1, enum_declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(scalar_declarationEClass, scalar_declaration.class, "scalar_declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(signed_scalarEClass, signed_scalar.class, "signed_scalar", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getsigned_scalar_Lhs(), this.getexpression(), null, "lhs", null, 0, 1, signed_scalar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getsigned_scalar_Rhs(), this.getexpression(), null, "rhs", null, 0, 1, signed_scalar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getsigned_scalar_Items(), this.getdomain_spec(), null, "items", null, 0, -1, signed_scalar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getsigned_scalar_Name(), ecorePackage.getEString(), "name", null, 0, 1, signed_scalar.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(scalar_signedEClass, scalar_signed.class, "scalar_signed", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getscalar_signed_Name(), ecorePackage.getEString(), "name", null, 0, 1, scalar_signed.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(domain_specEClass, domain_spec.class, "domain_spec", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getdomain_spec_Range_lhs(), ecorePackage.getEInt(), "range_lhs", null, 0, 1, domain_spec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getdomain_spec_Range_rhs(), ecorePackage.getEInt(), "range_rhs", null, 0, 1, domain_spec.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(constraint_declarationEClass, constraint_declaration.class, "constraint_declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getconstraint_declaration_Name(), ecorePackage.getEString(), "name", null, 0, 1, constraint_declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

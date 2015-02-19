@@ -20,6 +20,9 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected PSSGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_action_portlist_Io_directionParserRuleCall_0_q;
+	protected AbstractElementAlias match_data_declaration_RandKeyword_0_0_q;
+	protected AbstractElementAlias match_data_declaration_RandKeyword_1_0_q;
+	protected AbstractElementAlias match_data_declaration_RandKeyword_2_0_q;
 	protected AbstractElementAlias match_graph_data_declaration_RandKeyword_0_q;
 	protected AbstractElementAlias match_graph_declaration___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q;
 	protected AbstractElementAlias match_hierarchical_id___FullStopKeyword_1_0_IDTerminalRuleCall_1_1__a;
@@ -27,6 +30,8 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_port_declaration_ExportKeyword_0_q;
 	protected AbstractElementAlias match_primitive_datatype_SignedKeyword_0_0_q_or_UnsignedKeyword_0_1_q;
 	protected AbstractElementAlias match_primitive_datatype___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q;
+	protected AbstractElementAlias match_scalar_signed___SignedKeyword_1_0_or_UnsignedKeyword_1_1__q;
+	protected AbstractElementAlias match_signed_scalar___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q;
 	protected AbstractElementAlias match_struct_data_declaration_RandKeyword_0_q;
 	protected AbstractElementAlias match_unary_expr___AmpersandKeyword_0_4_or_CircumflexAccentKeyword_0_6_or_ExclamationMarkKeyword_0_2_or_HyphenMinusKeyword_0_1_or_PlusSignKeyword_0_0_or_TildeKeyword_0_3_or_VerticalLineKeyword_0_5__q;
 	
@@ -34,6 +39,9 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (PSSGrammarAccess) access;
 		match_action_portlist_Io_directionParserRuleCall_0_q = new TokenAlias(false, true, grammarAccess.getAction_portlistAccess().getIo_directionParserRuleCall_0());
+		match_data_declaration_RandKeyword_0_0_q = new TokenAlias(false, true, grammarAccess.getData_declarationAccess().getRandKeyword_0_0());
+		match_data_declaration_RandKeyword_1_0_q = new TokenAlias(false, true, grammarAccess.getData_declarationAccess().getRandKeyword_1_0());
+		match_data_declaration_RandKeyword_2_0_q = new TokenAlias(false, true, grammarAccess.getData_declarationAccess().getRandKeyword_2_0());
 		match_graph_data_declaration_RandKeyword_0_q = new TokenAlias(false, true, grammarAccess.getGraph_data_declarationAccess().getRandKeyword_0());
 		match_graph_declaration___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getGraph_declarationAccess().getLeftParenthesisKeyword_2_0()), new TokenAlias(false, false, grammarAccess.getGraph_declarationAccess().getRightParenthesisKeyword_2_2()));
 		match_hierarchical_id___FullStopKeyword_1_0_IDTerminalRuleCall_1_1__a = new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getHierarchical_idAccess().getFullStopKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getHierarchical_idAccess().getIDTerminalRuleCall_1_1()));
@@ -41,6 +49,8 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_port_declaration_ExportKeyword_0_q = new TokenAlias(false, true, grammarAccess.getPort_declarationAccess().getExportKeyword_0());
 		match_primitive_datatype_SignedKeyword_0_0_q_or_UnsignedKeyword_0_1_q = new AlternativeAlias(false, false, new TokenAlias(false, true, grammarAccess.getPrimitive_datatypeAccess().getSignedKeyword_0_0()), new TokenAlias(false, true, grammarAccess.getPrimitive_datatypeAccess().getUnsignedKeyword_0_1()));
 		match_primitive_datatype___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q = new AlternativeAlias(false, true, new TokenAlias(false, false, grammarAccess.getPrimitive_datatypeAccess().getSignedKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getPrimitive_datatypeAccess().getUnsignedKeyword_0_1()));
+		match_scalar_signed___SignedKeyword_1_0_or_UnsignedKeyword_1_1__q = new AlternativeAlias(false, true, new TokenAlias(false, false, grammarAccess.getScalar_signedAccess().getSignedKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getScalar_signedAccess().getUnsignedKeyword_1_1()));
+		match_signed_scalar___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q = new AlternativeAlias(false, true, new TokenAlias(false, false, grammarAccess.getSigned_scalarAccess().getSignedKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getSigned_scalarAccess().getUnsignedKeyword_0_1()));
 		match_struct_data_declaration_RandKeyword_0_q = new TokenAlias(false, true, grammarAccess.getStruct_data_declarationAccess().getRandKeyword_0());
 		match_unary_expr___AmpersandKeyword_0_4_or_CircumflexAccentKeyword_0_6_or_ExclamationMarkKeyword_0_2_or_HyphenMinusKeyword_0_1_or_PlusSignKeyword_0_0_or_TildeKeyword_0_3_or_VerticalLineKeyword_0_5__q = new AlternativeAlias(false, true, new TokenAlias(false, false, grammarAccess.getUnary_exprAccess().getAmpersandKeyword_0_4()), new TokenAlias(false, false, grammarAccess.getUnary_exprAccess().getCircumflexAccentKeyword_0_6()), new TokenAlias(false, false, grammarAccess.getUnary_exprAccess().getExclamationMarkKeyword_0_2()), new TokenAlias(false, false, grammarAccess.getUnary_exprAccess().getHyphenMinusKeyword_0_1()), new TokenAlias(false, false, grammarAccess.getUnary_exprAccess().getPlusSignKeyword_0_0()), new TokenAlias(false, false, grammarAccess.getUnary_exprAccess().getTildeKeyword_0_3()), new TokenAlias(false, false, grammarAccess.getUnary_exprAccess().getVerticalLineKeyword_0_5()));
 	}
@@ -82,6 +92,12 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_action_portlist_Io_directionParserRuleCall_0_q.equals(syntax))
 				emit_action_portlist_Io_directionParserRuleCall_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_data_declaration_RandKeyword_0_0_q.equals(syntax))
+				emit_data_declaration_RandKeyword_0_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_data_declaration_RandKeyword_1_0_q.equals(syntax))
+				emit_data_declaration_RandKeyword_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_data_declaration_RandKeyword_2_0_q.equals(syntax))
+				emit_data_declaration_RandKeyword_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_graph_data_declaration_RandKeyword_0_q.equals(syntax))
 				emit_graph_data_declaration_RandKeyword_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_graph_declaration___LeftParenthesisKeyword_2_0_RightParenthesisKeyword_2_2__q.equals(syntax))
@@ -96,6 +112,10 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_primitive_datatype_SignedKeyword_0_0_q_or_UnsignedKeyword_0_1_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_primitive_datatype___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q.equals(syntax))
 				emit_primitive_datatype___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_scalar_signed___SignedKeyword_1_0_or_UnsignedKeyword_1_1__q.equals(syntax))
+				emit_scalar_signed___SignedKeyword_1_0_or_UnsignedKeyword_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_signed_scalar___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q.equals(syntax))
+				emit_signed_scalar___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_struct_data_declaration_RandKeyword_0_q.equals(syntax))
 				emit_struct_data_declaration_RandKeyword_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_unary_expr___AmpersandKeyword_0_4_or_CircumflexAccentKeyword_0_6_or_ExclamationMarkKeyword_0_2_or_HyphenMinusKeyword_0_1_or_PlusSignKeyword_0_0_or_TildeKeyword_0_3_or_VerticalLineKeyword_0_5__q.equals(syntax))
@@ -109,6 +129,30 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     io_direction?
 	 */
 	protected void emit_action_portlist_Io_directionParserRuleCall_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'rand'?
+	 */
+	protected void emit_data_declaration_RandKeyword_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'rand'?
+	 */
+	protected void emit_data_declaration_RandKeyword_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     'rand'?
+	 */
+	protected void emit_data_declaration_RandKeyword_2_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -154,7 +198,7 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     'unsigned'? | 'signed'?
+	 *     'signed'? | 'unsigned'?
 	 */
 	protected void emit_primitive_datatype_SignedKeyword_0_0_q_or_UnsignedKeyword_0_1_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -162,9 +206,25 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	
 	/**
 	 * Syntax:
-	 *     ('unsigned' | 'signed')?
+	 *     ('signed' | 'unsigned')?
 	 */
 	protected void emit_primitive_datatype___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ('signed' | 'unsigned')?
+	 */
+	protected void emit_scalar_signed___SignedKeyword_1_0_or_UnsignedKeyword_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     ('signed' | 'unsigned')?
+	 */
+	protected void emit_signed_scalar___SignedKeyword_0_0_or_UnsignedKeyword_0_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -179,13 +239,13 @@ public class PSSSyntacticSequencer extends AbstractSyntacticSequencer {
 	/**
 	 * Syntax:
 	 *     (
-	     '!' | 
-	     '^' | 
-	     '~' | 
-	     '-' | 
-	     '&' | 
 	     '+' | 
-	     '|'
+	     '-' | 
+	     '!' | 
+	     '~' | 
+	     '&' | 
+	     '|' | 
+	     '^'
 	 )?
 	 */
 	protected void emit_unary_expr___AmpersandKeyword_0_4_or_CircumflexAccentKeyword_0_6_or_ExclamationMarkKeyword_0_2_or_HyphenMinusKeyword_0_1_or_PlusSignKeyword_0_0_or_TildeKeyword_0_3_or_VerticalLineKeyword_0_5__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
