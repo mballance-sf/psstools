@@ -3,11 +3,18 @@
 */
 package net.sf.psstools.lang.ui.outline
 
+import net.sf.psstools.lang.pSS.constraint_declaration
+import net.sf.psstools.lang.pSS.symbol_definition
+import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
+
 /**
  * Customization of the default outline structure.
  *
  * see http://www.eclipse.org/Xtext/documentation.html#outline
  */
-class PSSOutlineTreeProvider extends org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider {
+class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider {
+	
+	def _isLeaf(constraint_declaration e) { true }
+	def _isLeaf(symbol_definition e) { true }
 	
 }
