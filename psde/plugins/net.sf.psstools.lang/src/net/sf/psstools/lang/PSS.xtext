@@ -37,83 +37,85 @@ graph_declaration:
 ;
 
 port_declaration:
-	('export')? ifc_type=[interface_declaration|interface_identifier] name=identifier
+	('export')? ifc_type=[interface_declaration|interface_identifier] name=port_identifier
 ;
 
 struct_declaration:
-	'struct' name=identifier ('extends' super=[struct_declaration])? '{'
+	'struct' name=identifier ('extends' super=[struct_declaration|struct_identifier])? '{'
 	body+=struct_body_item*
 	'}'
 ;
 
-struct_graph_body_item:
-	overrides_declaration |	
-	constraint_declaration
-;
-
 struct_body_item:
-	struct_graph_body_item |
-	struct_data_declaration /*
+	constraint_declaration |
+	('rand')? data_declaration |
+	typedef_declaration /*
 	bins_declaration |
 	bin_scheme_declaration */
 ;
 
 graph_body_item:
-	struct_graph_body_item |
-	graph_data_declaration |
+	overrides_declaration  |	
+	constraint_declaration |
+	('rand')? data_declaration |
+	typedef_declaration |
 	symbol_declaration |
 	symbol_definition
 ;
 
 symbol_definition:
-	name=ID ':=' rule=rule_production
+	name=identifier ':=' rule=rule_production
 ;
 
 /********************************************************************
  * Rule productions
  */
 rule_production: 
-	stmt_or_block
+	rule_stmt_or_block
 ;
 
-stmt_or_block:
-	repeat_stmt | alt_stmt 
+rule_stmt_or_block:
+	rule_repeat_stmt | rule_stmt_alt_parallel_seq
 	;
 	
-alt_stmt:
-	stmt_primary ({alt_stmt.left=current} '|' right=stmt_primary)*
+rule_stmt_alt_parallel_seq:
+	rule_stmt_primary ({alt_stmt.left=current} '|' right=rule_stmt_primary)*
 ;
 
-stmt_primary:
-	stmt_alt ';' |
-	'{' {stmt_primary} stmt_list+=stmt_or_block* '}'
+rule_stmt_primary:
+	rule_rule_stmt_parallel_alt ';' |
+	'{' {rule_stmt_primary} stmt_list+=rule_stmt_or_block* '}'
 ;
 
-stmt_alt:
-	stmt_parallel ({stmt_alt.left=current} '|' right=stmt_parallel)*
+rule_rule_stmt_parallel_alt:
+	rule_stmt_parallel ({stmt_alt.left=current} '|' right=rule_stmt_parallel)*
 ;
 
-stmt_parallel:
-	seq ({stmt_parallel.left=current} '&' right=seq)*	
+rule_stmt_parallel:
+	rule_sequence ({rule_stmt_parallel.left=current} '&' right=rule_sequence)*	
 ;
 
-//	alts+=seq '|' alts+=stmt_primary |
-
-seq:
-	items+=seq_item (',' items+=seq_item)*
+rule_sequence:
+	items+=rule_seq_item (',' items+=rule_seq_item)*
 ;
 
-seq_item:
-	hierarchical_id ('(' parameters=ifc_call_parameter_list ')')?
+rule_seq_item:
+	hierarchical_id (
+		'(' action_params=ifc_call_parameter_list ')' |
+		with_clause=rule_with_clause
+		)?
+;
+
+rule_with_clause:
+	{rule_with_clause} 'with' '{' body+=constraint_body_item* '}'
 ;
 
 ifc_call_parameter_list:
 	parameters+=hierarchical_id (',' parameters+=hierarchical_id)*
 ;
 
-
-repeat_stmt:
-	'repeat' stmt=stmt_or_block 
+rule_repeat_stmt:
+	'repeat' ('(' expr=expression ')')? stmt=rule_stmt_or_block 
 ;
 
 /********************************************************************
@@ -129,71 +131,76 @@ override_stmt:
 ;
 
 type_override:
-	'type' src=ID 'with' dest=ID ';'
+	'type' src=identifier 'with' dest=identifier ';'
 ;
 
 instance_override:
-	'instance' src=hierarchical_id 'with' dest=ID ';'
+	'instance' src=hierarchical_id 'with' dest=identifier ';'
 ;
 
 /********************************************************************
  * Data Declarations
  */
- data_declaration:
- 	('rand')? typedef_declaration |
- 	('rand')? enum_declaration |
- 	('rand')? scalar_declaration /* |
- 	('rand')? array_declaration 	
- 	*/
- ;
- 
- typedef_declaration:
- 	'typedef' src=ID dest=ID ';' 
- ;
+data_declaration:
+	data_type names+=identifier (',' names+=identifier)* ';' 
+;
+
+data_type:
+	integer_type |
+	enum_type |
+	user_defined_type
+;
+
+user_defined_type:
+	typename=identifier /* TODO: parameterization */
+//	graph_type|struct_type|typedef_type=[typedef_declaration]
+;
+
+typedef_declaration:
+ 	'typedef' type=data_type type_identifier=identifier ';' 
+;
   
- enum_declaration:
+enum_type:
   	'enum' (data_type = integer_type)? '{' 
-  		items+=ID (',' items+=ID)*
-  		'}' name=ID ';'
+  		items+=identifier (',' items+=identifier)*
+  		'}' 
   ;
- 
- scalar_declaration:
- 	(signed_scalar /* | scalar_signed */ ) ('[' lhs=expression ':' rhs=expression ']')? 
- 	('inside ['items+=domain_spec (','items+=domain_spec)*']')?
- ;
- 
- signed_scalar:
- 	('signed' | 'unsigned')? name=ID
- ;
- 
- scalar_signed:
- 	name=ID ('signed' | 'unsigned')?
- ;
- 
- domain_spec:
- 	(range_lhs=INT '..' range_rhs=INT) |
- 	(range_lhs=INT)
- ;
+
+integer_type:
+	('signed'|'unsigned')? atom_type=integer_atom_type ('[' lhs=expression ':' rhs=expression ']')? (inside=type_inside_clause)?
+; 
+
+integer_atom_type:
+	'int'|'bit'
+;
+
+type_inside_clause:
+	'inside' '{' domain=open_range_list '}'
+;
+
+open_range_list:
+	ranges+=open_range_value (',' ranges+=open_range_value)*
+;
+
+open_range_value:
+	lhs=expression | '[' lhs=expression ':' rhs=expression ']'
+;
+
+// TODO: convert to constant_expressions 
+// domain_spec: range_lhs=identifier ('..' range_rhs=identifier)? ;
  
  /********************************************************************
  * Constraints
  */
 constraint_declaration:
-	'constraint' name=ID '{'
+	'constraint' name=identifier ('dynamic')? '{'
 	body+=constraint_body_item*
 	'}'
 ;
 
-constraint_body_no_if_item:
-	expression_or_dist_item |
-/*	uniqueness_constraint_item |
-	implication_constraint_item | */
-	foreach_constraint_item
-
-;
-
 constraint_body_item:
-	constraint_body_no_if_item |
+	expression_or_dist_item |
+	foreach_constraint_item |
 	if_constraint_item
 ;
 
@@ -214,7 +221,6 @@ constraint_set:
 	items+=constraint_body_item | '{' {constraint_set} items+=constraint_body_item* '}'
 ;
 
-
 /********************************************************************
  * Expressions
  * 
@@ -225,6 +231,9 @@ constraint_set:
  * The expression grammar below is refactored to eliminate left 
  * recursion and properly implement operator precedence
  */
+// TODO: should make special-purpose declaration 
+constant_expression: expression;
+
 expression: 
 	condition_expr
 	;
@@ -254,7 +263,7 @@ binary_and_expr returns expression:
 ;
 
 logical_equality_expr returns expression:
-	logical_inequality_expr ({logical_equality_expr.left=current} op=('=='|'!=') right=logical_inequality_expr)*
+	logical_inequality_expr ({logical_equality_expr.left=current} op=eq_neq_op right=logical_inequality_expr)*
 ;
 
 logical_inequality_expr returns expression:
@@ -262,15 +271,15 @@ logical_inequality_expr returns expression:
 ;
 
 binary_shift_expr returns expression:
-	binary_add_sub_expr ({binary_shift_expr.left=current} op=('<<'|'>>') right=binary_add_sub_expr)*
+	binary_add_sub_expr ({binary_shift_expr.left=current} op=shift_op right=binary_add_sub_expr)*
 ;
 
 binary_add_sub_expr returns expression:
-	binary_mul_div_mod_expr ({binary_add_sub_expr.left=current} op=('+'|'-') right=binary_mul_div_mod_expr)*
+	binary_mul_div_mod_expr ({binary_add_sub_expr.left=current} op=add_sub_op right=binary_mul_div_mod_expr)*
 ;
 
 binary_mul_div_mod_expr returns expression:
-	binary_exp_expr ({binary_mul_div_mod_expr.left=current} op=('*'|'/'|'%') right=binary_exp_expr)*
+	binary_exp_expr ({binary_mul_div_mod_expr.left=current} op=mul_div_mod_op right=binary_exp_expr)*
 ;
 
 binary_exp_expr returns expression:
@@ -278,6 +287,14 @@ binary_exp_expr returns expression:
 ;
 
 unary_op: '+' | '-' | '!' | '~' | '&' | '|' | '^';
+
+eq_neq_op: '==' | '!=';
+
+shift_op: '<<' | '>>';
+
+add_sub_op: '+' | '-';
+
+mul_div_mod_op: '*' | '/' | '%';
 
 unary_expr returns expression:
 	(unary_op)? primary
@@ -291,7 +308,7 @@ primary returns expression:
 
 
 interface_declaration:
-	'interface' name=ID ('extends' super=[interface_declaration])? '{'
+	'interface' name=identifier ('extends' super=[interface_declaration])? '{'
 	body+=interface_body_item*
 	'}'
 ;
@@ -301,11 +318,11 @@ interface_body_item:
 ;
 
 action_declaration:
-	'action' name=ID '(' (ports+=action_portlist (',' ports+=action_portlist)* )? ')' ';'
+	'action' name=identifier '(' (ports+=action_portlist (',' ports+=action_portlist)* )? ')' ';'
 ;
 
 action_portlist:
-	(io_direction)? (type=[struct_declaration]|primitive_datatype) name=ID
+	(io_direction)? (type=[data_type]) name=identifier
 ;
 
 io_direction:
@@ -313,41 +330,20 @@ io_direction:
 ;
 
 graph_data_declaration:
-	('rand')? type=graph_datatype names+=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? 
-		(',' names+=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')?)* ';'
+	('rand')? type=[data_type] names+=identifier ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? 
+		(',' names+=identifier ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')?)* ';'
 ;
 
 symbol_declaration:
-	'symbol' name=ID (':=' inline_rule=stmt_or_block ';')? |
-	'symbol' names+=ID (',' names+=ID (':=' inline_rule=stmt_or_block)?) ';'
+	'symbol' name=identifier (':=' inline_rule=rule_stmt_or_block ';')? |
+	'symbol' names+=identifier (',' names+=identifier (':=' inline_rule=rule_stmt_or_block)?) ';'
 ;
 
 port_map:
-	'.' port=ID '(' map=hierarchical_id ')'
+	'.' port=identifier '(' map=hierarchical_id ')'
 ;
 
-struct_data_declaration:
-	('rand')? type=struct_datatype names+=ID (',' names+=ID)* ';'
-;
 
-graph_datatype:
-	primitive_datatype |
-	graph_typename=[graph_struct_ifc_declaration]
-;
-
-struct_datatype:
-	primitive_datatype |
-	struct_typename=[struct_declaration]
-;
-
-primitive_datatype:
-	('signed'|'unsigned')? integer_type 
-;
-
-integer_type:
-	{integer_type} 'int' |
-	{integer_type} 'bit' ('[' range_lhs=INT ':' range_rhs=INT ']')?
-;
 
 /********************************************************************
  * Identifiers, literals, etc
@@ -356,11 +352,14 @@ integer_type:
 graph_identifier: identifier;
 struct_identifier: identifier;
 interface_identifier: identifier;
-graph_or_struct_identifier: graph_identifier | struct_identifier;
-graph_struct_interface_identiifer: graph_identifier | struct_identifier | interface_identifier;
+graph_or_struct_identifier: identifier;
+graph_struct_interface_identiifer: identifier;
+port_identifier: identifier;
+
+identifier: ID;
 
 hierarchical_id:
-	value=ID ('.' ID)*
+	value=identifier ('.' identifier)*
 ;
 
 literal:
@@ -379,10 +378,10 @@ size:
 	value=INT
 ;
 
-terminal identifier:
-	('^')?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
-;
+//terminal identifier:
+//	('^')?('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
+//;
 
 //graph_instance:
-//	type=[graph_declaration] name=ID ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? ';'
+//	type=[graph_declaration] name=identifier ('(' portmaps+=port_map (',' portmaps+=port_map)* ')')? ';'
 //;
