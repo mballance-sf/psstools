@@ -1,0 +1,87 @@
+
+
+
+struct axi4_trans_req {
+	rand bit[31:0]			axi_addr;
+	rand bit[31:0]			axi_write_data;
+	rand bit				is_write;
+	rand bit[3:0]			prot;
+	rand bit[1:0]			lock;
+}
+
+struct axi4_trans_rsp {
+	rand bit[1:0]			resp;
+	rand bit[31:0]			axi_read_data;
+}
+
+interface axi_if {
+	action start_axi_trans(axi4_trans_req req);
+	action finish_axi_trans(output axi4_trans_rsp rsp);
+}
+
+graph reg2axi_translator (
+	export reg_rw_if	reg_ifm,
+	axi_if				axi	
+	) {
+	rand axi4_trans_req  write_trans;
+	
+	constraint write_c dynamic {
+		read_trans.axi_addr == read_addr;
+		read_trans.axi_write_data == write_data;
+		read_trans.is_write == 1;
+	}
+
+	reg_ifm.read_reg(int read_addr, output int read_data) := {
+		rand axi4_trans_req  read_trans;
+		axi4_trans_rsp read_rsp;
+		
+		// Declarations...
+		
+		constraint read_c dynamic {
+			read_trans.axi_addr == read_addr;
+			read_trans.is_write == 0;
+		}
+
+		constraint c {
+			read_trans.burst <= 2;
+		}
+		
+		// Definition	
+		read_reg := {
+			// Coverage of some attributes of activity 
+			read_c;
+			// Inline constraint to force a read
+			read_trans with { read_trans.is_write == 0; };
+			axi.start_axi_trans(read_trans);
+			axi.finish_axi_trans(read_rsp);
+				
+//			read_data = read_rsp.axi_read_data;
+		}
+	}
+
+	reg_ifm.write_reg(int write_addr, int write_data) := {
+		rand axi4_trans_req  write_trans;
+		axi4_trans_rsp write_rsp;
+		
+		// Declarations...
+		
+		constraint write_c dynamic {
+			write_trans.axi_addr == write_addr;
+			write_trans.is_write == 1;
+		}
+
+		constraint c {
+			write_trans.burst <= 2;
+		}
+		
+		// Definition	
+		read_reg := {
+			// Coverage of some attributes of activity 
+			write_c, write_trans;
+			axi.start_axi_trans(write_trans);
+			axi.finish_axi_trans(write_rsp);
+		}
+	}
+		
+}
+

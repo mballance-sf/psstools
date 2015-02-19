@@ -15,6 +15,9 @@ portable_stimulus_description:
 	package_declaration */
 ;
 
+// graph_or_struct_declaration and graph_struct_if_declaration are placeholders
+// to help the language infrastructure understand that structs can only extend
+// from structs, while graphs can extend from either a struct or a graph
 graph_or_struct_declaration:
 	graph_declaration|struct_declaration
 ;
@@ -55,16 +58,21 @@ struct_body_item:
 ;
 
 graph_body_item:
-	overrides_declaration  |	
-	constraint_declaration |
-	('rand')? data_declaration |
-	typedef_declaration |
-	symbol_declaration |
-	symbol_definition
+	overrides_declaration  		|	
+	constraint_declaration 		|
+	('rand')? data_declaration 	|
+	typedef_declaration 		|
+	symbol_declaration 			|
+	symbol_definition 			|
+	interface_action_definition	
 ;
 
 symbol_definition:
-	name=identifier ':=' rule=rule_production
+	symbol_name=identifier ':=' body_items+=rule_production 
+;
+
+interface_action_definition:
+	action=interface_action_id '(' parameters=action_portlist ')' ':=' '{' body_items+=graph_body_item* '}' 
 ;
 
 /********************************************************************
@@ -75,7 +83,7 @@ rule_production:
 ;
 
 rule_stmt_or_block:
-	rule_repeat_stmt | rule_stmt_alt_parallel_seq
+	rule_repeat_stmt | rule_stmt_alt_parallel_seq /*  | rule_if_production */
 	;
 	
 rule_stmt_alt_parallel_seq:
@@ -83,11 +91,11 @@ rule_stmt_alt_parallel_seq:
 ;
 
 rule_stmt_primary:
-	rule_rule_stmt_parallel_alt ';' |
+	rule_stmt_parallel_alt ';' |
 	'{' {rule_stmt_primary} stmt_list+=rule_stmt_or_block* '}'
 ;
 
-rule_rule_stmt_parallel_alt:
+rule_stmt_parallel_alt:
 	rule_stmt_parallel ({stmt_alt.left=current} '|' right=rule_stmt_parallel)*
 ;
 
@@ -101,7 +109,7 @@ rule_sequence:
 
 rule_seq_item:
 	hierarchical_id (
-		'(' action_params=ifc_call_parameter_list ')' |
+		'(' action_params=parameter_list ')' |
 		with_clause=rule_with_clause
 		)?
 ;
@@ -110,7 +118,7 @@ rule_with_clause:
 	{rule_with_clause} 'with' '{' body+=constraint_body_item* '}'
 ;
 
-ifc_call_parameter_list:
+parameter_list:
 	parameters+=hierarchical_id (',' parameters+=hierarchical_id)*
 ;
 
@@ -142,7 +150,19 @@ instance_override:
  * Data Declarations
  */
 data_declaration:
-	data_type names+=identifier (',' names+=identifier)* ';' 
+	data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
+;
+
+data_instantiation:
+	name=identifier ('(' portmap=graph_interface_portmap_list ')')?
+;
+
+graph_interface_portmap_list:
+	{graph_interface_portmap_list} (maps+=graph_interface_portmap (',' maps+=graph_interface_portmap)*)?
+;
+
+graph_interface_portmap:
+	'.' portname=identifier '(' connected_name=hierarchical_id ')'
 ;
 
 data_type:
@@ -183,12 +203,13 @@ open_range_list:
 ;
 
 open_range_value:
-	lhs=expression | '[' lhs=expression ':' rhs=expression ']'
+	lhs=expression | '[' range=range_expr ']'
 ;
 
-// TODO: convert to constant_expressions 
-// domain_spec: range_lhs=identifier ('..' range_rhs=identifier)? ;
- 
+range_expr:
+	'[' lhs=expression (':'|'..') rhs=expression ']'
+;
+
  /********************************************************************
  * Constraints
  */
@@ -318,11 +339,15 @@ interface_body_item:
 ;
 
 action_declaration:
-	'action' name=identifier '(' (ports+=action_portlist (',' ports+=action_portlist)* )? ')' ';'
+	'action' name=identifier '(' ports=action_portlist ')' ';'
 ;
 
 action_portlist:
-	(io_direction)? (type=[data_type]) name=identifier
+	{action_portlist} (ports+=action_port (',' ports+=action_port)*)?
+;
+
+action_port:
+	(io_direction)? (type=data_type) name=identifier
 ;
 
 io_direction:
@@ -335,8 +360,14 @@ graph_data_declaration:
 ;
 
 symbol_declaration:
-	'symbol' name=identifier (':=' inline_rule=rule_stmt_or_block ';')? |
-	'symbol' names+=identifier (',' names+=identifier (':=' inline_rule=rule_stmt_or_block)?) ';'
+	'symbol' decl_list+=symbol_decl_item (
+		':=' inline_rule=rule_stmt_or_block |
+		(',' decl_list+=symbol_decl_item)* ';'
+	)
+;
+
+symbol_decl_item:
+	name=identifier ('(' parameters=action_portlist ')')?
 ;
 
 port_map:
@@ -360,6 +391,10 @@ identifier: ID;
 
 hierarchical_id:
 	value=identifier ('.' identifier)*
+;
+
+interface_action_id:
+	ifc=identifier '.' action=identifier
 ;
 
 literal:

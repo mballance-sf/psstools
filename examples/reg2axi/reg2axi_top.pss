@@ -1,0 +1,36 @@
+
+graph reg2axi_top(axi_if env_if) {
+	
+	override {
+		type axi_write_graph with axi_write_graph_x;
+		instance xlator.axi_graph with axi_write_graph_x2;
+	}
+
+	reg_rw_if			reg2xlator_if;
+	reg_accessor		reg_acc (.reg_if(reg2xlator_if));
+	reg2axi_translator	xlator(.reg_ifm(reg2xlator_if),
+							   .axi(env_if));
+
+
+	reg2axi_top := reg_acc;
+}
+
+graph reg2axi_top_x(
+	axi_if			env_if) extends reg2axi_top {
+
+	// Override processing happens from the base graph to extended graph
+	// - Process type overrides (axi_write_graph => axi_write_Graph_x ; axi_write_graph => axi_write_graph_x3)
+	// - Process instance overrides
+	// - Instance has precedence over type
+	
+	// Cannot override a struct type with a graph type
+	// Can override a struct instance with a graph, provided the instance is in a graph context
+	override {
+		// Do we need a way to not apply the super.overrides?
+		
+		// Type-based override for axi_write_graph from reg2axi_top still applies
+		instance xlator.axi_graph with axi_write_graph_x3;
+		type axi_write_graph with axi_write_graph_x4;
+	}
+	
+}
