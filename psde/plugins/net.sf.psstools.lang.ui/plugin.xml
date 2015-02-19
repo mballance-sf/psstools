@@ -395,28 +395,44 @@
     </provider>
   </extension>
   <extension
-        point="org.eclipse.ui.popupMenus">
-     <viewerContribution
-           id="net.sf.psstools.lang.ui.viewerContribution1"
-           targetID="net.sf.psstools.lang.PSS.EditorContext">
-        <action
-              class="net.sf.psstools.lang.ui.Action1"
-              id="net.sf.psstools.lang.ui.action1"
-              label="ABC">
-        </action>
-        <menu
-              id="net.sf.psstools.lang.ui.menu1"
-              label="FOO">
-        </menu>
-     </viewerContribution>
-     <viewerContribution
-           id="net.sf.psstools.lang.ui.viewerContribution2"
-           targetID="org.eclipse.ui.popup.any">
-        <menu
-              id="net.sf.psstools.lang.ui.menu2"
-              label="label">
-        </menu>
-     </viewerContribution>
+        point="org.eclipse.ui.commands">
+     <command
+           id="net.sf.psstools.lang.ui.viewGraph"
+           name="View Graph">
+     </command>
+  </extension>
+  <extension
+        point="org.eclipse.ui.menus">
+     <menuContribution
+           allPopups="false"
+           locationURI="popup:#TextEditorContext?after=additions">
+        <command
+              commandId="net.sf.psstools.lang.ui.viewGraph"
+              style="push">
+           <visibleWhen
+                 checkEnabled="false">
+              <reference
+                    definitionId="net.sf.psstools.lang.PSS.Editor.opened">
+              </reference>
+           </visibleWhen>
+        </command>
+     </menuContribution>
+  </extension>
+  <extension
+        point="org.eclipse.ui.handlers">
+     <handler
+           class="net.sf.psstools.lang.ui.PSSExecutableExtensionFactory:net.sf.psstools.lang.ui.editor.actions.ViewGraphHandler"
+           commandId="net.sf.psstools.lang.ui.viewGraph">
+     </handler>
+  </extension>
+  <extension
+        point="org.eclipse.ui.views">
+     <view
+           class="net.sf.psstools.lang.ui.views.EBnfView"
+           id="net.sf.psstools.lang.ui.eBNFView"
+           name="eBNF View"
+           restorable="true">
+     </view>
   </extension>
 
 </plugin>
