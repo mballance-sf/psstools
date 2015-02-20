@@ -14,6 +14,7 @@ package reg2axi_top_pkg;
 	`include "axi4_reg_rw_translator.svh"
 	`include "axi4_trans_req.svh"
 	`include "axi4_trans_rsp.svh"
+	`include "reg_accessor.svh"
 	`include "reg_rw_if.svh"
 	`include "reg2axi_top.svh"
 

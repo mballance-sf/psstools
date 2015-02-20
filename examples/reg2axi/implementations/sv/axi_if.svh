@@ -20,7 +20,7 @@ virtual class axi_if;
 
 	pure virtual task start_axi_trans(axi4_trans_req req);
 
-	pure virtual task finish_axi_trans(output axi4_trans_rsp rsp);
+	pure virtual task finish_axi_trans(axi4_trans_rsp rsp);
 
 endclass
 

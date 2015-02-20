@@ -8,7 +8,8 @@ graph reg2axi_top(axi_if env_if) {
 
 	reg_rw_if			reg2xlator_if;
 	reg_accessor		reg_acc (.reg_if(reg2xlator_if));
-	reg2axi_translator	xlator(.reg_ifm(reg2xlator_if),
+	
+	axi4_reg_rw_translator	xlator(.reg_ifm(reg2xlator_if),
 							   .axi(env_if));
 
 

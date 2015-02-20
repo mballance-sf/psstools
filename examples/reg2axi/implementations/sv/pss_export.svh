@@ -14,7 +14,8 @@ class pss_export #(type interface_t) extends pss_port_base;
 		super.new(name, parent);
 	endfunction
 
-	virtual function void connect();
+	virtual function void connect(interface_t ifc);
+		this.ifc = ifc;
 	endfunction
 
 endclass

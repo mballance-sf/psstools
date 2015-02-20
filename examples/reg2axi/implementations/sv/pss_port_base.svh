@@ -15,8 +15,5 @@ class pss_port_base;
 		end
 	endfunction
 
-	virtual function void connect();
-	endfunction
-
 endclass
 
