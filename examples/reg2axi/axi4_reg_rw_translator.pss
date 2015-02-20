@@ -55,7 +55,7 @@ graph reg2axi_translator (
 			axi.start_axi_trans(read_trans);
 			axi.finish_axi_trans(read_rsp);
 				
-//			read_data = read_rsp.axi_read_data;
+			read_data = read_rsp.axi_read_data;
 		}
 	}
 
