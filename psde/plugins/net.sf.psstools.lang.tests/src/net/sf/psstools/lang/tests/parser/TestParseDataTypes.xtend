@@ -27,12 +27,7 @@ class TestParseDataTypes {
 		'''
 		
 		val model = testcase.parse
-
 		model.assertNoErrors
-		
-		val s = model.topLevel.get(0) as struct_declaration;
-		
-		Assert::assertEquals("my_struct", s.name)
 	}
 	
 	@Test
@@ -44,12 +39,7 @@ class TestParseDataTypes {
 		'''
 
 		val model = testcase.parse
-
 		model.assertNoErrors
-		
-		val s = model.topLevel.get(0) as struct_declaration;
-		
-		Assert::assertEquals("my_struct", s.name)
 	}	
 
 	@Test
@@ -62,12 +52,7 @@ class TestParseDataTypes {
 		'''
 
 		val model = testcase.parse
-
 		model.assertNoErrors
-		
-		val s = model.topLevel.get(0) as struct_declaration;
-		
-		Assert::assertEquals("my_struct", s.name)
 	}		
 
 	@Test
@@ -80,13 +65,9 @@ class TestParseDataTypes {
 		'''
 
 		val model = testcase.parse
-
 		model.assertNoErrors
-		
-		val s = model.topLevel.get(0) as struct_declaration;
-		
-		Assert::assertEquals("my_struct", s.name)
 	}			
+	
 }
 
 
