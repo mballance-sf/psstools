@@ -45,8 +45,6 @@ module reg2axi;
 		pss_graph::do_build(reg2axi_graph);
 		
 		// Connect interface implementation
-		$display("env_if=%p", reg2axi_graph.env_if);
-		
 		pss_graph::do_connect(reg2axi_graph);
 		
 		reg2axi_graph.env_if.connect(axi_impl);
