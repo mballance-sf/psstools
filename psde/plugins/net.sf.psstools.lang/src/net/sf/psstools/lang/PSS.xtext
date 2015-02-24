@@ -12,17 +12,10 @@ portable_stimulus_description:
 	struct_declaration |
 	interface_declaration |
 	data_declaration |
-<<<<<<< HEAD
 	typedef_declaration |
 	bins_declaration  /* |
-	 * 	include_statement |
-
-=======
-	typedef_declaration
-	/* |
 	include_statement |
 	bins_declaration |
->>>>>>> refs/remotes/upstream/master
 	package_declaration */
 ;
 
@@ -71,10 +64,7 @@ graph_body_item:
 	overrides_declaration  		|	
 	constraint_declaration 		|
 	('rand')? data_declaration 	|
-<<<<<<< HEAD
-	bin_or_scheme_declaration      |
-=======
->>>>>>> refs/remotes/upstream/master
+	bin_or_scheme_declaration   |
 	typedef_declaration 		|
 	symbol_declaration 			|
 	symbol_definition 			|
@@ -258,13 +248,6 @@ foreach_constraint_item:
 
 constraint_set:
 	items+=constraint_body_item | items+=constraint_block
-<<<<<<< HEAD
-=======
-;
-
-constraint_block:
-	'{' {constraint_set} items+=constraint_body_item* '}'
->>>>>>> refs/remotes/upstream/master
 ;
 
 constraint_block:
@@ -474,10 +457,6 @@ identifier: ID;
 
 hierarchical_id:
 	value=identifier ('.' identifier)*
-;
-
-interface_action_id:
-	ifc=identifier '.' action=identifier
 ;
 
 interface_action_id:
