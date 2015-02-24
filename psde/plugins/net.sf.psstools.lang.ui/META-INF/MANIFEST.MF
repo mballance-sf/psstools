@@ -7,8 +7,8 @@ Bundle-SymbolicName: net.sf.psstools.lang.ui; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: net.sf.psstools.lang;visibility:=reexport,
  org.eclipse.xtext.ui,
- org.eclipse.ui.editors;bundle-version="3.5.0",
- org.eclipse.ui.ide;bundle-version="3.5.0",
+ org.eclipse.ui.editors,
+ org.eclipse.ui.ide,
  org.eclipse.xtext.ui.shared,
  org.eclipse.ui,
  org.eclipse.xtext.builder,
@@ -16,7 +16,9 @@ Require-Bundle: net.sf.psstools.lang;visibility:=reexport,
  org.antlr.runtime,
  org.eclipse.xtext.common.types.ui,
  org.eclipse.xtext.ui.codetemplates.ui,
- org.eclipse.compare
+ org.eclipse.compare,
+ org.eclipse.zest.core,
+ org.eclipse.zest.layouts
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: net.sf.psstools.lang.ui.quickfix,

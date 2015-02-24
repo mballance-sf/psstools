@@ -17,6 +17,18 @@
            fileExtensions=".pss">
      </participant>
   </extension>
+  <extension
+        id="pssc"
+        point="org.eclipse.core.runtime.applications">
+     <application
+           cardinality="singleton-global"
+           thread="main"
+           visible="true">
+        <run
+              class="net.sf.psstools.lang.compiler.PSSC">
+        </run>
+     </application>
+  </extension>
 
 
 

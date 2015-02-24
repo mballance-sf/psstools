@@ -97,6 +97,7 @@ rule_stmt_alt_parallel_seq:
 
 rule_stmt_primary:
 	rule_stmt_parallel_alt ';' |
+	param=identifier '<=' rhs=expression ';' |
 	'{' {rule_stmt_primary} stmt_list+=rule_stmt_or_block* '}'
 ;
 
@@ -114,7 +115,6 @@ rule_sequence:
 
 rule_seq_item:
 	action=interface_action_id '(' action_params=parameter_list ')' |
-	param=identifier '=' rhs=hierarchical_id |
 	item=identifier (with_clause=rule_with_clause)?
 ;
 
@@ -158,7 +158,7 @@ instance_override:
  * Data Declarations
  */
 data_declaration:
-	data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
+	type=data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
 ;
 
 data_instantiation:

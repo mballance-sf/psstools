@@ -433,6 +433,12 @@
            name="eBNF View"
            restorable="true">
      </view>
+     <view
+           class="net.sf.psstools.lang.ui.views.graph.PSSGraphView"
+           id="net.sf.psstools.lang.ui.pssGraphView"
+           name="PSS Graph View"
+           restorable="true">
+     </view>
   </extension>
 
 </plugin>

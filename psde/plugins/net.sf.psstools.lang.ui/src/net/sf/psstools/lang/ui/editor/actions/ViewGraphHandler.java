@@ -1,5 +1,8 @@
 package net.sf.psstools.lang.ui.editor.actions;
 
+import net.sf.psstools.lang.ui.PSSUiModule;
+import net.sf.psstools.lang.ui.views.graph.PSSGraphView;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -8,6 +11,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
@@ -60,9 +67,15 @@ public class ViewGraphHandler extends AbstractHandler implements IHandler {
 					int offset = tsel.getOffset();
 					ILeafNode n = NodeModelUtils.findLeafNodeAtOffset(root, offset);
 					EObject eobj = NodeModelUtils.findActualSemanticObjectFor(n);
-					
+			
+					IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+					IWorkbenchPage page = window.getActivePage();
+					IViewPart view = page.showView("net.sf.psstools.lang.ui.pssGraphView");
+				
+					if (view != null) {
+						((PSSGraphView)view).setInput(eobj);
+					}
 					System.out.println("eobj: " + eobj);
-		
 					traverse("", eobj);
 				}
 			});
