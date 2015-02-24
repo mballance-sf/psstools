@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface expression extends expression_or_dist_item
+public interface expression extends expression_or_dist_item, constant_expression
 {
   /**
    * Returns the value of the '<em><b>Impl constraint</b></em>' containment reference.

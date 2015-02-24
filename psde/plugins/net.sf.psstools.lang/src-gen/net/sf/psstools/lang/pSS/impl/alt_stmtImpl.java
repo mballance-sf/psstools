@@ -4,7 +4,8 @@ package net.sf.psstools.lang.pSS.impl;
 
 import net.sf.psstools.lang.pSS.PSSPackage;
 import net.sf.psstools.lang.pSS.alt_stmt;
-import net.sf.psstools.lang.pSS.stmt_primary;
+import net.sf.psstools.lang.pSS.rule_stmt_alt_parallel_seq;
+import net.sf.psstools.lang.pSS.rule_stmt_primary;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -28,7 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
+public class alt_stmtImpl extends rule_stmt_alt_parallel_seqImpl implements alt_stmt
 {
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -38,7 +39,7 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * @generated
    * @ordered
    */
-  protected alt_stmt left;
+  protected rule_stmt_alt_parallel_seq left;
 
   /**
    * The cached value of the '{@link #getRight() <em>Right</em>}' containment reference.
@@ -48,7 +49,7 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * @generated
    * @ordered
    */
-  protected stmt_primary right;
+  protected rule_stmt_primary right;
 
   /**
    * <!-- begin-user-doc -->
@@ -76,7 +77,7 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * <!-- end-user-doc -->
    * @generated
    */
-  public alt_stmt getLeft()
+  public rule_stmt_alt_parallel_seq getLeft()
   {
     return left;
   }
@@ -86,9 +87,9 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeft(alt_stmt newLeft, NotificationChain msgs)
+  public NotificationChain basicSetLeft(rule_stmt_alt_parallel_seq newLeft, NotificationChain msgs)
   {
-    alt_stmt oldLeft = left;
+    rule_stmt_alt_parallel_seq oldLeft = left;
     left = newLeft;
     if (eNotificationRequired())
     {
@@ -103,7 +104,7 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setLeft(alt_stmt newLeft)
+  public void setLeft(rule_stmt_alt_parallel_seq newLeft)
   {
     if (newLeft != left)
     {
@@ -124,7 +125,7 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * <!-- end-user-doc -->
    * @generated
    */
-  public stmt_primary getRight()
+  public rule_stmt_primary getRight()
   {
     return right;
   }
@@ -134,9 +135,9 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(stmt_primary newRight, NotificationChain msgs)
+  public NotificationChain basicSetRight(rule_stmt_primary newRight, NotificationChain msgs)
   {
-    stmt_primary oldRight = right;
+    rule_stmt_primary oldRight = right;
     right = newRight;
     if (eNotificationRequired())
     {
@@ -151,7 +152,7 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRight(stmt_primary newRight)
+  public void setRight(rule_stmt_primary newRight)
   {
     if (newRight != right)
     {
@@ -214,10 +215,10 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
     switch (featureID)
     {
       case PSSPackage.ALT_STMT__LEFT:
-        setLeft((alt_stmt)newValue);
+        setLeft((rule_stmt_alt_parallel_seq)newValue);
         return;
       case PSSPackage.ALT_STMT__RIGHT:
-        setRight((stmt_primary)newValue);
+        setRight((rule_stmt_primary)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -234,10 +235,10 @@ public class alt_stmtImpl extends stmt_or_blockImpl implements alt_stmt
     switch (featureID)
     {
       case PSSPackage.ALT_STMT__LEFT:
-        setLeft((alt_stmt)null);
+        setLeft((rule_stmt_alt_parallel_seq)null);
         return;
       case PSSPackage.ALT_STMT__RIGHT:
-        setRight((stmt_primary)null);
+        setRight((rule_stmt_primary)null);
         return;
     }
     super.eUnset(featureID);

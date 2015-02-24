@@ -27,7 +27,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.psstools.lang.pSS.impl.ModelImpl#getTopLevel <em>Top Level</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.impl.ModelImpl#getRoot <em>Root</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,14 +36,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class ModelImpl extends MinimalEObjectImpl.Container implements Model
 {
   /**
-   * The cached value of the '{@link #getTopLevel() <em>Top Level</em>}' containment reference list.
+   * The cached value of the '{@link #getRoot() <em>Root</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTopLevel()
+   * @see #getRoot()
    * @generated
    * @ordered
    */
-  protected EList<portable_stimulus_description> topLevel;
+  protected EList<portable_stimulus_description> root;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,13 +71,13 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<portable_stimulus_description> getTopLevel()
+  public EList<portable_stimulus_description> getRoot()
   {
-    if (topLevel == null)
+    if (root == null)
     {
-      topLevel = new EObjectContainmentEList<portable_stimulus_description>(portable_stimulus_description.class, this, PSSPackage.MODEL__TOP_LEVEL);
+      root = new EObjectContainmentEList<portable_stimulus_description>(portable_stimulus_description.class, this, PSSPackage.MODEL__ROOT);
     }
-    return topLevel;
+    return root;
   }
 
   /**
@@ -90,8 +90,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case PSSPackage.MODEL__TOP_LEVEL:
-        return ((InternalEList<?>)getTopLevel()).basicRemove(otherEnd, msgs);
+      case PSSPackage.MODEL__ROOT:
+        return ((InternalEList<?>)getRoot()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -106,8 +106,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case PSSPackage.MODEL__TOP_LEVEL:
-        return getTopLevel();
+      case PSSPackage.MODEL__ROOT:
+        return getRoot();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,9 +123,9 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case PSSPackage.MODEL__TOP_LEVEL:
-        getTopLevel().clear();
-        getTopLevel().addAll((Collection<? extends portable_stimulus_description>)newValue);
+      case PSSPackage.MODEL__ROOT:
+        getRoot().clear();
+        getRoot().addAll((Collection<? extends portable_stimulus_description>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +141,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case PSSPackage.MODEL__TOP_LEVEL:
-        getTopLevel().clear();
+      case PSSPackage.MODEL__ROOT:
+        getRoot().clear();
         return;
     }
     super.eUnset(featureID);
@@ -158,8 +158,8 @@ public class ModelImpl extends MinimalEObjectImpl.Container implements Model
   {
     switch (featureID)
     {
-      case PSSPackage.MODEL__TOP_LEVEL:
-        return topLevel != null && !topLevel.isEmpty();
+      case PSSPackage.MODEL__ROOT:
+        return root != null && !root.isEmpty();
     }
     return super.eIsSet(featureID);
   }

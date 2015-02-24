@@ -67,13 +67,13 @@ public interface PSSPackage extends EPackage
   int MODEL = 0;
 
   /**
-   * The feature id for the '<em><b>Top Level</b></em>' containment reference list.
+   * The feature id for the '<em><b>Root</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int MODEL__TOP_LEVEL = 0;
+  int MODEL__ROOT = 0;
 
   /**
    * The number of structural features of the '<em>Model</em>' class.
@@ -287,7 +287,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_body_item()
    * @generated
    */
-  int STRUCT_BODY_ITEM = 8;
+  int STRUCT_BODY_ITEM = 7;
 
   /**
    * The number of structural features of the '<em>struct body item</em>' class.
@@ -299,25 +299,6 @@ public interface PSSPackage extends EPackage
   int STRUCT_BODY_ITEM_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.struct_graph_body_itemImpl <em>struct graph body item</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.struct_graph_body_itemImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_graph_body_item()
-   * @generated
-   */
-  int STRUCT_GRAPH_BODY_ITEM = 7;
-
-  /**
-   * The number of structural features of the '<em>struct graph body item</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_GRAPH_BODY_ITEM_FEATURE_COUNT = STRUCT_BODY_ITEM_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.graph_body_itemImpl <em>graph body item</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -325,7 +306,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_body_item()
    * @generated
    */
-  int GRAPH_BODY_ITEM = 9;
+  int GRAPH_BODY_ITEM = 8;
 
   /**
    * The number of structural features of the '<em>graph body item</em>' class.
@@ -344,25 +325,25 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsymbol_definition()
    * @generated
    */
-  int SYMBOL_DEFINITION = 10;
+  int SYMBOL_DEFINITION = 9;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Symbol name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYMBOL_DEFINITION__NAME = GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
+  int SYMBOL_DEFINITION__SYMBOL_NAME = GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Rule</b></em>' containment reference.
+   * The feature id for the '<em><b>Body items</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYMBOL_DEFINITION__RULE = GRAPH_BODY_ITEM_FEATURE_COUNT + 1;
+  int SYMBOL_DEFINITION__BODY_ITEMS = GRAPH_BODY_ITEM_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>symbol definition</em>' class.
@@ -372,6 +353,52 @@ public interface PSSPackage extends EPackage
    * @ordered
    */
   int SYMBOL_DEFINITION_FEATURE_COUNT = GRAPH_BODY_ITEM_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.interface_action_definitionImpl <em>interface action definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.interface_action_definitionImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_action_definition()
+   * @generated
+   */
+  int INTERFACE_ACTION_DEFINITION = 10;
+
+  /**
+   * The feature id for the '<em><b>Action</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_ACTION_DEFINITION__ACTION = GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_ACTION_DEFINITION__PARAMETERS = GRAPH_BODY_ITEM_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Body items</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_ACTION_DEFINITION__BODY_ITEMS = GRAPH_BODY_ITEM_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>interface action definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_ACTION_DEFINITION_FEATURE_COUNT = GRAPH_BODY_ITEM_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_productionImpl <em>rule production</em>}' class.
@@ -393,88 +420,70 @@ public interface PSSPackage extends EPackage
   int RULE_PRODUCTION_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.stmt_or_blockImpl <em>stmt or block</em>}' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_or_blockImpl <em>rule stmt or block</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.stmt_or_blockImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_or_block()
+   * @see net.sf.psstools.lang.pSS.impl.rule_stmt_or_blockImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_or_block()
    * @generated
    */
-  int STMT_OR_BLOCK = 12;
+  int RULE_STMT_OR_BLOCK = 12;
 
   /**
-   * The number of structural features of the '<em>stmt or block</em>' class.
+   * The number of structural features of the '<em>rule stmt or block</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STMT_OR_BLOCK_FEATURE_COUNT = RULE_PRODUCTION_FEATURE_COUNT + 0;
+  int RULE_STMT_OR_BLOCK_FEATURE_COUNT = RULE_PRODUCTION_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.alt_stmtImpl <em>alt stmt</em>}' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_alt_parallel_seqImpl <em>rule stmt alt parallel seq</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.alt_stmtImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getalt_stmt()
+   * @see net.sf.psstools.lang.pSS.impl.rule_stmt_alt_parallel_seqImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_alt_parallel_seq()
    * @generated
    */
-  int ALT_STMT = 13;
+  int RULE_STMT_ALT_PARALLEL_SEQ = 13;
 
   /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ALT_STMT__LEFT = STMT_OR_BLOCK_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * The number of structural features of the '<em>rule stmt alt parallel seq</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ALT_STMT__RIGHT = STMT_OR_BLOCK_FEATURE_COUNT + 1;
+  int RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT = RULE_STMT_OR_BLOCK_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>alt stmt</em>' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_primaryImpl <em>rule stmt primary</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.rule_stmt_primaryImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_primary()
+   * @generated
+   */
+  int RULE_STMT_PRIMARY = 14;
+
+  /**
+   * The feature id for the '<em><b>Param</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ALT_STMT_FEATURE_COUNT = STMT_OR_BLOCK_FEATURE_COUNT + 2;
+  int RULE_STMT_PRIMARY__PARAM = RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT + 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.stmt_primaryImpl <em>stmt primary</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.stmt_primaryImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_primary()
-   * @generated
-   */
-  int STMT_PRIMARY = 14;
-
-  /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STMT_PRIMARY__LEFT = ALT_STMT__LEFT;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STMT_PRIMARY__RIGHT = ALT_STMT__RIGHT;
+  int RULE_STMT_PRIMARY__RHS = RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Stmt list</b></em>' containment reference list.
@@ -483,44 +492,44 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STMT_PRIMARY__STMT_LIST = ALT_STMT_FEATURE_COUNT + 0;
+  int RULE_STMT_PRIMARY__STMT_LIST = RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT + 2;
 
   /**
-   * The number of structural features of the '<em>stmt primary</em>' class.
+   * The number of structural features of the '<em>rule stmt primary</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STMT_PRIMARY_FEATURE_COUNT = ALT_STMT_FEATURE_COUNT + 1;
+  int RULE_STMT_PRIMARY_FEATURE_COUNT = RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.stmt_altImpl <em>stmt alt</em>}' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_parallel_altImpl <em>rule stmt parallel alt</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.stmt_altImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_alt()
+   * @see net.sf.psstools.lang.pSS.impl.rule_stmt_parallel_altImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_parallel_alt()
    * @generated
    */
-  int STMT_ALT = 15;
+  int RULE_STMT_PARALLEL_ALT = 15;
 
   /**
-   * The feature id for the '<em><b>Left</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STMT_ALT__LEFT = STMT_PRIMARY__LEFT;
-
-  /**
-   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * The feature id for the '<em><b>Param</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STMT_ALT__RIGHT = STMT_PRIMARY__RIGHT;
+  int RULE_STMT_PARALLEL_ALT__PARAM = RULE_STMT_PRIMARY__PARAM;
+
+  /**
+   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_STMT_PARALLEL_ALT__RHS = RULE_STMT_PRIMARY__RHS;
 
   /**
    * The feature id for the '<em><b>Stmt list</b></em>' containment reference list.
@@ -529,26 +538,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STMT_ALT__STMT_LIST = STMT_PRIMARY__STMT_LIST;
-
-  /**
-   * The number of structural features of the '<em>stmt alt</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STMT_ALT_FEATURE_COUNT = STMT_PRIMARY_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.stmt_parallelImpl <em>stmt parallel</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.stmt_parallelImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_parallel()
-   * @generated
-   */
-  int STMT_PARALLEL = 16;
+  int RULE_STMT_PARALLEL_ALT__STMT_LIST = RULE_STMT_PRIMARY__STMT_LIST;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -557,7 +547,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STMT_PARALLEL__LEFT = STMT_ALT__LEFT;
+  int RULE_STMT_PARALLEL_ALT__LEFT = RULE_STMT_PRIMARY_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -566,7 +556,44 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STMT_PARALLEL__RIGHT = STMT_ALT__RIGHT;
+  int RULE_STMT_PARALLEL_ALT__RIGHT = RULE_STMT_PRIMARY_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>rule stmt parallel alt</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_STMT_PARALLEL_ALT_FEATURE_COUNT = RULE_STMT_PRIMARY_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_parallelImpl <em>rule stmt parallel</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.rule_stmt_parallelImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_parallel()
+   * @generated
+   */
+  int RULE_STMT_PARALLEL = 16;
+
+  /**
+   * The feature id for the '<em><b>Param</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_STMT_PARALLEL__PARAM = RULE_STMT_PARALLEL_ALT__PARAM;
+
+  /**
+   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_STMT_PARALLEL__RHS = RULE_STMT_PARALLEL_ALT__RHS;
 
   /**
    * The feature id for the '<em><b>Stmt list</b></em>' containment reference list.
@@ -575,26 +602,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STMT_PARALLEL__STMT_LIST = STMT_ALT__STMT_LIST;
-
-  /**
-   * The number of structural features of the '<em>stmt parallel</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STMT_PARALLEL_FEATURE_COUNT = STMT_ALT_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.seqImpl <em>seq</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.seqImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getseq()
-   * @generated
-   */
-  int SEQ = 17;
+  int RULE_STMT_PARALLEL__STMT_LIST = RULE_STMT_PARALLEL_ALT__STMT_LIST;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -603,7 +611,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SEQ__LEFT = STMT_PARALLEL__LEFT;
+  int RULE_STMT_PARALLEL__LEFT = RULE_STMT_PARALLEL_ALT__LEFT;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -612,7 +620,44 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SEQ__RIGHT = STMT_PARALLEL__RIGHT;
+  int RULE_STMT_PARALLEL__RIGHT = RULE_STMT_PARALLEL_ALT__RIGHT;
+
+  /**
+   * The number of structural features of the '<em>rule stmt parallel</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_STMT_PARALLEL_FEATURE_COUNT = RULE_STMT_PARALLEL_ALT_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_sequenceImpl <em>rule sequence</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.rule_sequenceImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_sequence()
+   * @generated
+   */
+  int RULE_SEQUENCE = 17;
+
+  /**
+   * The feature id for the '<em><b>Param</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQUENCE__PARAM = RULE_STMT_PARALLEL__PARAM;
+
+  /**
+   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQUENCE__RHS = RULE_STMT_PARALLEL__RHS;
 
   /**
    * The feature id for the '<em><b>Stmt list</b></em>' containment reference list.
@@ -621,7 +666,25 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SEQ__STMT_LIST = STMT_PARALLEL__STMT_LIST;
+  int RULE_SEQUENCE__STMT_LIST = RULE_STMT_PARALLEL__STMT_LIST;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQUENCE__LEFT = RULE_STMT_PARALLEL__LEFT;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQUENCE__RIGHT = RULE_STMT_PARALLEL__RIGHT;
 
   /**
    * The feature id for the '<em><b>Items</b></em>' containment reference list.
@@ -630,45 +693,109 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SEQ__ITEMS = STMT_PARALLEL_FEATURE_COUNT + 0;
+  int RULE_SEQUENCE__ITEMS = RULE_STMT_PARALLEL_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>seq</em>' class.
+   * The number of structural features of the '<em>rule sequence</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SEQ_FEATURE_COUNT = STMT_PARALLEL_FEATURE_COUNT + 1;
+  int RULE_SEQUENCE_FEATURE_COUNT = RULE_STMT_PARALLEL_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.seq_itemImpl <em>seq item</em>}' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_seq_itemImpl <em>rule seq item</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.seq_itemImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getseq_item()
+   * @see net.sf.psstools.lang.pSS.impl.rule_seq_itemImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_seq_item()
    * @generated
    */
-  int SEQ_ITEM = 18;
+  int RULE_SEQ_ITEM = 18;
 
   /**
-   * The number of structural features of the '<em>seq item</em>' class.
+   * The feature id for the '<em><b>Action</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SEQ_ITEM_FEATURE_COUNT = 0;
+  int RULE_SEQ_ITEM__ACTION = 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.ifc_call_parameter_listImpl <em>ifc call parameter list</em>}' class.
+   * The feature id for the '<em><b>Action params</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.ifc_call_parameter_listImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getifc_call_parameter_list()
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQ_ITEM__ACTION_PARAMS = 1;
+
+  /**
+   * The feature id for the '<em><b>Item</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQ_ITEM__ITEM = 2;
+
+  /**
+   * The feature id for the '<em><b>With clause</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQ_ITEM__WITH_CLAUSE = 3;
+
+  /**
+   * The number of structural features of the '<em>rule seq item</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_SEQ_ITEM_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_with_clauseImpl <em>rule with clause</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.rule_with_clauseImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_with_clause()
    * @generated
    */
-  int IFC_CALL_PARAMETER_LIST = 19;
+  int RULE_WITH_CLAUSE = 19;
+
+  /**
+   * The feature id for the '<em><b>Body</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_WITH_CLAUSE__BODY = 0;
+
+  /**
+   * The number of structural features of the '<em>rule with clause</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_WITH_CLAUSE_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.parameter_listImpl <em>parameter list</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.parameter_listImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getparameter_list()
+   * @generated
+   */
+  int PARAMETER_LIST = 20;
 
   /**
    * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -677,26 +804,35 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int IFC_CALL_PARAMETER_LIST__PARAMETERS = 0;
+  int PARAMETER_LIST__PARAMETERS = 0;
 
   /**
-   * The number of structural features of the '<em>ifc call parameter list</em>' class.
+   * The number of structural features of the '<em>parameter list</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int IFC_CALL_PARAMETER_LIST_FEATURE_COUNT = 1;
+  int PARAMETER_LIST_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.repeat_stmtImpl <em>repeat stmt</em>}' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.rule_repeat_stmtImpl <em>rule repeat stmt</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.repeat_stmtImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrepeat_stmt()
+   * @see net.sf.psstools.lang.pSS.impl.rule_repeat_stmtImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_repeat_stmt()
    * @generated
    */
-  int REPEAT_STMT = 20;
+  int RULE_REPEAT_STMT = 21;
+
+  /**
+   * The feature id for the '<em><b>Expr</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RULE_REPEAT_STMT__EXPR = RULE_STMT_OR_BLOCK_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Stmt</b></em>' containment reference.
@@ -705,16 +841,16 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REPEAT_STMT__STMT = STMT_OR_BLOCK_FEATURE_COUNT + 0;
+  int RULE_REPEAT_STMT__STMT = RULE_STMT_OR_BLOCK_FEATURE_COUNT + 1;
 
   /**
-   * The number of structural features of the '<em>repeat stmt</em>' class.
+   * The number of structural features of the '<em>rule repeat stmt</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REPEAT_STMT_FEATURE_COUNT = STMT_OR_BLOCK_FEATURE_COUNT + 1;
+  int RULE_REPEAT_STMT_FEATURE_COUNT = RULE_STMT_OR_BLOCK_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.overrides_declarationImpl <em>overrides declaration</em>}' class.
@@ -724,7 +860,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getoverrides_declaration()
    * @generated
    */
-  int OVERRIDES_DECLARATION = 21;
+  int OVERRIDES_DECLARATION = 22;
 
   /**
    * The number of structural features of the '<em>overrides declaration</em>' class.
@@ -733,7 +869,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int OVERRIDES_DECLARATION_FEATURE_COUNT = STRUCT_GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
+  int OVERRIDES_DECLARATION_FEATURE_COUNT = GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.override_stmtImpl <em>override stmt</em>}' class.
@@ -743,7 +879,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getoverride_stmt()
    * @generated
    */
-  int OVERRIDE_STMT = 22;
+  int OVERRIDE_STMT = 23;
 
   /**
    * The feature id for the '<em><b>Dest</b></em>' attribute.
@@ -771,7 +907,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gettype_override()
    * @generated
    */
-  int TYPE_OVERRIDE = 23;
+  int TYPE_OVERRIDE = 24;
 
   /**
    * The feature id for the '<em><b>Dest</b></em>' attribute.
@@ -808,7 +944,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinstance_override()
    * @generated
    */
-  int INSTANCE_OVERRIDE = 24;
+  int INSTANCE_OVERRIDE = 25;
 
   /**
    * The feature id for the '<em><b>Dest</b></em>' attribute.
@@ -845,7 +981,25 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdata_declaration()
    * @generated
    */
-  int DATA_DECLARATION = 25;
+  int DATA_DECLARATION = 26;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_DECLARATION__TYPE = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Instances</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_DECLARATION__INSTANCES = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>data declaration</em>' class.
@@ -854,7 +1008,156 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATA_DECLARATION_FEATURE_COUNT = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 0;
+  int DATA_DECLARATION_FEATURE_COUNT = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.data_instantiationImpl <em>data instantiation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.data_instantiationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdata_instantiation()
+   * @generated
+   */
+  int DATA_INSTANTIATION = 27;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_INSTANTIATION__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Portmap</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_INSTANTIATION__PORTMAP = 1;
+
+  /**
+   * The number of structural features of the '<em>data instantiation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_INSTANTIATION_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.graph_interface_portmap_listImpl <em>graph interface portmap list</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.graph_interface_portmap_listImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_interface_portmap_list()
+   * @generated
+   */
+  int GRAPH_INTERFACE_PORTMAP_LIST = 28;
+
+  /**
+   * The feature id for the '<em><b>Maps</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GRAPH_INTERFACE_PORTMAP_LIST__MAPS = 0;
+
+  /**
+   * The number of structural features of the '<em>graph interface portmap list</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GRAPH_INTERFACE_PORTMAP_LIST_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.graph_interface_portmapImpl <em>graph interface portmap</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.graph_interface_portmapImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_interface_portmap()
+   * @generated
+   */
+  int GRAPH_INTERFACE_PORTMAP = 29;
+
+  /**
+   * The feature id for the '<em><b>Portname</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GRAPH_INTERFACE_PORTMAP__PORTNAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Connected name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GRAPH_INTERFACE_PORTMAP__CONNECTED_NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>graph interface portmap</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GRAPH_INTERFACE_PORTMAP_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.data_typeImpl <em>data type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.data_typeImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdata_type()
+   * @generated
+   */
+  int DATA_TYPE = 30;
+
+  /**
+   * The number of structural features of the '<em>data type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_TYPE_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.user_defined_typeImpl <em>user defined type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.user_defined_typeImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getuser_defined_type()
+   * @generated
+   */
+  int USER_DEFINED_TYPE = 31;
+
+  /**
+   * The feature id for the '<em><b>Typename</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int USER_DEFINED_TYPE__TYPENAME = DATA_TYPE_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>user defined type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int USER_DEFINED_TYPE_FEATURE_COUNT = DATA_TYPE_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.typedef_declarationImpl <em>typedef declaration</em>}' class.
@@ -864,25 +1167,25 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gettypedef_declaration()
    * @generated
    */
-  int TYPEDEF_DECLARATION = 26;
+  int TYPEDEF_DECLARATION = 32;
 
   /**
-   * The feature id for the '<em><b>Src</b></em>' attribute.
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPEDEF_DECLARATION__SRC = DATA_DECLARATION_FEATURE_COUNT + 0;
+  int TYPEDEF_DECLARATION__TYPE = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Dest</b></em>' attribute.
+   * The feature id for the '<em><b>Type identifier</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TYPEDEF_DECLARATION__DEST = DATA_DECLARATION_FEATURE_COUNT + 1;
+  int TYPEDEF_DECLARATION__TYPE_IDENTIFIER = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>typedef declaration</em>' class.
@@ -891,17 +1194,17 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TYPEDEF_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT + 2;
+  int TYPEDEF_DECLARATION_FEATURE_COUNT = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.enum_declarationImpl <em>enum declaration</em>}' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.enum_typeImpl <em>enum type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.enum_declarationImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getenum_declaration()
+   * @see net.sf.psstools.lang.pSS.impl.enum_typeImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getenum_type()
    * @generated
    */
-  int ENUM_DECLARATION = 27;
+  int ENUM_TYPE = 33;
 
   /**
    * The feature id for the '<em><b>Data type</b></em>' containment reference.
@@ -910,7 +1213,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENUM_DECLARATION__DATA_TYPE = DATA_DECLARATION_FEATURE_COUNT + 0;
+  int ENUM_TYPE__DATA_TYPE = DATA_TYPE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Items</b></em>' attribute list.
@@ -919,54 +1222,35 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ENUM_DECLARATION__ITEMS = DATA_DECLARATION_FEATURE_COUNT + 1;
+  int ENUM_TYPE__ITEMS = DATA_TYPE_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The number of structural features of the '<em>enum type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ENUM_DECLARATION__NAME = DATA_DECLARATION_FEATURE_COUNT + 2;
+  int ENUM_TYPE_FEATURE_COUNT = DATA_TYPE_FEATURE_COUNT + 2;
 
   /**
-   * The number of structural features of the '<em>enum declaration</em>' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.integer_typeImpl <em>integer type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.integer_typeImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinteger_type()
+   * @generated
+   */
+  int INTEGER_TYPE = 34;
+
+  /**
+   * The feature id for the '<em><b>Atom type</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ENUM_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT + 3;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.scalar_declarationImpl <em>scalar declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.scalar_declarationImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_declaration()
-   * @generated
-   */
-  int SCALAR_DECLARATION = 28;
-
-  /**
-   * The number of structural features of the '<em>scalar declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SCALAR_DECLARATION_FEATURE_COUNT = DATA_DECLARATION_FEATURE_COUNT + 0;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.signed_scalarImpl <em>signed scalar</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.signed_scalarImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsigned_scalar()
-   * @generated
-   */
-  int SIGNED_SCALAR = 29;
+  int INTEGER_TYPE__ATOM_TYPE = DATA_TYPE_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Lhs</b></em>' containment reference.
@@ -975,7 +1259,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SIGNED_SCALAR__LHS = SCALAR_DECLARATION_FEATURE_COUNT + 0;
+  int INTEGER_TYPE__LHS = DATA_TYPE_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Rhs</b></em>' containment reference.
@@ -984,99 +1268,155 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SIGNED_SCALAR__RHS = SCALAR_DECLARATION_FEATURE_COUNT + 1;
+  int INTEGER_TYPE__RHS = DATA_TYPE_FEATURE_COUNT + 2;
 
   /**
-   * The feature id for the '<em><b>Items</b></em>' containment reference list.
+   * The feature id for the '<em><b>Inside</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SIGNED_SCALAR__ITEMS = SCALAR_DECLARATION_FEATURE_COUNT + 2;
+  int INTEGER_TYPE__INSIDE = DATA_TYPE_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The number of structural features of the '<em>integer type</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SIGNED_SCALAR__NAME = SCALAR_DECLARATION_FEATURE_COUNT + 3;
+  int INTEGER_TYPE_FEATURE_COUNT = DATA_TYPE_FEATURE_COUNT + 4;
 
   /**
-   * The number of structural features of the '<em>signed scalar</em>' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.type_inside_clauseImpl <em>type inside clause</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.type_inside_clauseImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gettype_inside_clause()
+   * @generated
+   */
+  int TYPE_INSIDE_CLAUSE = 35;
+
+  /**
+   * The feature id for the '<em><b>Domain</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SIGNED_SCALAR_FEATURE_COUNT = SCALAR_DECLARATION_FEATURE_COUNT + 4;
+  int TYPE_INSIDE_CLAUSE__DOMAIN = 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.scalar_signedImpl <em>scalar signed</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.scalar_signedImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_signed()
-   * @generated
-   */
-  int SCALAR_SIGNED = 30;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The number of structural features of the '<em>type inside clause</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SCALAR_SIGNED__NAME = 0;
+  int TYPE_INSIDE_CLAUSE_FEATURE_COUNT = 1;
 
   /**
-   * The number of structural features of the '<em>scalar signed</em>' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.open_range_listImpl <em>open range list</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.open_range_listImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getopen_range_list()
+   * @generated
+   */
+  int OPEN_RANGE_LIST = 36;
+
+  /**
+   * The feature id for the '<em><b>Ranges</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SCALAR_SIGNED_FEATURE_COUNT = 1;
+  int OPEN_RANGE_LIST__RANGES = 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.domain_specImpl <em>domain spec</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.domain_specImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdomain_spec()
-   * @generated
-   */
-  int DOMAIN_SPEC = 31;
-
-  /**
-   * The feature id for the '<em><b>Range lhs</b></em>' attribute.
+   * The number of structural features of the '<em>open range list</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DOMAIN_SPEC__RANGE_LHS = 0;
+  int OPEN_RANGE_LIST_FEATURE_COUNT = 1;
 
   /**
-   * The feature id for the '<em><b>Range rhs</b></em>' attribute.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.open_range_valueImpl <em>open range value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.open_range_valueImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getopen_range_value()
+   * @generated
+   */
+  int OPEN_RANGE_VALUE = 37;
+
+  /**
+   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DOMAIN_SPEC__RANGE_RHS = 1;
+  int OPEN_RANGE_VALUE__LHS = 0;
 
   /**
-   * The number of structural features of the '<em>domain spec</em>' class.
+   * The feature id for the '<em><b>Range</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DOMAIN_SPEC_FEATURE_COUNT = 2;
+  int OPEN_RANGE_VALUE__RANGE = 1;
+
+  /**
+   * The number of structural features of the '<em>open range value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OPEN_RANGE_VALUE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.range_exprImpl <em>range expr</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.range_exprImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrange_expr()
+   * @generated
+   */
+  int RANGE_EXPR = 38;
+
+  /**
+   * The feature id for the '<em><b>Lhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RANGE_EXPR__LHS = 0;
+
+  /**
+   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RANGE_EXPR__RHS = 1;
+
+  /**
+   * The number of structural features of the '<em>range expr</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RANGE_EXPR_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constraint_declarationImpl <em>constraint declaration</em>}' class.
@@ -1086,7 +1426,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_declaration()
    * @generated
    */
-  int CONSTRAINT_DECLARATION = 32;
+  int CONSTRAINT_DECLARATION = 39;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1095,7 +1435,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTRAINT_DECLARATION__NAME = STRUCT_GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
+  int CONSTRAINT_DECLARATION__NAME = STRUCT_BODY_ITEM_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference list.
@@ -1104,7 +1444,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTRAINT_DECLARATION__BODY = STRUCT_GRAPH_BODY_ITEM_FEATURE_COUNT + 1;
+  int CONSTRAINT_DECLARATION__BODY = STRUCT_BODY_ITEM_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>constraint declaration</em>' class.
@@ -1113,7 +1453,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTRAINT_DECLARATION_FEATURE_COUNT = STRUCT_GRAPH_BODY_ITEM_FEATURE_COUNT + 2;
+  int CONSTRAINT_DECLARATION_FEATURE_COUNT = STRUCT_BODY_ITEM_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constraint_body_itemImpl <em>constraint body item</em>}' class.
@@ -1123,7 +1463,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_body_item()
    * @generated
    */
-  int CONSTRAINT_BODY_ITEM = 34;
+  int CONSTRAINT_BODY_ITEM = 40;
 
   /**
    * The number of structural features of the '<em>constraint body item</em>' class.
@@ -1135,25 +1475,6 @@ public interface PSSPackage extends EPackage
   int CONSTRAINT_BODY_ITEM_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constraint_body_no_if_itemImpl <em>constraint body no if item</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.constraint_body_no_if_itemImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_body_no_if_item()
-   * @generated
-   */
-  int CONSTRAINT_BODY_NO_IF_ITEM = 33;
-
-  /**
-   * The number of structural features of the '<em>constraint body no if item</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int CONSTRAINT_BODY_NO_IF_ITEM_FEATURE_COUNT = CONSTRAINT_BODY_ITEM_FEATURE_COUNT + 0;
-
-  /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.expression_or_dist_itemImpl <em>expression or dist item</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1161,7 +1482,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexpression_or_dist_item()
    * @generated
    */
-  int EXPRESSION_OR_DIST_ITEM = 35;
+  int EXPRESSION_OR_DIST_ITEM = 41;
 
   /**
    * The number of structural features of the '<em>expression or dist item</em>' class.
@@ -1170,7 +1491,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int EXPRESSION_OR_DIST_ITEM_FEATURE_COUNT = CONSTRAINT_BODY_NO_IF_ITEM_FEATURE_COUNT + 0;
+  int EXPRESSION_OR_DIST_ITEM_FEATURE_COUNT = CONSTRAINT_BODY_ITEM_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.if_constraint_itemImpl <em>if constraint item</em>}' class.
@@ -1180,7 +1501,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getif_constraint_item()
    * @generated
    */
-  int IF_CONSTRAINT_ITEM = 36;
+  int IF_CONSTRAINT_ITEM = 42;
 
   /**
    * The feature id for the '<em><b>If expr</b></em>' containment reference.
@@ -1226,7 +1547,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getforeach_constraint_item()
    * @generated
    */
-  int FOREACH_CONSTRAINT_ITEM = 37;
+  int FOREACH_CONSTRAINT_ITEM = 43;
 
   /**
    * The feature id for the '<em><b>Expr</b></em>' containment reference.
@@ -1235,7 +1556,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FOREACH_CONSTRAINT_ITEM__EXPR = CONSTRAINT_BODY_NO_IF_ITEM_FEATURE_COUNT + 0;
+  int FOREACH_CONSTRAINT_ITEM__EXPR = CONSTRAINT_BODY_ITEM_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Body</b></em>' containment reference.
@@ -1244,7 +1565,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FOREACH_CONSTRAINT_ITEM__BODY = CONSTRAINT_BODY_NO_IF_ITEM_FEATURE_COUNT + 1;
+  int FOREACH_CONSTRAINT_ITEM__BODY = CONSTRAINT_BODY_ITEM_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>foreach constraint item</em>' class.
@@ -1253,7 +1574,26 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int FOREACH_CONSTRAINT_ITEM_FEATURE_COUNT = CONSTRAINT_BODY_NO_IF_ITEM_FEATURE_COUNT + 2;
+  int FOREACH_CONSTRAINT_ITEM_FEATURE_COUNT = CONSTRAINT_BODY_ITEM_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constraint_blockImpl <em>constraint block</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.constraint_blockImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_block()
+   * @generated
+   */
+  int CONSTRAINT_BLOCK = 45;
+
+  /**
+   * The number of structural features of the '<em>constraint block</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTRAINT_BLOCK_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constraint_setImpl <em>constraint set</em>}' class.
@@ -1263,7 +1603,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_set()
    * @generated
    */
-  int CONSTRAINT_SET = 38;
+  int CONSTRAINT_SET = 44;
 
   /**
    * The feature id for the '<em><b>Items</b></em>' containment reference list.
@@ -1272,7 +1612,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTRAINT_SET__ITEMS = 0;
+  int CONSTRAINT_SET__ITEMS = CONSTRAINT_BLOCK_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>constraint set</em>' class.
@@ -1281,7 +1621,333 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int CONSTRAINT_SET_FEATURE_COUNT = 1;
+  int CONSTRAINT_SET_FEATURE_COUNT = CONSTRAINT_BLOCK_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bin_or_scheme_declarationImpl <em>bin or scheme declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bin_or_scheme_declarationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_or_scheme_declaration()
+   * @generated
+   */
+  int BIN_OR_SCHEME_DECLARATION = 46;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_OR_SCHEME_DECLARATION__NAME = STRUCT_BODY_ITEM_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>bin or scheme declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_OR_SCHEME_DECLARATION_FEATURE_COUNT = STRUCT_BODY_ITEM_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bins_declarationImpl <em>bins declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bins_declarationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbins_declaration()
+   * @generated
+   */
+  int BINS_DECLARATION = 47;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINS_DECLARATION__NAME = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Item</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINS_DECLARATION__ITEM = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Bins</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINS_DECLARATION__BINS = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>bins declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BINS_DECLARATION_FEATURE_COUNT = PORTABLE_STIMULUS_DESCRIPTION_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bin_specificationImpl <em>bin specification</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bin_specificationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_specification()
+   * @generated
+   */
+  int BIN_SPECIFICATION = 48;
+
+  /**
+   * The feature id for the '<em><b>Items</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SPECIFICATION__ITEMS = 0;
+
+  /**
+   * The number of structural features of the '<em>bin specification</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SPECIFICATION_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bin_specifierImpl <em>bin specifier</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bin_specifierImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_specifier()
+   * @generated
+   */
+  int BIN_SPECIFIER = 49;
+
+  /**
+   * The number of structural features of the '<em>bin specifier</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SPECIFIER_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.explicit_bin_valueImpl <em>explicit bin value</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.explicit_bin_valueImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexplicit_bin_value()
+   * @generated
+   */
+  int EXPLICIT_BIN_VALUE = 50;
+
+  /**
+   * The number of structural features of the '<em>explicit bin value</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPLICIT_BIN_VALUE_FEATURE_COUNT = BIN_SPECIFIER_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.explicit_bin_rangeImpl <em>explicit bin range</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.explicit_bin_rangeImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexplicit_bin_range()
+   * @generated
+   */
+  int EXPLICIT_BIN_RANGE = 51;
+
+  /**
+   * The feature id for the '<em><b>Low</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPLICIT_BIN_RANGE__LOW = BIN_SPECIFIER_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>High</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPLICIT_BIN_RANGE__HIGH = BIN_SPECIFIER_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Div</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPLICIT_BIN_RANGE__DIV = BIN_SPECIFIER_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Size</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPLICIT_BIN_RANGE__SIZE = BIN_SPECIFIER_FEATURE_COUNT + 3;
+
+  /**
+   * The number of structural features of the '<em>explicit bin range</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int EXPLICIT_BIN_RANGE_FEATURE_COUNT = BIN_SPECIFIER_FEATURE_COUNT + 4;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bin_range_divideImpl <em>bin range divide</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bin_range_divideImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_range_divide()
+   * @generated
+   */
+  int BIN_RANGE_DIVIDE = 52;
+
+  /**
+   * The number of structural features of the '<em>bin range divide</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_RANGE_DIVIDE_FEATURE_COUNT = BIN_SPECIFIER_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bin_range_sizeImpl <em>bin range size</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bin_range_sizeImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_range_size()
+   * @generated
+   */
+  int BIN_RANGE_SIZE = 53;
+
+  /**
+   * The number of structural features of the '<em>bin range size</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_RANGE_SIZE_FEATURE_COUNT = BIN_SPECIFIER_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bin_scheme_declarationImpl <em>bin scheme declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bin_scheme_declarationImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_scheme_declaration()
+   * @generated
+   */
+  int BIN_SCHEME_DECLARATION = 54;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SCHEME_DECLARATION__NAME = BIN_OR_SCHEME_DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Items</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SCHEME_DECLARATION__ITEMS = BIN_OR_SCHEME_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>bin scheme declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SCHEME_DECLARATION_FEATURE_COUNT = BIN_OR_SCHEME_DECLARATION_FEATURE_COUNT + 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.bin_scheme_specifierImpl <em>bin scheme specifier</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.bin_scheme_specifierImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_scheme_specifier()
+   * @generated
+   */
+  int BIN_SCHEME_SPECIFIER = 55;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SCHEME_SPECIFIER__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Spec</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SCHEME_SPECIFIER__SPEC = 1;
+
+  /**
+   * The number of structural features of the '<em>bin scheme specifier</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BIN_SCHEME_SPECIFIER_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constant_expressionImpl <em>constant expression</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.constant_expressionImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstant_expression()
+   * @generated
+   */
+  int CONSTANT_EXPRESSION = 56;
+
+  /**
+   * The number of structural features of the '<em>constant expression</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CONSTANT_EXPRESSION_FEATURE_COUNT = 0;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.expressionImpl <em>expression</em>}' class.
@@ -1291,7 +1957,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexpression()
    * @generated
    */
-  int EXPRESSION = 39;
+  int EXPRESSION = 57;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -1355,7 +2021,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_declaration()
    * @generated
    */
-  int INTERFACE_DECLARATION = 40;
+  int INTERFACE_DECLARATION = 58;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1401,7 +2067,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_body_item()
    * @generated
    */
-  int INTERFACE_BODY_ITEM = 41;
+  int INTERFACE_BODY_ITEM = 59;
 
   /**
    * The number of structural features of the '<em>interface body item</em>' class.
@@ -1420,7 +2086,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getaction_declaration()
    * @generated
    */
-  int ACTION_DECLARATION = 42;
+  int ACTION_DECLARATION = 60;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1432,7 +2098,7 @@ public interface PSSPackage extends EPackage
   int ACTION_DECLARATION__NAME = INTERFACE_BODY_ITEM_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Ports</b></em>' containment reference list.
+   * The feature id for the '<em><b>Ports</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -1457,25 +2123,16 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getaction_portlist()
    * @generated
    */
-  int ACTION_PORTLIST = 43;
+  int ACTION_PORTLIST = 61;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
+   * The feature id for the '<em><b>Ports</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ACTION_PORTLIST__TYPE = 0;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int ACTION_PORTLIST__NAME = 1;
+  int ACTION_PORTLIST__PORTS = 0;
 
   /**
    * The number of structural features of the '<em>action portlist</em>' class.
@@ -1484,7 +2141,44 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ACTION_PORTLIST_FEATURE_COUNT = 2;
+  int ACTION_PORTLIST_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.action_portImpl <em>action port</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.action_portImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getaction_port()
+   * @generated
+   */
+  int ACTION_PORT = 62;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ACTION_PORT__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ACTION_PORT__NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>action port</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ACTION_PORT_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.graph_data_declarationImpl <em>graph data declaration</em>}' class.
@@ -1494,16 +2188,16 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_data_declaration()
    * @generated
    */
-  int GRAPH_DATA_DECLARATION = 44;
+  int GRAPH_DATA_DECLARATION = 63;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * The feature id for the '<em><b>Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int GRAPH_DATA_DECLARATION__TYPE = GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
+  int GRAPH_DATA_DECLARATION__TYPE = 0;
 
   /**
    * The feature id for the '<em><b>Names</b></em>' attribute list.
@@ -1512,7 +2206,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAPH_DATA_DECLARATION__NAMES = GRAPH_BODY_ITEM_FEATURE_COUNT + 1;
+  int GRAPH_DATA_DECLARATION__NAMES = 1;
 
   /**
    * The feature id for the '<em><b>Portmaps</b></em>' containment reference list.
@@ -1521,7 +2215,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAPH_DATA_DECLARATION__PORTMAPS = GRAPH_BODY_ITEM_FEATURE_COUNT + 2;
+  int GRAPH_DATA_DECLARATION__PORTMAPS = 2;
 
   /**
    * The number of structural features of the '<em>graph data declaration</em>' class.
@@ -1530,7 +2224,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int GRAPH_DATA_DECLARATION_FEATURE_COUNT = GRAPH_BODY_ITEM_FEATURE_COUNT + 3;
+  int GRAPH_DATA_DECLARATION_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.symbol_declarationImpl <em>symbol declaration</em>}' class.
@@ -1540,16 +2234,16 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsymbol_declaration()
    * @generated
    */
-  int SYMBOL_DECLARATION = 45;
+  int SYMBOL_DECLARATION = 64;
 
   /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * The feature id for the '<em><b>Decl list</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYMBOL_DECLARATION__NAME = GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
+  int SYMBOL_DECLARATION__DECL_LIST = GRAPH_BODY_ITEM_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Inline rule</b></em>' containment reference.
@@ -1561,22 +2255,50 @@ public interface PSSPackage extends EPackage
   int SYMBOL_DECLARATION__INLINE_RULE = GRAPH_BODY_ITEM_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Names</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYMBOL_DECLARATION__NAMES = GRAPH_BODY_ITEM_FEATURE_COUNT + 2;
-
-  /**
    * The number of structural features of the '<em>symbol declaration</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SYMBOL_DECLARATION_FEATURE_COUNT = GRAPH_BODY_ITEM_FEATURE_COUNT + 3;
+  int SYMBOL_DECLARATION_FEATURE_COUNT = GRAPH_BODY_ITEM_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.symbol_decl_itemImpl <em>symbol decl item</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.symbol_decl_itemImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsymbol_decl_item()
+   * @generated
+   */
+  int SYMBOL_DECL_ITEM = 65;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYMBOL_DECL_ITEM__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYMBOL_DECL_ITEM__PARAMETERS = 1;
+
+  /**
+   * The number of structural features of the '<em>symbol decl item</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYMBOL_DECL_ITEM_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.port_mapImpl <em>port map</em>}' class.
@@ -1586,7 +2308,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getport_map()
    * @generated
    */
-  int PORT_MAP = 46;
+  int PORT_MAP = 66;
 
   /**
    * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -1616,225 +2338,23 @@ public interface PSSPackage extends EPackage
   int PORT_MAP_FEATURE_COUNT = 2;
 
   /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.struct_data_declarationImpl <em>struct data declaration</em>}' class.
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.constantImpl <em>constant</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.struct_data_declarationImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_data_declaration()
+   * @see net.sf.psstools.lang.pSS.impl.constantImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstant()
    * @generated
    */
-  int STRUCT_DATA_DECLARATION = 47;
+  int CONSTANT = 67;
 
   /**
-   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * The number of structural features of the '<em>constant</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STRUCT_DATA_DECLARATION__TYPE = STRUCT_BODY_ITEM_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Names</b></em>' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_DATA_DECLARATION__NAMES = STRUCT_BODY_ITEM_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>struct data declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_DATA_DECLARATION_FEATURE_COUNT = STRUCT_BODY_ITEM_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.graph_datatypeImpl <em>graph datatype</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.graph_datatypeImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_datatype()
-   * @generated
-   */
-  int GRAPH_DATATYPE = 48;
-
-  /**
-   * The feature id for the '<em><b>Graph typename</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GRAPH_DATATYPE__GRAPH_TYPENAME = 0;
-
-  /**
-   * The number of structural features of the '<em>graph datatype</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GRAPH_DATATYPE_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.struct_datatypeImpl <em>struct datatype</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.struct_datatypeImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_datatype()
-   * @generated
-   */
-  int STRUCT_DATATYPE = 49;
-
-  /**
-   * The feature id for the '<em><b>Struct typename</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_DATATYPE__STRUCT_TYPENAME = 0;
-
-  /**
-   * The number of structural features of the '<em>struct datatype</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_DATATYPE_FEATURE_COUNT = 1;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.primitive_datatypeImpl <em>primitive datatype</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.primitive_datatypeImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getprimitive_datatype()
-   * @generated
-   */
-  int PRIMITIVE_DATATYPE = 50;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_DATATYPE__TYPE = ACTION_PORTLIST__TYPE;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_DATATYPE__NAME = ACTION_PORTLIST__NAME;
-
-  /**
-   * The feature id for the '<em><b>Graph typename</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_DATATYPE__GRAPH_TYPENAME = ACTION_PORTLIST_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Struct typename</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_DATATYPE__STRUCT_TYPENAME = ACTION_PORTLIST_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>primitive datatype</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PRIMITIVE_DATATYPE_FEATURE_COUNT = ACTION_PORTLIST_FEATURE_COUNT + 2;
-
-  /**
-   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.integer_typeImpl <em>integer type</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see net.sf.psstools.lang.pSS.impl.integer_typeImpl
-   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinteger_type()
-   * @generated
-   */
-  int INTEGER_TYPE = 51;
-
-  /**
-   * The feature id for the '<em><b>Type</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_TYPE__TYPE = PRIMITIVE_DATATYPE__TYPE;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_TYPE__NAME = PRIMITIVE_DATATYPE__NAME;
-
-  /**
-   * The feature id for the '<em><b>Graph typename</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_TYPE__GRAPH_TYPENAME = PRIMITIVE_DATATYPE__GRAPH_TYPENAME;
-
-  /**
-   * The feature id for the '<em><b>Struct typename</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_TYPE__STRUCT_TYPENAME = PRIMITIVE_DATATYPE__STRUCT_TYPENAME;
-
-  /**
-   * The feature id for the '<em><b>Range lhs</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_TYPE__RANGE_LHS = PRIMITIVE_DATATYPE_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Range rhs</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_TYPE__RANGE_RHS = PRIMITIVE_DATATYPE_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>integer type</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int INTEGER_TYPE_FEATURE_COUNT = PRIMITIVE_DATATYPE_FEATURE_COUNT + 2;
+  int CONSTANT_FEATURE_COUNT = EXPLICIT_BIN_VALUE_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.hierarchical_idImpl <em>hierarchical id</em>}' class.
@@ -1844,16 +2364,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gethierarchical_id()
    * @generated
    */
-  int HIERARCHICAL_ID = 52;
-
-  /**
-   * The feature id for the '<em><b>Parameters</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int HIERARCHICAL_ID__PARAMETERS = SEQ_ITEM_FEATURE_COUNT + 0;
+  int HIERARCHICAL_ID = 68;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1862,7 +2373,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int HIERARCHICAL_ID__VALUE = SEQ_ITEM_FEATURE_COUNT + 1;
+  int HIERARCHICAL_ID__VALUE = 0;
 
   /**
    * The number of structural features of the '<em>hierarchical id</em>' class.
@@ -1871,7 +2382,44 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int HIERARCHICAL_ID_FEATURE_COUNT = SEQ_ITEM_FEATURE_COUNT + 2;
+  int HIERARCHICAL_ID_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.interface_action_idImpl <em>interface action id</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.interface_action_idImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_action_id()
+   * @generated
+   */
+  int INTERFACE_ACTION_ID = 69;
+
+  /**
+   * The feature id for the '<em><b>Ifc</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_ACTION_ID__IFC = 0;
+
+  /**
+   * The feature id for the '<em><b>Action</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_ACTION_ID__ACTION = 1;
+
+  /**
+   * The number of structural features of the '<em>interface action id</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INTERFACE_ACTION_ID_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.literalImpl <em>literal</em>}' class.
@@ -1881,7 +2429,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getliteral()
    * @generated
    */
-  int LITERAL = 53;
+  int LITERAL = 70;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1890,7 +2438,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LITERAL__VALUE = 0;
+  int LITERAL__VALUE = CONSTANT_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>literal</em>' class.
@@ -1899,7 +2447,7 @@ public interface PSSPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LITERAL_FEATURE_COUNT = 1;
+  int LITERAL_FEATURE_COUNT = CONSTANT_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.decimal_numberImpl <em>decimal number</em>}' class.
@@ -1909,7 +2457,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdecimal_number()
    * @generated
    */
-  int DECIMAL_NUMBER = 54;
+  int DECIMAL_NUMBER = 71;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1937,7 +2485,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsize()
    * @generated
    */
-  int SIZE = 55;
+  int SIZE = 72;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -1958,6 +2506,107 @@ public interface PSSPackage extends EPackage
   int SIZE_FEATURE_COUNT = DECIMAL_NUMBER_FEATURE_COUNT + 0;
 
   /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.alt_stmtImpl <em>alt stmt</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.alt_stmtImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getalt_stmt()
+   * @generated
+   */
+  int ALT_STMT = 73;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALT_STMT__LEFT = RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALT_STMT__RIGHT = RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT + 1;
+
+  /**
+   * The number of structural features of the '<em>alt stmt</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ALT_STMT_FEATURE_COUNT = RULE_STMT_ALT_PARALLEL_SEQ_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.stmt_altImpl <em>stmt alt</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see net.sf.psstools.lang.pSS.impl.stmt_altImpl
+   * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_alt()
+   * @generated
+   */
+  int STMT_ALT = 74;
+
+  /**
+   * The feature id for the '<em><b>Param</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STMT_ALT__PARAM = RULE_STMT_PARALLEL_ALT__PARAM;
+
+  /**
+   * The feature id for the '<em><b>Rhs</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STMT_ALT__RHS = RULE_STMT_PARALLEL_ALT__RHS;
+
+  /**
+   * The feature id for the '<em><b>Stmt list</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STMT_ALT__STMT_LIST = RULE_STMT_PARALLEL_ALT__STMT_LIST;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STMT_ALT__LEFT = RULE_STMT_PARALLEL_ALT__LEFT;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STMT_ALT__RIGHT = RULE_STMT_PARALLEL_ALT__RIGHT;
+
+  /**
+   * The number of structural features of the '<em>stmt alt</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STMT_ALT_FEATURE_COUNT = RULE_STMT_PARALLEL_ALT_FEATURE_COUNT + 0;
+
+  /**
    * The meta object id for the '{@link net.sf.psstools.lang.pSS.impl.overides_declarationImpl <em>overides declaration</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1965,7 +2614,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getoverides_declaration()
    * @generated
    */
-  int OVERIDES_DECLARATION = 56;
+  int OVERIDES_DECLARATION = 75;
 
   /**
    * The feature id for the '<em><b>Overrides</b></em>' containment reference list.
@@ -1993,7 +2642,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getcondition_expr()
    * @generated
    */
-  int CONDITION_EXPR = 57;
+  int CONDITION_EXPR = 76;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2075,7 +2724,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_or_expr()
    * @generated
    */
-  int LOGICAL_OR_EXPR = 58;
+  int LOGICAL_OR_EXPR = 77;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2148,7 +2797,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_and_expr()
    * @generated
    */
-  int LOGICAL_AND_EXPR = 59;
+  int LOGICAL_AND_EXPR = 78;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2221,7 +2870,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_xor_expr()
    * @generated
    */
-  int BINARY_XOR_EXPR = 60;
+  int BINARY_XOR_EXPR = 79;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2294,7 +2943,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_and_expr()
    * @generated
    */
-  int BINARY_AND_EXPR = 61;
+  int BINARY_AND_EXPR = 80;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2367,7 +3016,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_equality_expr()
    * @generated
    */
-  int LOGICAL_EQUALITY_EXPR = 62;
+  int LOGICAL_EQUALITY_EXPR = 81;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2449,7 +3098,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getlogical_inequality_expr()
    * @generated
    */
-  int LOGICAL_INEQUALITY_EXPR = 63;
+  int LOGICAL_INEQUALITY_EXPR = 82;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2531,7 +3180,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_shift_expr()
    * @generated
    */
-  int BINARY_SHIFT_EXPR = 64;
+  int BINARY_SHIFT_EXPR = 83;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2613,7 +3262,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_add_sub_expr()
    * @generated
    */
-  int BINARY_ADD_SUB_EXPR = 65;
+  int BINARY_ADD_SUB_EXPR = 84;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2695,7 +3344,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_mul_div_mod_expr()
    * @generated
    */
-  int BINARY_MUL_DIV_MOD_EXPR = 66;
+  int BINARY_MUL_DIV_MOD_EXPR = 85;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2777,7 +3426,7 @@ public interface PSSPackage extends EPackage
    * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbinary_exp_expr()
    * @generated
    */
-  int BINARY_EXP_EXPR = 67;
+  int BINARY_EXP_EXPR = 86;
 
   /**
    * The feature id for the '<em><b>Impl constraint</b></em>' containment reference.
@@ -2854,15 +3503,15 @@ public interface PSSPackage extends EPackage
   EClass getModel();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.Model#getTopLevel <em>Top Level</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.Model#getRoot <em>Root</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Top Level</em>'.
-   * @see net.sf.psstools.lang.pSS.Model#getTopLevel()
+   * @return the meta object for the containment reference list '<em>Root</em>'.
+   * @see net.sf.psstools.lang.pSS.Model#getRoot()
    * @see #getModel()
    * @generated
    */
-  EReference getModel_TopLevel();
+  EReference getModel_Root();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.portable_stimulus_description <em>portable stimulus description</em>}'.
@@ -3024,16 +3673,6 @@ public interface PSSPackage extends EPackage
   EReference getstruct_declaration_Body();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.struct_graph_body_item <em>struct graph body item</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>struct graph body item</em>'.
-   * @see net.sf.psstools.lang.pSS.struct_graph_body_item
-   * @generated
-   */
-  EClass getstruct_graph_body_item();
-
-  /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.struct_body_item <em>struct body item</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3064,26 +3703,69 @@ public interface PSSPackage extends EPackage
   EClass getsymbol_definition();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.symbol_definition#getName <em>Name</em>}'.
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.symbol_definition#getSymbol_name <em>Symbol name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see net.sf.psstools.lang.pSS.symbol_definition#getName()
+   * @return the meta object for the attribute '<em>Symbol name</em>'.
+   * @see net.sf.psstools.lang.pSS.symbol_definition#getSymbol_name()
    * @see #getsymbol_definition()
    * @generated
    */
-  EAttribute getsymbol_definition_Name();
+  EAttribute getsymbol_definition_Symbol_name();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.symbol_definition#getRule <em>Rule</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.symbol_definition#getBody_items <em>Body items</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Rule</em>'.
-   * @see net.sf.psstools.lang.pSS.symbol_definition#getRule()
+   * @return the meta object for the containment reference list '<em>Body items</em>'.
+   * @see net.sf.psstools.lang.pSS.symbol_definition#getBody_items()
    * @see #getsymbol_definition()
    * @generated
    */
-  EReference getsymbol_definition_Rule();
+  EReference getsymbol_definition_Body_items();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.interface_action_definition <em>interface action definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>interface action definition</em>'.
+   * @see net.sf.psstools.lang.pSS.interface_action_definition
+   * @generated
+   */
+  EClass getinterface_action_definition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.interface_action_definition#getAction <em>Action</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Action</em>'.
+   * @see net.sf.psstools.lang.pSS.interface_action_definition#getAction()
+   * @see #getinterface_action_definition()
+   * @generated
+   */
+  EReference getinterface_action_definition_Action();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.interface_action_definition#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Parameters</em>'.
+   * @see net.sf.psstools.lang.pSS.interface_action_definition#getParameters()
+   * @see #getinterface_action_definition()
+   * @generated
+   */
+  EReference getinterface_action_definition_Parameters();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.interface_action_definition#getBody_items <em>Body items</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Body items</em>'.
+   * @see net.sf.psstools.lang.pSS.interface_action_definition#getBody_items()
+   * @see #getinterface_action_definition()
+   * @generated
+   */
+  EReference getinterface_action_definition_Body_items();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_production <em>rule production</em>}'.
@@ -3096,160 +3778,258 @@ public interface PSSPackage extends EPackage
   EClass getrule_production();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.stmt_or_block <em>stmt or block</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_stmt_or_block <em>rule stmt or block</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>stmt or block</em>'.
-   * @see net.sf.psstools.lang.pSS.stmt_or_block
+   * @return the meta object for class '<em>rule stmt or block</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_or_block
    * @generated
    */
-  EClass getstmt_or_block();
+  EClass getrule_stmt_or_block();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.alt_stmt <em>alt stmt</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_stmt_alt_parallel_seq <em>rule stmt alt parallel seq</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>alt stmt</em>'.
-   * @see net.sf.psstools.lang.pSS.alt_stmt
+   * @return the meta object for class '<em>rule stmt alt parallel seq</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_alt_parallel_seq
    * @generated
    */
-  EClass getalt_stmt();
+  EClass getrule_stmt_alt_parallel_seq();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.alt_stmt#getLeft <em>Left</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_stmt_primary <em>rule stmt primary</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see net.sf.psstools.lang.pSS.alt_stmt#getLeft()
-   * @see #getalt_stmt()
+   * @return the meta object for class '<em>rule stmt primary</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_primary
    * @generated
    */
-  EReference getalt_stmt_Left();
+  EClass getrule_stmt_primary();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.alt_stmt#getRight <em>Right</em>}'.
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.rule_stmt_primary#getParam <em>Param</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see net.sf.psstools.lang.pSS.alt_stmt#getRight()
-   * @see #getalt_stmt()
+   * @return the meta object for the attribute '<em>Param</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_primary#getParam()
+   * @see #getrule_stmt_primary()
    * @generated
    */
-  EReference getalt_stmt_Right();
+  EAttribute getrule_stmt_primary_Param();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.stmt_primary <em>stmt primary</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_stmt_primary#getRhs <em>Rhs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>stmt primary</em>'.
-   * @see net.sf.psstools.lang.pSS.stmt_primary
+   * @return the meta object for the containment reference '<em>Rhs</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_primary#getRhs()
+   * @see #getrule_stmt_primary()
    * @generated
    */
-  EClass getstmt_primary();
+  EReference getrule_stmt_primary_Rhs();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.stmt_primary#getStmt_list <em>Stmt list</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.rule_stmt_primary#getStmt_list <em>Stmt list</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Stmt list</em>'.
-   * @see net.sf.psstools.lang.pSS.stmt_primary#getStmt_list()
-   * @see #getstmt_primary()
+   * @see net.sf.psstools.lang.pSS.rule_stmt_primary#getStmt_list()
+   * @see #getrule_stmt_primary()
    * @generated
    */
-  EReference getstmt_primary_Stmt_list();
+  EReference getrule_stmt_primary_Stmt_list();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.stmt_alt <em>stmt alt</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_stmt_parallel_alt <em>rule stmt parallel alt</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>stmt alt</em>'.
-   * @see net.sf.psstools.lang.pSS.stmt_alt
+   * @return the meta object for class '<em>rule stmt parallel alt</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_parallel_alt
    * @generated
    */
-  EClass getstmt_alt();
+  EClass getrule_stmt_parallel_alt();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.stmt_parallel <em>stmt parallel</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_stmt_parallel_alt#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>stmt parallel</em>'.
-   * @see net.sf.psstools.lang.pSS.stmt_parallel
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_parallel_alt#getLeft()
+   * @see #getrule_stmt_parallel_alt()
    * @generated
    */
-  EClass getstmt_parallel();
+  EReference getrule_stmt_parallel_alt_Left();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.seq <em>seq</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_stmt_parallel_alt#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>seq</em>'.
-   * @see net.sf.psstools.lang.pSS.seq
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_parallel_alt#getRight()
+   * @see #getrule_stmt_parallel_alt()
    * @generated
    */
-  EClass getseq();
+  EReference getrule_stmt_parallel_alt_Right();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.seq#getItems <em>Items</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_stmt_parallel <em>rule stmt parallel</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rule stmt parallel</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_stmt_parallel
+   * @generated
+   */
+  EClass getrule_stmt_parallel();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_sequence <em>rule sequence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rule sequence</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_sequence
+   * @generated
+   */
+  EClass getrule_sequence();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.rule_sequence#getItems <em>Items</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Items</em>'.
-   * @see net.sf.psstools.lang.pSS.seq#getItems()
-   * @see #getseq()
+   * @see net.sf.psstools.lang.pSS.rule_sequence#getItems()
+   * @see #getrule_sequence()
    * @generated
    */
-  EReference getseq_Items();
+  EReference getrule_sequence_Items();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.seq_item <em>seq item</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_seq_item <em>rule seq item</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>seq item</em>'.
-   * @see net.sf.psstools.lang.pSS.seq_item
+   * @return the meta object for class '<em>rule seq item</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_seq_item
    * @generated
    */
-  EClass getseq_item();
+  EClass getrule_seq_item();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.ifc_call_parameter_list <em>ifc call parameter list</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_seq_item#getAction <em>Action</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>ifc call parameter list</em>'.
-   * @see net.sf.psstools.lang.pSS.ifc_call_parameter_list
+   * @return the meta object for the containment reference '<em>Action</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_seq_item#getAction()
+   * @see #getrule_seq_item()
    * @generated
    */
-  EClass getifc_call_parameter_list();
+  EReference getrule_seq_item_Action();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.ifc_call_parameter_list#getParameters <em>Parameters</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_seq_item#getAction_params <em>Action params</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Action params</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_seq_item#getAction_params()
+   * @see #getrule_seq_item()
+   * @generated
+   */
+  EReference getrule_seq_item_Action_params();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.rule_seq_item#getItem <em>Item</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Item</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_seq_item#getItem()
+   * @see #getrule_seq_item()
+   * @generated
+   */
+  EAttribute getrule_seq_item_Item();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_seq_item#getWith_clause <em>With clause</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>With clause</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_seq_item#getWith_clause()
+   * @see #getrule_seq_item()
+   * @generated
+   */
+  EReference getrule_seq_item_With_clause();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_with_clause <em>rule with clause</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>rule with clause</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_with_clause
+   * @generated
+   */
+  EClass getrule_with_clause();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.rule_with_clause#getBody <em>Body</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Body</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_with_clause#getBody()
+   * @see #getrule_with_clause()
+   * @generated
+   */
+  EReference getrule_with_clause_Body();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.parameter_list <em>parameter list</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>parameter list</em>'.
+   * @see net.sf.psstools.lang.pSS.parameter_list
+   * @generated
+   */
+  EClass getparameter_list();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.parameter_list#getParameters <em>Parameters</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference list '<em>Parameters</em>'.
-   * @see net.sf.psstools.lang.pSS.ifc_call_parameter_list#getParameters()
-   * @see #getifc_call_parameter_list()
+   * @see net.sf.psstools.lang.pSS.parameter_list#getParameters()
+   * @see #getparameter_list()
    * @generated
    */
-  EReference getifc_call_parameter_list_Parameters();
+  EReference getparameter_list_Parameters();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.repeat_stmt <em>repeat stmt</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.rule_repeat_stmt <em>rule repeat stmt</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>repeat stmt</em>'.
-   * @see net.sf.psstools.lang.pSS.repeat_stmt
+   * @return the meta object for class '<em>rule repeat stmt</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_repeat_stmt
    * @generated
    */
-  EClass getrepeat_stmt();
+  EClass getrule_repeat_stmt();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.repeat_stmt#getStmt <em>Stmt</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_repeat_stmt#getExpr <em>Expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Expr</em>'.
+   * @see net.sf.psstools.lang.pSS.rule_repeat_stmt#getExpr()
+   * @see #getrule_repeat_stmt()
+   * @generated
+   */
+  EReference getrule_repeat_stmt_Expr();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.rule_repeat_stmt#getStmt <em>Stmt</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Stmt</em>'.
-   * @see net.sf.psstools.lang.pSS.repeat_stmt#getStmt()
-   * @see #getrepeat_stmt()
+   * @see net.sf.psstools.lang.pSS.rule_repeat_stmt#getStmt()
+   * @see #getrule_repeat_stmt()
    * @generated
    */
-  EReference getrepeat_stmt_Stmt();
+  EReference getrule_repeat_stmt_Stmt();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.overrides_declaration <em>overrides declaration</em>}'.
@@ -3335,6 +4115,144 @@ public interface PSSPackage extends EPackage
   EClass getdata_declaration();
 
   /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.data_declaration#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see net.sf.psstools.lang.pSS.data_declaration#getType()
+   * @see #getdata_declaration()
+   * @generated
+   */
+  EReference getdata_declaration_Type();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.data_declaration#getInstances <em>Instances</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Instances</em>'.
+   * @see net.sf.psstools.lang.pSS.data_declaration#getInstances()
+   * @see #getdata_declaration()
+   * @generated
+   */
+  EReference getdata_declaration_Instances();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.data_instantiation <em>data instantiation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>data instantiation</em>'.
+   * @see net.sf.psstools.lang.pSS.data_instantiation
+   * @generated
+   */
+  EClass getdata_instantiation();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.data_instantiation#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see net.sf.psstools.lang.pSS.data_instantiation#getName()
+   * @see #getdata_instantiation()
+   * @generated
+   */
+  EAttribute getdata_instantiation_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.data_instantiation#getPortmap <em>Portmap</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Portmap</em>'.
+   * @see net.sf.psstools.lang.pSS.data_instantiation#getPortmap()
+   * @see #getdata_instantiation()
+   * @generated
+   */
+  EReference getdata_instantiation_Portmap();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.graph_interface_portmap_list <em>graph interface portmap list</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>graph interface portmap list</em>'.
+   * @see net.sf.psstools.lang.pSS.graph_interface_portmap_list
+   * @generated
+   */
+  EClass getgraph_interface_portmap_list();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.graph_interface_portmap_list#getMaps <em>Maps</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Maps</em>'.
+   * @see net.sf.psstools.lang.pSS.graph_interface_portmap_list#getMaps()
+   * @see #getgraph_interface_portmap_list()
+   * @generated
+   */
+  EReference getgraph_interface_portmap_list_Maps();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.graph_interface_portmap <em>graph interface portmap</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>graph interface portmap</em>'.
+   * @see net.sf.psstools.lang.pSS.graph_interface_portmap
+   * @generated
+   */
+  EClass getgraph_interface_portmap();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.graph_interface_portmap#getPortname <em>Portname</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Portname</em>'.
+   * @see net.sf.psstools.lang.pSS.graph_interface_portmap#getPortname()
+   * @see #getgraph_interface_portmap()
+   * @generated
+   */
+  EAttribute getgraph_interface_portmap_Portname();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.graph_interface_portmap#getConnected_name <em>Connected name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Connected name</em>'.
+   * @see net.sf.psstools.lang.pSS.graph_interface_portmap#getConnected_name()
+   * @see #getgraph_interface_portmap()
+   * @generated
+   */
+  EReference getgraph_interface_portmap_Connected_name();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.data_type <em>data type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>data type</em>'.
+   * @see net.sf.psstools.lang.pSS.data_type
+   * @generated
+   */
+  EClass getdata_type();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.user_defined_type <em>user defined type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>user defined type</em>'.
+   * @see net.sf.psstools.lang.pSS.user_defined_type
+   * @generated
+   */
+  EClass getuser_defined_type();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.user_defined_type#getTypename <em>Typename</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Typename</em>'.
+   * @see net.sf.psstools.lang.pSS.user_defined_type#getTypename()
+   * @see #getuser_defined_type()
+   * @generated
+   */
+  EAttribute getuser_defined_type_Typename();
+
+  /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.typedef_declaration <em>typedef declaration</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3345,186 +4263,218 @@ public interface PSSPackage extends EPackage
   EClass gettypedef_declaration();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.typedef_declaration#getSrc <em>Src</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.typedef_declaration#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Src</em>'.
-   * @see net.sf.psstools.lang.pSS.typedef_declaration#getSrc()
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see net.sf.psstools.lang.pSS.typedef_declaration#getType()
    * @see #gettypedef_declaration()
    * @generated
    */
-  EAttribute gettypedef_declaration_Src();
+  EReference gettypedef_declaration_Type();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.typedef_declaration#getDest <em>Dest</em>}'.
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.typedef_declaration#getType_identifier <em>Type identifier</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Dest</em>'.
-   * @see net.sf.psstools.lang.pSS.typedef_declaration#getDest()
+   * @return the meta object for the attribute '<em>Type identifier</em>'.
+   * @see net.sf.psstools.lang.pSS.typedef_declaration#getType_identifier()
    * @see #gettypedef_declaration()
    * @generated
    */
-  EAttribute gettypedef_declaration_Dest();
+  EAttribute gettypedef_declaration_Type_identifier();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.enum_declaration <em>enum declaration</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.enum_type <em>enum type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>enum declaration</em>'.
-   * @see net.sf.psstools.lang.pSS.enum_declaration
+   * @return the meta object for class '<em>enum type</em>'.
+   * @see net.sf.psstools.lang.pSS.enum_type
    * @generated
    */
-  EClass getenum_declaration();
+  EClass getenum_type();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.enum_declaration#getData_type <em>Data type</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.enum_type#getData_type <em>Data type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Data type</em>'.
-   * @see net.sf.psstools.lang.pSS.enum_declaration#getData_type()
-   * @see #getenum_declaration()
+   * @see net.sf.psstools.lang.pSS.enum_type#getData_type()
+   * @see #getenum_type()
    * @generated
    */
-  EReference getenum_declaration_Data_type();
+  EReference getenum_type_Data_type();
 
   /**
-   * Returns the meta object for the attribute list '{@link net.sf.psstools.lang.pSS.enum_declaration#getItems <em>Items</em>}'.
+   * Returns the meta object for the attribute list '{@link net.sf.psstools.lang.pSS.enum_type#getItems <em>Items</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute list '<em>Items</em>'.
-   * @see net.sf.psstools.lang.pSS.enum_declaration#getItems()
-   * @see #getenum_declaration()
+   * @see net.sf.psstools.lang.pSS.enum_type#getItems()
+   * @see #getenum_type()
    * @generated
    */
-  EAttribute getenum_declaration_Items();
+  EAttribute getenum_type_Items();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.enum_declaration#getName <em>Name</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.integer_type <em>integer type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see net.sf.psstools.lang.pSS.enum_declaration#getName()
-   * @see #getenum_declaration()
+   * @return the meta object for class '<em>integer type</em>'.
+   * @see net.sf.psstools.lang.pSS.integer_type
    * @generated
    */
-  EAttribute getenum_declaration_Name();
+  EClass getinteger_type();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.scalar_declaration <em>scalar declaration</em>}'.
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.integer_type#getAtom_type <em>Atom type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>scalar declaration</em>'.
-   * @see net.sf.psstools.lang.pSS.scalar_declaration
+   * @return the meta object for the attribute '<em>Atom type</em>'.
+   * @see net.sf.psstools.lang.pSS.integer_type#getAtom_type()
+   * @see #getinteger_type()
    * @generated
    */
-  EClass getscalar_declaration();
+  EAttribute getinteger_type_Atom_type();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.signed_scalar <em>signed scalar</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>signed scalar</em>'.
-   * @see net.sf.psstools.lang.pSS.signed_scalar
-   * @generated
-   */
-  EClass getsigned_scalar();
-
-  /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.signed_scalar#getLhs <em>Lhs</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.integer_type#getLhs <em>Lhs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Lhs</em>'.
-   * @see net.sf.psstools.lang.pSS.signed_scalar#getLhs()
-   * @see #getsigned_scalar()
+   * @see net.sf.psstools.lang.pSS.integer_type#getLhs()
+   * @see #getinteger_type()
    * @generated
    */
-  EReference getsigned_scalar_Lhs();
+  EReference getinteger_type_Lhs();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.signed_scalar#getRhs <em>Rhs</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.integer_type#getRhs <em>Rhs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Rhs</em>'.
-   * @see net.sf.psstools.lang.pSS.signed_scalar#getRhs()
-   * @see #getsigned_scalar()
+   * @see net.sf.psstools.lang.pSS.integer_type#getRhs()
+   * @see #getinteger_type()
    * @generated
    */
-  EReference getsigned_scalar_Rhs();
+  EReference getinteger_type_Rhs();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.signed_scalar#getItems <em>Items</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.integer_type#getInside <em>Inside</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Items</em>'.
-   * @see net.sf.psstools.lang.pSS.signed_scalar#getItems()
-   * @see #getsigned_scalar()
+   * @return the meta object for the containment reference '<em>Inside</em>'.
+   * @see net.sf.psstools.lang.pSS.integer_type#getInside()
+   * @see #getinteger_type()
    * @generated
    */
-  EReference getsigned_scalar_Items();
+  EReference getinteger_type_Inside();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.signed_scalar#getName <em>Name</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.type_inside_clause <em>type inside clause</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see net.sf.psstools.lang.pSS.signed_scalar#getName()
-   * @see #getsigned_scalar()
+   * @return the meta object for class '<em>type inside clause</em>'.
+   * @see net.sf.psstools.lang.pSS.type_inside_clause
    * @generated
    */
-  EAttribute getsigned_scalar_Name();
+  EClass gettype_inside_clause();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.scalar_signed <em>scalar signed</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.type_inside_clause#getDomain <em>Domain</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>scalar signed</em>'.
-   * @see net.sf.psstools.lang.pSS.scalar_signed
+   * @return the meta object for the containment reference '<em>Domain</em>'.
+   * @see net.sf.psstools.lang.pSS.type_inside_clause#getDomain()
+   * @see #gettype_inside_clause()
    * @generated
    */
-  EClass getscalar_signed();
+  EReference gettype_inside_clause_Domain();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.scalar_signed#getName <em>Name</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.open_range_list <em>open range list</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see net.sf.psstools.lang.pSS.scalar_signed#getName()
-   * @see #getscalar_signed()
+   * @return the meta object for class '<em>open range list</em>'.
+   * @see net.sf.psstools.lang.pSS.open_range_list
    * @generated
    */
-  EAttribute getscalar_signed_Name();
+  EClass getopen_range_list();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.domain_spec <em>domain spec</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.open_range_list#getRanges <em>Ranges</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>domain spec</em>'.
-   * @see net.sf.psstools.lang.pSS.domain_spec
+   * @return the meta object for the containment reference list '<em>Ranges</em>'.
+   * @see net.sf.psstools.lang.pSS.open_range_list#getRanges()
+   * @see #getopen_range_list()
    * @generated
    */
-  EClass getdomain_spec();
+  EReference getopen_range_list_Ranges();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.domain_spec#getRange_lhs <em>Range lhs</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.open_range_value <em>open range value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Range lhs</em>'.
-   * @see net.sf.psstools.lang.pSS.domain_spec#getRange_lhs()
-   * @see #getdomain_spec()
+   * @return the meta object for class '<em>open range value</em>'.
+   * @see net.sf.psstools.lang.pSS.open_range_value
    * @generated
    */
-  EAttribute getdomain_spec_Range_lhs();
+  EClass getopen_range_value();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.domain_spec#getRange_rhs <em>Range rhs</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.open_range_value#getLhs <em>Lhs</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Range rhs</em>'.
-   * @see net.sf.psstools.lang.pSS.domain_spec#getRange_rhs()
-   * @see #getdomain_spec()
+   * @return the meta object for the containment reference '<em>Lhs</em>'.
+   * @see net.sf.psstools.lang.pSS.open_range_value#getLhs()
+   * @see #getopen_range_value()
    * @generated
    */
-  EAttribute getdomain_spec_Range_rhs();
+  EReference getopen_range_value_Lhs();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.open_range_value#getRange <em>Range</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Range</em>'.
+   * @see net.sf.psstools.lang.pSS.open_range_value#getRange()
+   * @see #getopen_range_value()
+   * @generated
+   */
+  EReference getopen_range_value_Range();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.range_expr <em>range expr</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>range expr</em>'.
+   * @see net.sf.psstools.lang.pSS.range_expr
+   * @generated
+   */
+  EClass getrange_expr();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.range_expr#getLhs <em>Lhs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Lhs</em>'.
+   * @see net.sf.psstools.lang.pSS.range_expr#getLhs()
+   * @see #getrange_expr()
+   * @generated
+   */
+  EReference getrange_expr_Lhs();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.range_expr#getRhs <em>Rhs</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Rhs</em>'.
+   * @see net.sf.psstools.lang.pSS.range_expr#getRhs()
+   * @see #getrange_expr()
+   * @generated
+   */
+  EReference getrange_expr_Rhs();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.constraint_declaration <em>constraint declaration</em>}'.
@@ -3557,16 +4507,6 @@ public interface PSSPackage extends EPackage
    * @generated
    */
   EReference getconstraint_declaration_Body();
-
-  /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.constraint_body_no_if_item <em>constraint body no if item</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>constraint body no if item</em>'.
-   * @see net.sf.psstools.lang.pSS.constraint_body_no_if_item
-   * @generated
-   */
-  EClass getconstraint_body_no_if_item();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.constraint_body_item <em>constraint body item</em>}'.
@@ -3683,6 +4623,247 @@ public interface PSSPackage extends EPackage
    * @generated
    */
   EReference getconstraint_set_Items();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.constraint_block <em>constraint block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>constraint block</em>'.
+   * @see net.sf.psstools.lang.pSS.constraint_block
+   * @generated
+   */
+  EClass getconstraint_block();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bin_or_scheme_declaration <em>bin or scheme declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bin or scheme declaration</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_or_scheme_declaration
+   * @generated
+   */
+  EClass getbin_or_scheme_declaration();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.bin_or_scheme_declaration#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_or_scheme_declaration#getName()
+   * @see #getbin_or_scheme_declaration()
+   * @generated
+   */
+  EAttribute getbin_or_scheme_declaration_Name();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bins_declaration <em>bins declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bins declaration</em>'.
+   * @see net.sf.psstools.lang.pSS.bins_declaration
+   * @generated
+   */
+  EClass getbins_declaration();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.bins_declaration#getItem <em>Item</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Item</em>'.
+   * @see net.sf.psstools.lang.pSS.bins_declaration#getItem()
+   * @see #getbins_declaration()
+   * @generated
+   */
+  EAttribute getbins_declaration_Item();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.bins_declaration#getBins <em>Bins</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Bins</em>'.
+   * @see net.sf.psstools.lang.pSS.bins_declaration#getBins()
+   * @see #getbins_declaration()
+   * @generated
+   */
+  EReference getbins_declaration_Bins();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bin_specification <em>bin specification</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bin specification</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_specification
+   * @generated
+   */
+  EClass getbin_specification();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.bin_specification#getItems <em>Items</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Items</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_specification#getItems()
+   * @see #getbin_specification()
+   * @generated
+   */
+  EReference getbin_specification_Items();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bin_specifier <em>bin specifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bin specifier</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_specifier
+   * @generated
+   */
+  EClass getbin_specifier();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.explicit_bin_value <em>explicit bin value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>explicit bin value</em>'.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_value
+   * @generated
+   */
+  EClass getexplicit_bin_value();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.explicit_bin_range <em>explicit bin range</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>explicit bin range</em>'.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_range
+   * @generated
+   */
+  EClass getexplicit_bin_range();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.explicit_bin_range#getLow <em>Low</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Low</em>'.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_range#getLow()
+   * @see #getexplicit_bin_range()
+   * @generated
+   */
+  EReference getexplicit_bin_range_Low();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.explicit_bin_range#getHigh <em>High</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>High</em>'.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_range#getHigh()
+   * @see #getexplicit_bin_range()
+   * @generated
+   */
+  EReference getexplicit_bin_range_High();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.explicit_bin_range#getDiv <em>Div</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Div</em>'.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_range#getDiv()
+   * @see #getexplicit_bin_range()
+   * @generated
+   */
+  EReference getexplicit_bin_range_Div();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.explicit_bin_range#getSize <em>Size</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Size</em>'.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_range#getSize()
+   * @see #getexplicit_bin_range()
+   * @generated
+   */
+  EReference getexplicit_bin_range_Size();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bin_range_divide <em>bin range divide</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bin range divide</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_range_divide
+   * @generated
+   */
+  EClass getbin_range_divide();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bin_range_size <em>bin range size</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bin range size</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_range_size
+   * @generated
+   */
+  EClass getbin_range_size();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bin_scheme_declaration <em>bin scheme declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bin scheme declaration</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_scheme_declaration
+   * @generated
+   */
+  EClass getbin_scheme_declaration();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.bin_scheme_declaration#getItems <em>Items</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Items</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_scheme_declaration#getItems()
+   * @see #getbin_scheme_declaration()
+   * @generated
+   */
+  EReference getbin_scheme_declaration_Items();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.bin_scheme_specifier <em>bin scheme specifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>bin scheme specifier</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_scheme_specifier
+   * @generated
+   */
+  EClass getbin_scheme_specifier();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.bin_scheme_specifier#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_scheme_specifier#getName()
+   * @see #getbin_scheme_specifier()
+   * @generated
+   */
+  EAttribute getbin_scheme_specifier_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.bin_scheme_specifier#getSpec <em>Spec</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Spec</em>'.
+   * @see net.sf.psstools.lang.pSS.bin_scheme_specifier#getSpec()
+   * @see #getbin_scheme_specifier()
+   * @generated
+   */
+  EReference getbin_scheme_specifier_Spec();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.constant_expression <em>constant expression</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>constant expression</em>'.
+   * @see net.sf.psstools.lang.pSS.constant_expression
+   * @generated
+   */
+  EClass getconstant_expression();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.expression <em>expression</em>}'.
@@ -3824,10 +5005,10 @@ public interface PSSPackage extends EPackage
   EAttribute getaction_declaration_Name();
 
   /**
-   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.action_declaration#getPorts <em>Ports</em>}'.
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.action_declaration#getPorts <em>Ports</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Ports</em>'.
+   * @return the meta object for the containment reference '<em>Ports</em>'.
    * @see net.sf.psstools.lang.pSS.action_declaration#getPorts()
    * @see #getaction_declaration()
    * @generated
@@ -3845,26 +5026,47 @@ public interface PSSPackage extends EPackage
   EClass getaction_portlist();
 
   /**
-   * Returns the meta object for the reference '{@link net.sf.psstools.lang.pSS.action_portlist#getType <em>Type</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.action_portlist#getPorts <em>Ports</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Type</em>'.
-   * @see net.sf.psstools.lang.pSS.action_portlist#getType()
+   * @return the meta object for the containment reference list '<em>Ports</em>'.
+   * @see net.sf.psstools.lang.pSS.action_portlist#getPorts()
    * @see #getaction_portlist()
    * @generated
    */
-  EReference getaction_portlist_Type();
+  EReference getaction_portlist_Ports();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.action_portlist#getName <em>Name</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.action_port <em>action port</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>action port</em>'.
+   * @see net.sf.psstools.lang.pSS.action_port
+   * @generated
+   */
+  EClass getaction_port();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.action_port#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see net.sf.psstools.lang.pSS.action_port#getType()
+   * @see #getaction_port()
+   * @generated
+   */
+  EReference getaction_port_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.action_port#getName <em>Name</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Name</em>'.
-   * @see net.sf.psstools.lang.pSS.action_portlist#getName()
-   * @see #getaction_portlist()
+   * @see net.sf.psstools.lang.pSS.action_port#getName()
+   * @see #getaction_port()
    * @generated
    */
-  EAttribute getaction_portlist_Name();
+  EAttribute getaction_port_Name();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.graph_data_declaration <em>graph data declaration</em>}'.
@@ -3877,10 +5079,10 @@ public interface PSSPackage extends EPackage
   EClass getgraph_data_declaration();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.graph_data_declaration#getType <em>Type</em>}'.
+   * Returns the meta object for the reference '{@link net.sf.psstools.lang.pSS.graph_data_declaration#getType <em>Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @return the meta object for the reference '<em>Type</em>'.
    * @see net.sf.psstools.lang.pSS.graph_data_declaration#getType()
    * @see #getgraph_data_declaration()
    * @generated
@@ -3920,15 +5122,15 @@ public interface PSSPackage extends EPackage
   EClass getsymbol_declaration();
 
   /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.symbol_declaration#getName <em>Name</em>}'.
+   * Returns the meta object for the containment reference list '{@link net.sf.psstools.lang.pSS.symbol_declaration#getDecl_list <em>Decl list</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see net.sf.psstools.lang.pSS.symbol_declaration#getName()
+   * @return the meta object for the containment reference list '<em>Decl list</em>'.
+   * @see net.sf.psstools.lang.pSS.symbol_declaration#getDecl_list()
    * @see #getsymbol_declaration()
    * @generated
    */
-  EAttribute getsymbol_declaration_Name();
+  EReference getsymbol_declaration_Decl_list();
 
   /**
    * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.symbol_declaration#getInline_rule <em>Inline rule</em>}'.
@@ -3942,15 +5144,36 @@ public interface PSSPackage extends EPackage
   EReference getsymbol_declaration_Inline_rule();
 
   /**
-   * Returns the meta object for the attribute list '{@link net.sf.psstools.lang.pSS.symbol_declaration#getNames <em>Names</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.symbol_decl_item <em>symbol decl item</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Names</em>'.
-   * @see net.sf.psstools.lang.pSS.symbol_declaration#getNames()
-   * @see #getsymbol_declaration()
+   * @return the meta object for class '<em>symbol decl item</em>'.
+   * @see net.sf.psstools.lang.pSS.symbol_decl_item
    * @generated
    */
-  EAttribute getsymbol_declaration_Names();
+  EClass getsymbol_decl_item();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.symbol_decl_item#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see net.sf.psstools.lang.pSS.symbol_decl_item#getName()
+   * @see #getsymbol_decl_item()
+   * @generated
+   */
+  EAttribute getsymbol_decl_item_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.symbol_decl_item#getParameters <em>Parameters</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Parameters</em>'.
+   * @see net.sf.psstools.lang.pSS.symbol_decl_item#getParameters()
+   * @see #getsymbol_decl_item()
+   * @generated
+   */
+  EReference getsymbol_decl_item_Parameters();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.port_map <em>port map</em>}'.
@@ -3985,120 +5208,14 @@ public interface PSSPackage extends EPackage
   EReference getport_map_Map();
 
   /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.struct_data_declaration <em>struct data declaration</em>}'.
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.constant <em>constant</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>struct data declaration</em>'.
-   * @see net.sf.psstools.lang.pSS.struct_data_declaration
+   * @return the meta object for class '<em>constant</em>'.
+   * @see net.sf.psstools.lang.pSS.constant
    * @generated
    */
-  EClass getstruct_data_declaration();
-
-  /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.struct_data_declaration#getType <em>Type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Type</em>'.
-   * @see net.sf.psstools.lang.pSS.struct_data_declaration#getType()
-   * @see #getstruct_data_declaration()
-   * @generated
-   */
-  EReference getstruct_data_declaration_Type();
-
-  /**
-   * Returns the meta object for the attribute list '{@link net.sf.psstools.lang.pSS.struct_data_declaration#getNames <em>Names</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Names</em>'.
-   * @see net.sf.psstools.lang.pSS.struct_data_declaration#getNames()
-   * @see #getstruct_data_declaration()
-   * @generated
-   */
-  EAttribute getstruct_data_declaration_Names();
-
-  /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.graph_datatype <em>graph datatype</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>graph datatype</em>'.
-   * @see net.sf.psstools.lang.pSS.graph_datatype
-   * @generated
-   */
-  EClass getgraph_datatype();
-
-  /**
-   * Returns the meta object for the reference '{@link net.sf.psstools.lang.pSS.graph_datatype#getGraph_typename <em>Graph typename</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Graph typename</em>'.
-   * @see net.sf.psstools.lang.pSS.graph_datatype#getGraph_typename()
-   * @see #getgraph_datatype()
-   * @generated
-   */
-  EReference getgraph_datatype_Graph_typename();
-
-  /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.struct_datatype <em>struct datatype</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>struct datatype</em>'.
-   * @see net.sf.psstools.lang.pSS.struct_datatype
-   * @generated
-   */
-  EClass getstruct_datatype();
-
-  /**
-   * Returns the meta object for the reference '{@link net.sf.psstools.lang.pSS.struct_datatype#getStruct_typename <em>Struct typename</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Struct typename</em>'.
-   * @see net.sf.psstools.lang.pSS.struct_datatype#getStruct_typename()
-   * @see #getstruct_datatype()
-   * @generated
-   */
-  EReference getstruct_datatype_Struct_typename();
-
-  /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.primitive_datatype <em>primitive datatype</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>primitive datatype</em>'.
-   * @see net.sf.psstools.lang.pSS.primitive_datatype
-   * @generated
-   */
-  EClass getprimitive_datatype();
-
-  /**
-   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.integer_type <em>integer type</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>integer type</em>'.
-   * @see net.sf.psstools.lang.pSS.integer_type
-   * @generated
-   */
-  EClass getinteger_type();
-
-  /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.integer_type#getRange_lhs <em>Range lhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Range lhs</em>'.
-   * @see net.sf.psstools.lang.pSS.integer_type#getRange_lhs()
-   * @see #getinteger_type()
-   * @generated
-   */
-  EAttribute getinteger_type_Range_lhs();
-
-  /**
-   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.integer_type#getRange_rhs <em>Range rhs</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Range rhs</em>'.
-   * @see net.sf.psstools.lang.pSS.integer_type#getRange_rhs()
-   * @see #getinteger_type()
-   * @generated
-   */
-  EAttribute getinteger_type_Range_rhs();
+  EClass getconstant();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.hierarchical_id <em>hierarchical id</em>}'.
@@ -4111,17 +5228,6 @@ public interface PSSPackage extends EPackage
   EClass gethierarchical_id();
 
   /**
-   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.hierarchical_id#getParameters <em>Parameters</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Parameters</em>'.
-   * @see net.sf.psstools.lang.pSS.hierarchical_id#getParameters()
-   * @see #gethierarchical_id()
-   * @generated
-   */
-  EReference gethierarchical_id_Parameters();
-
-  /**
    * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.hierarchical_id#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4131,6 +5237,38 @@ public interface PSSPackage extends EPackage
    * @generated
    */
   EAttribute gethierarchical_id_Value();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.interface_action_id <em>interface action id</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>interface action id</em>'.
+   * @see net.sf.psstools.lang.pSS.interface_action_id
+   * @generated
+   */
+  EClass getinterface_action_id();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.interface_action_id#getIfc <em>Ifc</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Ifc</em>'.
+   * @see net.sf.psstools.lang.pSS.interface_action_id#getIfc()
+   * @see #getinterface_action_id()
+   * @generated
+   */
+  EAttribute getinterface_action_id_Ifc();
+
+  /**
+   * Returns the meta object for the attribute '{@link net.sf.psstools.lang.pSS.interface_action_id#getAction <em>Action</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Action</em>'.
+   * @see net.sf.psstools.lang.pSS.interface_action_id#getAction()
+   * @see #getinterface_action_id()
+   * @generated
+   */
+  EAttribute getinterface_action_id_Action();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.literal <em>literal</em>}'.
@@ -4183,6 +5321,48 @@ public interface PSSPackage extends EPackage
    * @generated
    */
   EClass getsize();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.alt_stmt <em>alt stmt</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>alt stmt</em>'.
+   * @see net.sf.psstools.lang.pSS.alt_stmt
+   * @generated
+   */
+  EClass getalt_stmt();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.alt_stmt#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see net.sf.psstools.lang.pSS.alt_stmt#getLeft()
+   * @see #getalt_stmt()
+   * @generated
+   */
+  EReference getalt_stmt_Left();
+
+  /**
+   * Returns the meta object for the containment reference '{@link net.sf.psstools.lang.pSS.alt_stmt#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see net.sf.psstools.lang.pSS.alt_stmt#getRight()
+   * @see #getalt_stmt()
+   * @generated
+   */
+  EReference getalt_stmt_Right();
+
+  /**
+   * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.stmt_alt <em>stmt alt</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>stmt alt</em>'.
+   * @see net.sf.psstools.lang.pSS.stmt_alt
+   * @generated
+   */
+  EClass getstmt_alt();
 
   /**
    * Returns the meta object for class '{@link net.sf.psstools.lang.pSS.overides_declaration <em>overides declaration</em>}'.
@@ -4536,12 +5716,12 @@ public interface PSSPackage extends EPackage
     EClass MODEL = eINSTANCE.getModel();
 
     /**
-     * The meta object literal for the '<em><b>Top Level</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Root</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MODEL__TOP_LEVEL = eINSTANCE.getModel_TopLevel();
+    EReference MODEL__ROOT = eINSTANCE.getModel_Root();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.portable_stimulus_descriptionImpl <em>portable stimulus description</em>}' class.
@@ -4676,16 +5856,6 @@ public interface PSSPackage extends EPackage
     EReference STRUCT_DECLARATION__BODY = eINSTANCE.getstruct_declaration_Body();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.struct_graph_body_itemImpl <em>struct graph body item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.struct_graph_body_itemImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_graph_body_item()
-     * @generated
-     */
-    EClass STRUCT_GRAPH_BODY_ITEM = eINSTANCE.getstruct_graph_body_item();
-
-    /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.struct_body_itemImpl <em>struct body item</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4716,20 +5886,54 @@ public interface PSSPackage extends EPackage
     EClass SYMBOL_DEFINITION = eINSTANCE.getsymbol_definition();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Symbol name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SYMBOL_DEFINITION__NAME = eINSTANCE.getsymbol_definition_Name();
+    EAttribute SYMBOL_DEFINITION__SYMBOL_NAME = eINSTANCE.getsymbol_definition_Symbol_name();
 
     /**
-     * The meta object literal for the '<em><b>Rule</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Body items</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SYMBOL_DEFINITION__RULE = eINSTANCE.getsymbol_definition_Rule();
+    EReference SYMBOL_DEFINITION__BODY_ITEMS = eINSTANCE.getsymbol_definition_Body_items();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.interface_action_definitionImpl <em>interface action definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.interface_action_definitionImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_action_definition()
+     * @generated
+     */
+    EClass INTERFACE_ACTION_DEFINITION = eINSTANCE.getinterface_action_definition();
+
+    /**
+     * The meta object literal for the '<em><b>Action</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INTERFACE_ACTION_DEFINITION__ACTION = eINSTANCE.getinterface_action_definition_Action();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INTERFACE_ACTION_DEFINITION__PARAMETERS = eINSTANCE.getinterface_action_definition_Parameters();
+
+    /**
+     * The meta object literal for the '<em><b>Body items</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INTERFACE_ACTION_DEFINITION__BODY_ITEMS = eINSTANCE.getinterface_action_definition_Body_items();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_productionImpl <em>rule production</em>}' class.
@@ -4742,50 +5946,50 @@ public interface PSSPackage extends EPackage
     EClass RULE_PRODUCTION = eINSTANCE.getrule_production();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.stmt_or_blockImpl <em>stmt or block</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_or_blockImpl <em>rule stmt or block</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.stmt_or_blockImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_or_block()
+     * @see net.sf.psstools.lang.pSS.impl.rule_stmt_or_blockImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_or_block()
      * @generated
      */
-    EClass STMT_OR_BLOCK = eINSTANCE.getstmt_or_block();
+    EClass RULE_STMT_OR_BLOCK = eINSTANCE.getrule_stmt_or_block();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.alt_stmtImpl <em>alt stmt</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_alt_parallel_seqImpl <em>rule stmt alt parallel seq</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.alt_stmtImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getalt_stmt()
+     * @see net.sf.psstools.lang.pSS.impl.rule_stmt_alt_parallel_seqImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_alt_parallel_seq()
      * @generated
      */
-    EClass ALT_STMT = eINSTANCE.getalt_stmt();
+    EClass RULE_STMT_ALT_PARALLEL_SEQ = eINSTANCE.getrule_stmt_alt_parallel_seq();
 
     /**
-     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_primaryImpl <em>rule stmt primary</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.rule_stmt_primaryImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_primary()
      * @generated
      */
-    EReference ALT_STMT__LEFT = eINSTANCE.getalt_stmt_Left();
+    EClass RULE_STMT_PRIMARY = eINSTANCE.getrule_stmt_primary();
 
     /**
-     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Param</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ALT_STMT__RIGHT = eINSTANCE.getalt_stmt_Right();
+    EAttribute RULE_STMT_PRIMARY__PARAM = eINSTANCE.getrule_stmt_primary_Param();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.stmt_primaryImpl <em>stmt primary</em>}' class.
+     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.stmt_primaryImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_primary()
      * @generated
      */
-    EClass STMT_PRIMARY = eINSTANCE.getstmt_primary();
+    EReference RULE_STMT_PRIMARY__RHS = eINSTANCE.getrule_stmt_primary_Rhs();
 
     /**
      * The meta object literal for the '<em><b>Stmt list</b></em>' containment reference list feature.
@@ -4793,37 +5997,53 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference STMT_PRIMARY__STMT_LIST = eINSTANCE.getstmt_primary_Stmt_list();
+    EReference RULE_STMT_PRIMARY__STMT_LIST = eINSTANCE.getrule_stmt_primary_Stmt_list();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.stmt_altImpl <em>stmt alt</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_parallel_altImpl <em>rule stmt parallel alt</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.stmt_altImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_alt()
+     * @see net.sf.psstools.lang.pSS.impl.rule_stmt_parallel_altImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_parallel_alt()
      * @generated
      */
-    EClass STMT_ALT = eINSTANCE.getstmt_alt();
+    EClass RULE_STMT_PARALLEL_ALT = eINSTANCE.getrule_stmt_parallel_alt();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.stmt_parallelImpl <em>stmt parallel</em>}' class.
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.stmt_parallelImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_parallel()
      * @generated
      */
-    EClass STMT_PARALLEL = eINSTANCE.getstmt_parallel();
+    EReference RULE_STMT_PARALLEL_ALT__LEFT = eINSTANCE.getrule_stmt_parallel_alt_Left();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.seqImpl <em>seq</em>}' class.
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.seqImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getseq()
      * @generated
      */
-    EClass SEQ = eINSTANCE.getseq();
+    EReference RULE_STMT_PARALLEL_ALT__RIGHT = eINSTANCE.getrule_stmt_parallel_alt_Right();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_stmt_parallelImpl <em>rule stmt parallel</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.rule_stmt_parallelImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_stmt_parallel()
+     * @generated
+     */
+    EClass RULE_STMT_PARALLEL = eINSTANCE.getrule_stmt_parallel();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_sequenceImpl <em>rule sequence</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.rule_sequenceImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_sequence()
+     * @generated
+     */
+    EClass RULE_SEQUENCE = eINSTANCE.getrule_sequence();
 
     /**
      * The meta object literal for the '<em><b>Items</b></em>' containment reference list feature.
@@ -4831,27 +6051,77 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SEQ__ITEMS = eINSTANCE.getseq_Items();
+    EReference RULE_SEQUENCE__ITEMS = eINSTANCE.getrule_sequence_Items();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.seq_itemImpl <em>seq item</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_seq_itemImpl <em>rule seq item</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.seq_itemImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getseq_item()
+     * @see net.sf.psstools.lang.pSS.impl.rule_seq_itemImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_seq_item()
      * @generated
      */
-    EClass SEQ_ITEM = eINSTANCE.getseq_item();
+    EClass RULE_SEQ_ITEM = eINSTANCE.getrule_seq_item();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.ifc_call_parameter_listImpl <em>ifc call parameter list</em>}' class.
+     * The meta object literal for the '<em><b>Action</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.ifc_call_parameter_listImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getifc_call_parameter_list()
      * @generated
      */
-    EClass IFC_CALL_PARAMETER_LIST = eINSTANCE.getifc_call_parameter_list();
+    EReference RULE_SEQ_ITEM__ACTION = eINSTANCE.getrule_seq_item_Action();
+
+    /**
+     * The meta object literal for the '<em><b>Action params</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE_SEQ_ITEM__ACTION_PARAMS = eINSTANCE.getrule_seq_item_Action_params();
+
+    /**
+     * The meta object literal for the '<em><b>Item</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RULE_SEQ_ITEM__ITEM = eINSTANCE.getrule_seq_item_Item();
+
+    /**
+     * The meta object literal for the '<em><b>With clause</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE_SEQ_ITEM__WITH_CLAUSE = eINSTANCE.getrule_seq_item_With_clause();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_with_clauseImpl <em>rule with clause</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.rule_with_clauseImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_with_clause()
+     * @generated
+     */
+    EClass RULE_WITH_CLAUSE = eINSTANCE.getrule_with_clause();
+
+    /**
+     * The meta object literal for the '<em><b>Body</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE_WITH_CLAUSE__BODY = eINSTANCE.getrule_with_clause_Body();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.parameter_listImpl <em>parameter list</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.parameter_listImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getparameter_list()
+     * @generated
+     */
+    EClass PARAMETER_LIST = eINSTANCE.getparameter_list();
 
     /**
      * The meta object literal for the '<em><b>Parameters</b></em>' containment reference list feature.
@@ -4859,17 +6129,25 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference IFC_CALL_PARAMETER_LIST__PARAMETERS = eINSTANCE.getifc_call_parameter_list_Parameters();
+    EReference PARAMETER_LIST__PARAMETERS = eINSTANCE.getparameter_list_Parameters();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.repeat_stmtImpl <em>repeat stmt</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.rule_repeat_stmtImpl <em>rule repeat stmt</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.repeat_stmtImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrepeat_stmt()
+     * @see net.sf.psstools.lang.pSS.impl.rule_repeat_stmtImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrule_repeat_stmt()
      * @generated
      */
-    EClass REPEAT_STMT = eINSTANCE.getrepeat_stmt();
+    EClass RULE_REPEAT_STMT = eINSTANCE.getrule_repeat_stmt();
+
+    /**
+     * The meta object literal for the '<em><b>Expr</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RULE_REPEAT_STMT__EXPR = eINSTANCE.getrule_repeat_stmt_Expr();
 
     /**
      * The meta object literal for the '<em><b>Stmt</b></em>' containment reference feature.
@@ -4877,7 +6155,7 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference REPEAT_STMT__STMT = eINSTANCE.getrepeat_stmt_Stmt();
+    EReference RULE_REPEAT_STMT__STMT = eINSTANCE.getrule_repeat_stmt_Stmt();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.overrides_declarationImpl <em>overrides declaration</em>}' class.
@@ -4954,6 +6232,120 @@ public interface PSSPackage extends EPackage
     EClass DATA_DECLARATION = eINSTANCE.getdata_declaration();
 
     /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATA_DECLARATION__TYPE = eINSTANCE.getdata_declaration_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Instances</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATA_DECLARATION__INSTANCES = eINSTANCE.getdata_declaration_Instances();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.data_instantiationImpl <em>data instantiation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.data_instantiationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdata_instantiation()
+     * @generated
+     */
+    EClass DATA_INSTANTIATION = eINSTANCE.getdata_instantiation();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DATA_INSTANTIATION__NAME = eINSTANCE.getdata_instantiation_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Portmap</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DATA_INSTANTIATION__PORTMAP = eINSTANCE.getdata_instantiation_Portmap();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.graph_interface_portmap_listImpl <em>graph interface portmap list</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.graph_interface_portmap_listImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_interface_portmap_list()
+     * @generated
+     */
+    EClass GRAPH_INTERFACE_PORTMAP_LIST = eINSTANCE.getgraph_interface_portmap_list();
+
+    /**
+     * The meta object literal for the '<em><b>Maps</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference GRAPH_INTERFACE_PORTMAP_LIST__MAPS = eINSTANCE.getgraph_interface_portmap_list_Maps();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.graph_interface_portmapImpl <em>graph interface portmap</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.graph_interface_portmapImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_interface_portmap()
+     * @generated
+     */
+    EClass GRAPH_INTERFACE_PORTMAP = eINSTANCE.getgraph_interface_portmap();
+
+    /**
+     * The meta object literal for the '<em><b>Portname</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute GRAPH_INTERFACE_PORTMAP__PORTNAME = eINSTANCE.getgraph_interface_portmap_Portname();
+
+    /**
+     * The meta object literal for the '<em><b>Connected name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference GRAPH_INTERFACE_PORTMAP__CONNECTED_NAME = eINSTANCE.getgraph_interface_portmap_Connected_name();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.data_typeImpl <em>data type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.data_typeImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdata_type()
+     * @generated
+     */
+    EClass DATA_TYPE = eINSTANCE.getdata_type();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.user_defined_typeImpl <em>user defined type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.user_defined_typeImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getuser_defined_type()
+     * @generated
+     */
+    EClass USER_DEFINED_TYPE = eINSTANCE.getuser_defined_type();
+
+    /**
+     * The meta object literal for the '<em><b>Typename</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute USER_DEFINED_TYPE__TYPENAME = eINSTANCE.getuser_defined_type_Typename();
+
+    /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.typedef_declarationImpl <em>typedef declaration</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4964,30 +6356,30 @@ public interface PSSPackage extends EPackage
     EClass TYPEDEF_DECLARATION = eINSTANCE.gettypedef_declaration();
 
     /**
-     * The meta object literal for the '<em><b>Src</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TYPEDEF_DECLARATION__SRC = eINSTANCE.gettypedef_declaration_Src();
+    EReference TYPEDEF_DECLARATION__TYPE = eINSTANCE.gettypedef_declaration_Type();
 
     /**
-     * The meta object literal for the '<em><b>Dest</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Type identifier</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute TYPEDEF_DECLARATION__DEST = eINSTANCE.gettypedef_declaration_Dest();
+    EAttribute TYPEDEF_DECLARATION__TYPE_IDENTIFIER = eINSTANCE.gettypedef_declaration_Type_identifier();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.enum_declarationImpl <em>enum declaration</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.enum_typeImpl <em>enum type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.enum_declarationImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getenum_declaration()
+     * @see net.sf.psstools.lang.pSS.impl.enum_typeImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getenum_type()
      * @generated
      */
-    EClass ENUM_DECLARATION = eINSTANCE.getenum_declaration();
+    EClass ENUM_TYPE = eINSTANCE.getenum_type();
 
     /**
      * The meta object literal for the '<em><b>Data type</b></em>' containment reference feature.
@@ -4995,7 +6387,7 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ENUM_DECLARATION__DATA_TYPE = eINSTANCE.getenum_declaration_Data_type();
+    EReference ENUM_TYPE__DATA_TYPE = eINSTANCE.getenum_type_Data_type();
 
     /**
      * The meta object literal for the '<em><b>Items</b></em>' attribute list feature.
@@ -5003,35 +6395,25 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ENUM_DECLARATION__ITEMS = eINSTANCE.getenum_declaration_Items();
+    EAttribute ENUM_TYPE__ITEMS = eINSTANCE.getenum_type_Items();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.integer_typeImpl <em>integer type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.integer_typeImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinteger_type()
+     * @generated
+     */
+    EClass INTEGER_TYPE = eINSTANCE.getinteger_type();
+
+    /**
+     * The meta object literal for the '<em><b>Atom type</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ENUM_DECLARATION__NAME = eINSTANCE.getenum_declaration_Name();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.scalar_declarationImpl <em>scalar declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.scalar_declarationImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_declaration()
-     * @generated
-     */
-    EClass SCALAR_DECLARATION = eINSTANCE.getscalar_declaration();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.signed_scalarImpl <em>signed scalar</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.signed_scalarImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsigned_scalar()
-     * @generated
-     */
-    EClass SIGNED_SCALAR = eINSTANCE.getsigned_scalar();
+    EAttribute INTEGER_TYPE__ATOM_TYPE = eINSTANCE.getinteger_type_Atom_type();
 
     /**
      * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
@@ -5039,7 +6421,7 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SIGNED_SCALAR__LHS = eINSTANCE.getsigned_scalar_Lhs();
+    EReference INTEGER_TYPE__LHS = eINSTANCE.getinteger_type_Lhs();
 
     /**
      * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
@@ -5047,67 +6429,103 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SIGNED_SCALAR__RHS = eINSTANCE.getsigned_scalar_Rhs();
+    EReference INTEGER_TYPE__RHS = eINSTANCE.getinteger_type_Rhs();
 
     /**
-     * The meta object literal for the '<em><b>Items</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Inside</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SIGNED_SCALAR__ITEMS = eINSTANCE.getsigned_scalar_Items();
+    EReference INTEGER_TYPE__INSIDE = eINSTANCE.getinteger_type_Inside();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.type_inside_clauseImpl <em>type inside clause</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.type_inside_clauseImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#gettype_inside_clause()
+     * @generated
+     */
+    EClass TYPE_INSIDE_CLAUSE = eINSTANCE.gettype_inside_clause();
+
+    /**
+     * The meta object literal for the '<em><b>Domain</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SIGNED_SCALAR__NAME = eINSTANCE.getsigned_scalar_Name();
+    EReference TYPE_INSIDE_CLAUSE__DOMAIN = eINSTANCE.gettype_inside_clause_Domain();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.scalar_signedImpl <em>scalar signed</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.open_range_listImpl <em>open range list</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.scalar_signedImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getscalar_signed()
+     * @see net.sf.psstools.lang.pSS.impl.open_range_listImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getopen_range_list()
      * @generated
      */
-    EClass SCALAR_SIGNED = eINSTANCE.getscalar_signed();
+    EClass OPEN_RANGE_LIST = eINSTANCE.getopen_range_list();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute SCALAR_SIGNED__NAME = eINSTANCE.getscalar_signed_Name();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.domain_specImpl <em>domain spec</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.domain_specImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getdomain_spec()
-     * @generated
-     */
-    EClass DOMAIN_SPEC = eINSTANCE.getdomain_spec();
-
-    /**
-     * The meta object literal for the '<em><b>Range lhs</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Ranges</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute DOMAIN_SPEC__RANGE_LHS = eINSTANCE.getdomain_spec_Range_lhs();
+    EReference OPEN_RANGE_LIST__RANGES = eINSTANCE.getopen_range_list_Ranges();
 
     /**
-     * The meta object literal for the '<em><b>Range rhs</b></em>' attribute feature.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.open_range_valueImpl <em>open range value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.open_range_valueImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getopen_range_value()
+     * @generated
+     */
+    EClass OPEN_RANGE_VALUE = eINSTANCE.getopen_range_value();
+
+    /**
+     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute DOMAIN_SPEC__RANGE_RHS = eINSTANCE.getdomain_spec_Range_rhs();
+    EReference OPEN_RANGE_VALUE__LHS = eINSTANCE.getopen_range_value_Lhs();
+
+    /**
+     * The meta object literal for the '<em><b>Range</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OPEN_RANGE_VALUE__RANGE = eINSTANCE.getopen_range_value_Range();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.range_exprImpl <em>range expr</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.range_exprImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getrange_expr()
+     * @generated
+     */
+    EClass RANGE_EXPR = eINSTANCE.getrange_expr();
+
+    /**
+     * The meta object literal for the '<em><b>Lhs</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RANGE_EXPR__LHS = eINSTANCE.getrange_expr_Lhs();
+
+    /**
+     * The meta object literal for the '<em><b>Rhs</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference RANGE_EXPR__RHS = eINSTANCE.getrange_expr_Rhs();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.constraint_declarationImpl <em>constraint declaration</em>}' class.
@@ -5134,16 +6552,6 @@ public interface PSSPackage extends EPackage
      * @generated
      */
     EReference CONSTRAINT_DECLARATION__BODY = eINSTANCE.getconstraint_declaration_Body();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.constraint_body_no_if_itemImpl <em>constraint body no if item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.constraint_body_no_if_itemImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_body_no_if_item()
-     * @generated
-     */
-    EClass CONSTRAINT_BODY_NO_IF_ITEM = eINSTANCE.getconstraint_body_no_if_item();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.constraint_body_itemImpl <em>constraint body item</em>}' class.
@@ -5242,6 +6650,214 @@ public interface PSSPackage extends EPackage
      * @generated
      */
     EReference CONSTRAINT_SET__ITEMS = eINSTANCE.getconstraint_set_Items();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.constraint_blockImpl <em>constraint block</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.constraint_blockImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstraint_block()
+     * @generated
+     */
+    EClass CONSTRAINT_BLOCK = eINSTANCE.getconstraint_block();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bin_or_scheme_declarationImpl <em>bin or scheme declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bin_or_scheme_declarationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_or_scheme_declaration()
+     * @generated
+     */
+    EClass BIN_OR_SCHEME_DECLARATION = eINSTANCE.getbin_or_scheme_declaration();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BIN_OR_SCHEME_DECLARATION__NAME = eINSTANCE.getbin_or_scheme_declaration_Name();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bins_declarationImpl <em>bins declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bins_declarationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbins_declaration()
+     * @generated
+     */
+    EClass BINS_DECLARATION = eINSTANCE.getbins_declaration();
+
+    /**
+     * The meta object literal for the '<em><b>Item</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BINS_DECLARATION__ITEM = eINSTANCE.getbins_declaration_Item();
+
+    /**
+     * The meta object literal for the '<em><b>Bins</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BINS_DECLARATION__BINS = eINSTANCE.getbins_declaration_Bins();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bin_specificationImpl <em>bin specification</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bin_specificationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_specification()
+     * @generated
+     */
+    EClass BIN_SPECIFICATION = eINSTANCE.getbin_specification();
+
+    /**
+     * The meta object literal for the '<em><b>Items</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BIN_SPECIFICATION__ITEMS = eINSTANCE.getbin_specification_Items();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bin_specifierImpl <em>bin specifier</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bin_specifierImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_specifier()
+     * @generated
+     */
+    EClass BIN_SPECIFIER = eINSTANCE.getbin_specifier();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.explicit_bin_valueImpl <em>explicit bin value</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.explicit_bin_valueImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexplicit_bin_value()
+     * @generated
+     */
+    EClass EXPLICIT_BIN_VALUE = eINSTANCE.getexplicit_bin_value();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.explicit_bin_rangeImpl <em>explicit bin range</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.explicit_bin_rangeImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getexplicit_bin_range()
+     * @generated
+     */
+    EClass EXPLICIT_BIN_RANGE = eINSTANCE.getexplicit_bin_range();
+
+    /**
+     * The meta object literal for the '<em><b>Low</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPLICIT_BIN_RANGE__LOW = eINSTANCE.getexplicit_bin_range_Low();
+
+    /**
+     * The meta object literal for the '<em><b>High</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPLICIT_BIN_RANGE__HIGH = eINSTANCE.getexplicit_bin_range_High();
+
+    /**
+     * The meta object literal for the '<em><b>Div</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPLICIT_BIN_RANGE__DIV = eINSTANCE.getexplicit_bin_range_Div();
+
+    /**
+     * The meta object literal for the '<em><b>Size</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference EXPLICIT_BIN_RANGE__SIZE = eINSTANCE.getexplicit_bin_range_Size();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bin_range_divideImpl <em>bin range divide</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bin_range_divideImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_range_divide()
+     * @generated
+     */
+    EClass BIN_RANGE_DIVIDE = eINSTANCE.getbin_range_divide();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bin_range_sizeImpl <em>bin range size</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bin_range_sizeImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_range_size()
+     * @generated
+     */
+    EClass BIN_RANGE_SIZE = eINSTANCE.getbin_range_size();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bin_scheme_declarationImpl <em>bin scheme declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bin_scheme_declarationImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_scheme_declaration()
+     * @generated
+     */
+    EClass BIN_SCHEME_DECLARATION = eINSTANCE.getbin_scheme_declaration();
+
+    /**
+     * The meta object literal for the '<em><b>Items</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BIN_SCHEME_DECLARATION__ITEMS = eINSTANCE.getbin_scheme_declaration_Items();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.bin_scheme_specifierImpl <em>bin scheme specifier</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.bin_scheme_specifierImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getbin_scheme_specifier()
+     * @generated
+     */
+    EClass BIN_SCHEME_SPECIFIER = eINSTANCE.getbin_scheme_specifier();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BIN_SCHEME_SPECIFIER__NAME = eINSTANCE.getbin_scheme_specifier_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Spec</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference BIN_SCHEME_SPECIFIER__SPEC = eINSTANCE.getbin_scheme_specifier_Spec();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.constant_expressionImpl <em>constant expression</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.constant_expressionImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstant_expression()
+     * @generated
+     */
+    EClass CONSTANT_EXPRESSION = eINSTANCE.getconstant_expression();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.expressionImpl <em>expression</em>}' class.
@@ -5356,7 +6972,7 @@ public interface PSSPackage extends EPackage
     EAttribute ACTION_DECLARATION__NAME = eINSTANCE.getaction_declaration_Name();
 
     /**
-     * The meta object literal for the '<em><b>Ports</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Ports</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -5374,12 +6990,30 @@ public interface PSSPackage extends EPackage
     EClass ACTION_PORTLIST = eINSTANCE.getaction_portlist();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Ports</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ACTION_PORTLIST__TYPE = eINSTANCE.getaction_portlist_Type();
+    EReference ACTION_PORTLIST__PORTS = eINSTANCE.getaction_portlist_Ports();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.action_portImpl <em>action port</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.action_portImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getaction_port()
+     * @generated
+     */
+    EClass ACTION_PORT = eINSTANCE.getaction_port();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ACTION_PORT__TYPE = eINSTANCE.getaction_port_Type();
 
     /**
      * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
@@ -5387,7 +7021,7 @@ public interface PSSPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ACTION_PORTLIST__NAME = eINSTANCE.getaction_portlist_Name();
+    EAttribute ACTION_PORT__NAME = eINSTANCE.getaction_port_Name();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.graph_data_declarationImpl <em>graph data declaration</em>}' class.
@@ -5400,7 +7034,7 @@ public interface PSSPackage extends EPackage
     EClass GRAPH_DATA_DECLARATION = eINSTANCE.getgraph_data_declaration();
 
     /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Type</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -5434,12 +7068,12 @@ public interface PSSPackage extends EPackage
     EClass SYMBOL_DECLARATION = eINSTANCE.getsymbol_declaration();
 
     /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * The meta object literal for the '<em><b>Decl list</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SYMBOL_DECLARATION__NAME = eINSTANCE.getsymbol_declaration_Name();
+    EReference SYMBOL_DECLARATION__DECL_LIST = eINSTANCE.getsymbol_declaration_Decl_list();
 
     /**
      * The meta object literal for the '<em><b>Inline rule</b></em>' containment reference feature.
@@ -5450,12 +7084,30 @@ public interface PSSPackage extends EPackage
     EReference SYMBOL_DECLARATION__INLINE_RULE = eINSTANCE.getsymbol_declaration_Inline_rule();
 
     /**
-     * The meta object literal for the '<em><b>Names</b></em>' attribute list feature.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.symbol_decl_itemImpl <em>symbol decl item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.symbol_decl_itemImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getsymbol_decl_item()
+     * @generated
+     */
+    EClass SYMBOL_DECL_ITEM = eINSTANCE.getsymbol_decl_item();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SYMBOL_DECLARATION__NAMES = eINSTANCE.getsymbol_declaration_Names();
+    EAttribute SYMBOL_DECL_ITEM__NAME = eINSTANCE.getsymbol_decl_item_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SYMBOL_DECL_ITEM__PARAMETERS = eINSTANCE.getsymbol_decl_item_Parameters();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.port_mapImpl <em>port map</em>}' class.
@@ -5484,102 +7136,14 @@ public interface PSSPackage extends EPackage
     EReference PORT_MAP__MAP = eINSTANCE.getport_map_Map();
 
     /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.struct_data_declarationImpl <em>struct data declaration</em>}' class.
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.constantImpl <em>constant</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.struct_data_declarationImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_data_declaration()
+     * @see net.sf.psstools.lang.pSS.impl.constantImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getconstant()
      * @generated
      */
-    EClass STRUCT_DATA_DECLARATION = eINSTANCE.getstruct_data_declaration();
-
-    /**
-     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STRUCT_DATA_DECLARATION__TYPE = eINSTANCE.getstruct_data_declaration_Type();
-
-    /**
-     * The meta object literal for the '<em><b>Names</b></em>' attribute list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute STRUCT_DATA_DECLARATION__NAMES = eINSTANCE.getstruct_data_declaration_Names();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.graph_datatypeImpl <em>graph datatype</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.graph_datatypeImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getgraph_datatype()
-     * @generated
-     */
-    EClass GRAPH_DATATYPE = eINSTANCE.getgraph_datatype();
-
-    /**
-     * The meta object literal for the '<em><b>Graph typename</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference GRAPH_DATATYPE__GRAPH_TYPENAME = eINSTANCE.getgraph_datatype_Graph_typename();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.struct_datatypeImpl <em>struct datatype</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.struct_datatypeImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstruct_datatype()
-     * @generated
-     */
-    EClass STRUCT_DATATYPE = eINSTANCE.getstruct_datatype();
-
-    /**
-     * The meta object literal for the '<em><b>Struct typename</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STRUCT_DATATYPE__STRUCT_TYPENAME = eINSTANCE.getstruct_datatype_Struct_typename();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.primitive_datatypeImpl <em>primitive datatype</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.primitive_datatypeImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getprimitive_datatype()
-     * @generated
-     */
-    EClass PRIMITIVE_DATATYPE = eINSTANCE.getprimitive_datatype();
-
-    /**
-     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.integer_typeImpl <em>integer type</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see net.sf.psstools.lang.pSS.impl.integer_typeImpl
-     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinteger_type()
-     * @generated
-     */
-    EClass INTEGER_TYPE = eINSTANCE.getinteger_type();
-
-    /**
-     * The meta object literal for the '<em><b>Range lhs</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INTEGER_TYPE__RANGE_LHS = eINSTANCE.getinteger_type_Range_lhs();
-
-    /**
-     * The meta object literal for the '<em><b>Range rhs</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute INTEGER_TYPE__RANGE_RHS = eINSTANCE.getinteger_type_Range_rhs();
+    EClass CONSTANT = eINSTANCE.getconstant();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.hierarchical_idImpl <em>hierarchical id</em>}' class.
@@ -5592,20 +7156,38 @@ public interface PSSPackage extends EPackage
     EClass HIERARCHICAL_ID = eINSTANCE.gethierarchical_id();
 
     /**
-     * The meta object literal for the '<em><b>Parameters</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference HIERARCHICAL_ID__PARAMETERS = eINSTANCE.gethierarchical_id_Parameters();
-
-    /**
      * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EAttribute HIERARCHICAL_ID__VALUE = eINSTANCE.gethierarchical_id_Value();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.interface_action_idImpl <em>interface action id</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.interface_action_idImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getinterface_action_id()
+     * @generated
+     */
+    EClass INTERFACE_ACTION_ID = eINSTANCE.getinterface_action_id();
+
+    /**
+     * The meta object literal for the '<em><b>Ifc</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INTERFACE_ACTION_ID__IFC = eINSTANCE.getinterface_action_id_Ifc();
+
+    /**
+     * The meta object literal for the '<em><b>Action</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INTERFACE_ACTION_ID__ACTION = eINSTANCE.getinterface_action_id_Action();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.literalImpl <em>literal</em>}' class.
@@ -5652,6 +7234,42 @@ public interface PSSPackage extends EPackage
      * @generated
      */
     EClass SIZE = eINSTANCE.getsize();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.alt_stmtImpl <em>alt stmt</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.alt_stmtImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getalt_stmt()
+     * @generated
+     */
+    EClass ALT_STMT = eINSTANCE.getalt_stmt();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ALT_STMT__LEFT = eINSTANCE.getalt_stmt_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ALT_STMT__RIGHT = eINSTANCE.getalt_stmt_Right();
+
+    /**
+     * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.stmt_altImpl <em>stmt alt</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see net.sf.psstools.lang.pSS.impl.stmt_altImpl
+     * @see net.sf.psstools.lang.pSS.impl.PSSPackageImpl#getstmt_alt()
+     * @generated
+     */
+    EClass STMT_ALT = eINSTANCE.getstmt_alt();
 
     /**
      * The meta object literal for the '{@link net.sf.psstools.lang.pSS.impl.overides_declarationImpl <em>overides declaration</em>}' class.

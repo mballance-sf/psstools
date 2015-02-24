@@ -35,7 +35,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class constraint_declarationImpl extends struct_graph_body_itemImpl implements constraint_declaration
+public class constraint_declarationImpl extends struct_body_itemImpl implements constraint_declaration
 {
   /**
    * The default value of the '{@link #getName() <em>Name</em>}' attribute.

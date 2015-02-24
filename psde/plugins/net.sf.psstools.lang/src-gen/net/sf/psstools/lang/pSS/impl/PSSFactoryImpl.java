@@ -71,55 +71,74 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
       case PSSPackage.GRAPH_DECLARATION: return creategraph_declaration();
       case PSSPackage.PORT_DECLARATION: return createport_declaration();
       case PSSPackage.STRUCT_DECLARATION: return createstruct_declaration();
-      case PSSPackage.STRUCT_GRAPH_BODY_ITEM: return createstruct_graph_body_item();
       case PSSPackage.STRUCT_BODY_ITEM: return createstruct_body_item();
       case PSSPackage.GRAPH_BODY_ITEM: return creategraph_body_item();
       case PSSPackage.SYMBOL_DEFINITION: return createsymbol_definition();
+      case PSSPackage.INTERFACE_ACTION_DEFINITION: return createinterface_action_definition();
       case PSSPackage.RULE_PRODUCTION: return createrule_production();
-      case PSSPackage.STMT_OR_BLOCK: return createstmt_or_block();
-      case PSSPackage.ALT_STMT: return createalt_stmt();
-      case PSSPackage.STMT_PRIMARY: return createstmt_primary();
-      case PSSPackage.STMT_ALT: return createstmt_alt();
-      case PSSPackage.STMT_PARALLEL: return createstmt_parallel();
-      case PSSPackage.SEQ: return createseq();
-      case PSSPackage.SEQ_ITEM: return createseq_item();
-      case PSSPackage.IFC_CALL_PARAMETER_LIST: return createifc_call_parameter_list();
-      case PSSPackage.REPEAT_STMT: return createrepeat_stmt();
+      case PSSPackage.RULE_STMT_OR_BLOCK: return createrule_stmt_or_block();
+      case PSSPackage.RULE_STMT_ALT_PARALLEL_SEQ: return createrule_stmt_alt_parallel_seq();
+      case PSSPackage.RULE_STMT_PRIMARY: return createrule_stmt_primary();
+      case PSSPackage.RULE_STMT_PARALLEL_ALT: return createrule_stmt_parallel_alt();
+      case PSSPackage.RULE_STMT_PARALLEL: return createrule_stmt_parallel();
+      case PSSPackage.RULE_SEQUENCE: return createrule_sequence();
+      case PSSPackage.RULE_SEQ_ITEM: return createrule_seq_item();
+      case PSSPackage.RULE_WITH_CLAUSE: return createrule_with_clause();
+      case PSSPackage.PARAMETER_LIST: return createparameter_list();
+      case PSSPackage.RULE_REPEAT_STMT: return createrule_repeat_stmt();
       case PSSPackage.OVERRIDES_DECLARATION: return createoverrides_declaration();
       case PSSPackage.OVERRIDE_STMT: return createoverride_stmt();
       case PSSPackage.TYPE_OVERRIDE: return createtype_override();
       case PSSPackage.INSTANCE_OVERRIDE: return createinstance_override();
       case PSSPackage.DATA_DECLARATION: return createdata_declaration();
+      case PSSPackage.DATA_INSTANTIATION: return createdata_instantiation();
+      case PSSPackage.GRAPH_INTERFACE_PORTMAP_LIST: return creategraph_interface_portmap_list();
+      case PSSPackage.GRAPH_INTERFACE_PORTMAP: return creategraph_interface_portmap();
+      case PSSPackage.DATA_TYPE: return createdata_type();
+      case PSSPackage.USER_DEFINED_TYPE: return createuser_defined_type();
       case PSSPackage.TYPEDEF_DECLARATION: return createtypedef_declaration();
-      case PSSPackage.ENUM_DECLARATION: return createenum_declaration();
-      case PSSPackage.SCALAR_DECLARATION: return createscalar_declaration();
-      case PSSPackage.SIGNED_SCALAR: return createsigned_scalar();
-      case PSSPackage.SCALAR_SIGNED: return createscalar_signed();
-      case PSSPackage.DOMAIN_SPEC: return createdomain_spec();
+      case PSSPackage.ENUM_TYPE: return createenum_type();
+      case PSSPackage.INTEGER_TYPE: return createinteger_type();
+      case PSSPackage.TYPE_INSIDE_CLAUSE: return createtype_inside_clause();
+      case PSSPackage.OPEN_RANGE_LIST: return createopen_range_list();
+      case PSSPackage.OPEN_RANGE_VALUE: return createopen_range_value();
+      case PSSPackage.RANGE_EXPR: return createrange_expr();
       case PSSPackage.CONSTRAINT_DECLARATION: return createconstraint_declaration();
-      case PSSPackage.CONSTRAINT_BODY_NO_IF_ITEM: return createconstraint_body_no_if_item();
       case PSSPackage.CONSTRAINT_BODY_ITEM: return createconstraint_body_item();
       case PSSPackage.EXPRESSION_OR_DIST_ITEM: return createexpression_or_dist_item();
       case PSSPackage.IF_CONSTRAINT_ITEM: return createif_constraint_item();
       case PSSPackage.FOREACH_CONSTRAINT_ITEM: return createforeach_constraint_item();
       case PSSPackage.CONSTRAINT_SET: return createconstraint_set();
+      case PSSPackage.CONSTRAINT_BLOCK: return createconstraint_block();
+      case PSSPackage.BIN_OR_SCHEME_DECLARATION: return createbin_or_scheme_declaration();
+      case PSSPackage.BINS_DECLARATION: return createbins_declaration();
+      case PSSPackage.BIN_SPECIFICATION: return createbin_specification();
+      case PSSPackage.BIN_SPECIFIER: return createbin_specifier();
+      case PSSPackage.EXPLICIT_BIN_VALUE: return createexplicit_bin_value();
+      case PSSPackage.EXPLICIT_BIN_RANGE: return createexplicit_bin_range();
+      case PSSPackage.BIN_RANGE_DIVIDE: return createbin_range_divide();
+      case PSSPackage.BIN_RANGE_SIZE: return createbin_range_size();
+      case PSSPackage.BIN_SCHEME_DECLARATION: return createbin_scheme_declaration();
+      case PSSPackage.BIN_SCHEME_SPECIFIER: return createbin_scheme_specifier();
+      case PSSPackage.CONSTANT_EXPRESSION: return createconstant_expression();
       case PSSPackage.EXPRESSION: return createexpression();
       case PSSPackage.INTERFACE_DECLARATION: return createinterface_declaration();
       case PSSPackage.INTERFACE_BODY_ITEM: return createinterface_body_item();
       case PSSPackage.ACTION_DECLARATION: return createaction_declaration();
       case PSSPackage.ACTION_PORTLIST: return createaction_portlist();
+      case PSSPackage.ACTION_PORT: return createaction_port();
       case PSSPackage.GRAPH_DATA_DECLARATION: return creategraph_data_declaration();
       case PSSPackage.SYMBOL_DECLARATION: return createsymbol_declaration();
+      case PSSPackage.SYMBOL_DECL_ITEM: return createsymbol_decl_item();
       case PSSPackage.PORT_MAP: return createport_map();
-      case PSSPackage.STRUCT_DATA_DECLARATION: return createstruct_data_declaration();
-      case PSSPackage.GRAPH_DATATYPE: return creategraph_datatype();
-      case PSSPackage.STRUCT_DATATYPE: return createstruct_datatype();
-      case PSSPackage.PRIMITIVE_DATATYPE: return createprimitive_datatype();
-      case PSSPackage.INTEGER_TYPE: return createinteger_type();
+      case PSSPackage.CONSTANT: return createconstant();
       case PSSPackage.HIERARCHICAL_ID: return createhierarchical_id();
+      case PSSPackage.INTERFACE_ACTION_ID: return createinterface_action_id();
       case PSSPackage.LITERAL: return createliteral();
       case PSSPackage.DECIMAL_NUMBER: return createdecimal_number();
       case PSSPackage.SIZE: return createsize();
+      case PSSPackage.ALT_STMT: return createalt_stmt();
+      case PSSPackage.STMT_ALT: return createstmt_alt();
       case PSSPackage.OVERIDES_DECLARATION: return createoverides_declaration();
       case PSSPackage.CONDITION_EXPR: return createcondition_expr();
       case PSSPackage.LOGICAL_OR_EXPR: return createlogical_or_expr();
@@ -219,17 +238,6 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public struct_graph_body_item createstruct_graph_body_item()
-  {
-    struct_graph_body_itemImpl struct_graph_body_item = new struct_graph_body_itemImpl();
-    return struct_graph_body_item;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public struct_body_item createstruct_body_item()
   {
     struct_body_itemImpl struct_body_item = new struct_body_itemImpl();
@@ -263,6 +271,17 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public interface_action_definition createinterface_action_definition()
+  {
+    interface_action_definitionImpl interface_action_definition = new interface_action_definitionImpl();
+    return interface_action_definition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public rule_production createrule_production()
   {
     rule_productionImpl rule_production = new rule_productionImpl();
@@ -274,10 +293,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public stmt_or_block createstmt_or_block()
+  public rule_stmt_or_block createrule_stmt_or_block()
   {
-    stmt_or_blockImpl stmt_or_block = new stmt_or_blockImpl();
-    return stmt_or_block;
+    rule_stmt_or_blockImpl rule_stmt_or_block = new rule_stmt_or_blockImpl();
+    return rule_stmt_or_block;
   }
 
   /**
@@ -285,10 +304,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public alt_stmt createalt_stmt()
+  public rule_stmt_alt_parallel_seq createrule_stmt_alt_parallel_seq()
   {
-    alt_stmtImpl alt_stmt = new alt_stmtImpl();
-    return alt_stmt;
+    rule_stmt_alt_parallel_seqImpl rule_stmt_alt_parallel_seq = new rule_stmt_alt_parallel_seqImpl();
+    return rule_stmt_alt_parallel_seq;
   }
 
   /**
@@ -296,10 +315,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public stmt_primary createstmt_primary()
+  public rule_stmt_primary createrule_stmt_primary()
   {
-    stmt_primaryImpl stmt_primary = new stmt_primaryImpl();
-    return stmt_primary;
+    rule_stmt_primaryImpl rule_stmt_primary = new rule_stmt_primaryImpl();
+    return rule_stmt_primary;
   }
 
   /**
@@ -307,10 +326,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public stmt_alt createstmt_alt()
+  public rule_stmt_parallel_alt createrule_stmt_parallel_alt()
   {
-    stmt_altImpl stmt_alt = new stmt_altImpl();
-    return stmt_alt;
+    rule_stmt_parallel_altImpl rule_stmt_parallel_alt = new rule_stmt_parallel_altImpl();
+    return rule_stmt_parallel_alt;
   }
 
   /**
@@ -318,10 +337,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public stmt_parallel createstmt_parallel()
+  public rule_stmt_parallel createrule_stmt_parallel()
   {
-    stmt_parallelImpl stmt_parallel = new stmt_parallelImpl();
-    return stmt_parallel;
+    rule_stmt_parallelImpl rule_stmt_parallel = new rule_stmt_parallelImpl();
+    return rule_stmt_parallel;
   }
 
   /**
@@ -329,10 +348,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public seq createseq()
+  public rule_sequence createrule_sequence()
   {
-    seqImpl seq = new seqImpl();
-    return seq;
+    rule_sequenceImpl rule_sequence = new rule_sequenceImpl();
+    return rule_sequence;
   }
 
   /**
@@ -340,10 +359,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public seq_item createseq_item()
+  public rule_seq_item createrule_seq_item()
   {
-    seq_itemImpl seq_item = new seq_itemImpl();
-    return seq_item;
+    rule_seq_itemImpl rule_seq_item = new rule_seq_itemImpl();
+    return rule_seq_item;
   }
 
   /**
@@ -351,10 +370,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ifc_call_parameter_list createifc_call_parameter_list()
+  public rule_with_clause createrule_with_clause()
   {
-    ifc_call_parameter_listImpl ifc_call_parameter_list = new ifc_call_parameter_listImpl();
-    return ifc_call_parameter_list;
+    rule_with_clauseImpl rule_with_clause = new rule_with_clauseImpl();
+    return rule_with_clause;
   }
 
   /**
@@ -362,10 +381,21 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public repeat_stmt createrepeat_stmt()
+  public parameter_list createparameter_list()
   {
-    repeat_stmtImpl repeat_stmt = new repeat_stmtImpl();
-    return repeat_stmt;
+    parameter_listImpl parameter_list = new parameter_listImpl();
+    return parameter_list;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public rule_repeat_stmt createrule_repeat_stmt()
+  {
+    rule_repeat_stmtImpl rule_repeat_stmt = new rule_repeat_stmtImpl();
+    return rule_repeat_stmt;
   }
 
   /**
@@ -428,6 +458,61 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public data_instantiation createdata_instantiation()
+  {
+    data_instantiationImpl data_instantiation = new data_instantiationImpl();
+    return data_instantiation;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public graph_interface_portmap_list creategraph_interface_portmap_list()
+  {
+    graph_interface_portmap_listImpl graph_interface_portmap_list = new graph_interface_portmap_listImpl();
+    return graph_interface_portmap_list;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public graph_interface_portmap creategraph_interface_portmap()
+  {
+    graph_interface_portmapImpl graph_interface_portmap = new graph_interface_portmapImpl();
+    return graph_interface_portmap;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public data_type createdata_type()
+  {
+    data_typeImpl data_type = new data_typeImpl();
+    return data_type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public user_defined_type createuser_defined_type()
+  {
+    user_defined_typeImpl user_defined_type = new user_defined_typeImpl();
+    return user_defined_type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public typedef_declaration createtypedef_declaration()
   {
     typedef_declarationImpl typedef_declaration = new typedef_declarationImpl();
@@ -439,10 +524,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public enum_declaration createenum_declaration()
+  public enum_type createenum_type()
   {
-    enum_declarationImpl enum_declaration = new enum_declarationImpl();
-    return enum_declaration;
+    enum_typeImpl enum_type = new enum_typeImpl();
+    return enum_type;
   }
 
   /**
@@ -450,10 +535,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public scalar_declaration createscalar_declaration()
+  public integer_type createinteger_type()
   {
-    scalar_declarationImpl scalar_declaration = new scalar_declarationImpl();
-    return scalar_declaration;
+    integer_typeImpl integer_type = new integer_typeImpl();
+    return integer_type;
   }
 
   /**
@@ -461,10 +546,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public signed_scalar createsigned_scalar()
+  public type_inside_clause createtype_inside_clause()
   {
-    signed_scalarImpl signed_scalar = new signed_scalarImpl();
-    return signed_scalar;
+    type_inside_clauseImpl type_inside_clause = new type_inside_clauseImpl();
+    return type_inside_clause;
   }
 
   /**
@@ -472,10 +557,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public scalar_signed createscalar_signed()
+  public open_range_list createopen_range_list()
   {
-    scalar_signedImpl scalar_signed = new scalar_signedImpl();
-    return scalar_signed;
+    open_range_listImpl open_range_list = new open_range_listImpl();
+    return open_range_list;
   }
 
   /**
@@ -483,10 +568,21 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public domain_spec createdomain_spec()
+  public open_range_value createopen_range_value()
   {
-    domain_specImpl domain_spec = new domain_specImpl();
-    return domain_spec;
+    open_range_valueImpl open_range_value = new open_range_valueImpl();
+    return open_range_value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public range_expr createrange_expr()
+  {
+    range_exprImpl range_expr = new range_exprImpl();
+    return range_expr;
   }
 
   /**
@@ -498,17 +594,6 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
   {
     constraint_declarationImpl constraint_declaration = new constraint_declarationImpl();
     return constraint_declaration;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public constraint_body_no_if_item createconstraint_body_no_if_item()
-  {
-    constraint_body_no_if_itemImpl constraint_body_no_if_item = new constraint_body_no_if_itemImpl();
-    return constraint_body_no_if_item;
   }
 
   /**
@@ -571,6 +656,138 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public constraint_block createconstraint_block()
+  {
+    constraint_blockImpl constraint_block = new constraint_blockImpl();
+    return constraint_block;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bin_or_scheme_declaration createbin_or_scheme_declaration()
+  {
+    bin_or_scheme_declarationImpl bin_or_scheme_declaration = new bin_or_scheme_declarationImpl();
+    return bin_or_scheme_declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bins_declaration createbins_declaration()
+  {
+    bins_declarationImpl bins_declaration = new bins_declarationImpl();
+    return bins_declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bin_specification createbin_specification()
+  {
+    bin_specificationImpl bin_specification = new bin_specificationImpl();
+    return bin_specification;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bin_specifier createbin_specifier()
+  {
+    bin_specifierImpl bin_specifier = new bin_specifierImpl();
+    return bin_specifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public explicit_bin_value createexplicit_bin_value()
+  {
+    explicit_bin_valueImpl explicit_bin_value = new explicit_bin_valueImpl();
+    return explicit_bin_value;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public explicit_bin_range createexplicit_bin_range()
+  {
+    explicit_bin_rangeImpl explicit_bin_range = new explicit_bin_rangeImpl();
+    return explicit_bin_range;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bin_range_divide createbin_range_divide()
+  {
+    bin_range_divideImpl bin_range_divide = new bin_range_divideImpl();
+    return bin_range_divide;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bin_range_size createbin_range_size()
+  {
+    bin_range_sizeImpl bin_range_size = new bin_range_sizeImpl();
+    return bin_range_size;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bin_scheme_declaration createbin_scheme_declaration()
+  {
+    bin_scheme_declarationImpl bin_scheme_declaration = new bin_scheme_declarationImpl();
+    return bin_scheme_declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public bin_scheme_specifier createbin_scheme_specifier()
+  {
+    bin_scheme_specifierImpl bin_scheme_specifier = new bin_scheme_specifierImpl();
+    return bin_scheme_specifier;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public constant_expression createconstant_expression()
+  {
+    constant_expressionImpl constant_expression = new constant_expressionImpl();
+    return constant_expression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public expression createexpression()
   {
     expressionImpl expression = new expressionImpl();
@@ -626,6 +843,17 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public action_port createaction_port()
+  {
+    action_portImpl action_port = new action_portImpl();
+    return action_port;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public graph_data_declaration creategraph_data_declaration()
   {
     graph_data_declarationImpl graph_data_declaration = new graph_data_declarationImpl();
@@ -648,6 +876,17 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public symbol_decl_item createsymbol_decl_item()
+  {
+    symbol_decl_itemImpl symbol_decl_item = new symbol_decl_itemImpl();
+    return symbol_decl_item;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public port_map createport_map()
   {
     port_mapImpl port_map = new port_mapImpl();
@@ -659,54 +898,10 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public struct_data_declaration createstruct_data_declaration()
+  public constant createconstant()
   {
-    struct_data_declarationImpl struct_data_declaration = new struct_data_declarationImpl();
-    return struct_data_declaration;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public graph_datatype creategraph_datatype()
-  {
-    graph_datatypeImpl graph_datatype = new graph_datatypeImpl();
-    return graph_datatype;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public struct_datatype createstruct_datatype()
-  {
-    struct_datatypeImpl struct_datatype = new struct_datatypeImpl();
-    return struct_datatype;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public primitive_datatype createprimitive_datatype()
-  {
-    primitive_datatypeImpl primitive_datatype = new primitive_datatypeImpl();
-    return primitive_datatype;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public integer_type createinteger_type()
-  {
-    integer_typeImpl integer_type = new integer_typeImpl();
-    return integer_type;
+    constantImpl constant = new constantImpl();
+    return constant;
   }
 
   /**
@@ -718,6 +913,17 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
   {
     hierarchical_idImpl hierarchical_id = new hierarchical_idImpl();
     return hierarchical_id;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public interface_action_id createinterface_action_id()
+  {
+    interface_action_idImpl interface_action_id = new interface_action_idImpl();
+    return interface_action_id;
   }
 
   /**
@@ -751,6 +957,28 @@ public class PSSFactoryImpl extends EFactoryImpl implements PSSFactory
   {
     sizeImpl size = new sizeImpl();
     return size;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public alt_stmt createalt_stmt()
+  {
+    alt_stmtImpl alt_stmt = new alt_stmtImpl();
+    return alt_stmt;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public stmt_alt createstmt_alt()
+  {
+    stmt_altImpl stmt_alt = new stmt_altImpl();
+    return stmt_alt;
   }
 
   /**

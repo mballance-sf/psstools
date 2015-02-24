@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class overrides_declarationImpl extends struct_graph_body_itemImpl implements overrides_declaration
+public class overrides_declarationImpl extends graph_body_itemImpl implements overrides_declaration
 {
   /**
    * <!-- begin-user-doc -->

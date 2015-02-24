@@ -13,6 +13,6 @@ package net.sf.psstools.lang.pSS;
  * @model
  * @generated
  */
-public interface stmt_alt extends stmt_primary
+public interface stmt_alt extends rule_stmt_parallel_alt
 {
 } // stmt_alt

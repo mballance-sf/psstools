@@ -4,6 +4,8 @@ package net.sf.psstools.lang.pSS;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>graph data declaration</b></em>'.
@@ -22,33 +24,33 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface graph_data_declaration extends graph_body_item
+public interface graph_data_declaration extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Type</b></em>' containment reference.
+   * Returns the value of the '<em><b>Type</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Type</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Type</em>' containment reference.
-   * @see #setType(graph_datatype)
+   * @return the value of the '<em>Type</em>' reference.
+   * @see #setType(data_type)
    * @see net.sf.psstools.lang.pSS.PSSPackage#getgraph_data_declaration_Type()
-   * @model containment="true"
+   * @model
    * @generated
    */
-  graph_datatype getType();
+  data_type getType();
 
   /**
-   * Sets the value of the '{@link net.sf.psstools.lang.pSS.graph_data_declaration#getType <em>Type</em>}' containment reference.
+   * Sets the value of the '{@link net.sf.psstools.lang.pSS.graph_data_declaration#getType <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @param value the new value of the '<em>Type</em>' reference.
    * @see #getType()
    * @generated
    */
-  void setType(graph_datatype value);
+  void setType(data_type value);
 
   /**
    * Returns the value of the '<em><b>Names</b></em>' attribute list.

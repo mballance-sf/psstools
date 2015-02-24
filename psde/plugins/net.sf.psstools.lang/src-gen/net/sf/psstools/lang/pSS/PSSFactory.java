@@ -86,15 +86,6 @@ public interface PSSFactory extends EFactory
   struct_declaration createstruct_declaration();
 
   /**
-   * Returns a new object of class '<em>struct graph body item</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>struct graph body item</em>'.
-   * @generated
-   */
-  struct_graph_body_item createstruct_graph_body_item();
-
-  /**
    * Returns a new object of class '<em>struct body item</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -122,6 +113,15 @@ public interface PSSFactory extends EFactory
   symbol_definition createsymbol_definition();
 
   /**
+   * Returns a new object of class '<em>interface action definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>interface action definition</em>'.
+   * @generated
+   */
+  interface_action_definition createinterface_action_definition();
+
+  /**
    * Returns a new object of class '<em>rule production</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -131,85 +131,94 @@ public interface PSSFactory extends EFactory
   rule_production createrule_production();
 
   /**
-   * Returns a new object of class '<em>stmt or block</em>'.
+   * Returns a new object of class '<em>rule stmt or block</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>stmt or block</em>'.
+   * @return a new object of class '<em>rule stmt or block</em>'.
    * @generated
    */
-  stmt_or_block createstmt_or_block();
+  rule_stmt_or_block createrule_stmt_or_block();
 
   /**
-   * Returns a new object of class '<em>alt stmt</em>'.
+   * Returns a new object of class '<em>rule stmt alt parallel seq</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>alt stmt</em>'.
+   * @return a new object of class '<em>rule stmt alt parallel seq</em>'.
    * @generated
    */
-  alt_stmt createalt_stmt();
+  rule_stmt_alt_parallel_seq createrule_stmt_alt_parallel_seq();
 
   /**
-   * Returns a new object of class '<em>stmt primary</em>'.
+   * Returns a new object of class '<em>rule stmt primary</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>stmt primary</em>'.
+   * @return a new object of class '<em>rule stmt primary</em>'.
    * @generated
    */
-  stmt_primary createstmt_primary();
+  rule_stmt_primary createrule_stmt_primary();
 
   /**
-   * Returns a new object of class '<em>stmt alt</em>'.
+   * Returns a new object of class '<em>rule stmt parallel alt</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>stmt alt</em>'.
+   * @return a new object of class '<em>rule stmt parallel alt</em>'.
    * @generated
    */
-  stmt_alt createstmt_alt();
+  rule_stmt_parallel_alt createrule_stmt_parallel_alt();
 
   /**
-   * Returns a new object of class '<em>stmt parallel</em>'.
+   * Returns a new object of class '<em>rule stmt parallel</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>stmt parallel</em>'.
+   * @return a new object of class '<em>rule stmt parallel</em>'.
    * @generated
    */
-  stmt_parallel createstmt_parallel();
+  rule_stmt_parallel createrule_stmt_parallel();
 
   /**
-   * Returns a new object of class '<em>seq</em>'.
+   * Returns a new object of class '<em>rule sequence</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>seq</em>'.
+   * @return a new object of class '<em>rule sequence</em>'.
    * @generated
    */
-  seq createseq();
+  rule_sequence createrule_sequence();
 
   /**
-   * Returns a new object of class '<em>seq item</em>'.
+   * Returns a new object of class '<em>rule seq item</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>seq item</em>'.
+   * @return a new object of class '<em>rule seq item</em>'.
    * @generated
    */
-  seq_item createseq_item();
+  rule_seq_item createrule_seq_item();
 
   /**
-   * Returns a new object of class '<em>ifc call parameter list</em>'.
+   * Returns a new object of class '<em>rule with clause</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>ifc call parameter list</em>'.
+   * @return a new object of class '<em>rule with clause</em>'.
    * @generated
    */
-  ifc_call_parameter_list createifc_call_parameter_list();
+  rule_with_clause createrule_with_clause();
 
   /**
-   * Returns a new object of class '<em>repeat stmt</em>'.
+   * Returns a new object of class '<em>parameter list</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>repeat stmt</em>'.
+   * @return a new object of class '<em>parameter list</em>'.
    * @generated
    */
-  repeat_stmt createrepeat_stmt();
+  parameter_list createparameter_list();
+
+  /**
+   * Returns a new object of class '<em>rule repeat stmt</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>rule repeat stmt</em>'.
+   * @generated
+   */
+  rule_repeat_stmt createrule_repeat_stmt();
 
   /**
    * Returns a new object of class '<em>overrides declaration</em>'.
@@ -257,6 +266,51 @@ public interface PSSFactory extends EFactory
   data_declaration createdata_declaration();
 
   /**
+   * Returns a new object of class '<em>data instantiation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>data instantiation</em>'.
+   * @generated
+   */
+  data_instantiation createdata_instantiation();
+
+  /**
+   * Returns a new object of class '<em>graph interface portmap list</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>graph interface portmap list</em>'.
+   * @generated
+   */
+  graph_interface_portmap_list creategraph_interface_portmap_list();
+
+  /**
+   * Returns a new object of class '<em>graph interface portmap</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>graph interface portmap</em>'.
+   * @generated
+   */
+  graph_interface_portmap creategraph_interface_portmap();
+
+  /**
+   * Returns a new object of class '<em>data type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>data type</em>'.
+   * @generated
+   */
+  data_type createdata_type();
+
+  /**
+   * Returns a new object of class '<em>user defined type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>user defined type</em>'.
+   * @generated
+   */
+  user_defined_type createuser_defined_type();
+
+  /**
    * Returns a new object of class '<em>typedef declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -266,49 +320,58 @@ public interface PSSFactory extends EFactory
   typedef_declaration createtypedef_declaration();
 
   /**
-   * Returns a new object of class '<em>enum declaration</em>'.
+   * Returns a new object of class '<em>enum type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>enum declaration</em>'.
+   * @return a new object of class '<em>enum type</em>'.
    * @generated
    */
-  enum_declaration createenum_declaration();
+  enum_type createenum_type();
 
   /**
-   * Returns a new object of class '<em>scalar declaration</em>'.
+   * Returns a new object of class '<em>integer type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>scalar declaration</em>'.
+   * @return a new object of class '<em>integer type</em>'.
    * @generated
    */
-  scalar_declaration createscalar_declaration();
+  integer_type createinteger_type();
 
   /**
-   * Returns a new object of class '<em>signed scalar</em>'.
+   * Returns a new object of class '<em>type inside clause</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>signed scalar</em>'.
+   * @return a new object of class '<em>type inside clause</em>'.
    * @generated
    */
-  signed_scalar createsigned_scalar();
+  type_inside_clause createtype_inside_clause();
 
   /**
-   * Returns a new object of class '<em>scalar signed</em>'.
+   * Returns a new object of class '<em>open range list</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>scalar signed</em>'.
+   * @return a new object of class '<em>open range list</em>'.
    * @generated
    */
-  scalar_signed createscalar_signed();
+  open_range_list createopen_range_list();
 
   /**
-   * Returns a new object of class '<em>domain spec</em>'.
+   * Returns a new object of class '<em>open range value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>domain spec</em>'.
+   * @return a new object of class '<em>open range value</em>'.
    * @generated
    */
-  domain_spec createdomain_spec();
+  open_range_value createopen_range_value();
+
+  /**
+   * Returns a new object of class '<em>range expr</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>range expr</em>'.
+   * @generated
+   */
+  range_expr createrange_expr();
 
   /**
    * Returns a new object of class '<em>constraint declaration</em>'.
@@ -318,15 +381,6 @@ public interface PSSFactory extends EFactory
    * @generated
    */
   constraint_declaration createconstraint_declaration();
-
-  /**
-   * Returns a new object of class '<em>constraint body no if item</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>constraint body no if item</em>'.
-   * @generated
-   */
-  constraint_body_no_if_item createconstraint_body_no_if_item();
 
   /**
    * Returns a new object of class '<em>constraint body item</em>'.
@@ -374,6 +428,114 @@ public interface PSSFactory extends EFactory
   constraint_set createconstraint_set();
 
   /**
+   * Returns a new object of class '<em>constraint block</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>constraint block</em>'.
+   * @generated
+   */
+  constraint_block createconstraint_block();
+
+  /**
+   * Returns a new object of class '<em>bin or scheme declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bin or scheme declaration</em>'.
+   * @generated
+   */
+  bin_or_scheme_declaration createbin_or_scheme_declaration();
+
+  /**
+   * Returns a new object of class '<em>bins declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bins declaration</em>'.
+   * @generated
+   */
+  bins_declaration createbins_declaration();
+
+  /**
+   * Returns a new object of class '<em>bin specification</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bin specification</em>'.
+   * @generated
+   */
+  bin_specification createbin_specification();
+
+  /**
+   * Returns a new object of class '<em>bin specifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bin specifier</em>'.
+   * @generated
+   */
+  bin_specifier createbin_specifier();
+
+  /**
+   * Returns a new object of class '<em>explicit bin value</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>explicit bin value</em>'.
+   * @generated
+   */
+  explicit_bin_value createexplicit_bin_value();
+
+  /**
+   * Returns a new object of class '<em>explicit bin range</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>explicit bin range</em>'.
+   * @generated
+   */
+  explicit_bin_range createexplicit_bin_range();
+
+  /**
+   * Returns a new object of class '<em>bin range divide</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bin range divide</em>'.
+   * @generated
+   */
+  bin_range_divide createbin_range_divide();
+
+  /**
+   * Returns a new object of class '<em>bin range size</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bin range size</em>'.
+   * @generated
+   */
+  bin_range_size createbin_range_size();
+
+  /**
+   * Returns a new object of class '<em>bin scheme declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bin scheme declaration</em>'.
+   * @generated
+   */
+  bin_scheme_declaration createbin_scheme_declaration();
+
+  /**
+   * Returns a new object of class '<em>bin scheme specifier</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>bin scheme specifier</em>'.
+   * @generated
+   */
+  bin_scheme_specifier createbin_scheme_specifier();
+
+  /**
+   * Returns a new object of class '<em>constant expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>constant expression</em>'.
+   * @generated
+   */
+  constant_expression createconstant_expression();
+
+  /**
    * Returns a new object of class '<em>expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -419,6 +581,15 @@ public interface PSSFactory extends EFactory
   action_portlist createaction_portlist();
 
   /**
+   * Returns a new object of class '<em>action port</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>action port</em>'.
+   * @generated
+   */
+  action_port createaction_port();
+
+  /**
    * Returns a new object of class '<em>graph data declaration</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -437,6 +608,15 @@ public interface PSSFactory extends EFactory
   symbol_declaration createsymbol_declaration();
 
   /**
+   * Returns a new object of class '<em>symbol decl item</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>symbol decl item</em>'.
+   * @generated
+   */
+  symbol_decl_item createsymbol_decl_item();
+
+  /**
    * Returns a new object of class '<em>port map</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -446,49 +626,13 @@ public interface PSSFactory extends EFactory
   port_map createport_map();
 
   /**
-   * Returns a new object of class '<em>struct data declaration</em>'.
+   * Returns a new object of class '<em>constant</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>struct data declaration</em>'.
+   * @return a new object of class '<em>constant</em>'.
    * @generated
    */
-  struct_data_declaration createstruct_data_declaration();
-
-  /**
-   * Returns a new object of class '<em>graph datatype</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>graph datatype</em>'.
-   * @generated
-   */
-  graph_datatype creategraph_datatype();
-
-  /**
-   * Returns a new object of class '<em>struct datatype</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>struct datatype</em>'.
-   * @generated
-   */
-  struct_datatype createstruct_datatype();
-
-  /**
-   * Returns a new object of class '<em>primitive datatype</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>primitive datatype</em>'.
-   * @generated
-   */
-  primitive_datatype createprimitive_datatype();
-
-  /**
-   * Returns a new object of class '<em>integer type</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>integer type</em>'.
-   * @generated
-   */
-  integer_type createinteger_type();
+  constant createconstant();
 
   /**
    * Returns a new object of class '<em>hierarchical id</em>'.
@@ -498,6 +642,15 @@ public interface PSSFactory extends EFactory
    * @generated
    */
   hierarchical_id createhierarchical_id();
+
+  /**
+   * Returns a new object of class '<em>interface action id</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>interface action id</em>'.
+   * @generated
+   */
+  interface_action_id createinterface_action_id();
 
   /**
    * Returns a new object of class '<em>literal</em>'.
@@ -525,6 +678,24 @@ public interface PSSFactory extends EFactory
    * @generated
    */
   size createsize();
+
+  /**
+   * Returns a new object of class '<em>alt stmt</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>alt stmt</em>'.
+   * @generated
+   */
+  alt_stmt createalt_stmt();
+
+  /**
+   * Returns a new object of class '<em>stmt alt</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>stmt alt</em>'.
+   * @generated
+   */
+  stmt_alt createstmt_alt();
 
   /**
    * Returns a new object of class '<em>overides declaration</em>'.

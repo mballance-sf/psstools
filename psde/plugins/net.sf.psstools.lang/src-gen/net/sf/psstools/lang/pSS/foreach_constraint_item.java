@@ -20,7 +20,7 @@ package net.sf.psstools.lang.pSS;
  * @model
  * @generated
  */
-public interface foreach_constraint_item extends constraint_body_no_if_item
+public interface foreach_constraint_item extends constraint_body_item
 {
   /**
    * Returns the value of the '<em><b>Expr</b></em>' containment reference.

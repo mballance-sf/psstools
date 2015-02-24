@@ -5,7 +5,8 @@ package net.sf.psstools.lang.pSS.impl;
 import java.util.Collection;
 
 import net.sf.psstools.lang.pSS.PSSPackage;
-import net.sf.psstools.lang.pSS.stmt_or_block;
+import net.sf.psstools.lang.pSS.rule_stmt_or_block;
+import net.sf.psstools.lang.pSS.symbol_decl_item;
 import net.sf.psstools.lang.pSS.symbol_declaration;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -18,7 +19,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -27,9 +29,8 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_declarationImpl#getName <em>Name</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_declarationImpl#getDecl_list <em>Decl list</em>}</li>
  *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_declarationImpl#getInline_rule <em>Inline rule</em>}</li>
- *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_declarationImpl#getNames <em>Names</em>}</li>
  * </ul>
  * </p>
  *
@@ -38,24 +39,14 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 public class symbol_declarationImpl extends graph_body_itemImpl implements symbol_declaration
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getDecl_list() <em>Decl list</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getDecl_list()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getName()
-   * @generated
-   * @ordered
-   */
-  protected String name = NAME_EDEFAULT;
+  protected EList<symbol_decl_item> decl_list;
 
   /**
    * The cached value of the '{@link #getInline_rule() <em>Inline rule</em>}' containment reference.
@@ -65,17 +56,7 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
    * @generated
    * @ordered
    */
-  protected stmt_or_block inline_rule;
-
-  /**
-   * The cached value of the '{@link #getNames() <em>Names</em>}' attribute list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getNames()
-   * @generated
-   * @ordered
-   */
-  protected EList<String> names;
+  protected rule_stmt_or_block inline_rule;
 
   /**
    * <!-- begin-user-doc -->
@@ -103,9 +84,13 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public EList<symbol_decl_item> getDecl_list()
   {
-    return name;
+    if (decl_list == null)
+    {
+      decl_list = new EObjectContainmentEList<symbol_decl_item>(symbol_decl_item.class, this, PSSPackage.SYMBOL_DECLARATION__DECL_LIST);
+    }
+    return decl_list;
   }
 
   /**
@@ -113,20 +98,7 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
-  {
-    String oldName = name;
-    name = newName;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PSSPackage.SYMBOL_DECLARATION__NAME, oldName, name));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public stmt_or_block getInline_rule()
+  public rule_stmt_or_block getInline_rule()
   {
     return inline_rule;
   }
@@ -136,9 +108,9 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetInline_rule(stmt_or_block newInline_rule, NotificationChain msgs)
+  public NotificationChain basicSetInline_rule(rule_stmt_or_block newInline_rule, NotificationChain msgs)
   {
-    stmt_or_block oldInline_rule = inline_rule;
+    rule_stmt_or_block oldInline_rule = inline_rule;
     inline_rule = newInline_rule;
     if (eNotificationRequired())
     {
@@ -153,7 +125,7 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setInline_rule(stmt_or_block newInline_rule)
+  public void setInline_rule(rule_stmt_or_block newInline_rule)
   {
     if (newInline_rule != inline_rule)
     {
@@ -174,25 +146,13 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getNames()
-  {
-    if (names == null)
-    {
-      names = new EDataTypeEList<String>(String.class, this, PSSPackage.SYMBOL_DECLARATION__NAMES);
-    }
-    return names;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
+      case PSSPackage.SYMBOL_DECLARATION__DECL_LIST:
+        return ((InternalEList<?>)getDecl_list()).basicRemove(otherEnd, msgs);
       case PSSPackage.SYMBOL_DECLARATION__INLINE_RULE:
         return basicSetInline_rule(null, msgs);
     }
@@ -209,12 +169,10 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DECLARATION__NAME:
-        return getName();
+      case PSSPackage.SYMBOL_DECLARATION__DECL_LIST:
+        return getDecl_list();
       case PSSPackage.SYMBOL_DECLARATION__INLINE_RULE:
         return getInline_rule();
-      case PSSPackage.SYMBOL_DECLARATION__NAMES:
-        return getNames();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -230,15 +188,12 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DECLARATION__NAME:
-        setName((String)newValue);
+      case PSSPackage.SYMBOL_DECLARATION__DECL_LIST:
+        getDecl_list().clear();
+        getDecl_list().addAll((Collection<? extends symbol_decl_item>)newValue);
         return;
       case PSSPackage.SYMBOL_DECLARATION__INLINE_RULE:
-        setInline_rule((stmt_or_block)newValue);
-        return;
-      case PSSPackage.SYMBOL_DECLARATION__NAMES:
-        getNames().clear();
-        getNames().addAll((Collection<? extends String>)newValue);
+        setInline_rule((rule_stmt_or_block)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -254,14 +209,11 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DECLARATION__NAME:
-        setName(NAME_EDEFAULT);
+      case PSSPackage.SYMBOL_DECLARATION__DECL_LIST:
+        getDecl_list().clear();
         return;
       case PSSPackage.SYMBOL_DECLARATION__INLINE_RULE:
-        setInline_rule((stmt_or_block)null);
-        return;
-      case PSSPackage.SYMBOL_DECLARATION__NAMES:
-        getNames().clear();
+        setInline_rule((rule_stmt_or_block)null);
         return;
     }
     super.eUnset(featureID);
@@ -277,33 +229,12 @@ public class symbol_declarationImpl extends graph_body_itemImpl implements symbo
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DECLARATION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
+      case PSSPackage.SYMBOL_DECLARATION__DECL_LIST:
+        return decl_list != null && !decl_list.isEmpty();
       case PSSPackage.SYMBOL_DECLARATION__INLINE_RULE:
         return inline_rule != null;
-      case PSSPackage.SYMBOL_DECLARATION__NAMES:
-        return names != null && !names.isEmpty();
     }
     return super.eIsSet(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
-
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
-    result.append(", names: ");
-    result.append(names);
-    result.append(')');
-    return result.toString();
   }
 
 } //symbol_declarationImpl

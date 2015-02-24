@@ -22,11 +22,11 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface constraint_set extends EObject
+public interface constraint_set extends constraint_block
 {
   /**
    * Returns the value of the '<em><b>Items</b></em>' containment reference list.
-   * The list contents are of type {@link net.sf.psstools.lang.pSS.constraint_body_item}.
+   * The list contents are of type {@link org.eclipse.emf.ecore.EObject}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Items</em>' containment reference list isn't clear,
@@ -38,6 +38,6 @@ public interface constraint_set extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<constraint_body_item> getItems();
+  EList<EObject> getItems();
 
 } // constraint_set

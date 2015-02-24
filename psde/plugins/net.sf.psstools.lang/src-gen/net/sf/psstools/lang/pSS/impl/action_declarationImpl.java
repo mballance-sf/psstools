@@ -2,8 +2,6 @@
  */
 package net.sf.psstools.lang.pSS.impl;
 
-import java.util.Collection;
-
 import net.sf.psstools.lang.pSS.PSSPackage;
 import net.sf.psstools.lang.pSS.action_declaration;
 import net.sf.psstools.lang.pSS.action_portlist;
@@ -11,15 +9,10 @@ import net.sf.psstools.lang.pSS.action_portlist;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
-import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -58,14 +51,14 @@ public class action_declarationImpl extends interface_body_itemImpl implements a
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getPorts() <em>Ports</em>}' containment reference list.
+   * The cached value of the '{@link #getPorts() <em>Ports</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getPorts()
    * @generated
    * @ordered
    */
-  protected EList<action_portlist> ports;
+  protected action_portlist ports;
 
   /**
    * <!-- begin-user-doc -->
@@ -116,13 +109,47 @@ public class action_declarationImpl extends interface_body_itemImpl implements a
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<action_portlist> getPorts()
+  public action_portlist getPorts()
   {
-    if (ports == null)
-    {
-      ports = new EObjectContainmentEList<action_portlist>(action_portlist.class, this, PSSPackage.ACTION_DECLARATION__PORTS);
-    }
     return ports;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetPorts(action_portlist newPorts, NotificationChain msgs)
+  {
+    action_portlist oldPorts = ports;
+    ports = newPorts;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PSSPackage.ACTION_DECLARATION__PORTS, oldPorts, newPorts);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPorts(action_portlist newPorts)
+  {
+    if (newPorts != ports)
+    {
+      NotificationChain msgs = null;
+      if (ports != null)
+        msgs = ((InternalEObject)ports).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PSSPackage.ACTION_DECLARATION__PORTS, null, msgs);
+      if (newPorts != null)
+        msgs = ((InternalEObject)newPorts).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PSSPackage.ACTION_DECLARATION__PORTS, null, msgs);
+      msgs = basicSetPorts(newPorts, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, PSSPackage.ACTION_DECLARATION__PORTS, newPorts, newPorts));
   }
 
   /**
@@ -136,7 +163,7 @@ public class action_declarationImpl extends interface_body_itemImpl implements a
     switch (featureID)
     {
       case PSSPackage.ACTION_DECLARATION__PORTS:
-        return ((InternalEList<?>)getPorts()).basicRemove(otherEnd, msgs);
+        return basicSetPorts(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -164,7 +191,6 @@ public class action_declarationImpl extends interface_body_itemImpl implements a
    * <!-- end-user-doc -->
    * @generated
    */
-  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -174,8 +200,7 @@ public class action_declarationImpl extends interface_body_itemImpl implements a
         setName((String)newValue);
         return;
       case PSSPackage.ACTION_DECLARATION__PORTS:
-        getPorts().clear();
-        getPorts().addAll((Collection<? extends action_portlist>)newValue);
+        setPorts((action_portlist)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -195,7 +220,7 @@ public class action_declarationImpl extends interface_body_itemImpl implements a
         setName(NAME_EDEFAULT);
         return;
       case PSSPackage.ACTION_DECLARATION__PORTS:
-        getPorts().clear();
+        setPorts((action_portlist)null);
         return;
     }
     super.eUnset(featureID);
@@ -214,7 +239,7 @@ public class action_declarationImpl extends interface_body_itemImpl implements a
       case PSSPackage.ACTION_DECLARATION__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case PSSPackage.ACTION_DECLARATION__PORTS:
-        return ports != null && !ports.isEmpty();
+        return ports != null;
     }
     return super.eIsSet(featureID);
   }

@@ -12,9 +12,8 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link net.sf.psstools.lang.pSS.symbol_declaration#getName <em>Name</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.symbol_declaration#getDecl_list <em>Decl list</em>}</li>
  *   <li>{@link net.sf.psstools.lang.pSS.symbol_declaration#getInline_rule <em>Inline rule</em>}</li>
- *   <li>{@link net.sf.psstools.lang.pSS.symbol_declaration#getNames <em>Names</em>}</li>
  * </ul>
  * </p>
  *
@@ -25,30 +24,20 @@ import org.eclipse.emf.common.util.EList;
 public interface symbol_declaration extends graph_body_item
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Decl list</b></em>' containment reference list.
+   * The list contents are of type {@link net.sf.psstools.lang.pSS.symbol_decl_item}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Decl list</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_declaration_Name()
-   * @model
+   * @return the value of the '<em>Decl list</em>' containment reference list.
+   * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_declaration_Decl_list()
+   * @model containment="true"
    * @generated
    */
-  String getName();
-
-  /**
-   * Sets the value of the '{@link net.sf.psstools.lang.pSS.symbol_declaration#getName <em>Name</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
-   * @generated
-   */
-  void setName(String value);
+  EList<symbol_decl_item> getDecl_list();
 
   /**
    * Returns the value of the '<em><b>Inline rule</b></em>' containment reference.
@@ -59,12 +48,12 @@ public interface symbol_declaration extends graph_body_item
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Inline rule</em>' containment reference.
-   * @see #setInline_rule(stmt_or_block)
+   * @see #setInline_rule(rule_stmt_or_block)
    * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_declaration_Inline_rule()
    * @model containment="true"
    * @generated
    */
-  stmt_or_block getInline_rule();
+  rule_stmt_or_block getInline_rule();
 
   /**
    * Sets the value of the '{@link net.sf.psstools.lang.pSS.symbol_declaration#getInline_rule <em>Inline rule</em>}' containment reference.
@@ -74,22 +63,6 @@ public interface symbol_declaration extends graph_body_item
    * @see #getInline_rule()
    * @generated
    */
-  void setInline_rule(stmt_or_block value);
-
-  /**
-   * Returns the value of the '<em><b>Names</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Names</em>' attribute list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Names</em>' attribute list.
-   * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_declaration_Names()
-   * @model unique="false"
-   * @generated
-   */
-  EList<String> getNames();
+  void setInline_rule(rule_stmt_or_block value);
 
 } // symbol_declaration

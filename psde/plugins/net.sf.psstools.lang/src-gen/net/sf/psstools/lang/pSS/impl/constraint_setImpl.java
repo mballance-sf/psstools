@@ -5,7 +5,6 @@ package net.sf.psstools.lang.pSS.impl;
 import java.util.Collection;
 
 import net.sf.psstools.lang.pSS.PSSPackage;
-import net.sf.psstools.lang.pSS.constraint_body_item;
 import net.sf.psstools.lang.pSS.constraint_set;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -13,9 +12,8 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -33,7 +31,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class constraint_setImpl extends MinimalEObjectImpl.Container implements constraint_set
+public class constraint_setImpl extends constraint_blockImpl implements constraint_set
 {
   /**
    * The cached value of the '{@link #getItems() <em>Items</em>}' containment reference list.
@@ -43,7 +41,7 @@ public class constraint_setImpl extends MinimalEObjectImpl.Container implements 
    * @generated
    * @ordered
    */
-  protected EList<constraint_body_item> items;
+  protected EList<EObject> items;
 
   /**
    * <!-- begin-user-doc -->
@@ -71,11 +69,11 @@ public class constraint_setImpl extends MinimalEObjectImpl.Container implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<constraint_body_item> getItems()
+  public EList<EObject> getItems()
   {
     if (items == null)
     {
-      items = new EObjectContainmentEList<constraint_body_item>(constraint_body_item.class, this, PSSPackage.CONSTRAINT_SET__ITEMS);
+      items = new EObjectContainmentEList<EObject>(EObject.class, this, PSSPackage.CONSTRAINT_SET__ITEMS);
     }
     return items;
   }
@@ -125,7 +123,7 @@ public class constraint_setImpl extends MinimalEObjectImpl.Container implements 
     {
       case PSSPackage.CONSTRAINT_SET__ITEMS:
         getItems().clear();
-        getItems().addAll((Collection<? extends constraint_body_item>)newValue);
+        getItems().addAll((Collection<? extends EObject>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

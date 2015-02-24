@@ -127,15 +127,6 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.STRUCT_GRAPH_BODY_ITEM:
-      {
-        struct_graph_body_item struct_graph_body_item = (struct_graph_body_item)theEObject;
-        T result = casestruct_graph_body_item(struct_graph_body_item);
-        if (result == null) result = casestruct_body_item(struct_graph_body_item);
-        if (result == null) result = casegraph_body_item(struct_graph_body_item);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case PSSPackage.STRUCT_BODY_ITEM:
       {
         struct_body_item struct_body_item = (struct_body_item)theEObject;
@@ -158,6 +149,14 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case PSSPackage.INTERFACE_ACTION_DEFINITION:
+      {
+        interface_action_definition interface_action_definition = (interface_action_definition)theEObject;
+        T result = caseinterface_action_definition(interface_action_definition);
+        if (result == null) result = casegraph_body_item(interface_action_definition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case PSSPackage.RULE_PRODUCTION:
       {
         rule_production rule_production = (rule_production)theEObject;
@@ -165,89 +164,96 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.STMT_OR_BLOCK:
+      case PSSPackage.RULE_STMT_OR_BLOCK:
       {
-        stmt_or_block stmt_or_block = (stmt_or_block)theEObject;
-        T result = casestmt_or_block(stmt_or_block);
-        if (result == null) result = caserule_production(stmt_or_block);
+        rule_stmt_or_block rule_stmt_or_block = (rule_stmt_or_block)theEObject;
+        T result = caserule_stmt_or_block(rule_stmt_or_block);
+        if (result == null) result = caserule_production(rule_stmt_or_block);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.ALT_STMT:
+      case PSSPackage.RULE_STMT_ALT_PARALLEL_SEQ:
       {
-        alt_stmt alt_stmt = (alt_stmt)theEObject;
-        T result = casealt_stmt(alt_stmt);
-        if (result == null) result = casestmt_or_block(alt_stmt);
-        if (result == null) result = caserule_production(alt_stmt);
+        rule_stmt_alt_parallel_seq rule_stmt_alt_parallel_seq = (rule_stmt_alt_parallel_seq)theEObject;
+        T result = caserule_stmt_alt_parallel_seq(rule_stmt_alt_parallel_seq);
+        if (result == null) result = caserule_stmt_or_block(rule_stmt_alt_parallel_seq);
+        if (result == null) result = caserule_production(rule_stmt_alt_parallel_seq);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.STMT_PRIMARY:
+      case PSSPackage.RULE_STMT_PRIMARY:
       {
-        stmt_primary stmt_primary = (stmt_primary)theEObject;
-        T result = casestmt_primary(stmt_primary);
-        if (result == null) result = casealt_stmt(stmt_primary);
-        if (result == null) result = casestmt_or_block(stmt_primary);
-        if (result == null) result = caserule_production(stmt_primary);
+        rule_stmt_primary rule_stmt_primary = (rule_stmt_primary)theEObject;
+        T result = caserule_stmt_primary(rule_stmt_primary);
+        if (result == null) result = caserule_stmt_alt_parallel_seq(rule_stmt_primary);
+        if (result == null) result = caserule_stmt_or_block(rule_stmt_primary);
+        if (result == null) result = caserule_production(rule_stmt_primary);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.STMT_ALT:
+      case PSSPackage.RULE_STMT_PARALLEL_ALT:
       {
-        stmt_alt stmt_alt = (stmt_alt)theEObject;
-        T result = casestmt_alt(stmt_alt);
-        if (result == null) result = casestmt_primary(stmt_alt);
-        if (result == null) result = casealt_stmt(stmt_alt);
-        if (result == null) result = casestmt_or_block(stmt_alt);
-        if (result == null) result = caserule_production(stmt_alt);
+        rule_stmt_parallel_alt rule_stmt_parallel_alt = (rule_stmt_parallel_alt)theEObject;
+        T result = caserule_stmt_parallel_alt(rule_stmt_parallel_alt);
+        if (result == null) result = caserule_stmt_primary(rule_stmt_parallel_alt);
+        if (result == null) result = caserule_stmt_alt_parallel_seq(rule_stmt_parallel_alt);
+        if (result == null) result = caserule_stmt_or_block(rule_stmt_parallel_alt);
+        if (result == null) result = caserule_production(rule_stmt_parallel_alt);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.STMT_PARALLEL:
+      case PSSPackage.RULE_STMT_PARALLEL:
       {
-        stmt_parallel stmt_parallel = (stmt_parallel)theEObject;
-        T result = casestmt_parallel(stmt_parallel);
-        if (result == null) result = casestmt_alt(stmt_parallel);
-        if (result == null) result = casestmt_primary(stmt_parallel);
-        if (result == null) result = casealt_stmt(stmt_parallel);
-        if (result == null) result = casestmt_or_block(stmt_parallel);
-        if (result == null) result = caserule_production(stmt_parallel);
+        rule_stmt_parallel rule_stmt_parallel = (rule_stmt_parallel)theEObject;
+        T result = caserule_stmt_parallel(rule_stmt_parallel);
+        if (result == null) result = caserule_stmt_parallel_alt(rule_stmt_parallel);
+        if (result == null) result = caserule_stmt_primary(rule_stmt_parallel);
+        if (result == null) result = caserule_stmt_alt_parallel_seq(rule_stmt_parallel);
+        if (result == null) result = caserule_stmt_or_block(rule_stmt_parallel);
+        if (result == null) result = caserule_production(rule_stmt_parallel);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.SEQ:
+      case PSSPackage.RULE_SEQUENCE:
       {
-        seq seq = (seq)theEObject;
-        T result = caseseq(seq);
-        if (result == null) result = casestmt_parallel(seq);
-        if (result == null) result = casestmt_alt(seq);
-        if (result == null) result = casestmt_primary(seq);
-        if (result == null) result = casealt_stmt(seq);
-        if (result == null) result = casestmt_or_block(seq);
-        if (result == null) result = caserule_production(seq);
+        rule_sequence rule_sequence = (rule_sequence)theEObject;
+        T result = caserule_sequence(rule_sequence);
+        if (result == null) result = caserule_stmt_parallel(rule_sequence);
+        if (result == null) result = caserule_stmt_parallel_alt(rule_sequence);
+        if (result == null) result = caserule_stmt_primary(rule_sequence);
+        if (result == null) result = caserule_stmt_alt_parallel_seq(rule_sequence);
+        if (result == null) result = caserule_stmt_or_block(rule_sequence);
+        if (result == null) result = caserule_production(rule_sequence);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.SEQ_ITEM:
+      case PSSPackage.RULE_SEQ_ITEM:
       {
-        seq_item seq_item = (seq_item)theEObject;
-        T result = caseseq_item(seq_item);
+        rule_seq_item rule_seq_item = (rule_seq_item)theEObject;
+        T result = caserule_seq_item(rule_seq_item);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.IFC_CALL_PARAMETER_LIST:
+      case PSSPackage.RULE_WITH_CLAUSE:
       {
-        ifc_call_parameter_list ifc_call_parameter_list = (ifc_call_parameter_list)theEObject;
-        T result = caseifc_call_parameter_list(ifc_call_parameter_list);
+        rule_with_clause rule_with_clause = (rule_with_clause)theEObject;
+        T result = caserule_with_clause(rule_with_clause);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.REPEAT_STMT:
+      case PSSPackage.PARAMETER_LIST:
       {
-        repeat_stmt repeat_stmt = (repeat_stmt)theEObject;
-        T result = caserepeat_stmt(repeat_stmt);
-        if (result == null) result = casestmt_or_block(repeat_stmt);
-        if (result == null) result = caserule_production(repeat_stmt);
+        parameter_list parameter_list = (parameter_list)theEObject;
+        T result = caseparameter_list(parameter_list);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.RULE_REPEAT_STMT:
+      {
+        rule_repeat_stmt rule_repeat_stmt = (rule_repeat_stmt)theEObject;
+        T result = caserule_repeat_stmt(rule_repeat_stmt);
+        if (result == null) result = caserule_stmt_or_block(rule_repeat_stmt);
+        if (result == null) result = caserule_production(rule_repeat_stmt);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -255,8 +261,6 @@ public class PSSSwitch<T> extends Switch<T>
       {
         overrides_declaration overrides_declaration = (overrides_declaration)theEObject;
         T result = caseoverrides_declaration(overrides_declaration);
-        if (result == null) result = casestruct_graph_body_item(overrides_declaration);
-        if (result == null) result = casestruct_body_item(overrides_declaration);
         if (result == null) result = casegraph_body_item(overrides_declaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -289,6 +293,44 @@ public class PSSSwitch<T> extends Switch<T>
         data_declaration data_declaration = (data_declaration)theEObject;
         T result = casedata_declaration(data_declaration);
         if (result == null) result = caseportable_stimulus_description(data_declaration);
+        if (result == null) result = casestruct_body_item(data_declaration);
+        if (result == null) result = casegraph_body_item(data_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.DATA_INSTANTIATION:
+      {
+        data_instantiation data_instantiation = (data_instantiation)theEObject;
+        T result = casedata_instantiation(data_instantiation);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.GRAPH_INTERFACE_PORTMAP_LIST:
+      {
+        graph_interface_portmap_list graph_interface_portmap_list = (graph_interface_portmap_list)theEObject;
+        T result = casegraph_interface_portmap_list(graph_interface_portmap_list);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.GRAPH_INTERFACE_PORTMAP:
+      {
+        graph_interface_portmap graph_interface_portmap = (graph_interface_portmap)theEObject;
+        T result = casegraph_interface_portmap(graph_interface_portmap);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.DATA_TYPE:
+      {
+        data_type data_type = (data_type)theEObject;
+        T result = casedata_type(data_type);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.USER_DEFINED_TYPE:
+      {
+        user_defined_type user_defined_type = (user_defined_type)theEObject;
+        T result = caseuser_defined_type(user_defined_type);
+        if (result == null) result = casedata_type(user_defined_type);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -296,50 +338,53 @@ public class PSSSwitch<T> extends Switch<T>
       {
         typedef_declaration typedef_declaration = (typedef_declaration)theEObject;
         T result = casetypedef_declaration(typedef_declaration);
-        if (result == null) result = casedata_declaration(typedef_declaration);
         if (result == null) result = caseportable_stimulus_description(typedef_declaration);
+        if (result == null) result = casestruct_body_item(typedef_declaration);
+        if (result == null) result = casegraph_body_item(typedef_declaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.ENUM_DECLARATION:
+      case PSSPackage.ENUM_TYPE:
       {
-        enum_declaration enum_declaration = (enum_declaration)theEObject;
-        T result = caseenum_declaration(enum_declaration);
-        if (result == null) result = casedata_declaration(enum_declaration);
-        if (result == null) result = caseportable_stimulus_description(enum_declaration);
+        enum_type enum_type = (enum_type)theEObject;
+        T result = caseenum_type(enum_type);
+        if (result == null) result = casedata_type(enum_type);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.SCALAR_DECLARATION:
+      case PSSPackage.INTEGER_TYPE:
       {
-        scalar_declaration scalar_declaration = (scalar_declaration)theEObject;
-        T result = casescalar_declaration(scalar_declaration);
-        if (result == null) result = casedata_declaration(scalar_declaration);
-        if (result == null) result = caseportable_stimulus_description(scalar_declaration);
+        integer_type integer_type = (integer_type)theEObject;
+        T result = caseinteger_type(integer_type);
+        if (result == null) result = casedata_type(integer_type);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.SIGNED_SCALAR:
+      case PSSPackage.TYPE_INSIDE_CLAUSE:
       {
-        signed_scalar signed_scalar = (signed_scalar)theEObject;
-        T result = casesigned_scalar(signed_scalar);
-        if (result == null) result = casescalar_declaration(signed_scalar);
-        if (result == null) result = casedata_declaration(signed_scalar);
-        if (result == null) result = caseportable_stimulus_description(signed_scalar);
+        type_inside_clause type_inside_clause = (type_inside_clause)theEObject;
+        T result = casetype_inside_clause(type_inside_clause);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.SCALAR_SIGNED:
+      case PSSPackage.OPEN_RANGE_LIST:
       {
-        scalar_signed scalar_signed = (scalar_signed)theEObject;
-        T result = casescalar_signed(scalar_signed);
+        open_range_list open_range_list = (open_range_list)theEObject;
+        T result = caseopen_range_list(open_range_list);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.DOMAIN_SPEC:
+      case PSSPackage.OPEN_RANGE_VALUE:
       {
-        domain_spec domain_spec = (domain_spec)theEObject;
-        T result = casedomain_spec(domain_spec);
+        open_range_value open_range_value = (open_range_value)theEObject;
+        T result = caseopen_range_value(open_range_value);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.RANGE_EXPR:
+      {
+        range_expr range_expr = (range_expr)theEObject;
+        T result = caserange_expr(range_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -347,17 +392,8 @@ public class PSSSwitch<T> extends Switch<T>
       {
         constraint_declaration constraint_declaration = (constraint_declaration)theEObject;
         T result = caseconstraint_declaration(constraint_declaration);
-        if (result == null) result = casestruct_graph_body_item(constraint_declaration);
         if (result == null) result = casestruct_body_item(constraint_declaration);
         if (result == null) result = casegraph_body_item(constraint_declaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PSSPackage.CONSTRAINT_BODY_NO_IF_ITEM:
-      {
-        constraint_body_no_if_item constraint_body_no_if_item = (constraint_body_no_if_item)theEObject;
-        T result = caseconstraint_body_no_if_item(constraint_body_no_if_item);
-        if (result == null) result = caseconstraint_body_item(constraint_body_no_if_item);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -372,7 +408,6 @@ public class PSSSwitch<T> extends Switch<T>
       {
         expression_or_dist_item expression_or_dist_item = (expression_or_dist_item)theEObject;
         T result = caseexpression_or_dist_item(expression_or_dist_item);
-        if (result == null) result = caseconstraint_body_no_if_item(expression_or_dist_item);
         if (result == null) result = caseconstraint_body_item(expression_or_dist_item);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -389,7 +424,6 @@ public class PSSSwitch<T> extends Switch<T>
       {
         foreach_constraint_item foreach_constraint_item = (foreach_constraint_item)theEObject;
         T result = caseforeach_constraint_item(foreach_constraint_item);
-        if (result == null) result = caseconstraint_body_no_if_item(foreach_constraint_item);
         if (result == null) result = caseconstraint_body_item(foreach_constraint_item);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -398,6 +432,106 @@ public class PSSSwitch<T> extends Switch<T>
       {
         constraint_set constraint_set = (constraint_set)theEObject;
         T result = caseconstraint_set(constraint_set);
+        if (result == null) result = caseconstraint_block(constraint_set);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.CONSTRAINT_BLOCK:
+      {
+        constraint_block constraint_block = (constraint_block)theEObject;
+        T result = caseconstraint_block(constraint_block);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BIN_OR_SCHEME_DECLARATION:
+      {
+        bin_or_scheme_declaration bin_or_scheme_declaration = (bin_or_scheme_declaration)theEObject;
+        T result = casebin_or_scheme_declaration(bin_or_scheme_declaration);
+        if (result == null) result = casestruct_body_item(bin_or_scheme_declaration);
+        if (result == null) result = casegraph_body_item(bin_or_scheme_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BINS_DECLARATION:
+      {
+        bins_declaration bins_declaration = (bins_declaration)theEObject;
+        T result = casebins_declaration(bins_declaration);
+        if (result == null) result = caseportable_stimulus_description(bins_declaration);
+        if (result == null) result = casebin_or_scheme_declaration(bins_declaration);
+        if (result == null) result = casestruct_body_item(bins_declaration);
+        if (result == null) result = casegraph_body_item(bins_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BIN_SPECIFICATION:
+      {
+        bin_specification bin_specification = (bin_specification)theEObject;
+        T result = casebin_specification(bin_specification);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BIN_SPECIFIER:
+      {
+        bin_specifier bin_specifier = (bin_specifier)theEObject;
+        T result = casebin_specifier(bin_specifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.EXPLICIT_BIN_VALUE:
+      {
+        explicit_bin_value explicit_bin_value = (explicit_bin_value)theEObject;
+        T result = caseexplicit_bin_value(explicit_bin_value);
+        if (result == null) result = casebin_specifier(explicit_bin_value);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.EXPLICIT_BIN_RANGE:
+      {
+        explicit_bin_range explicit_bin_range = (explicit_bin_range)theEObject;
+        T result = caseexplicit_bin_range(explicit_bin_range);
+        if (result == null) result = casebin_range_divide(explicit_bin_range);
+        if (result == null) result = casebin_range_size(explicit_bin_range);
+        if (result == null) result = casebin_specifier(explicit_bin_range);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BIN_RANGE_DIVIDE:
+      {
+        bin_range_divide bin_range_divide = (bin_range_divide)theEObject;
+        T result = casebin_range_divide(bin_range_divide);
+        if (result == null) result = casebin_specifier(bin_range_divide);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BIN_RANGE_SIZE:
+      {
+        bin_range_size bin_range_size = (bin_range_size)theEObject;
+        T result = casebin_range_size(bin_range_size);
+        if (result == null) result = casebin_specifier(bin_range_size);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BIN_SCHEME_DECLARATION:
+      {
+        bin_scheme_declaration bin_scheme_declaration = (bin_scheme_declaration)theEObject;
+        T result = casebin_scheme_declaration(bin_scheme_declaration);
+        if (result == null) result = casebin_or_scheme_declaration(bin_scheme_declaration);
+        if (result == null) result = casestruct_body_item(bin_scheme_declaration);
+        if (result == null) result = casegraph_body_item(bin_scheme_declaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.BIN_SCHEME_SPECIFIER:
+      {
+        bin_scheme_specifier bin_scheme_specifier = (bin_scheme_specifier)theEObject;
+        T result = casebin_scheme_specifier(bin_scheme_specifier);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.CONSTANT_EXPRESSION:
+      {
+        constant_expression constant_expression = (constant_expression)theEObject;
+        T result = caseconstant_expression(constant_expression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -406,7 +540,7 @@ public class PSSSwitch<T> extends Switch<T>
         expression expression = (expression)theEObject;
         T result = caseexpression(expression);
         if (result == null) result = caseexpression_or_dist_item(expression);
-        if (result == null) result = caseconstraint_body_no_if_item(expression);
+        if (result == null) result = caseconstant_expression(expression);
         if (result == null) result = caseconstraint_body_item(expression);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -442,11 +576,17 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case PSSPackage.ACTION_PORT:
+      {
+        action_port action_port = (action_port)theEObject;
+        T result = caseaction_port(action_port);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case PSSPackage.GRAPH_DATA_DECLARATION:
       {
         graph_data_declaration graph_data_declaration = (graph_data_declaration)theEObject;
         T result = casegraph_data_declaration(graph_data_declaration);
-        if (result == null) result = casegraph_body_item(graph_data_declaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -458,6 +598,13 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case PSSPackage.SYMBOL_DECL_ITEM:
+      {
+        symbol_decl_item symbol_decl_item = (symbol_decl_item)theEObject;
+        T result = casesymbol_decl_item(symbol_decl_item);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case PSSPackage.PORT_MAP:
       {
         port_map port_map = (port_map)theEObject;
@@ -465,46 +612,12 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case PSSPackage.STRUCT_DATA_DECLARATION:
+      case PSSPackage.CONSTANT:
       {
-        struct_data_declaration struct_data_declaration = (struct_data_declaration)theEObject;
-        T result = casestruct_data_declaration(struct_data_declaration);
-        if (result == null) result = casestruct_body_item(struct_data_declaration);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PSSPackage.GRAPH_DATATYPE:
-      {
-        graph_datatype graph_datatype = (graph_datatype)theEObject;
-        T result = casegraph_datatype(graph_datatype);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PSSPackage.STRUCT_DATATYPE:
-      {
-        struct_datatype struct_datatype = (struct_datatype)theEObject;
-        T result = casestruct_datatype(struct_datatype);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PSSPackage.PRIMITIVE_DATATYPE:
-      {
-        primitive_datatype primitive_datatype = (primitive_datatype)theEObject;
-        T result = caseprimitive_datatype(primitive_datatype);
-        if (result == null) result = caseaction_portlist(primitive_datatype);
-        if (result == null) result = casegraph_datatype(primitive_datatype);
-        if (result == null) result = casestruct_datatype(primitive_datatype);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case PSSPackage.INTEGER_TYPE:
-      {
-        integer_type integer_type = (integer_type)theEObject;
-        T result = caseinteger_type(integer_type);
-        if (result == null) result = caseprimitive_datatype(integer_type);
-        if (result == null) result = caseaction_portlist(integer_type);
-        if (result == null) result = casegraph_datatype(integer_type);
-        if (result == null) result = casestruct_datatype(integer_type);
+        constant constant = (constant)theEObject;
+        T result = caseconstant(constant);
+        if (result == null) result = caseexplicit_bin_value(constant);
+        if (result == null) result = casebin_specifier(constant);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -512,7 +625,13 @@ public class PSSSwitch<T> extends Switch<T>
       {
         hierarchical_id hierarchical_id = (hierarchical_id)theEObject;
         T result = casehierarchical_id(hierarchical_id);
-        if (result == null) result = caseseq_item(hierarchical_id);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.INTERFACE_ACTION_ID:
+      {
+        interface_action_id interface_action_id = (interface_action_id)theEObject;
+        T result = caseinterface_action_id(interface_action_id);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -520,6 +639,9 @@ public class PSSSwitch<T> extends Switch<T>
       {
         literal literal = (literal)theEObject;
         T result = caseliteral(literal);
+        if (result == null) result = caseconstant(literal);
+        if (result == null) result = caseexplicit_bin_value(literal);
+        if (result == null) result = casebin_specifier(literal);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -538,13 +660,33 @@ public class PSSSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case PSSPackage.ALT_STMT:
+      {
+        alt_stmt alt_stmt = (alt_stmt)theEObject;
+        T result = casealt_stmt(alt_stmt);
+        if (result == null) result = caserule_stmt_alt_parallel_seq(alt_stmt);
+        if (result == null) result = caserule_stmt_or_block(alt_stmt);
+        if (result == null) result = caserule_production(alt_stmt);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case PSSPackage.STMT_ALT:
+      {
+        stmt_alt stmt_alt = (stmt_alt)theEObject;
+        T result = casestmt_alt(stmt_alt);
+        if (result == null) result = caserule_stmt_parallel_alt(stmt_alt);
+        if (result == null) result = caserule_stmt_primary(stmt_alt);
+        if (result == null) result = caserule_stmt_alt_parallel_seq(stmt_alt);
+        if (result == null) result = caserule_stmt_or_block(stmt_alt);
+        if (result == null) result = caserule_production(stmt_alt);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case PSSPackage.OVERIDES_DECLARATION:
       {
         overides_declaration overides_declaration = (overides_declaration)theEObject;
         T result = caseoverides_declaration(overides_declaration);
         if (result == null) result = caseoverrides_declaration(overides_declaration);
-        if (result == null) result = casestruct_graph_body_item(overides_declaration);
-        if (result == null) result = casestruct_body_item(overides_declaration);
         if (result == null) result = casegraph_body_item(overides_declaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -555,7 +697,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = casecondition_expr(condition_expr);
         if (result == null) result = caseexpression(condition_expr);
         if (result == null) result = caseexpression_or_dist_item(condition_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(condition_expr);
+        if (result == null) result = caseconstant_expression(condition_expr);
         if (result == null) result = caseconstraint_body_item(condition_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -566,7 +708,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = caselogical_or_expr(logical_or_expr);
         if (result == null) result = caseexpression(logical_or_expr);
         if (result == null) result = caseexpression_or_dist_item(logical_or_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(logical_or_expr);
+        if (result == null) result = caseconstant_expression(logical_or_expr);
         if (result == null) result = caseconstraint_body_item(logical_or_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -577,7 +719,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = caselogical_and_expr(logical_and_expr);
         if (result == null) result = caseexpression(logical_and_expr);
         if (result == null) result = caseexpression_or_dist_item(logical_and_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(logical_and_expr);
+        if (result == null) result = caseconstant_expression(logical_and_expr);
         if (result == null) result = caseconstraint_body_item(logical_and_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -588,7 +730,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = casebinary_xor_expr(binary_xor_expr);
         if (result == null) result = caseexpression(binary_xor_expr);
         if (result == null) result = caseexpression_or_dist_item(binary_xor_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(binary_xor_expr);
+        if (result == null) result = caseconstant_expression(binary_xor_expr);
         if (result == null) result = caseconstraint_body_item(binary_xor_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -599,7 +741,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = casebinary_and_expr(binary_and_expr);
         if (result == null) result = caseexpression(binary_and_expr);
         if (result == null) result = caseexpression_or_dist_item(binary_and_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(binary_and_expr);
+        if (result == null) result = caseconstant_expression(binary_and_expr);
         if (result == null) result = caseconstraint_body_item(binary_and_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -610,7 +752,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = caselogical_equality_expr(logical_equality_expr);
         if (result == null) result = caseexpression(logical_equality_expr);
         if (result == null) result = caseexpression_or_dist_item(logical_equality_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(logical_equality_expr);
+        if (result == null) result = caseconstant_expression(logical_equality_expr);
         if (result == null) result = caseconstraint_body_item(logical_equality_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -621,7 +763,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = caselogical_inequality_expr(logical_inequality_expr);
         if (result == null) result = caseexpression(logical_inequality_expr);
         if (result == null) result = caseexpression_or_dist_item(logical_inequality_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(logical_inequality_expr);
+        if (result == null) result = caseconstant_expression(logical_inequality_expr);
         if (result == null) result = caseconstraint_body_item(logical_inequality_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -632,7 +774,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = casebinary_shift_expr(binary_shift_expr);
         if (result == null) result = caseexpression(binary_shift_expr);
         if (result == null) result = caseexpression_or_dist_item(binary_shift_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(binary_shift_expr);
+        if (result == null) result = caseconstant_expression(binary_shift_expr);
         if (result == null) result = caseconstraint_body_item(binary_shift_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -643,7 +785,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = casebinary_add_sub_expr(binary_add_sub_expr);
         if (result == null) result = caseexpression(binary_add_sub_expr);
         if (result == null) result = caseexpression_or_dist_item(binary_add_sub_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(binary_add_sub_expr);
+        if (result == null) result = caseconstant_expression(binary_add_sub_expr);
         if (result == null) result = caseconstraint_body_item(binary_add_sub_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -654,7 +796,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = casebinary_mul_div_mod_expr(binary_mul_div_mod_expr);
         if (result == null) result = caseexpression(binary_mul_div_mod_expr);
         if (result == null) result = caseexpression_or_dist_item(binary_mul_div_mod_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(binary_mul_div_mod_expr);
+        if (result == null) result = caseconstant_expression(binary_mul_div_mod_expr);
         if (result == null) result = caseconstraint_body_item(binary_mul_div_mod_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -665,7 +807,7 @@ public class PSSSwitch<T> extends Switch<T>
         T result = casebinary_exp_expr(binary_exp_expr);
         if (result == null) result = caseexpression(binary_exp_expr);
         if (result == null) result = caseexpression_or_dist_item(binary_exp_expr);
-        if (result == null) result = caseconstraint_body_no_if_item(binary_exp_expr);
+        if (result == null) result = caseconstant_expression(binary_exp_expr);
         if (result == null) result = caseconstraint_body_item(binary_exp_expr);
         if (result == null) result = defaultCase(theEObject);
         return result;
@@ -787,22 +929,6 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>struct graph body item</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>struct graph body item</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casestruct_graph_body_item(struct_graph_body_item object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>struct body item</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -851,6 +977,22 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>interface action definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>interface action definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseinterface_action_definition(interface_action_definition object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>rule production</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -867,145 +1009,161 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>stmt or block</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule stmt or block</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>stmt or block</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule stmt or block</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casestmt_or_block(stmt_or_block object)
+  public T caserule_stmt_or_block(rule_stmt_or_block object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>alt stmt</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule stmt alt parallel seq</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>alt stmt</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule stmt alt parallel seq</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casealt_stmt(alt_stmt object)
+  public T caserule_stmt_alt_parallel_seq(rule_stmt_alt_parallel_seq object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>stmt primary</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule stmt primary</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>stmt primary</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule stmt primary</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casestmt_primary(stmt_primary object)
+  public T caserule_stmt_primary(rule_stmt_primary object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>stmt alt</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule stmt parallel alt</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>stmt alt</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule stmt parallel alt</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casestmt_alt(stmt_alt object)
+  public T caserule_stmt_parallel_alt(rule_stmt_parallel_alt object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>stmt parallel</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule stmt parallel</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>stmt parallel</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule stmt parallel</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casestmt_parallel(stmt_parallel object)
+  public T caserule_stmt_parallel(rule_stmt_parallel object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>seq</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule sequence</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>seq</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule sequence</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseseq(seq object)
+  public T caserule_sequence(rule_sequence object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>seq item</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule seq item</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>seq item</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule seq item</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseseq_item(seq_item object)
+  public T caserule_seq_item(rule_seq_item object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>ifc call parameter list</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>rule with clause</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>ifc call parameter list</em>'.
+   * @return the result of interpreting the object as an instance of '<em>rule with clause</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseifc_call_parameter_list(ifc_call_parameter_list object)
+  public T caserule_with_clause(rule_with_clause object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>repeat stmt</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>parameter list</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>repeat stmt</em>'.
+   * @return the result of interpreting the object as an instance of '<em>parameter list</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caserepeat_stmt(repeat_stmt object)
+  public T caseparameter_list(parameter_list object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>rule repeat stmt</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>rule repeat stmt</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caserule_repeat_stmt(rule_repeat_stmt object)
   {
     return null;
   }
@@ -1091,6 +1249,86 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>data instantiation</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>data instantiation</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedata_instantiation(data_instantiation object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>graph interface portmap list</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>graph interface portmap list</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casegraph_interface_portmap_list(graph_interface_portmap_list object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>graph interface portmap</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>graph interface portmap</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casegraph_interface_portmap(graph_interface_portmap object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>data type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>data type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedata_type(data_type object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>user defined type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>user defined type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseuser_defined_type(user_defined_type object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>typedef declaration</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1107,81 +1345,97 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>enum declaration</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>enum type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>enum declaration</em>'.
+   * @return the result of interpreting the object as an instance of '<em>enum type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseenum_declaration(enum_declaration object)
+  public T caseenum_type(enum_type object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>scalar declaration</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>integer type</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>scalar declaration</em>'.
+   * @return the result of interpreting the object as an instance of '<em>integer type</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casescalar_declaration(scalar_declaration object)
+  public T caseinteger_type(integer_type object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>signed scalar</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>type inside clause</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>signed scalar</em>'.
+   * @return the result of interpreting the object as an instance of '<em>type inside clause</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casesigned_scalar(signed_scalar object)
+  public T casetype_inside_clause(type_inside_clause object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>scalar signed</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>open range list</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>scalar signed</em>'.
+   * @return the result of interpreting the object as an instance of '<em>open range list</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casescalar_signed(scalar_signed object)
+  public T caseopen_range_list(open_range_list object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>domain spec</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>open range value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>domain spec</em>'.
+   * @return the result of interpreting the object as an instance of '<em>open range value</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casedomain_spec(domain_spec object)
+  public T caseopen_range_value(open_range_value object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>range expr</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>range expr</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caserange_expr(range_expr object)
   {
     return null;
   }
@@ -1198,22 +1452,6 @@ public class PSSSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseconstraint_declaration(constraint_declaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>constraint body no if item</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>constraint body no if item</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseconstraint_body_no_if_item(constraint_body_no_if_item object)
   {
     return null;
   }
@@ -1299,6 +1537,198 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>constraint block</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>constraint block</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseconstraint_block(constraint_block object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bin or scheme declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bin or scheme declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebin_or_scheme_declaration(bin_or_scheme_declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bins declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bins declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebins_declaration(bins_declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bin specification</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bin specification</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebin_specification(bin_specification object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bin specifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bin specifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebin_specifier(bin_specifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>explicit bin value</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>explicit bin value</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseexplicit_bin_value(explicit_bin_value object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>explicit bin range</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>explicit bin range</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseexplicit_bin_range(explicit_bin_range object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bin range divide</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bin range divide</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebin_range_divide(bin_range_divide object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bin range size</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bin range size</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebin_range_size(bin_range_size object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bin scheme declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bin scheme declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebin_scheme_declaration(bin_scheme_declaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>bin scheme specifier</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>bin scheme specifier</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casebin_scheme_specifier(bin_scheme_specifier object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>constant expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>constant expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseconstant_expression(constant_expression object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1379,6 +1809,22 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>action port</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>action port</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseaction_port(action_port object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>graph data declaration</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1411,6 +1857,22 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>symbol decl item</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>symbol decl item</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casesymbol_decl_item(symbol_decl_item object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>port map</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -1427,81 +1889,17 @@ public class PSSSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>struct data declaration</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>constant</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>struct data declaration</em>'.
+   * @return the result of interpreting the object as an instance of '<em>constant</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T casestruct_data_declaration(struct_data_declaration object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>graph datatype</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>graph datatype</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casegraph_datatype(graph_datatype object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>struct datatype</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>struct datatype</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casestruct_datatype(struct_datatype object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>primitive datatype</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>primitive datatype</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseprimitive_datatype(primitive_datatype object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>integer type</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>integer type</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseinteger_type(integer_type object)
+  public T caseconstant(constant object)
   {
     return null;
   }
@@ -1518,6 +1916,22 @@ public class PSSSwitch<T> extends Switch<T>
    * @generated
    */
   public T casehierarchical_id(hierarchical_id object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>interface action id</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>interface action id</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseinterface_action_id(interface_action_id object)
   {
     return null;
   }
@@ -1566,6 +1980,38 @@ public class PSSSwitch<T> extends Switch<T>
    * @generated
    */
   public T casesize(size object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>alt stmt</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>alt stmt</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casealt_stmt(alt_stmt object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>stmt alt</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>stmt alt</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casestmt_alt(stmt_alt object)
   {
     return null;
   }

@@ -5,8 +5,8 @@ package net.sf.psstools.lang.pSS.impl;
 import java.util.Collection;
 
 import net.sf.psstools.lang.pSS.PSSPackage;
+import net.sf.psstools.lang.pSS.data_type;
 import net.sf.psstools.lang.pSS.graph_data_declaration;
-import net.sf.psstools.lang.pSS.graph_datatype;
 import net.sf.psstools.lang.pSS.port_map;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -38,17 +39,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *
  * @generated
  */
-public class graph_data_declarationImpl extends graph_body_itemImpl implements graph_data_declaration
+public class graph_data_declarationImpl extends MinimalEObjectImpl.Container implements graph_data_declaration
 {
   /**
-   * The cached value of the '{@link #getType() <em>Type</em>}' containment reference.
+   * The cached value of the '{@link #getType() <em>Type</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getType()
    * @generated
    * @ordered
    */
-  protected graph_datatype type;
+  protected data_type type;
 
   /**
    * The cached value of the '{@link #getNames() <em>Names</em>}' attribute list.
@@ -96,7 +97,27 @@ public class graph_data_declarationImpl extends graph_body_itemImpl implements g
    * <!-- end-user-doc -->
    * @generated
    */
-  public graph_datatype getType()
+  public data_type getType()
+  {
+    if (type != null && type.eIsProxy())
+    {
+      InternalEObject oldType = (InternalEObject)type;
+      type = (data_type)eResolveProxy(oldType);
+      if (type != oldType)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, PSSPackage.GRAPH_DATA_DECLARATION__TYPE, oldType, type));
+      }
+    }
+    return type;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public data_type basicGetType()
   {
     return type;
   }
@@ -106,37 +127,12 @@ public class graph_data_declarationImpl extends graph_body_itemImpl implements g
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetType(graph_datatype newType, NotificationChain msgs)
+  public void setType(data_type newType)
   {
-    graph_datatype oldType = type;
+    data_type oldType = type;
     type = newType;
     if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PSSPackage.GRAPH_DATA_DECLARATION__TYPE, oldType, newType);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setType(graph_datatype newType)
-  {
-    if (newType != type)
-    {
-      NotificationChain msgs = null;
-      if (type != null)
-        msgs = ((InternalEObject)type).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PSSPackage.GRAPH_DATA_DECLARATION__TYPE, null, msgs);
-      if (newType != null)
-        msgs = ((InternalEObject)newType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PSSPackage.GRAPH_DATA_DECLARATION__TYPE, null, msgs);
-      msgs = basicSetType(newType, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PSSPackage.GRAPH_DATA_DECLARATION__TYPE, newType, newType));
+      eNotify(new ENotificationImpl(this, Notification.SET, PSSPackage.GRAPH_DATA_DECLARATION__TYPE, oldType, type));
   }
 
   /**
@@ -177,8 +173,6 @@ public class graph_data_declarationImpl extends graph_body_itemImpl implements g
   {
     switch (featureID)
     {
-      case PSSPackage.GRAPH_DATA_DECLARATION__TYPE:
-        return basicSetType(null, msgs);
       case PSSPackage.GRAPH_DATA_DECLARATION__PORTMAPS:
         return ((InternalEList<?>)getPortmaps()).basicRemove(otherEnd, msgs);
     }
@@ -196,7 +190,8 @@ public class graph_data_declarationImpl extends graph_body_itemImpl implements g
     switch (featureID)
     {
       case PSSPackage.GRAPH_DATA_DECLARATION__TYPE:
-        return getType();
+        if (resolve) return getType();
+        return basicGetType();
       case PSSPackage.GRAPH_DATA_DECLARATION__NAMES:
         return getNames();
       case PSSPackage.GRAPH_DATA_DECLARATION__PORTMAPS:
@@ -217,7 +212,7 @@ public class graph_data_declarationImpl extends graph_body_itemImpl implements g
     switch (featureID)
     {
       case PSSPackage.GRAPH_DATA_DECLARATION__TYPE:
-        setType((graph_datatype)newValue);
+        setType((data_type)newValue);
         return;
       case PSSPackage.GRAPH_DATA_DECLARATION__NAMES:
         getNames().clear();
@@ -242,7 +237,7 @@ public class graph_data_declarationImpl extends graph_body_itemImpl implements g
     switch (featureID)
     {
       case PSSPackage.GRAPH_DATA_DECLARATION__TYPE:
-        setType((graph_datatype)null);
+        setType((data_type)null);
         return;
       case PSSPackage.GRAPH_DATA_DECLARATION__NAMES:
         getNames().clear();

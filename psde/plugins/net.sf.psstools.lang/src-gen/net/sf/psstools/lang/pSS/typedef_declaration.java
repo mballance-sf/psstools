@@ -11,8 +11,8 @@ package net.sf.psstools.lang.pSS;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link net.sf.psstools.lang.pSS.typedef_declaration#getSrc <em>Src</em>}</li>
- *   <li>{@link net.sf.psstools.lang.pSS.typedef_declaration#getDest <em>Dest</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.typedef_declaration#getType <em>Type</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.typedef_declaration#getType_identifier <em>Type identifier</em>}</li>
  * </ul>
  * </p>
  *
@@ -20,58 +20,58 @@ package net.sf.psstools.lang.pSS;
  * @model
  * @generated
  */
-public interface typedef_declaration extends data_declaration
+public interface typedef_declaration extends portable_stimulus_description, struct_body_item, graph_body_item
 {
   /**
-   * Returns the value of the '<em><b>Src</b></em>' attribute.
+   * Returns the value of the '<em><b>Type</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Src</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Src</em>' attribute.
-   * @see #setSrc(String)
-   * @see net.sf.psstools.lang.pSS.PSSPackage#gettypedef_declaration_Src()
-   * @model
+   * @return the value of the '<em>Type</em>' containment reference.
+   * @see #setType(data_type)
+   * @see net.sf.psstools.lang.pSS.PSSPackage#gettypedef_declaration_Type()
+   * @model containment="true"
    * @generated
    */
-  String getSrc();
+  data_type getType();
 
   /**
-   * Sets the value of the '{@link net.sf.psstools.lang.pSS.typedef_declaration#getSrc <em>Src</em>}' attribute.
+   * Sets the value of the '{@link net.sf.psstools.lang.pSS.typedef_declaration#getType <em>Type</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Src</em>' attribute.
-   * @see #getSrc()
+   * @param value the new value of the '<em>Type</em>' containment reference.
+   * @see #getType()
    * @generated
    */
-  void setSrc(String value);
+  void setType(data_type value);
 
   /**
-   * Returns the value of the '<em><b>Dest</b></em>' attribute.
+   * Returns the value of the '<em><b>Type identifier</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Dest</em>' attribute isn't clear,
+   * If the meaning of the '<em>Type identifier</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Dest</em>' attribute.
-   * @see #setDest(String)
-   * @see net.sf.psstools.lang.pSS.PSSPackage#gettypedef_declaration_Dest()
+   * @return the value of the '<em>Type identifier</em>' attribute.
+   * @see #setType_identifier(String)
+   * @see net.sf.psstools.lang.pSS.PSSPackage#gettypedef_declaration_Type_identifier()
    * @model
    * @generated
    */
-  String getDest();
+  String getType_identifier();
 
   /**
-   * Sets the value of the '{@link net.sf.psstools.lang.pSS.typedef_declaration#getDest <em>Dest</em>}' attribute.
+   * Sets the value of the '{@link net.sf.psstools.lang.pSS.typedef_declaration#getType_identifier <em>Type identifier</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Dest</em>' attribute.
-   * @see #getDest()
+   * @param value the new value of the '<em>Type identifier</em>' attribute.
+   * @see #getType_identifier()
    * @generated
    */
-  void setDest(String value);
+  void setType_identifier(String value);
 
 } // typedef_declaration

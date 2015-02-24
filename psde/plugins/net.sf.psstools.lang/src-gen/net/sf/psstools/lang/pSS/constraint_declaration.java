@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface constraint_declaration extends struct_graph_body_item
+public interface constraint_declaration extends struct_body_item, graph_body_item
 {
   /**
    * Returns the value of the '<em><b>Name</b></em>' attribute.

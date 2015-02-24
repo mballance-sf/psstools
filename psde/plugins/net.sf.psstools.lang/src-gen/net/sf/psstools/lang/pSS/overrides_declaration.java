@@ -13,6 +13,6 @@ package net.sf.psstools.lang.pSS;
  * @model
  * @generated
  */
-public interface overrides_declaration extends struct_graph_body_item
+public interface overrides_declaration extends graph_body_item
 {
 } // overrides_declaration

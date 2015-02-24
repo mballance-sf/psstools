@@ -110,11 +110,6 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
         return createstruct_declarationAdapter();
       }
       @Override
-      public Adapter casestruct_graph_body_item(struct_graph_body_item object)
-      {
-        return createstruct_graph_body_itemAdapter();
-      }
-      @Override
       public Adapter casestruct_body_item(struct_body_item object)
       {
         return createstruct_body_itemAdapter();
@@ -130,54 +125,64 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
         return createsymbol_definitionAdapter();
       }
       @Override
+      public Adapter caseinterface_action_definition(interface_action_definition object)
+      {
+        return createinterface_action_definitionAdapter();
+      }
+      @Override
       public Adapter caserule_production(rule_production object)
       {
         return createrule_productionAdapter();
       }
       @Override
-      public Adapter casestmt_or_block(stmt_or_block object)
+      public Adapter caserule_stmt_or_block(rule_stmt_or_block object)
       {
-        return createstmt_or_blockAdapter();
+        return createrule_stmt_or_blockAdapter();
       }
       @Override
-      public Adapter casealt_stmt(alt_stmt object)
+      public Adapter caserule_stmt_alt_parallel_seq(rule_stmt_alt_parallel_seq object)
       {
-        return createalt_stmtAdapter();
+        return createrule_stmt_alt_parallel_seqAdapter();
       }
       @Override
-      public Adapter casestmt_primary(stmt_primary object)
+      public Adapter caserule_stmt_primary(rule_stmt_primary object)
       {
-        return createstmt_primaryAdapter();
+        return createrule_stmt_primaryAdapter();
       }
       @Override
-      public Adapter casestmt_alt(stmt_alt object)
+      public Adapter caserule_stmt_parallel_alt(rule_stmt_parallel_alt object)
       {
-        return createstmt_altAdapter();
+        return createrule_stmt_parallel_altAdapter();
       }
       @Override
-      public Adapter casestmt_parallel(stmt_parallel object)
+      public Adapter caserule_stmt_parallel(rule_stmt_parallel object)
       {
-        return createstmt_parallelAdapter();
+        return createrule_stmt_parallelAdapter();
       }
       @Override
-      public Adapter caseseq(seq object)
+      public Adapter caserule_sequence(rule_sequence object)
       {
-        return createseqAdapter();
+        return createrule_sequenceAdapter();
       }
       @Override
-      public Adapter caseseq_item(seq_item object)
+      public Adapter caserule_seq_item(rule_seq_item object)
       {
-        return createseq_itemAdapter();
+        return createrule_seq_itemAdapter();
       }
       @Override
-      public Adapter caseifc_call_parameter_list(ifc_call_parameter_list object)
+      public Adapter caserule_with_clause(rule_with_clause object)
       {
-        return createifc_call_parameter_listAdapter();
+        return createrule_with_clauseAdapter();
       }
       @Override
-      public Adapter caserepeat_stmt(repeat_stmt object)
+      public Adapter caseparameter_list(parameter_list object)
       {
-        return createrepeat_stmtAdapter();
+        return createparameter_listAdapter();
+      }
+      @Override
+      public Adapter caserule_repeat_stmt(rule_repeat_stmt object)
+      {
+        return createrule_repeat_stmtAdapter();
       }
       @Override
       public Adapter caseoverrides_declaration(overrides_declaration object)
@@ -205,44 +210,69 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
         return createdata_declarationAdapter();
       }
       @Override
+      public Adapter casedata_instantiation(data_instantiation object)
+      {
+        return createdata_instantiationAdapter();
+      }
+      @Override
+      public Adapter casegraph_interface_portmap_list(graph_interface_portmap_list object)
+      {
+        return creategraph_interface_portmap_listAdapter();
+      }
+      @Override
+      public Adapter casegraph_interface_portmap(graph_interface_portmap object)
+      {
+        return creategraph_interface_portmapAdapter();
+      }
+      @Override
+      public Adapter casedata_type(data_type object)
+      {
+        return createdata_typeAdapter();
+      }
+      @Override
+      public Adapter caseuser_defined_type(user_defined_type object)
+      {
+        return createuser_defined_typeAdapter();
+      }
+      @Override
       public Adapter casetypedef_declaration(typedef_declaration object)
       {
         return createtypedef_declarationAdapter();
       }
       @Override
-      public Adapter caseenum_declaration(enum_declaration object)
+      public Adapter caseenum_type(enum_type object)
       {
-        return createenum_declarationAdapter();
+        return createenum_typeAdapter();
       }
       @Override
-      public Adapter casescalar_declaration(scalar_declaration object)
+      public Adapter caseinteger_type(integer_type object)
       {
-        return createscalar_declarationAdapter();
+        return createinteger_typeAdapter();
       }
       @Override
-      public Adapter casesigned_scalar(signed_scalar object)
+      public Adapter casetype_inside_clause(type_inside_clause object)
       {
-        return createsigned_scalarAdapter();
+        return createtype_inside_clauseAdapter();
       }
       @Override
-      public Adapter casescalar_signed(scalar_signed object)
+      public Adapter caseopen_range_list(open_range_list object)
       {
-        return createscalar_signedAdapter();
+        return createopen_range_listAdapter();
       }
       @Override
-      public Adapter casedomain_spec(domain_spec object)
+      public Adapter caseopen_range_value(open_range_value object)
       {
-        return createdomain_specAdapter();
+        return createopen_range_valueAdapter();
+      }
+      @Override
+      public Adapter caserange_expr(range_expr object)
+      {
+        return createrange_exprAdapter();
       }
       @Override
       public Adapter caseconstraint_declaration(constraint_declaration object)
       {
         return createconstraint_declarationAdapter();
-      }
-      @Override
-      public Adapter caseconstraint_body_no_if_item(constraint_body_no_if_item object)
-      {
-        return createconstraint_body_no_if_itemAdapter();
       }
       @Override
       public Adapter caseconstraint_body_item(constraint_body_item object)
@@ -270,6 +300,66 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
         return createconstraint_setAdapter();
       }
       @Override
+      public Adapter caseconstraint_block(constraint_block object)
+      {
+        return createconstraint_blockAdapter();
+      }
+      @Override
+      public Adapter casebin_or_scheme_declaration(bin_or_scheme_declaration object)
+      {
+        return createbin_or_scheme_declarationAdapter();
+      }
+      @Override
+      public Adapter casebins_declaration(bins_declaration object)
+      {
+        return createbins_declarationAdapter();
+      }
+      @Override
+      public Adapter casebin_specification(bin_specification object)
+      {
+        return createbin_specificationAdapter();
+      }
+      @Override
+      public Adapter casebin_specifier(bin_specifier object)
+      {
+        return createbin_specifierAdapter();
+      }
+      @Override
+      public Adapter caseexplicit_bin_value(explicit_bin_value object)
+      {
+        return createexplicit_bin_valueAdapter();
+      }
+      @Override
+      public Adapter caseexplicit_bin_range(explicit_bin_range object)
+      {
+        return createexplicit_bin_rangeAdapter();
+      }
+      @Override
+      public Adapter casebin_range_divide(bin_range_divide object)
+      {
+        return createbin_range_divideAdapter();
+      }
+      @Override
+      public Adapter casebin_range_size(bin_range_size object)
+      {
+        return createbin_range_sizeAdapter();
+      }
+      @Override
+      public Adapter casebin_scheme_declaration(bin_scheme_declaration object)
+      {
+        return createbin_scheme_declarationAdapter();
+      }
+      @Override
+      public Adapter casebin_scheme_specifier(bin_scheme_specifier object)
+      {
+        return createbin_scheme_specifierAdapter();
+      }
+      @Override
+      public Adapter caseconstant_expression(constant_expression object)
+      {
+        return createconstant_expressionAdapter();
+      }
+      @Override
       public Adapter caseexpression(expression object)
       {
         return createexpressionAdapter();
@@ -295,6 +385,11 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
         return createaction_portlistAdapter();
       }
       @Override
+      public Adapter caseaction_port(action_port object)
+      {
+        return createaction_portAdapter();
+      }
+      @Override
       public Adapter casegraph_data_declaration(graph_data_declaration object)
       {
         return creategraph_data_declarationAdapter();
@@ -305,39 +400,29 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
         return createsymbol_declarationAdapter();
       }
       @Override
+      public Adapter casesymbol_decl_item(symbol_decl_item object)
+      {
+        return createsymbol_decl_itemAdapter();
+      }
+      @Override
       public Adapter caseport_map(port_map object)
       {
         return createport_mapAdapter();
       }
       @Override
-      public Adapter casestruct_data_declaration(struct_data_declaration object)
+      public Adapter caseconstant(constant object)
       {
-        return createstruct_data_declarationAdapter();
-      }
-      @Override
-      public Adapter casegraph_datatype(graph_datatype object)
-      {
-        return creategraph_datatypeAdapter();
-      }
-      @Override
-      public Adapter casestruct_datatype(struct_datatype object)
-      {
-        return createstruct_datatypeAdapter();
-      }
-      @Override
-      public Adapter caseprimitive_datatype(primitive_datatype object)
-      {
-        return createprimitive_datatypeAdapter();
-      }
-      @Override
-      public Adapter caseinteger_type(integer_type object)
-      {
-        return createinteger_typeAdapter();
+        return createconstantAdapter();
       }
       @Override
       public Adapter casehierarchical_id(hierarchical_id object)
       {
         return createhierarchical_idAdapter();
+      }
+      @Override
+      public Adapter caseinterface_action_id(interface_action_id object)
+      {
+        return createinterface_action_idAdapter();
       }
       @Override
       public Adapter caseliteral(literal object)
@@ -353,6 +438,16 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
       public Adapter casesize(size object)
       {
         return createsizeAdapter();
+      }
+      @Override
+      public Adapter casealt_stmt(alt_stmt object)
+      {
+        return createalt_stmtAdapter();
+      }
+      @Override
+      public Adapter casestmt_alt(stmt_alt object)
+      {
+        return createstmt_altAdapter();
       }
       @Override
       public Adapter caseoverides_declaration(overides_declaration object)
@@ -542,21 +637,6 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.struct_graph_body_item <em>struct graph body item</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.struct_graph_body_item
-   * @generated
-   */
-  public Adapter createstruct_graph_body_itemAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.struct_body_item <em>struct body item</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -602,6 +682,21 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.interface_action_definition <em>interface action definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.interface_action_definition
+   * @generated
+   */
+  public Adapter createinterface_action_definitionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_production <em>rule production</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -617,136 +712,151 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.stmt_or_block <em>stmt or block</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_stmt_or_block <em>rule stmt or block</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.stmt_or_block
+   * @see net.sf.psstools.lang.pSS.rule_stmt_or_block
    * @generated
    */
-  public Adapter createstmt_or_blockAdapter()
+  public Adapter createrule_stmt_or_blockAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.alt_stmt <em>alt stmt</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_stmt_alt_parallel_seq <em>rule stmt alt parallel seq</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.alt_stmt
+   * @see net.sf.psstools.lang.pSS.rule_stmt_alt_parallel_seq
    * @generated
    */
-  public Adapter createalt_stmtAdapter()
+  public Adapter createrule_stmt_alt_parallel_seqAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.stmt_primary <em>stmt primary</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_stmt_primary <em>rule stmt primary</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.stmt_primary
+   * @see net.sf.psstools.lang.pSS.rule_stmt_primary
    * @generated
    */
-  public Adapter createstmt_primaryAdapter()
+  public Adapter createrule_stmt_primaryAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.stmt_alt <em>stmt alt</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_stmt_parallel_alt <em>rule stmt parallel alt</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.stmt_alt
+   * @see net.sf.psstools.lang.pSS.rule_stmt_parallel_alt
    * @generated
    */
-  public Adapter createstmt_altAdapter()
+  public Adapter createrule_stmt_parallel_altAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.stmt_parallel <em>stmt parallel</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_stmt_parallel <em>rule stmt parallel</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.stmt_parallel
+   * @see net.sf.psstools.lang.pSS.rule_stmt_parallel
    * @generated
    */
-  public Adapter createstmt_parallelAdapter()
+  public Adapter createrule_stmt_parallelAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.seq <em>seq</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_sequence <em>rule sequence</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.seq
+   * @see net.sf.psstools.lang.pSS.rule_sequence
    * @generated
    */
-  public Adapter createseqAdapter()
+  public Adapter createrule_sequenceAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.seq_item <em>seq item</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_seq_item <em>rule seq item</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.seq_item
+   * @see net.sf.psstools.lang.pSS.rule_seq_item
    * @generated
    */
-  public Adapter createseq_itemAdapter()
+  public Adapter createrule_seq_itemAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.ifc_call_parameter_list <em>ifc call parameter list</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_with_clause <em>rule with clause</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.ifc_call_parameter_list
+   * @see net.sf.psstools.lang.pSS.rule_with_clause
    * @generated
    */
-  public Adapter createifc_call_parameter_listAdapter()
+  public Adapter createrule_with_clauseAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.repeat_stmt <em>repeat stmt</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.parameter_list <em>parameter list</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.repeat_stmt
+   * @see net.sf.psstools.lang.pSS.parameter_list
    * @generated
    */
-  public Adapter createrepeat_stmtAdapter()
+  public Adapter createparameter_listAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.rule_repeat_stmt <em>rule repeat stmt</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.rule_repeat_stmt
+   * @generated
+   */
+  public Adapter createrule_repeat_stmtAdapter()
   {
     return null;
   }
@@ -827,6 +937,81 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.data_instantiation <em>data instantiation</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.data_instantiation
+   * @generated
+   */
+  public Adapter createdata_instantiationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.graph_interface_portmap_list <em>graph interface portmap list</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.graph_interface_portmap_list
+   * @generated
+   */
+  public Adapter creategraph_interface_portmap_listAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.graph_interface_portmap <em>graph interface portmap</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.graph_interface_portmap
+   * @generated
+   */
+  public Adapter creategraph_interface_portmapAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.data_type <em>data type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.data_type
+   * @generated
+   */
+  public Adapter createdata_typeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.user_defined_type <em>user defined type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.user_defined_type
+   * @generated
+   */
+  public Adapter createuser_defined_typeAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.typedef_declaration <em>typedef declaration</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -842,76 +1027,91 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.enum_declaration <em>enum declaration</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.enum_type <em>enum type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.enum_declaration
+   * @see net.sf.psstools.lang.pSS.enum_type
    * @generated
    */
-  public Adapter createenum_declarationAdapter()
+  public Adapter createenum_typeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.scalar_declaration <em>scalar declaration</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.integer_type <em>integer type</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.scalar_declaration
+   * @see net.sf.psstools.lang.pSS.integer_type
    * @generated
    */
-  public Adapter createscalar_declarationAdapter()
+  public Adapter createinteger_typeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.signed_scalar <em>signed scalar</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.type_inside_clause <em>type inside clause</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.signed_scalar
+   * @see net.sf.psstools.lang.pSS.type_inside_clause
    * @generated
    */
-  public Adapter createsigned_scalarAdapter()
+  public Adapter createtype_inside_clauseAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.scalar_signed <em>scalar signed</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.open_range_list <em>open range list</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.scalar_signed
+   * @see net.sf.psstools.lang.pSS.open_range_list
    * @generated
    */
-  public Adapter createscalar_signedAdapter()
+  public Adapter createopen_range_listAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.domain_spec <em>domain spec</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.open_range_value <em>open range value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.domain_spec
+   * @see net.sf.psstools.lang.pSS.open_range_value
    * @generated
    */
-  public Adapter createdomain_specAdapter()
+  public Adapter createopen_range_valueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.range_expr <em>range expr</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.range_expr
+   * @generated
+   */
+  public Adapter createrange_exprAdapter()
   {
     return null;
   }
@@ -927,21 +1127,6 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createconstraint_declarationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.constraint_body_no_if_item <em>constraint body no if item</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.constraint_body_no_if_item
-   * @generated
-   */
-  public Adapter createconstraint_body_no_if_itemAdapter()
   {
     return null;
   }
@@ -1022,6 +1207,186 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.constraint_block <em>constraint block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.constraint_block
+   * @generated
+   */
+  public Adapter createconstraint_blockAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bin_or_scheme_declaration <em>bin or scheme declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bin_or_scheme_declaration
+   * @generated
+   */
+  public Adapter createbin_or_scheme_declarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bins_declaration <em>bins declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bins_declaration
+   * @generated
+   */
+  public Adapter createbins_declarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bin_specification <em>bin specification</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bin_specification
+   * @generated
+   */
+  public Adapter createbin_specificationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bin_specifier <em>bin specifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bin_specifier
+   * @generated
+   */
+  public Adapter createbin_specifierAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.explicit_bin_value <em>explicit bin value</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_value
+   * @generated
+   */
+  public Adapter createexplicit_bin_valueAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.explicit_bin_range <em>explicit bin range</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.explicit_bin_range
+   * @generated
+   */
+  public Adapter createexplicit_bin_rangeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bin_range_divide <em>bin range divide</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bin_range_divide
+   * @generated
+   */
+  public Adapter createbin_range_divideAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bin_range_size <em>bin range size</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bin_range_size
+   * @generated
+   */
+  public Adapter createbin_range_sizeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bin_scheme_declaration <em>bin scheme declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bin_scheme_declaration
+   * @generated
+   */
+  public Adapter createbin_scheme_declarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.bin_scheme_specifier <em>bin scheme specifier</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.bin_scheme_specifier
+   * @generated
+   */
+  public Adapter createbin_scheme_specifierAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.constant_expression <em>constant expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.constant_expression
+   * @generated
+   */
+  public Adapter createconstant_expressionAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.expression <em>expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1097,6 +1462,21 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.action_port <em>action port</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.action_port
+   * @generated
+   */
+  public Adapter createaction_portAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.graph_data_declaration <em>graph data declaration</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1127,6 +1507,21 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.symbol_decl_item <em>symbol decl item</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.symbol_decl_item
+   * @generated
+   */
+  public Adapter createsymbol_decl_itemAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.port_map <em>port map</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -1142,76 +1537,16 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.struct_data_declaration <em>struct data declaration</em>}'.
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.constant <em>constant</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.struct_data_declaration
+   * @see net.sf.psstools.lang.pSS.constant
    * @generated
    */
-  public Adapter createstruct_data_declarationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.graph_datatype <em>graph datatype</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.graph_datatype
-   * @generated
-   */
-  public Adapter creategraph_datatypeAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.struct_datatype <em>struct datatype</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.struct_datatype
-   * @generated
-   */
-  public Adapter createstruct_datatypeAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.primitive_datatype <em>primitive datatype</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.primitive_datatype
-   * @generated
-   */
-  public Adapter createprimitive_datatypeAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.integer_type <em>integer type</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see net.sf.psstools.lang.pSS.integer_type
-   * @generated
-   */
-  public Adapter createinteger_typeAdapter()
+  public Adapter createconstantAdapter()
   {
     return null;
   }
@@ -1227,6 +1562,21 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createhierarchical_idAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.interface_action_id <em>interface action id</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.interface_action_id
+   * @generated
+   */
+  public Adapter createinterface_action_idAdapter()
   {
     return null;
   }
@@ -1272,6 +1622,36 @@ public class PSSAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createsizeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.alt_stmt <em>alt stmt</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.alt_stmt
+   * @generated
+   */
+  public Adapter createalt_stmtAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link net.sf.psstools.lang.pSS.stmt_alt <em>stmt alt</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see net.sf.psstools.lang.pSS.stmt_alt
+   * @generated
+   */
+  public Adapter createstmt_altAdapter()
   {
     return null;
   }

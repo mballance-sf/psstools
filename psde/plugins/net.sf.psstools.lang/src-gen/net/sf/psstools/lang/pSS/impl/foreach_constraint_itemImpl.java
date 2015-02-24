@@ -29,7 +29,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  *
  * @generated
  */
-public class foreach_constraint_itemImpl extends constraint_body_no_if_itemImpl implements foreach_constraint_item
+public class foreach_constraint_itemImpl extends constraint_body_itemImpl implements foreach_constraint_item
 {
   /**
    * The cached value of the '{@link #getExpr() <em>Expr</em>}' containment reference.

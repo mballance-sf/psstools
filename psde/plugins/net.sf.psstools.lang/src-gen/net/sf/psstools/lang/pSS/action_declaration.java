@@ -2,7 +2,6 @@
  */
 package net.sf.psstools.lang.pSS;
 
-import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,19 +49,29 @@ public interface action_declaration extends interface_body_item
   void setName(String value);
 
   /**
-   * Returns the value of the '<em><b>Ports</b></em>' containment reference list.
-   * The list contents are of type {@link net.sf.psstools.lang.pSS.action_portlist}.
+   * Returns the value of the '<em><b>Ports</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Ports</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Ports</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Ports</em>' containment reference list.
+   * @return the value of the '<em>Ports</em>' containment reference.
+   * @see #setPorts(action_portlist)
    * @see net.sf.psstools.lang.pSS.PSSPackage#getaction_declaration_Ports()
    * @model containment="true"
    * @generated
    */
-  EList<action_portlist> getPorts();
+  action_portlist getPorts();
+
+  /**
+   * Sets the value of the '{@link net.sf.psstools.lang.pSS.action_declaration#getPorts <em>Ports</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Ports</em>' containment reference.
+   * @see #getPorts()
+   * @generated
+   */
+  void setPorts(action_portlist value);
 
 } // action_declaration

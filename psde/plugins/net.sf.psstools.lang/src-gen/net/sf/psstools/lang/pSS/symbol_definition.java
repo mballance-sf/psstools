@@ -2,6 +2,7 @@
  */
 package net.sf.psstools.lang.pSS;
 
+import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
@@ -11,8 +12,8 @@ package net.sf.psstools.lang.pSS;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link net.sf.psstools.lang.pSS.symbol_definition#getName <em>Name</em>}</li>
- *   <li>{@link net.sf.psstools.lang.pSS.symbol_definition#getRule <em>Rule</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.symbol_definition#getSymbol_name <em>Symbol name</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.symbol_definition#getBody_items <em>Body items</em>}</li>
  * </ul>
  * </p>
  *
@@ -23,55 +24,45 @@ package net.sf.psstools.lang.pSS;
 public interface symbol_definition extends graph_body_item
 {
   /**
-   * Returns the value of the '<em><b>Name</b></em>' attribute.
+   * Returns the value of the '<em><b>Symbol name</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Name</em>' attribute isn't clear,
+   * If the meaning of the '<em>Symbol name</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Name</em>' attribute.
-   * @see #setName(String)
-   * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_definition_Name()
+   * @return the value of the '<em>Symbol name</em>' attribute.
+   * @see #setSymbol_name(String)
+   * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_definition_Symbol_name()
    * @model
    * @generated
    */
-  String getName();
+  String getSymbol_name();
 
   /**
-   * Sets the value of the '{@link net.sf.psstools.lang.pSS.symbol_definition#getName <em>Name</em>}' attribute.
+   * Sets the value of the '{@link net.sf.psstools.lang.pSS.symbol_definition#getSymbol_name <em>Symbol name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Name</em>' attribute.
-   * @see #getName()
+   * @param value the new value of the '<em>Symbol name</em>' attribute.
+   * @see #getSymbol_name()
    * @generated
    */
-  void setName(String value);
+  void setSymbol_name(String value);
 
   /**
-   * Returns the value of the '<em><b>Rule</b></em>' containment reference.
+   * Returns the value of the '<em><b>Body items</b></em>' containment reference list.
+   * The list contents are of type {@link net.sf.psstools.lang.pSS.rule_production}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Rule</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Body items</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Rule</em>' containment reference.
-   * @see #setRule(rule_production)
-   * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_definition_Rule()
+   * @return the value of the '<em>Body items</em>' containment reference list.
+   * @see net.sf.psstools.lang.pSS.PSSPackage#getsymbol_definition_Body_items()
    * @model containment="true"
    * @generated
    */
-  rule_production getRule();
-
-  /**
-   * Sets the value of the '{@link net.sf.psstools.lang.pSS.symbol_definition#getRule <em>Rule</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Rule</em>' containment reference.
-   * @see #getRule()
-   * @generated
-   */
-  void setRule(rule_production value);
+  EList<rule_production> getBody_items();
 
 } // symbol_definition

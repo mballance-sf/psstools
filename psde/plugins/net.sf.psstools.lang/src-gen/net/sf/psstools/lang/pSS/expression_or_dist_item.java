@@ -13,6 +13,6 @@ package net.sf.psstools.lang.pSS;
  * @model
  * @generated
  */
-public interface expression_or_dist_item extends constraint_body_no_if_item
+public interface expression_or_dist_item extends constraint_body_item
 {
 } // expression_or_dist_item

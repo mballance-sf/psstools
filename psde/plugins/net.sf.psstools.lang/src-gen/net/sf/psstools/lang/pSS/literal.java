@@ -2,7 +2,6 @@
  */
 package net.sf.psstools.lang.pSS;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface literal extends EObject
+public interface literal extends constant
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

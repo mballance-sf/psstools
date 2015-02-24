@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class expression_or_dist_itemImpl extends constraint_body_no_if_itemImpl implements expression_or_dist_item
+public class expression_or_dist_itemImpl extends constraint_body_itemImpl implements expression_or_dist_item
 {
   /**
    * <!-- begin-user-doc -->

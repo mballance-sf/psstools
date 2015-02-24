@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class stmt_altImpl extends stmt_primaryImpl implements stmt_alt
+public class stmt_altImpl extends rule_stmt_parallel_altImpl implements stmt_alt
 {
   /**
    * <!-- begin-user-doc -->

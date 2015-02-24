@@ -2,6 +2,8 @@
  */
 package net.sf.psstools.lang.pSS.impl;
 
+import java.util.Collection;
+
 import net.sf.psstools.lang.pSS.PSSPackage;
 import net.sf.psstools.lang.pSS.rule_production;
 import net.sf.psstools.lang.pSS.symbol_definition;
@@ -9,10 +11,15 @@ import net.sf.psstools.lang.pSS.symbol_definition;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -21,8 +28,8 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_definitionImpl#getName <em>Name</em>}</li>
- *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_definitionImpl#getRule <em>Rule</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_definitionImpl#getSymbol_name <em>Symbol name</em>}</li>
+ *   <li>{@link net.sf.psstools.lang.pSS.impl.symbol_definitionImpl#getBody_items <em>Body items</em>}</li>
  * </ul>
  * </p>
  *
@@ -31,34 +38,34 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class symbol_definitionImpl extends graph_body_itemImpl implements symbol_definition
 {
   /**
-   * The default value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The default value of the '{@link #getSymbol_name() <em>Symbol name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getSymbol_name()
    * @generated
    * @ordered
    */
-  protected static final String NAME_EDEFAULT = null;
+  protected static final String SYMBOL_NAME_EDEFAULT = null;
 
   /**
-   * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
+   * The cached value of the '{@link #getSymbol_name() <em>Symbol name</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getName()
+   * @see #getSymbol_name()
    * @generated
    * @ordered
    */
-  protected String name = NAME_EDEFAULT;
+  protected String symbol_name = SYMBOL_NAME_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getRule() <em>Rule</em>}' containment reference.
+   * The cached value of the '{@link #getBody_items() <em>Body items</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getRule()
+   * @see #getBody_items()
    * @generated
    * @ordered
    */
-  protected rule_production rule;
+  protected EList<rule_production> body_items;
 
   /**
    * <!-- begin-user-doc -->
@@ -86,9 +93,9 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getName()
+  public String getSymbol_name()
   {
-    return name;
+    return symbol_name;
   }
 
   /**
@@ -96,12 +103,12 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setName(String newName)
+  public void setSymbol_name(String newSymbol_name)
   {
-    String oldName = name;
-    name = newName;
+    String oldSymbol_name = symbol_name;
+    symbol_name = newSymbol_name;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PSSPackage.SYMBOL_DEFINITION__NAME, oldName, name));
+      eNotify(new ENotificationImpl(this, Notification.SET, PSSPackage.SYMBOL_DEFINITION__SYMBOL_NAME, oldSymbol_name, symbol_name));
   }
 
   /**
@@ -109,47 +116,13 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
    * <!-- end-user-doc -->
    * @generated
    */
-  public rule_production getRule()
+  public EList<rule_production> getBody_items()
   {
-    return rule;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetRule(rule_production newRule, NotificationChain msgs)
-  {
-    rule_production oldRule = rule;
-    rule = newRule;
-    if (eNotificationRequired())
+    if (body_items == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PSSPackage.SYMBOL_DEFINITION__RULE, oldRule, newRule);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      body_items = new EObjectContainmentEList<rule_production>(rule_production.class, this, PSSPackage.SYMBOL_DEFINITION__BODY_ITEMS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setRule(rule_production newRule)
-  {
-    if (newRule != rule)
-    {
-      NotificationChain msgs = null;
-      if (rule != null)
-        msgs = ((InternalEObject)rule).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - PSSPackage.SYMBOL_DEFINITION__RULE, null, msgs);
-      if (newRule != null)
-        msgs = ((InternalEObject)newRule).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - PSSPackage.SYMBOL_DEFINITION__RULE, null, msgs);
-      msgs = basicSetRule(newRule, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, PSSPackage.SYMBOL_DEFINITION__RULE, newRule, newRule));
+    return body_items;
   }
 
   /**
@@ -162,8 +135,8 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DEFINITION__RULE:
-        return basicSetRule(null, msgs);
+      case PSSPackage.SYMBOL_DEFINITION__BODY_ITEMS:
+        return ((InternalEList<?>)getBody_items()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -178,10 +151,10 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DEFINITION__NAME:
-        return getName();
-      case PSSPackage.SYMBOL_DEFINITION__RULE:
-        return getRule();
+      case PSSPackage.SYMBOL_DEFINITION__SYMBOL_NAME:
+        return getSymbol_name();
+      case PSSPackage.SYMBOL_DEFINITION__BODY_ITEMS:
+        return getBody_items();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -191,16 +164,18 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DEFINITION__NAME:
-        setName((String)newValue);
+      case PSSPackage.SYMBOL_DEFINITION__SYMBOL_NAME:
+        setSymbol_name((String)newValue);
         return;
-      case PSSPackage.SYMBOL_DEFINITION__RULE:
-        setRule((rule_production)newValue);
+      case PSSPackage.SYMBOL_DEFINITION__BODY_ITEMS:
+        getBody_items().clear();
+        getBody_items().addAll((Collection<? extends rule_production>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -216,11 +191,11 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DEFINITION__NAME:
-        setName(NAME_EDEFAULT);
+      case PSSPackage.SYMBOL_DEFINITION__SYMBOL_NAME:
+        setSymbol_name(SYMBOL_NAME_EDEFAULT);
         return;
-      case PSSPackage.SYMBOL_DEFINITION__RULE:
-        setRule((rule_production)null);
+      case PSSPackage.SYMBOL_DEFINITION__BODY_ITEMS:
+        getBody_items().clear();
         return;
     }
     super.eUnset(featureID);
@@ -236,10 +211,10 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
   {
     switch (featureID)
     {
-      case PSSPackage.SYMBOL_DEFINITION__NAME:
-        return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
-      case PSSPackage.SYMBOL_DEFINITION__RULE:
-        return rule != null;
+      case PSSPackage.SYMBOL_DEFINITION__SYMBOL_NAME:
+        return SYMBOL_NAME_EDEFAULT == null ? symbol_name != null : !SYMBOL_NAME_EDEFAULT.equals(symbol_name);
+      case PSSPackage.SYMBOL_DEFINITION__BODY_ITEMS:
+        return body_items != null && !body_items.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -255,8 +230,8 @@ public class symbol_definitionImpl extends graph_body_itemImpl implements symbol
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (name: ");
-    result.append(name);
+    result.append(" (symbol_name: ");
+    result.append(symbol_name);
     result.append(')');
     return result.toString();
   }
