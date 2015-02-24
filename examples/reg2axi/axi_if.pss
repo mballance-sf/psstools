@@ -1,0 +1,18 @@
+
+struct axi4_trans_req {
+	rand bit[31:0]			axi_addr;
+	rand bit[31:0]			axi_write_data;
+	rand bit				is_write;
+	rand bit[3:0]			prot;
+	rand bit[1:0]			lock;
+}
+
+struct axi4_trans_rsp {
+	rand bit[1:0]			resp;
+	rand bit[31:0]			axi_read_data;
+}
+
+interface axi_if {
+	action start_axi_trans(axi4_trans_req req);
+	action finish_axi_trans(output axi4_trans_rsp rsp);
+}
