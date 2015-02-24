@@ -1,2 +1,4 @@
 *.java
+*.g
+*.tokens
 *._trace

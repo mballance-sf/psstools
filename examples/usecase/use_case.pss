@@ -1,0 +1,37 @@
+
+graph use_case (use_case_if	ifc){
+	rand mem_buff_t			capture_buff;
+	rand proc_tag_e			capture_proc;
+	
+	rand mem_buff_t			convert_buff;
+	rand proc_tag_e			convert_proc;
+	
+	rand proc_tag_e			transmit_proc;
+	rand proc_tag_e			decode_proc;
+	rand proc_tag_e			display_proc;
+	
+	rand video_stream_t		display_stream;
+
+	use_case := {
+		// Select which processor will capture data from the camera,
+		// where the data will be stored and in what format
+		capture_buff, capture_proc;
+		ifc.capture(capture_proc, capture_buff);
+		
+		// Determine how to convert the data and who will do the work
+		convert_buff, convert_proc;
+		ifc.convert(convert_proc, capture_buff, convert_buff);
+		
+		// Determine which processors will transmit, decode, and
+		// display the image
+		transmit_proc, decode_proc, display_proc;
+		
+		// Determine how the data will be decoded and shown
+		display_stream;
+		
+		// Run the transmit, decode, and display operations in parallel
+		ifc.transmit(transmit_proc, convert_buff) &
+		ifc.decode_to_display(proc_tag, convert_buff, display_stream) &
+		ifc.show(display_proc, display_stream);	
+	}
+}

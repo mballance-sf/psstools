@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.text.DocumentEvent;
+import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.TextPresentation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -12,6 +14,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.custom.StyledTextContent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
@@ -39,10 +42,9 @@ import org.eclipse.xtext.xtext.GrammarResource;
 
 import com.google.inject.Injector;
 
-public class EBnfView extends ViewPart implements IPartListener {
+public class EBnfView extends ViewPart implements IPartListener, IDocumentListener {
 	private StyledText				fText;
-	IXtextDocument					fLastDoc;
-	
+	private IXtextDocument			fLastDoc;
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -61,39 +63,61 @@ public class EBnfView extends ViewPart implements IPartListener {
 			XtextEditor xed = (XtextEditor)part;
 			final IXtextDocument xd = xed.getDocument();
 	
-			Injector guiceInjector = new XtextStandaloneSetup().createInjectorAndDoEMFRegistration();
-			IParser parser = guiceInjector.getInstance(XtextParser.class);
-			StringInputStream in = new StringInputStream(
-					xed.getDocumentProvider().getDocument(xed.getEditorInput()).get());
-			InputStreamReader rdr = new InputStreamReader(in);
-			IParseResult result = parser.parse(rdr);
-		
-			System.out.println("result: " + result);
+//			Injector guiceInjector = new XtextStandaloneSetup().createInjectorAndDoEMFRegistration();
+//			IParser parser = guiceInjector.getInstance(XtextParser.class);
+//			StringInputStream in = new StringInputStream(
+//					xed.getDocumentProvider().getDocument(xed.getEditorInput()).get());
+//			InputStreamReader rdr = new InputStreamReader(in);
+//			IParseResult result = parser.parse(rdr);
+//			EObject root = result.getRootASTElement();
+//			recurse("", root);
 			
-			EObject root = result.getRootASTElement();
-			recurse("", root);
-			
-			
-//			if (xd != fLastDoc) {
-				xd.readOnly(new IUnitOfWork.Void<XtextResource>() {
-					public void process(XtextResource resource) throws Exception {
-						if (resource instanceof GrammarResource) {
-							TextPresentationStringBuilder sb = new TextPresentationStringBuilder();
-							try {
-							traverse(sb, "", resource.getContents().get(0));
-//							traverse(sb, "", root);
-							} catch (Exception e) {
-								e.printStackTrace();
-							}
-							fText.setText(sb.toString());
-							TextPresentation.applyTextPresentation(
-									sb.presentation(), fText);
-						}
-					}
-				});
+			if (xd != fLastDoc) {
+				if (fLastDoc != null) {
+					fLastDoc.removeDocumentListener(this);;
+				}
+				xd.addDocumentListener(this);
 				fLastDoc = xd;
-//			}
+			}
+			
+			updateView(xd);
+		} else if (part instanceof IEditorPart) {
+			// Selected a different editor
+			if (fLastDoc != null) {
+				fLastDoc.removeDocumentListener(this);
+				fLastDoc = null;
+				fText.setText("");
+			}
 		}
+	}
+	
+	private void updateView(final IXtextDocument xd) {
+		xd.readOnly(new IUnitOfWork.Void<XtextResource>() {
+			public void process(XtextResource resource) throws Exception {
+				if (resource instanceof GrammarResource) {
+					TextPresentationStringBuilder sb = new TextPresentationStringBuilder();
+					try {
+					traverse(sb, "", resource.getContents().get(0));
+//					traverse(sb, "", root);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					fText.setText(sb.toString());
+					TextPresentation.applyTextPresentation(
+							sb.presentation(), fText);
+				}
+			}
+		});		
+	}
+	
+	
+
+	@Override
+	public void documentAboutToBeChanged(DocumentEvent event) { }
+
+	@Override
+	public void documentChanged(DocumentEvent event) {
+		updateView(fLastDoc);
 	}
 
 	private void recurse(String ind, EObject obj) {

@@ -1,0 +1,8 @@
+
+
+struct mem_buff_t {
+	rand video_format_e			video_format;
+	rand video_resolution_e		video_resolution;
+	rand audio_format_e			audio_format;
+	rand mem_location_e			location;	
+}
