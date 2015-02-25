@@ -12,17 +12,10 @@ portable_stimulus_description:
 	struct_declaration |
 	interface_declaration |
 	data_declaration |
-<<<<<<< HEAD
 	typedef_declaration |
 	bins_declaration  /* |
-	 * 	include_statement |
-
-=======
-	typedef_declaration
-	/* |
 	include_statement |
 	bins_declaration |
->>>>>>> refs/remotes/upstream/master
 	package_declaration */
 ;
 
@@ -71,10 +64,7 @@ graph_body_item:
 	overrides_declaration  		|	
 	constraint_declaration 		|
 	('rand')? data_declaration 	|
-<<<<<<< HEAD
-	bin_or_scheme_declaration      |
-=======
->>>>>>> refs/remotes/upstream/master
+	bin_or_scheme_declaration   |
 	typedef_declaration 		|
 	symbol_declaration 			|
 	symbol_definition 			|
@@ -107,6 +97,7 @@ rule_stmt_alt_parallel_seq:
 
 rule_stmt_primary:
 	rule_stmt_parallel_alt ';' |
+	param=identifier '<=' rhs=expression ';' |
 	'{' {rule_stmt_primary} stmt_list+=rule_stmt_or_block* '}'
 ;
 
@@ -124,7 +115,6 @@ rule_sequence:
 
 rule_seq_item:
 	action=interface_action_id '(' action_params=parameter_list ')' |
-	param=identifier '=' rhs=hierarchical_id |
 	item=identifier (with_clause=rule_with_clause)?
 ;
 
@@ -168,7 +158,7 @@ instance_override:
  * Data Declarations
  */
 data_declaration:
-	data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
+	type=data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
 ;
 
 data_instantiation:
@@ -258,13 +248,6 @@ foreach_constraint_item:
 
 constraint_set:
 	items+=constraint_body_item | items+=constraint_block
-<<<<<<< HEAD
-=======
-;
-
-constraint_block:
-	'{' {constraint_set} items+=constraint_body_item* '}'
->>>>>>> refs/remotes/upstream/master
 ;
 
 constraint_block:
@@ -311,15 +294,15 @@ constraint_block:
  ;
  
  bin_wildcard:
- 	'[*]'
+ 	'[' '*' ']'
  ;
  
  bin_scheme_declaration:
- 	'bin_scheme' name=identifier '{' items+=bin_scheme_specifier (items+=bin_scheme_specifier)* '};'
+ 	'bin_scheme' name=identifier '{' items+=bin_scheme_specifier (items+=bin_scheme_specifier)* '}' 
  ;
  
  bin_scheme_specifier:
- 	name=identifier (bin_identifier | spec=bin_specifier)
+ 	name=identifier (bin_identifier | spec=bin_specifier) ';'
  ;
  
 /********************************************************************
@@ -474,10 +457,6 @@ identifier: ID;
 
 hierarchical_id:
 	value=identifier ('.' identifier)*
-;
-
-interface_action_id:
-	ifc=identifier '.' action=identifier
 ;
 
 interface_action_id:

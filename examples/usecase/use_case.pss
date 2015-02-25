@@ -1,5 +1,9 @@
 
-graph use_case (use_case_if	ifc){
+struct foo {
+
+}
+
+graph use_case (use_case_if	ifc) extends foo {
 	rand mem_buff_t			capture_buff;
 	rand proc_tag_e			capture_proc;
 	

@@ -3,12 +3,10 @@ package net.sf.psstools.lang.tests.parser
 import com.google.inject.Inject
 import net.sf.psstools.lang.PSSInjectorProvider
 import net.sf.psstools.lang.pSS.Model
-import net.sf.psstools.lang.pSS.struct_declaration
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
 import org.eclipse.xtext.junit4.util.ParseHelper
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
-import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 
