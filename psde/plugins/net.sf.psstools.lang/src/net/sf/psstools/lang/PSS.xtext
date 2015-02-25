@@ -294,15 +294,15 @@ constraint_block:
  ;
  
  bin_wildcard:
- 	'[*]'
+ 	'[' '*' ']'
  ;
  
  bin_scheme_declaration:
- 	'bin_scheme' name=identifier '{' items+=bin_scheme_specifier (items+=bin_scheme_specifier)* '};'
+ 	'bin_scheme' name=identifier '{' items+=bin_scheme_specifier (items+=bin_scheme_specifier)* '}' 
  ;
  
  bin_scheme_specifier:
- 	name=identifier (bin_identifier | spec=bin_specifier)
+ 	name=identifier (bin_identifier | spec=bin_specifier) ';'
  ;
  
 /********************************************************************
