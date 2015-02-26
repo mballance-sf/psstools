@@ -175,6 +175,27 @@ public class TextPresentationStringBuilder {
 			applyStyleRegion(fTextStyle, currFont(), old_color);
 		}
 	}
+	
+	public void setFont(Font font) {
+		Font old_font = currFont();
+		fFontStack.push(font);
+		
+		if (old_font != font && fSB.length() != fLastRegionEnd) {
+			applyStyleRegion(fTextStyle, old_font, currColor());
+		}
+	}
+	
+	public void clrFont() {
+		Font old_font = currFont();
+		
+		if (fFontStack.size() > 0) {
+			fFontStack.pop();
+		}
+		
+		if (old_font != currFont() && fSB.length() != fLastRegionEnd) {
+			applyStyleRegion(fTextStyle, old_font, currColor());
+		}
+	}
 
 	private Color currColor() {
 		if (fColorStack.size() > 0) {
