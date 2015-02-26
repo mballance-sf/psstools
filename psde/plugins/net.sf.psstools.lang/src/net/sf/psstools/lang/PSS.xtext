@@ -65,16 +65,16 @@ struct_declaration:
 ;
 
 struct_body_item:
-	constraint_declaration     |
-	('rand')? data_declaration |
-	typedef_declaration        |
+	constraint_declaration		|
+	field_declaration			|
+	typedef_declaration			|
 	bin_or_scheme_declaration
 ;
 
 graph_body_item:
 	overrides_declaration  		|	
 	constraint_declaration 		|
-	('rand')? data_declaration 	|
+	field_declaration			|
 	bin_or_scheme_declaration   |
 	typedef_declaration 		|
 	symbol_declaration 			|
@@ -82,8 +82,12 @@ graph_body_item:
 	interface_action_definition	
 ;
 
+field_declaration:
+	(rand?='rand')? declaration=data_declaration
+;
+
 symbol_definition:
-	symbol_name=identifier ':=' body_items+=rule_production 
+	symbol_name=identifier ':=' production=rule_production 
 ;
 
 
@@ -141,8 +145,8 @@ rule_production:
 rule_if_production:
 	'if' '(' expr+=expression ')' alts+=rule_if_production_stmt
 		(
-			(('|' alts+=rule_if_production_stmt) ('|' alts+=rule_if_production_stmt)* ('else' false_case=rule_if_production_stmt)?) |
-			('else' false_case=rule_if_production_stmt) 
+			((alt?='|' alts+=rule_if_production_stmt) ('|' alts+=rule_if_production_stmt)* ('else' false_case=rule_if_production_stmt)?) |
+			(else?='else' false_case=rule_if_production_stmt) 
 		)
 ;
 
@@ -153,7 +157,8 @@ rule_if_production_stmt:
 ;
 
 rule_repeat_stmt:
-	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? '{' stmts+=rule_production* '}' 
+//	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? '{' stmts+=rule_production* '}' 
+	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? body=rule_block_stmt
 ;
 
 rule_assign_stmt:
@@ -165,11 +170,11 @@ rule_expr_stmt:
 ;
 
 rule_stmt_alt_parallel_seq:
-	rule_stmt_parallel ({rule_stmt.left=current} '|' right=rule_stmt_parallel)* 
+	rule_stmt_parallel ({rule_stmt.left=current} alt?='|' right=rule_stmt_parallel)* 
 ;
 
 rule_stmt_parallel:
-	rule_stmt_primary ({rule_stmt.left=current} '&' right=rule_stmt_primary)* 
+	rule_stmt_primary ({rule_stmt.left=current} parallel?='&' right=rule_stmt_primary)* 
 ;
 
 rule_sequence:
@@ -266,7 +271,7 @@ enum_type:
   ;
 
 integer_type:
-	('signed'|'unsigned')? atom_type=integer_atom_type ('[' lhs=expression ':' rhs=expression ']')? (inside=type_inside_clause)?
+	(signed?='signed'|unsigned?='unsigned')? atom_type=integer_atom_type ('[' lhs=expression ':' rhs=expression ']')? (inside=type_inside_clause)?
 ; 
 
 integer_atom_type:
