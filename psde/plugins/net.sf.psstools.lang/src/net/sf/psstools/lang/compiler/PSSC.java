@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.psstools.lang.PSSStandaloneSetup;
+import net.sf.psstools.lang.elaborator.GraphElaborator;
+import net.sf.psstools.lang.pSS.Model;
 import net.sf.psstools.lang.pSS.graph_declaration;
 import net.sf.psstools.lang.pSS.graph_or_struct_declaration;
 import net.sf.psstools.lang.pSS.impl.ModelImpl;
@@ -70,15 +72,26 @@ public class PSSC implements IApplication {
 		TreeIterator<Notifier> all_contents = resource_set.getAllContents();
 		
 		EcoreUtil.resolveAll(resource_set);
-	
+		
+		GraphElaborator elab = new GraphElaborator();
+		
 		while (all_contents.hasNext()) {
 			Notifier n = all_contents.next();
-			
-			if (n instanceof ModelImpl) {
-				recurse("", (ModelImpl)n);
+			if (n instanceof Model) {
+				elab.addModel((Model)n);
 			}
-//			System.out.println("n: " + n);
 		}
+		
+		elab.elaborate("branching");
+	
+//		while (all_contents.hasNext()) {
+//			Notifier n = all_contents.next();
+//			
+//			if (n instanceof ModelImpl) {
+//				recurse("", (ModelImpl)n);
+//			}
+////			System.out.println("n: " + n);
+//		}
 
 //		System.out.println("root: " + root);
 //		recurse("", model);

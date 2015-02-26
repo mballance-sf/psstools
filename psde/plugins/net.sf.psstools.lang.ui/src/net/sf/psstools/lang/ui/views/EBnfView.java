@@ -2,9 +2,11 @@ package net.sf.psstools.lang.ui.views;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.TextPresentation;
@@ -12,6 +14,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.custom.StyledTextContent;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IEditorPart;
@@ -29,6 +32,9 @@ import org.eclipse.xtext.impl.KeywordImpl;
 import org.eclipse.xtext.impl.ParserRuleImpl;
 import org.eclipse.xtext.impl.RuleCallImpl;
 import org.eclipse.xtext.impl.TypeRefImpl;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.ILeafNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.parser.IParser;
 import org.eclipse.xtext.parser.antlr.XtextParser;
@@ -45,11 +51,15 @@ import com.google.inject.Injector;
 public class EBnfView extends ViewPart implements IPartListener, IDocumentListener {
 	private StyledText				fText;
 	private IXtextDocument			fLastDoc;
+	private List<ILeafNode>			fLeafNodes = new ArrayList<>();
+	private int						fLeafNodeIdx;
+	private Font					fHeaderFont;
 
 	@Override
 	public void createPartControl(Composite parent) {
 		fText = new StyledText(parent, SWT.WRAP+SWT.V_SCROLL);
 		getSite().getWorkbenchWindow().getPartService().addPartListener(this);
+		fHeaderFont = JFaceResources.getHeaderFont();
 	}
 
 	@Override
@@ -96,6 +106,14 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 			public void process(XtextResource resource) throws Exception {
 				if (resource instanceof GrammarResource) {
 					TextPresentationStringBuilder sb = new TextPresentationStringBuilder();
+					
+					ICompositeNode node = NodeModelUtils.getNode(resource.getContents().get(0));
+					fLeafNodes.clear();
+					for (ILeafNode ln : node.getLeafNodes()) {
+						fLeafNodes.add(ln);
+					}
+					fLeafNodeIdx = 0;
+					
 					try {
 					traverse(sb, "", resource.getContents().get(0));
 //					traverse(sb, "", root);
@@ -127,9 +145,38 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 		}
 	}
 	
-	private void traverse(TextPresentationStringBuilder sb, String ind, EObject obj) {
+	private void traverse(
+			TextPresentationStringBuilder sb, 
+			String 					ind, 
+			EObject 				obj) {
+		// Before we 
 		if (obj instanceof ParserRuleImpl) {
 			ParserRuleImpl ri = (ParserRuleImpl)obj;
+			ICompositeNode ri_n = NodeModelUtils.getNode(ri);
+			int lineno = ri_n.getStartLine();
+			
+			// Spin forward
+			while (fLeafNodes != null && fLeafNodeIdx < fLeafNodes.size() &&
+					fLeafNodes.get(fLeafNodeIdx).getStartLine() < lineno) {
+				ILeafNode ln = fLeafNodes.get(fLeafNodeIdx);
+				
+				if (ln.getText() != null && ln.getText().trim().startsWith("/*")) {
+					List<String> lines = processComment(ln.getText());
+					
+					if (lines.size() > 0 && lines.get(0).trim().startsWith("Heading:")) {
+						int heading_idx = lines.get(0).indexOf("Heading:");
+						String text = lines.get(0).substring(heading_idx+"Heading:".length()).trim();
+						sb.setFont(fHeaderFont);
+						sb.append("\n");
+						sb.append(text);
+						sb.append("\n");
+						sb.clrFont();
+						sb.append("\n");
+					}
+				}
+				fLeafNodeIdx++;
+			}
+			
 			sb.append(ind);
 			sb.append(ri.getName() + " ::= ");
 			for (EObject eo : obj.eContents()) {
@@ -141,6 +188,62 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 				traverse(sb, ind, eo);
 			}
 		}
+	}
+	
+	private List<String> processComment(String comment) {
+		List<String> ret = new ArrayList<String>();
+		StringBuilder line = new StringBuilder();
+		int i=0;
+		int ch;
+		
+		while (i<comment.length()) {
+			line.setLength(0);
+	
+			// Trim leading whitespace
+			while (i < comment.length() && Character.isWhitespace(comment.charAt(i))) {
+				i++;
+			}
+			
+			ch = (i<comment.length())?comment.charAt(i):-1;
+			
+			if (ch == '/') {
+				ch = (i+1<comment.length())?comment.charAt(i+1):-1;
+				if (ch == '*') {
+					// skip this line
+					while (i < comment.length() && comment.charAt(i) != '\n') {
+						i++;
+					}
+					i++;
+				} else if (ch == '/') {
+					// Read this line
+					while (i < comment.length() && comment.charAt(i) != '\n') {
+						if (comment.charAt(i) != '\r') {
+							line.append(comment.charAt(i));
+						}
+						i++;
+					}
+					i++;
+				}
+			} else {
+				if (ch == '*') {
+					i++;
+				}
+				
+				while (i < comment.length() && comment.charAt(i) != '\n') {
+					if (comment.charAt(i) != '\r') {
+						line.append(comment.charAt(i));
+					}
+					i++;
+				}
+				i++;
+			}
+			
+			if (line.length() > 0) {
+				ret.add(line.toString());
+			}
+		}
+		
+		return ret;
 	}
 	
 	private void production(TextPresentationStringBuilder sb, String ind, EObject obj) {

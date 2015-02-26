@@ -8,7 +8,7 @@ graph axi4_reg_rw_translator (
 	export reg_rw_if	reg_ife,
 	axi_if				axi	
 	) {
-	
+		
 	reg_ife.read_reg(int read_addr, output int read_data) := {
 		rand axi4_trans_req  read_trans;
 		axi4_trans_rsp read_rsp;
@@ -51,6 +51,7 @@ graph axi4_reg_rw_translator (
 				is_write == 1;
 				axi_addr == read_addr;
 			};
+			
 			axi.start_axi_trans(write_trans);
 			axi.finish_axi_trans(write_rsp);
 		}
