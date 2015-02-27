@@ -414,7 +414,7 @@ logical_and_expr returns expression:
 ;
 
 binary_or_expr returns expression:
-	binary_xor_expr ({logical_or_expr.left=current} '|' right=binary_xor_expr)*
+	binary_xor_expr ({binary_or_expr.left=current} '|' right=binary_xor_expr)*
 ;
 
 binary_xor_expr returns expression:

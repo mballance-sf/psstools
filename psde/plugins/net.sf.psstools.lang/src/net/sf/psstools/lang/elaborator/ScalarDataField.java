@@ -7,14 +7,14 @@ public class ScalarDataField extends DataField {
 	private OpenRangeList				fInsideList;
 	
 	public ScalarDataField(String name) {
-		super(name);
+		super(DataFieldType.Scalar, name);
 	}
 	
 	public void setType(ScalarDataType type) {
 		fType = type;
 	}
 	
-	public ScalarDataType getType() { return fType; }
+	public ScalarDataType getScalarType() { return fType; }
 	
 	public boolean isSigned() { return fIsSigned; }
 	

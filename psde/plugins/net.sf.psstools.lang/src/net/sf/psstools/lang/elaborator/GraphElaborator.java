@@ -145,7 +145,6 @@ public class GraphElaborator {
 				field_declaration fd = (field_declaration)it;
 				data_declaration d = fd.getDeclaration();
 				
-				
 				if (d.getType() instanceof user_defined_type) {
 					user_defined_type udt = (user_defined_type)d.getType();
 					

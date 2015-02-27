@@ -6,7 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import net.sf.psstools.lang.elaborator.DataField;
 import net.sf.psstools.lang.elaborator.GraphElabResult;
+import net.sf.psstools.lang.elaborator.GraphInstance;
+import net.sf.psstools.lang.elaborator.ScalarDataField;
 import net.sf.psstools.lang.elaborator.processor.GraphChoiceNodeProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphChoiceProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirective;
@@ -39,17 +42,57 @@ public class PssSystemVerilogClassGenerator {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		fPS = new PrintStream(bos);
 		String graphname = fElabResult.getGraph().getName();
+
+		println("package " + graphname + "_pkg;");
+		indent();
+		
+		println();
 		
 		println("class " + graphname + ";");
-
 		indent();
-		generate_graph_body();
-		unindent();
 		
+		// Instantiate class fields
+		println();
+		
+		generate_graph_fields();
+		println();
+		println();
+		
+		generate_graph_body();
+		println();
+		println();
+		
+		generate_tostring();
+		println();
+		println();
+		
+		unindent();
 		println("endclass");
+		
+		unindent();
+		println("endpackage");
 	
 		fPS.flush();
 		fFSA.generateFile(graphname + ".svh", bos.toString());
+	}
+	
+	private void generate_graph_fields() {
+		GraphInstance graph = fElabResult.getGraph();
+	
+		println("// Graph fields");
+		for (DataField field : graph.getFields()) {
+			switch (field.getType()) {
+				case Scalar: {
+					ScalarDataField sfield = (ScalarDataField)field;
+					String definition = 
+							((field.isRand())?"rand ":"") + 
+							"bit " +
+							((sfield.isSigned())?"signed ":"");
+					println(definition + " " + field.getName() + ";");
+					break;
+				}
+			}
+		}
 	}
 	
 	private void generate_graph_body() {
@@ -71,18 +114,47 @@ public class PssSystemVerilogClassGenerator {
 		unindent();
 		println("endtask");
 		
+		println();
+		println();
+		
 		List<GraphProcDirective> deferred_alts = new ArrayList<GraphProcDirective>();
 		while (fDeferredAlternativeList.size() > 0) {
 			branch_id++;
 			deferred_alts.clear();
 			deferred_alts.addAll(fDeferredAlternativeList);
 			fDeferredAlternativeList.clear();
+			
 	
 			for (GraphProcDirective alt : deferred_alts) {
 				implement_strategy(branch_id, alt);
+				println();
+				println();
 			}
 		}
 	}
+	
+	private void generate_tostring() {
+		GraphInstance graph = fElabResult.getGraph();
+	
+		println("// tostring method");
+		println("function string tostring();");
+		indent();
+		println("string ret;");
+		
+		for (DataField field : graph.getFields()) {
+			switch (field.getType()) {
+				case Scalar: {
+//					ScalarDataField sfield = (ScalarDataField)field;
+					// TODO: handle enumerated values
+					println("ret = {ret, $psprintf(\"  " + field.getName() + " = %0d\\n\", " + field.getName() + ")};");
+				} break;
+			}
+		}
+		
+		println("return ret;");
+		unindent();
+		println("endfunction");
+	}	
 	
 	private void implement_strategy(int branch_id, GraphProcDirective directive) {
 		switch (directive.getType()) {
@@ -110,7 +182,7 @@ public class PssSystemVerilogClassGenerator {
 				indent();
 				println("int branch_id;");
 				println("assert(std::randomize(branch_id) with {branch_id inside {[0:" +
-						cpd.getChildren().size() + "-1]};});");
+						(cpd.getChildren().size()-1) + "]};});");
 				println("case (branch_id)");
 				indent();
 				
@@ -149,6 +221,9 @@ public class PssSystemVerilogClassGenerator {
 		}
 	}
 
+	private void println() {
+		fPS.println();
+	}
 	private void println(String line) {
 		String ind = "";
 		if (fIndentStack.size() > 0) {
