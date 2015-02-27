@@ -44,8 +44,8 @@ public class PSSC implements IApplication {
 			System.out.println("ARG[" + i + "] " + args[i]);
 		}
 		
-//		Injector injector = new PSSStandaloneSetup().createInjectorAndDoEMFRegistration();
-		Injector injector = new PSSStandaloneSetup().createInjector();
+		Injector injector = new PSSStandaloneSetup().createInjectorAndDoEMFRegistration();
+//		Injector injector = new PSSStandaloneSetup().createInjector();
 		XtextResourceSet resource_set = (XtextResourceSet)injector.getInstance(XtextResourceSet.class);
 		resource_set.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 //		Resource resource = resource_set.createResource(URI.createURI("temp"));

@@ -1,20 +1,17 @@
 package net.sf.psstools.lang.tests.parser
 
-import com.google.inject.Inject
 import net.sf.psstools.lang.PSSInjectorProvider
-import net.sf.psstools.lang.pSS.Model
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.util.ParseHelper
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
+import com.google.inject.Inject
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(PSSInjectorProvider))
 class TestParseDataTypes {
-	@Inject extension ParseHelper<Model>
-	@Inject extension ValidationTestHelper
+
+	@Inject PSSLanguageTestUtils fTestUtils;
 	
 	@Test
 	def void testParseEnumVar () {
@@ -23,9 +20,7 @@ class TestParseDataTypes {
 			enum { a, b, c } m_enum_var;
 		}
 		'''
-		
-		val model = testcase.parse
-		model.assertNoErrors
+		fTestUtils.parseTest(testcase);
 	}
 	
 	@Test
@@ -36,8 +31,7 @@ class TestParseDataTypes {
 		}
 		'''
 
-		val model = testcase.parse
-		model.assertNoErrors
+		fTestUtils.parseTest(testcase);
 	}	
 
 	@Test
@@ -49,8 +43,7 @@ class TestParseDataTypes {
 		}
 		'''
 
-		val model = testcase.parse
-		model.assertNoErrors
+		fTestUtils.parseTest(testcase);
 	}		
 
 	@Test
@@ -62,8 +55,7 @@ class TestParseDataTypes {
 		}
 		'''
 
-		val model = testcase.parse
-		model.assertNoErrors
+		fTestUtils.parseTest(testcase);
 	}			
 	
 }

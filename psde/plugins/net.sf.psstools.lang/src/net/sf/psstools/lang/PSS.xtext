@@ -55,7 +55,7 @@ graph_declaration:
 ;
 
 port_declaration:
-	('export')? ifc_type=[interface_declaration|interface_identifier] name=port_identifier
+	(export?='export')? ifc_type=[interface_declaration|interface_identifier] name=port_identifier
 ;
 
 struct_declaration:
@@ -242,7 +242,12 @@ data_instantiation:
 ;
 
 graph_interface_portmap_list:
-	{graph_interface_portmap_list} (maps+=graph_interface_portmap (',' maps+=graph_interface_portmap)*)?
+	{graph_interface_portmap_list} (
+		// Name-mapped port binding
+		(portmaps+=graph_interface_portmap (',' portmaps+=graph_interface_portmap)*) |
+		// Positional port binding
+		(ports+=hierarchical_id (',' ports+=hierarchical_id)*)
+	)?
 ;
 
 graph_interface_portmap:
