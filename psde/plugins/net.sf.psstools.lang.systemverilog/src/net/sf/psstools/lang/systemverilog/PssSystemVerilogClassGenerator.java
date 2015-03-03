@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Stack;
 
 import net.sf.psstools.lang.elaborator.DataField;
+import net.sf.psstools.lang.elaborator.DataType;
+import net.sf.psstools.lang.elaborator.DataTypeScalar;
 import net.sf.psstools.lang.elaborator.GraphElabResult;
 import net.sf.psstools.lang.elaborator.GraphInstance;
-import net.sf.psstools.lang.elaborator.ScalarDataField;
+import net.sf.psstools.lang.elaborator.GraphInterface;
+import net.sf.psstools.lang.elaborator.InterfaceAction;
+import net.sf.psstools.lang.elaborator.InterfaceDeclaration;
 import net.sf.psstools.lang.elaborator.processor.GraphChoiceNodeProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphChoiceProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirective;
@@ -48,6 +52,10 @@ public class PssSystemVerilogClassGenerator {
 		
 		println();
 		
+		generate_interface_classes();
+		
+		println();
+		
 		println("class " + graphname + ";");
 		indent();
 		
@@ -76,18 +84,37 @@ public class PssSystemVerilogClassGenerator {
 		fFSA.generateFile(graphname + ".svh", bos.toString());
 	}
 	
+	private void generate_interface_classes() {
+		for (InterfaceDeclaration ifc_decl : fElabResult.getGraph().getInterfaceDecls()) {
+			
+			println("virtual class " + ifc_decl.getName() + ";");
+			println();
+			indent();
+			
+			for (InterfaceAction action : ifc_decl.getActions()) {
+				println("pure virtual task " + action.getName() + ";");
+			}
+		
+			unindent();
+			println("endclass");
+			println();
+		}
+	}
+	
 	private void generate_graph_fields() {
 		GraphInstance graph = fElabResult.getGraph();
 	
 		println("// Graph fields");
 		for (DataField field : graph.getFields()) {
-			switch (field.getType()) {
+			DataType type = field.getType();
+			
+			switch (type.getType()) {
 				case Scalar: {
-					ScalarDataField sfield = (ScalarDataField)field;
+					DataTypeScalar stype = (DataTypeScalar)type;
 					String definition = 
 							((field.isRand())?"rand ":"") + 
 							"bit " +
-							((sfield.isSigned())?"signed ":"");
+							((stype.isSigned())?"signed ":"");
 					println(definition + " " + field.getName() + ";");
 					break;
 				}
@@ -142,7 +169,9 @@ public class PssSystemVerilogClassGenerator {
 		println("string ret;");
 		
 		for (DataField field : graph.getFields()) {
-			switch (field.getType()) {
+			DataType type = field.getType();
+			
+			switch (type.getType()) {
 				case Scalar: {
 //					ScalarDataField sfield = (ScalarDataField)field;
 					// TODO: handle enumerated values

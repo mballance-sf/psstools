@@ -102,11 +102,11 @@ interface_body_item:
 ;
 
 interface_action_definition:
-	action=interface_action_id '(' parameters=action_portlist ')' ':=' '{' body_items+=graph_body_item* '}' 
+	action=interface_action_id '(' (ports+=action_port (',' ports+=action_port)*)? ')' ':=' '{' body_items+=graph_body_item* '}' 
 ;
 
 action_declaration:
-	'action' name=identifier '(' ports=action_portlist ')' ';'
+	'action' name=identifier '(' (ports+=action_port (',' ports+=action_port)*)? ')' ';'
 ;
 
 action_portlist:
@@ -114,11 +114,11 @@ action_portlist:
 ;
 
 action_port:
-	(io_direction)? (type=data_type) name=identifier
+	(dir=io_direction)? (type=data_type) name=identifier
 ;
 
 io_direction:
-	'input' | 'output' | 'inout'
+	input?='input' | output?='output' | inout?='inout'
 ;
 
 symbol_declaration:

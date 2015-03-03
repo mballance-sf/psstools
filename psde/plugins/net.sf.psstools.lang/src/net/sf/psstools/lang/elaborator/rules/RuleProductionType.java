@@ -4,5 +4,6 @@ public enum RuleProductionType {
 	Sequence,
 	AltParallel,
 	Block,
-	Repeat
+	Repeat,
+	ActionCall
 }

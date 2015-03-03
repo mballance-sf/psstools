@@ -3,14 +3,14 @@ package net.sf.psstools.lang.elaborator;
 public class DataField {
 	protected String					fName;
 	protected boolean					fIsRand;
-	protected DataFieldType				fType;
+	protected DataType					fType;
 	
-	public DataField(DataFieldType type, String name) {
+	public DataField(DataType type, String name) {
 		fType = type;
 		fName = name;
 	}
 	
-	public DataFieldType getType() {
+	public DataType getType() {
 		return fType;
 	}
 	

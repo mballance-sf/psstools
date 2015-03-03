@@ -26,6 +26,8 @@ import net.sf.psstools.lang.elaborator.rules.RuleSeqProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleStmtProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleStmtType;
 import net.sf.psstools.lang.pSS.Model;
+import net.sf.psstools.lang.pSS.action_declaration;
+import net.sf.psstools.lang.pSS.action_port;
 import net.sf.psstools.lang.pSS.data_declaration;
 import net.sf.psstools.lang.pSS.data_instantiation;
 import net.sf.psstools.lang.pSS.data_type;
@@ -34,6 +36,9 @@ import net.sf.psstools.lang.pSS.graph_body_item;
 import net.sf.psstools.lang.pSS.graph_declaration;
 import net.sf.psstools.lang.pSS.graph_or_struct_declaration;
 import net.sf.psstools.lang.pSS.integer_type;
+import net.sf.psstools.lang.pSS.interface_action_definition;
+import net.sf.psstools.lang.pSS.interface_action_id;
+import net.sf.psstools.lang.pSS.interface_body_item;
 import net.sf.psstools.lang.pSS.interface_declaration;
 import net.sf.psstools.lang.pSS.port_declaration;
 import net.sf.psstools.lang.pSS.portable_stimulus_description;
@@ -132,46 +137,34 @@ public class GraphElaborator {
 		fScopeStack.clear();
 		
 		// Build the ports and identify interface types that will need to be built
-//		for (port_declaration p : graph.getPorts()) {
-//			GraphInterfacePort port = new GraphInterfacePort(
-//					p.getName(), 
-//					p.getIfc_type(), 
-//					p.isExport());
-//		}
+		for (port_declaration p : graph.getPorts()) {
+			InterfaceDeclaration ifc_decl;
+			if ((ifc_decl = inst.findInterfaceDecl(p.getIfc_type().getName())) == null) {
+				ifc_decl = elaborate_interface_decl(p.getIfc_type());
+				inst.addInterfaceDecl(ifc_decl);
+			}
+			
+			GraphInterface ifc = new GraphInterface(
+					p.getName(),
+					ifc_decl,
+					p.isExport());
+			inst.addInterface(ifc);
+		}
 		
-		// Find all structs and ensure they're registered with the ElabResult
+		// TODO: Find all structs and ensure they're registered with the ElabResult
+	
+		// Process the body items
 		for (graph_body_item it : graph.getBody()) {
 			if (it instanceof field_declaration) {
 				field_declaration fd = (field_declaration)it;
 				data_declaration d = fd.getDeclaration();
 				
-				if (d.getType() instanceof user_defined_type) {
-					user_defined_type udt = (user_defined_type)d.getType();
-					
-					debug("user-defined type: " + udt.getTypename());
-					
-				} else if (d.getType() instanceof integer_type) {
-					integer_type int_type = (integer_type)d.getType();
-					
-					for (data_instantiation di : d.getInstances()) {
-						ScalarDataField field = new ScalarDataField(di.getName());
-						field.setIsRand(fd.isRand());
-						debug("Adding field \"" + di.getName() + "\" of type " + int_type.getAtom_type());
-						if (int_type.getAtom_type().equals("bit")) {
-							field.setType(ScalarDataType.Bit);
-							field.setIsSigned(int_type.isSigned());
-						} else if (int_type.getAtom_type().equals("int")) {
-							field.setType(ScalarDataType.Int);
-							field.setIsSigned(!int_type.isUnsigned());
-						} else {
-							error("unknown integer atom type: " + int_type.getAtom_type());
-						}
-						
-						inst.addField(field);
-					}
-					
-				} else {
-					error("unknown data-field type " + d.getType());
+				DataType dt = elaborate_data_type(d.getType());
+				
+				for (data_instantiation di : d.getInstances()) {
+					DataField field = new DataField(dt, di.getName());
+					field.setIsRand(fd.isRand());
+					inst.addField(field);
 				}
 			} else if (it instanceof symbol_definition) {
 				symbol_definition def = (symbol_definition)it;
@@ -198,6 +191,70 @@ public class GraphElaborator {
 		}
 		
 		return inst;
+	}
+	
+	private InterfaceDeclaration elaborate_interface_decl(interface_declaration ifc_decl) throws ElabException {
+		InterfaceDeclaration ifc = new InterfaceDeclaration(ifc_decl.getName());
+		
+		for (interface_body_item item : ifc_decl.getBody()) {
+			if (item instanceof action_declaration) {
+				action_declaration action_decl = (action_declaration)item;
+				InterfaceAction action = new InterfaceAction(action_decl.getName());
+				
+				for (action_port port_decl : action_decl.getPorts()) {
+					ActionParameterDirection dir = ActionParameterDirection.In;
+					
+					if (port_decl.getDir() != null) {
+						if (port_decl.getDir().isOutput()) {
+							dir = ActionParameterDirection.Out;
+						} else if (port_decl.getDir().isInout()) {
+							dir = ActionParameterDirection.InOut;
+						}
+					}
+					
+					port_decl.getType();
+					ActionParameter port = new ActionParameter(
+							elaborate_data_type(port_decl.getType()),
+							dir,
+							port_decl.getName());
+					action.addParameter(port);
+				}
+			} else {
+				error("unknown interface-body item: " + item);
+			}
+		}
+		
+		return ifc;
+	}
+	
+	private DataType elaborate_data_type(data_type dt) throws ElabException {
+		DataType type = null;
+		
+		if (dt instanceof user_defined_type) {
+			user_defined_type udt = (user_defined_type)dt;
+			
+			debug("user-defined type: " + udt.getTypename());
+			
+		} else if (dt instanceof integer_type) {
+			integer_type int_type = (integer_type)dt;
+			
+			DataTypeScalar stype = new DataTypeScalar();
+
+			// TODO: need to establish bit-width
+			if (int_type.getAtom_type().equals("bit")) {
+				stype.setScalarType(DataTypeScalar.ScalarType.Bit);
+				stype.setIsSigned(!int_type.isSigned());
+			} else if (int_type.getAtom_type().equals("int")) {
+				stype.setScalarType(DataTypeScalar.ScalarType.Int);
+				stype.setIsSigned(!int_type.isUnsigned());
+			} else {
+				error("unknown integer atom type: " + int_type.getAtom_type());
+			}
+		
+			type = stype;
+		}
+		
+		return type;
 	}
 	
 //	private GraphConstraint buildConstraint()
@@ -283,6 +340,10 @@ public class GraphElaborator {
 				seq_prod.addSeqItemRef(ref);
 			}
 			ret = seq_prod;
+		} else if (production instanceof rule_interface_action_call) {
+			rule_interface_action_call call = (rule_interface_action_call)production;
+			interface_action_id action = call.getAction();
+			action.getIfc();
 		} else {
 			debug("unknown rule_production: " + production);
 		}

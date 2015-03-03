@@ -10,7 +10,6 @@ import net.sf.psstools.lang.pSS.expression;
 import net.sf.psstools.lang.pSS.logical_and_expr;
 import net.sf.psstools.lang.pSS.logical_equality_expr;
 import net.sf.psstools.lang.pSS.logical_or_expr;
-import net.sf.psstools.lang.services.PSSGrammarAccess.Binary_or_exprElements;
 
 public class GraphExpressionElaborator {
 	
