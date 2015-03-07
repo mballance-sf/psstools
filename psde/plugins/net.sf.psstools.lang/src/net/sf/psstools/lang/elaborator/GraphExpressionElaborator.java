@@ -3,13 +3,20 @@ package net.sf.psstools.lang.elaborator;
 import net.sf.psstools.lang.elaborator.expr.PSSBinaryExpr;
 import net.sf.psstools.lang.elaborator.expr.PSSBinaryExprOp;
 import net.sf.psstools.lang.elaborator.expr.PSSExpr;
+import net.sf.psstools.lang.elaborator.expr.PSSLiteralExpr;
+import net.sf.psstools.lang.elaborator.expr.PSSVariableRefExpr;
 import net.sf.psstools.lang.pSS.binary_and_expr;
 import net.sf.psstools.lang.pSS.binary_or_expr;
 import net.sf.psstools.lang.pSS.binary_xor_expr;
 import net.sf.psstools.lang.pSS.expression;
+import net.sf.psstools.lang.pSS.hierarchical_id;
+import net.sf.psstools.lang.pSS.literal;
 import net.sf.psstools.lang.pSS.logical_and_expr;
 import net.sf.psstools.lang.pSS.logical_equality_expr;
 import net.sf.psstools.lang.pSS.logical_or_expr;
+import net.sf.psstools.lang.pSS.primary;
+import net.sf.psstools.lang.pSS.variable_ref;
+import net.sf.psstools.lang.services.PSSGrammarAccess.PrimaryElements;
 
 public class GraphExpressionElaborator {
 	
@@ -46,10 +53,21 @@ public class GraphExpressionElaborator {
 					elaborate(((logical_equality_expr)expr).getLeft()),
 					(((logical_equality_expr)expr).getOp().equals("=="))?PSSBinaryExprOp.Eq:PSSBinaryExprOp.NotEq,
 					elaborate(((logical_equality_expr)expr).getRight()));
+		} else if (expr instanceof variable_ref) {
+			variable_ref ref = (variable_ref)expr;
+			ret = new PSSVariableRefExpr(
+					elaborate_hierarchical_id(ref.getExpr()),
+					(ref.getLhs() != null)?elaborate(ref.getLhs()):null,
+					(ref.getRhs() != null)?elaborate(ref.getRhs()):null);
+		} else if (expr instanceof literal) {
+			ret = new PSSLiteralExpr("" + ((literal)expr).getValue());
 		} else {
-			
+			System.out.println("Unhandled expr: " + expr);
 		}
 		return ret;
 	}
 
+	private String elaborate_hierarchical_id(hierarchical_id id) {
+		return id.getValue();
+	}
 }

@@ -4,6 +4,7 @@ import net.sf.psstools.lang.elaborator.ElabException;
 import net.sf.psstools.lang.elaborator.rules.RuleBlockProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleRepeatProduction;
+import net.sf.psstools.lang.elaborator.rules.RuleSeqItemActionCallRef;
 import net.sf.psstools.lang.elaborator.rules.RuleSeqItemRef;
 import net.sf.psstools.lang.elaborator.rules.RuleSeqProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleStmtProduction;
@@ -29,7 +30,16 @@ public class GraphProcDirectiveFactory {
 				for (RuleSeqItemRef item : seq.getSeqItems()) {
 					switch (item.getType()) {
 						case ActionCall: {
-							debug("TODO: introduce a rand-set, since we've reached a boundary");
+							// Determine where this action is implemented and 
+							RuleSeqItemActionCallRef call_r = (RuleSeqItemActionCallRef)item;
+							GraphActionCallProcDirective call = new GraphActionCallProcDirective(
+									call_r.getName() + "." + call_r.getActionName());
+							call.addParameters(call_r.getParameters());
+							GraphProcDirective our_parent = getNonRSParent(parent);
+							our_parent.addChild(call);
+							call.setParent(our_parent);
+							current = our_parent;
+							parent = our_parent;
 						} break;
 						
 						case RuleVariable: {

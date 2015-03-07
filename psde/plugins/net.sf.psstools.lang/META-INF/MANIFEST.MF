@@ -24,7 +24,11 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: net.sf.psstools.lang,
+ net.sf.psstools.lang.builder,
+ net.sf.psstools.lang.compiler,
  net.sf.psstools.lang.elaborator,
+ net.sf.psstools.lang.elaborator.constraints,
+ net.sf.psstools.lang.elaborator.expr,
  net.sf.psstools.lang.elaborator.processor,
  net.sf.psstools.lang.elaborator.rules,
  net.sf.psstools.lang.formatting,

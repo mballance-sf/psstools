@@ -6,6 +6,7 @@ public class PSSBinaryExpr extends PSSExpr {
 	private PSSBinaryExprOp		fOp;
 	
 	public PSSBinaryExpr(PSSExpr lhs, PSSBinaryExprOp op, PSSExpr rhs) {
+		super(PSSExprType.Binary);
 		fLhs = lhs;
 		fOp = op;
 		fRhs = rhs;
@@ -22,4 +23,23 @@ public class PSSBinaryExpr extends PSSExpr {
 	public PSSExpr rhs() {
 		return fRhs; 
 	}
+
+	@Override
+	public void toStringBuilder(StringBuilder sb) {
+		if (fLhs != null) {
+			fLhs.toStringBuilder(sb);
+		} else {
+			sb.append("NULL");
+		}
+		
+		sb.append(" " + fOp.getOpStr() + " ");
+		
+		if (fRhs != null) {
+			fRhs.toStringBuilder(sb);
+		} else {
+			sb.append("NULL");
+		}
+	}
+	
+	
 }

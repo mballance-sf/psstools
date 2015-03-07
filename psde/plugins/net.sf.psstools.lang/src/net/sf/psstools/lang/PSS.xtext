@@ -187,7 +187,10 @@ rule_seq_item:
 ;
 
 rule_interface_action_call:
-	action=interface_action_id '(' action_params=parameter_list ')' 
+	action=interface_action_id 
+	'(' 
+		(parameters+=expression (',' parameters+=expression)*)?
+	')'
 ;
 
 rule_variable_reference:
@@ -465,9 +468,17 @@ unary_expr returns expression:
 	(unary_op)? primary
 ;
 
-primary returns expression:
-	expr=literal | 
-	'(' expr=expression ')' |
+primary: //; returns expression:
+	literal | 
+	paren_expr |
+	variable_ref
+;
+
+paren_expr:
+	'(' expr=expression ')'
+;
+
+variable_ref:
 	expr=hierarchical_id ('[' lhs=expression (':' rhs=expression)? ']')?
 ;
 

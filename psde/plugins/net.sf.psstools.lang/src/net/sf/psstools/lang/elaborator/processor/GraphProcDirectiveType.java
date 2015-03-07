@@ -5,5 +5,6 @@ public enum GraphProcDirectiveType {
 	RandSet,
 	ChoicePoint,
 	ChoiceNode,
-	Repeat
+	Repeat,
+	ActionCall
 }

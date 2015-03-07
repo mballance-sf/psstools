@@ -7,6 +7,18 @@ public enum PSSBinaryExprOp {
 	BinaryOr,
 	BinaryXor,
 	Eq,
-	NotEq,
+	NotEq;
 
+	String getOpStr() {
+		switch (this) {
+			case LogicalAnd: return "&&";
+			case LogicalOr: return "||";
+			case BinaryAnd: return "&";
+			case BinaryOr: return "|";
+			case BinaryXor: return "^";
+			case Eq: return "==";
+			case NotEq: return "!=";
+		}
+		return "" + this;
+	}
 }

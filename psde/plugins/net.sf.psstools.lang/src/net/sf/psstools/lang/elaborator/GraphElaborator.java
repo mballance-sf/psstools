@@ -20,6 +20,7 @@ import net.sf.psstools.lang.elaborator.rules.RuleBlockProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleProductionType;
 import net.sf.psstools.lang.elaborator.rules.RuleRepeatProduction;
+import net.sf.psstools.lang.elaborator.rules.RuleSeqItemActionCallRef;
 import net.sf.psstools.lang.elaborator.rules.RuleSeqItemRef;
 import net.sf.psstools.lang.elaborator.rules.RuleSeqItemRefType;
 import net.sf.psstools.lang.elaborator.rules.RuleSeqProduction;
@@ -31,6 +32,7 @@ import net.sf.psstools.lang.pSS.action_port;
 import net.sf.psstools.lang.pSS.data_declaration;
 import net.sf.psstools.lang.pSS.data_instantiation;
 import net.sf.psstools.lang.pSS.data_type;
+import net.sf.psstools.lang.pSS.expression;
 import net.sf.psstools.lang.pSS.field_declaration;
 import net.sf.psstools.lang.pSS.graph_body_item;
 import net.sf.psstools.lang.pSS.graph_declaration;
@@ -67,6 +69,7 @@ public class GraphElaborator {
 	private GraphElabResult					fElabResult;
 	private Stack<Object>					fScopeStack;
 	private Map<ElabOptions, Object>		fElabOptions;
+	private GraphExpressionElaborator		fExprElaborator;
 	
 	public GraphElaborator() {
 		fModelList = new ArrayList<Model>();
@@ -75,6 +78,7 @@ public class GraphElaborator {
 		
 		// Set default options
 		setElabOption(ElabOptions.BUILD_PROCESSING_STRATEGY, true);
+		fExprElaborator = new GraphExpressionElaborator();
 	}
 	
 	public GraphElaborator(TreeIterator<Notifier> contents) {
@@ -219,6 +223,8 @@ public class GraphElaborator {
 							port_decl.getName());
 					action.addParameter(port);
 				}
+				
+				ifc.addAction(action);
 			} else {
 				error("unknown interface-body item: " + item);
 			}
@@ -315,12 +321,7 @@ public class GraphElaborator {
 			for (rule_seq_item it : seq.getItems()) {
 				RuleSeqItemRef ref = null;
 				if (it instanceof rule_interface_action_call) {
-					rule_interface_action_call call = (rule_interface_action_call)it;
-					debug("rule_interface_action_call: " + 
-							call.getAction().getIfc() + "." + call.getAction().getAction());
-					ref = new RuleSeqItemRef(
-							call.getAction().getIfc() + "." + call.getAction().getAction(),
-							RuleSeqItemRefType.ActionCall);
+					ref = elaborate_action_call((rule_interface_action_call)it);
 				} else if (it instanceof rule_variable_reference) {
 					rule_variable_reference var_ref = (rule_variable_reference)it;
 					debug("rule_variable_reference: " + var_ref.getItem());
@@ -341,9 +342,10 @@ public class GraphElaborator {
 			}
 			ret = seq_prod;
 		} else if (production instanceof rule_interface_action_call) {
-			rule_interface_action_call call = (rule_interface_action_call)production;
-			interface_action_id action = call.getAction();
-			action.getIfc();
+			RuleSeqProduction seq_prod = new RuleSeqProduction();
+			RuleSeqItemRef ref = elaborate_action_call((rule_interface_action_call)production);
+			seq_prod.addSeqItemRef(ref);
+			ret = seq_prod;
 		} else {
 			debug("unknown rule_production: " + production);
 		}
@@ -352,6 +354,16 @@ public class GraphElaborator {
 			error("null return for " + production);
 		}
 		return ret;
+	}
+	
+	RuleSeqItemActionCallRef elaborate_action_call(rule_interface_action_call call) throws ElabException {
+		RuleSeqItemActionCallRef ref = new RuleSeqItemActionCallRef(
+				call.getAction().getIfc(), call.getAction().getAction());
+		for (expression param : call.getParameters()) {
+			ref.addParameter(fExprElaborator.elaborate(param));
+		}
+	
+		return ref;
 	}
 	
 	private DataField findVariable(String name) throws ElabException {

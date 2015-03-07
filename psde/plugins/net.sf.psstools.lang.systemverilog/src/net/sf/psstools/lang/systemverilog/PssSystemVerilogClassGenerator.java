@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import net.sf.psstools.lang.elaborator.ActionParameter;
 import net.sf.psstools.lang.elaborator.DataField;
 import net.sf.psstools.lang.elaborator.DataType;
 import net.sf.psstools.lang.elaborator.DataTypeScalar;
@@ -14,6 +15,7 @@ import net.sf.psstools.lang.elaborator.GraphInstance;
 import net.sf.psstools.lang.elaborator.GraphInterface;
 import net.sf.psstools.lang.elaborator.InterfaceAction;
 import net.sf.psstools.lang.elaborator.InterfaceDeclaration;
+import net.sf.psstools.lang.elaborator.processor.GraphActionCallProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphChoiceNodeProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphChoiceProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirective;
@@ -31,6 +33,8 @@ public class PssSystemVerilogClassGenerator {
 	private Stack<String>					fIndentStack;
 	private PrintStream						fPS;
 	private List<GraphProcDirective>		fDeferredAlternativeList;
+	private List<Integer>					fDeferredAlternativeIdList;
+	private int								fBranchId=1;
 	
 	public PssSystemVerilogClassGenerator(
 			IFileSystemAccess				fsa,
@@ -40,6 +44,7 @@ public class PssSystemVerilogClassGenerator {
 		fAltStack = new Stack<Integer>();
 		fIndentStack = new Stack<String>();
 		fDeferredAlternativeList = new ArrayList<GraphProcDirective>();
+		fDeferredAlternativeIdList = new ArrayList<Integer>();
 	}
 
 	public void generate() {
@@ -58,6 +63,10 @@ public class PssSystemVerilogClassGenerator {
 		
 		println("class " + graphname + ";");
 		indent();
+		
+		// Instantiate interface fields
+		println();
+		generate_interface_fields();
 		
 		// Instantiate class fields
 		println();
@@ -92,7 +101,39 @@ public class PssSystemVerilogClassGenerator {
 			indent();
 			
 			for (InterfaceAction action : ifc_decl.getActions()) {
-				println("pure virtual task " + action.getName() + ";");
+				println("pure virtual task " + action.getName() + "(");
+				indent();
+				indent();
+				for (int i=0; i<action.getParameters().size(); i++) {
+					ActionParameter p = action.getParameters().get(i);
+					DataType type = p.getType();
+					
+					String port_decl = "";
+					
+					switch (p.getDirection()) {
+						case In: port_decl = "input "; break;
+						case Out: port_decl = "output "; break;
+						case InOut: port_decl = "inout "; break;
+					}
+
+					port_decl += getTypeString(p.getType());
+					port_decl += " ";
+					port_decl += p.getName();
+					
+					if (i+1 < action.getParameters().size()) {
+						port_decl += ",";
+					} else {
+						port_decl += ");";
+					}
+					
+					println(port_decl);
+				}
+				unindent();
+				unindent();
+				
+				if (action.getParameters().size() == 0) {
+					println(");");
+				}
 			}
 		
 			unindent();
@@ -101,30 +142,31 @@ public class PssSystemVerilogClassGenerator {
 		}
 	}
 	
+	private void generate_interface_fields() {
+		GraphInstance graph = fElabResult.getGraph();
+
+		println("// Interface fields");
+	
+		for (GraphInterface ifc : graph.getInterfaces()) {
+			println(ifc.getInterfaceTypeName() + " " + ifc.getName() + ";");
+		}
+	}
+	
 	private void generate_graph_fields() {
 		GraphInstance graph = fElabResult.getGraph();
 	
 		println("// Graph fields");
 		for (DataField field : graph.getFields()) {
-			DataType type = field.getType();
+			String definition = 
+				((field.isRand())?"rand ":"") + 
+				getTypeString(field.getType());
 			
-			switch (type.getType()) {
-				case Scalar: {
-					DataTypeScalar stype = (DataTypeScalar)type;
-					String definition = 
-							((field.isRand())?"rand ":"") + 
-							"bit " +
-							((stype.isSigned())?"signed ":"");
-					println(definition + " " + field.getName() + ";");
-					break;
-				}
-			}
+			println(definition + " " + field.getName() + ";");
 		}
 	}
 	
 	private void generate_graph_body() {
 		String graphname = fElabResult.getGraph().getName();
-		int branch_id = 0;
 
 		println("task " + graphname + "(); // TODO: support graph arguments");
 		GraphProcessingStrategy strategy = fElabResult.getProcessingStrategy();
@@ -135,7 +177,7 @@ public class PssSystemVerilogClassGenerator {
 		// begin traversing graph
 		GraphProcDirective root = strategy.getProcessingDirectives();
 		for (GraphProcDirective pd : root.getChildren()) {
-			implement_strategy(branch_id, pd);
+			implement_strategy(0, pd);
 		}
 		
 		unindent();
@@ -145,14 +187,19 @@ public class PssSystemVerilogClassGenerator {
 		println();
 		
 		List<GraphProcDirective> deferred_alts = new ArrayList<GraphProcDirective>();
+		List<Integer> deferred_alt_ids = new ArrayList<Integer>();
 		while (fDeferredAlternativeList.size() > 0) {
-			branch_id++;
 			deferred_alts.clear();
+			deferred_alt_ids.clear();
 			deferred_alts.addAll(fDeferredAlternativeList);
+			deferred_alt_ids.addAll(fDeferredAlternativeIdList);
 			fDeferredAlternativeList.clear();
+			fDeferredAlternativeIdList.clear();
 			
-	
-			for (GraphProcDirective alt : deferred_alts) {
+			for (int i=0; i<deferred_alts.size(); i++) {
+				GraphProcDirective alt = deferred_alts.get(i);
+				int branch_id = deferred_alt_ids.get(i);
+
 				implement_strategy(branch_id, alt);
 				println();
 				println();
@@ -216,9 +263,11 @@ public class PssSystemVerilogClassGenerator {
 				indent();
 				
 				for (int i=0; i<cpd.getChildren().size(); i++) {
-					println("" + i + ": branch_" + (branch_id+1) + "_" + i + "();");
+					println("" + i + ": branch_" + fBranchId + "_" + i + "();");
 					fDeferredAlternativeList.add(cpd.getChildren().get(i));
+					fDeferredAlternativeIdList.add(fBranchId);
 				}
+				fBranchId++;
 				unindent();
 				println("endcase");
 				unindent();
@@ -247,7 +296,46 @@ public class PssSystemVerilogClassGenerator {
 				unindent();
 				println("end");
 			} break;
+			
+			case ActionCall: {
+				GraphActionCallProcDirective call = (GraphActionCallProcDirective)directive;
+				StringBuilder call_s = new StringBuilder();
+				call_s.append(call.getActionPath() + "(");
+				
+				for (int i=0; i<call.getParameters().size(); i++) {
+					call.getParameters().get(i).toStringBuilder(call_s);
+
+					if (i+1 < call.getParameters().size()) {
+						call_s.append(", ");
+					}
+				}
+				call_s.append(");");
+				
+				println(call_s.toString());
+			} break;
+			
 		}
+	}
+	
+	private String getTypeString(DataType type) {
+		String ret = null;
+		
+		switch (type.getType()) {
+			case Scalar: {
+				DataTypeScalar scalar = (DataTypeScalar)type;
+				ret = "bit";
+				
+				if (scalar.isSigned()) {
+					ret += " signed";
+				}
+				} break;
+				
+			case UserDefined:
+				ret = "user_defined";
+				break;
+		}
+		
+		return ret;
 	}
 
 	private void println() {
@@ -267,7 +355,7 @@ public class PssSystemVerilogClassGenerator {
 		if (fIndentStack.size() > 0) {
 			ind = fIndentStack.peek();
 		}
-		ind += " ";
+		ind += "    ";
 		fIndentStack.push(ind);
 	}
 
