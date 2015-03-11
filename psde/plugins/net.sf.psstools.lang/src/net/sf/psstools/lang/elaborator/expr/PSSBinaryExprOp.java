@@ -7,7 +7,9 @@ public enum PSSBinaryExprOp {
 	BinaryOr,
 	BinaryXor,
 	Eq,
-	NotEq;
+	NotEq,
+	Plus,
+	Minus;
 
 	String getOpStr() {
 		switch (this) {
@@ -18,6 +20,8 @@ public enum PSSBinaryExprOp {
 			case BinaryXor: return "^";
 			case Eq: return "==";
 			case NotEq: return "!=";
+			case Plus: return "+";
+			case Minus: return "-";
 		}
 		return "" + this;
 	}

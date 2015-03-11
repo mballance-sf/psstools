@@ -15,5 +15,9 @@ public class RuleProduction {
 	public RuleProduction getParent() {
 		return fParent;
 	}
+	
+	public void setParent(RuleProduction p) {
+		fParent = p;
+	}
 
 }

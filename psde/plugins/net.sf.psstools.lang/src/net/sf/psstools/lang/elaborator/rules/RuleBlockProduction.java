@@ -17,6 +17,7 @@ public class RuleBlockProduction extends RuleProduction {
 	}
 	
 	public void addChild(RuleProduction p) {
+		p.setParent(this);
 		fChildren.add(p);
 	}
 

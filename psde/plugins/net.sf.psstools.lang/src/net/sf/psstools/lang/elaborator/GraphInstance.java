@@ -15,12 +15,14 @@ public class GraphInstance {
 	private RuleProduction						fRootRule;
 	private Map<String, InterfaceDeclaration>	fInterfaceMap;
 	private List<GraphInterface>				fInterfaceList;
+	private Map<String, DataTypeStruct>			fStructMap;
 
 	public GraphInstance(String name) {
 		fName = name;
 		fDataFields = new ArrayList<DataField>();
 		fInterfaceMap = new HashMap<String, InterfaceDeclaration>();
 		fInterfaceList = new ArrayList<GraphInterface>();
+		fStructMap = new HashMap<String, DataTypeStruct>();
 	}
 	
 	public String getName() {
@@ -54,6 +56,18 @@ public class GraphInstance {
 	
 	public Collection<InterfaceDeclaration> getInterfaceDecls() {
 		return fInterfaceMap.values();
+	}
+	
+	public DataTypeStruct findStructType(String name) {
+		return fStructMap.get(name);
+	}
+	
+	public void addStructType(DataTypeStruct struct) {
+		fStructMap.put(struct.getName(), struct);
+	}
+	
+	public Collection<DataTypeStruct> getStructTypes() {
+		return fStructMap.values();
 	}
 	
 	public void addInterface(GraphInterface ifc) {

@@ -54,6 +54,7 @@ import net.sf.psstools.lang.pSS.rule_sequence;
 import net.sf.psstools.lang.pSS.rule_stmt;
 import net.sf.psstools.lang.pSS.rule_stmt_primary;
 import net.sf.psstools.lang.pSS.rule_variable_reference;
+import net.sf.psstools.lang.pSS.struct_body_item;
 import net.sf.psstools.lang.pSS.struct_declaration;
 import net.sf.psstools.lang.pSS.symbol_declaration;
 import net.sf.psstools.lang.pSS.symbol_definition;
@@ -156,6 +157,7 @@ public class GraphElaborator {
 		}
 		
 		// TODO: Find all structs and ensure they're registered with the ElabResult
+		find_struct_types(inst);
 	
 		// Process the body items
 		for (graph_body_item it : graph.getBody()) {
@@ -195,6 +197,28 @@ public class GraphElaborator {
 		}
 		
 		return inst;
+	}
+	
+	private void find_struct_types(GraphInstance inst) {
+		for (Model m : fModelList) {
+			for (portable_stimulus_description d : m.getRoot()) {
+				if (d instanceof struct_declaration) {
+					struct_declaration s = (struct_declaration)d;
+					if (inst.findStructType(s.getName()) != null) {
+						continue;
+					}
+					
+					DataTypeStruct dt = new DataTypeStruct(s.getName());
+					
+					for (struct_body_item it : s.getBody()) {
+						
+						
+					}
+					
+					inst.addStructType(dt);
+				}
+			}
+		}
 	}
 	
 	private InterfaceDeclaration elaborate_interface_decl(interface_declaration ifc_decl) throws ElabException {

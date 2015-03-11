@@ -5,6 +5,7 @@ import net.sf.psstools.lang.elaborator.expr.PSSBinaryExprOp;
 import net.sf.psstools.lang.elaborator.expr.PSSExpr;
 import net.sf.psstools.lang.elaborator.expr.PSSLiteralExpr;
 import net.sf.psstools.lang.elaborator.expr.PSSVariableRefExpr;
+import net.sf.psstools.lang.pSS.binary_add_sub_expr;
 import net.sf.psstools.lang.pSS.binary_and_expr;
 import net.sf.psstools.lang.pSS.binary_or_expr;
 import net.sf.psstools.lang.pSS.binary_xor_expr;
@@ -53,6 +54,11 @@ public class GraphExpressionElaborator {
 					elaborate(((logical_equality_expr)expr).getLeft()),
 					(((logical_equality_expr)expr).getOp().equals("=="))?PSSBinaryExprOp.Eq:PSSBinaryExprOp.NotEq,
 					elaborate(((logical_equality_expr)expr).getRight()));
+		} else if (expr instanceof binary_add_sub_expr) {
+			ret = new PSSBinaryExpr(
+					elaborate(((binary_add_sub_expr)expr).getLeft()),
+					(((binary_add_sub_expr)expr).getOp().equals("+"))?PSSBinaryExprOp.Plus:PSSBinaryExprOp.Minus,
+					elaborate(((binary_add_sub_expr)expr).getRight()));
 		} else if (expr instanceof variable_ref) {
 			variable_ref ref = (variable_ref)expr;
 			ret = new PSSVariableRefExpr(
@@ -68,6 +74,13 @@ public class GraphExpressionElaborator {
 	}
 
 	private String elaborate_hierarchical_id(hierarchical_id id) {
-		return id.getValue();
+		StringBuilder sb = new StringBuilder();
+		for (String p : id.getPath()) {
+			sb.append(p);
+			sb.append('.');
+		}
+		sb.setLength(sb.length()-1);
+		
+		return sb.toString();
 	}
 }
