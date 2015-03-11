@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.psstools.lang.elaborator.GraphElabResult;
+import net.sf.psstools.lang.ui.views.graph.model.GraphNode;
+import net.sf.psstools.lang.ui.views.graph.model.GraphViewNodeFactory;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -11,16 +13,16 @@ import org.eclipse.zest.core.viewers.IGraphEntityContentProvider;
 
 public class GraphContentProvider implements IStructuredContentProvider,
 		IGraphEntityContentProvider {
-	private GraphElabResult				fElabResult;
-	private GraphViewNode				fRoot;
-	private Object						fNullResult[] = new Object[0];
-	private List<GraphViewNode>			fElements = new ArrayList<GraphViewNode>();
+	private GraphElabResult			fElabResult;
+	private GraphNode				fRoot;
+	private Object					fNullResult[] = new Object[0];
+	private List<GraphNode>			fElements = new ArrayList<GraphNode>();
 
 	@Override
 	public Object[] getConnectedTo(Object obj) {
 		System.out.println("getConnectedTo: " + obj);
-		if (obj instanceof GraphViewNode) {
-			return ((GraphViewNode)obj).getConnected().toArray();
+		if (obj instanceof GraphNode) {
+			return ((GraphNode)obj).getConnected().toArray();
 		}
 
 		return fNullResult;
@@ -45,9 +47,9 @@ public class GraphContentProvider implements IStructuredContentProvider,
 		}
 	}
 	
-	private static void collect_nodes(GraphViewNode n, List<GraphViewNode> nodes) {
+	private static void collect_nodes(GraphNode n, List<GraphNode> nodes) {
 		nodes.add(n);
-		for (GraphViewNode s : n.getConnected()) {
+		for (GraphNode s : n.getConnected()) {
 			collect_nodes(s, nodes);
 		}
 	}
