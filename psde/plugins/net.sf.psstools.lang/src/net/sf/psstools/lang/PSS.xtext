@@ -18,11 +18,23 @@ portable_stimulus_description:
 	interface_declaration |
 	data_declaration |
 	typedef_declaration |
-	bins_declaration  /* |
+	bins_declaration |
+	package_declaration |
+	import_stmt /* |
 	include_statement |
 	bins_declaration |
 	package_declaration */
 ;
+
+package_declaration:
+	'package' name=package_identifier ';'
+;
+
+import_stmt:
+	'import' package_import_pattern ';'
+;
+
+
 
 /** Hidden:
  *  graph_or_struct_declaration and graph_struct_if_declaration are placeholders
@@ -68,7 +80,8 @@ struct_body_item:
 	constraint_declaration		|
 	field_declaration			|
 	typedef_declaration			|
-	bin_or_scheme_declaration
+	bin_or_scheme_declaration	|
+	import_stmt
 ;
 
 graph_body_item:
@@ -79,7 +92,8 @@ graph_body_item:
 	typedef_declaration 		|
 	symbol_declaration 			|
 	symbol_definition 			|
-	interface_action_definition	
+	interface_action_definition	|
+	import_stmt
 ;
 
 field_declaration:
@@ -98,7 +112,8 @@ interface_declaration:
 ;
 
 interface_body_item:
-	action_declaration
+	action_declaration |
+	import_stmt
 ;
 
 interface_action_definition:
@@ -139,6 +154,7 @@ rule_production:
 	rule_if_production 				|
 	rule_repeat_stmt 				|
 	rule_assign_stmt				|
+	rule_break_stmt					|
 	rule_expr_stmt
 ;
 
@@ -163,6 +179,10 @@ rule_repeat_stmt:
 
 rule_assign_stmt:
 	param=identifier '<=' rhs=expression ';'
+;
+
+rule_break_stmt:
+	{rule_break_stmt} 'break' ';'
 ;
 
 rule_expr_stmt:
@@ -274,9 +294,13 @@ typedef_declaration:
   
 enum_type:
   	'enum' (data_type = integer_type)? '{' 
-  		items+=identifier (',' items+=identifier)*
+  		items+=enum_item (',' items+=enum_item)*
   		'}' 
   ;
+
+enum_item:
+	name=identifier ('=' value=expression)?
+;
 
 integer_type:
 	(signed?='signed'|unsigned?='unsigned')? atom_type=integer_atom_type ('[' lhs=expression ':' rhs=expression ']')? (inside=type_inside_clause)?
@@ -506,11 +530,16 @@ port_identifier: identifier;
 variable_identifier: identifier;
 bin_identifier: identifier;
 constant: literal | identifier;
+package_identifier: hierarchical_id;
 
 identifier: ID;
 
 hierarchical_id:
-	value=identifier ('.' identifier)*
+	path+=identifier ('.' path+=identifier)*
+;
+
+package_import_pattern:
+	package=hierarchical_id (wildcard?='.' '*')?
 ;
 
 interface_action_id:
