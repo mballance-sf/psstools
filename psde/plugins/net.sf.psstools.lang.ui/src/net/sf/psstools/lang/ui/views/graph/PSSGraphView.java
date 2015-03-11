@@ -1,5 +1,7 @@
 package net.sf.psstools.lang.ui.views.graph;
 
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.LayoutManager;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -10,6 +12,11 @@ import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.GraphViewer;
 import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
+import org.eclipse.zest.core.widgets.GraphContainer;
+import org.eclipse.zest.layouts.LayoutAlgorithm;
+import org.eclipse.zest.layouts.LayoutStyles;
+import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
+import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;
 
 public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 		SelectionListener {
@@ -27,17 +34,27 @@ public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 	
 	public void setInput(Object input) {
 		System.out.println("setInput: " + input);
+		if (fGraphViewer != null) {
+			fGraphViewer.setInput(input);
+		}
 	}
 	
 	private void createGraphViewer(Composite parent) {
 		parent.setLayout(new GridLayout());
 		fGraphViewer = new GraphViewer(parent, SWT.BORDER);
+		fGraphViewer.setContentProvider(new GraphContentProvider());
+		fGraphViewer.setLabelProvider(new GraphLabelProvider());
 		
 		fGraphViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		LayoutAlgorithm m;
+		
+		fGraphViewer.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
 	}
 	
 	@Override
 	public void widgetSelected(SelectionEvent e) {
+		IFigure f;
+		LayoutManager l;
 		System.out.println("widgetSelected: " + e);
 		// TODO Auto-generated method stub
 

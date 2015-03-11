@@ -1,4 +1,8 @@
-
+/****************************************************************************
+ * axi_if.pss
+ * 
+ * Declares the 'axi_if' interface and transaction data types
+ ****************************************************************************/
 struct axi4_trans_req {
 	rand bit[31:0]			axi_addr;
 	rand bit[31:0]			axi_write_data;
