@@ -15,6 +15,7 @@ import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
 import org.eclipse.zest.core.widgets.GraphContainer;
 import org.eclipse.zest.layouts.LayoutAlgorithm;
 import org.eclipse.zest.layouts.LayoutStyles;
+import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
 import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;
 
@@ -48,7 +49,9 @@ public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 		fGraphViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		LayoutAlgorithm m;
 		
-		fGraphViewer.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+//		fGraphViewer.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+		fGraphViewer.setLayoutAlgorithm(new GraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+//		fGraphViewer.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
 	}
 	
 	@Override

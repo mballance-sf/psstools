@@ -51,6 +51,29 @@ public class TextPresentationStringBuilder {
 		fSB.append(c);
 	}
 	
+	public void process(String markup) {
+		int last_idx=0, idx=0;
+		
+		while ((idx=markup.indexOf("<kw>", last_idx)) != -1) {
+			if (idx > last_idx) {
+				fSB.append(markup.substring(last_idx, idx));
+			}
+			int end=markup.indexOf("</kw>", idx);
+			
+			if (end < 0) {
+				System.out.println("Error: Markup \"" + markup + "\" has unterminated <kw> tag");
+				break;
+			}
+			keyword(markup.substring(idx+"<kw>".length(), end));
+			
+			last_idx=end+"</kw>".length();
+		}
+		
+		if (last_idx < markup.length()) {
+			fSB.append(markup.substring(last_idx, markup.length()));
+		}
+	}
+	
 	public void append(String s) {
 		fSB.append(s);
 	}

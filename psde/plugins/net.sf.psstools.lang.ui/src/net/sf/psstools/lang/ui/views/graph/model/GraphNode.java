@@ -1,4 +1,4 @@
-package net.sf.psstools.lang.ui.views.graph;
+package net.sf.psstools.lang.ui.views.graph.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,13 +6,24 @@ import java.util.List;
 import net.sf.psstools.lang.elaborator.rules.RuleProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleSeqItemRef;
 
-public class GraphViewNode {
-	private Object					fTarget;
-	private List<GraphViewNode>		fConnected;
+public class GraphNode {
+	private GraphNodeType		fType;
+	private Object				fTarget;
+	private List<GraphNode>		fConnected;
 	
-	public GraphViewNode(Object target) {
+	public GraphNode(GraphNodeType type) {
+		fType = type;
+		fTarget = null;
+		fConnected = new ArrayList<GraphNode>();
+	}
+	
+	public GraphNode(GraphNodeType type, Object target) {
+		this(type);
 		fTarget = target;
-		fConnected = new ArrayList<GraphViewNode>();
+	}
+	
+	public GraphNodeType getType() {
+		return fType;
 	}
 
 	public Object getTarget() {
@@ -31,11 +42,11 @@ public class GraphViewNode {
 		}
 	}
 	
-	public List<GraphViewNode> getConnected() {
+	public List<GraphNode> getConnected() {
 		return fConnected;
 	}
 	
-	public void addConnection(GraphViewNode p) {
+	public void addConnection(GraphNode p) {
 		fConnected.add(p);
 	}
 	

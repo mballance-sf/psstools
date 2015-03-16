@@ -1,7 +1,9 @@
 package net.sf.psstools.lang.ui.views;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.resource.JFaceResources;
@@ -16,13 +18,20 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.ViewPart;
+import org.eclipse.xtext.AbstractElement;
+import org.eclipse.xtext.Alternatives;
+import org.eclipse.xtext.CharacterRange;
+import org.eclipse.xtext.Group;
+import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.NegatedToken;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.TerminalRule;
+import org.eclipse.xtext.TypeRef;
 import org.eclipse.xtext.impl.AbstractElementImpl;
-import org.eclipse.xtext.impl.AlternativesImpl;
 import org.eclipse.xtext.impl.AssignmentImpl;
 import org.eclipse.xtext.impl.CrossReferenceImpl;
 import org.eclipse.xtext.impl.GroupImpl;
 import org.eclipse.xtext.impl.KeywordImpl;
-import org.eclipse.xtext.impl.ParserRuleImpl;
 import org.eclipse.xtext.impl.RuleCallImpl;
 import org.eclipse.xtext.impl.TypeRefImpl;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -40,12 +49,14 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 	private List<ILeafNode>			fLeafNodes = new ArrayList<>();
 	private int						fLeafNodeIdx;
 	private Font					fHeaderFont;
+	private Set<String>				fKeywords;
 
 	@Override
 	public void createPartControl(Composite parent) {
 		fText = new StyledText(parent, SWT.WRAP+SWT.V_SCROLL);
 		getSite().getWorkbenchWindow().getPartService().addPartListener(this);
 		fHeaderFont = JFaceResources.getHeaderFont();
+		fKeywords = new HashSet<String>();
 	}
 
 	@Override
@@ -95,6 +106,7 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 					
 					ICompositeNode node = NodeModelUtils.getNode(resource.getContents().get(0));
 					fLeafNodes.clear();
+					fKeywords.clear();
 					for (ILeafNode ln : node.getLeafNodes()) {
 						fLeafNodes.add(ln);
 					}
@@ -136,31 +148,12 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 			String 					ind, 
 			EObject 				obj) {
 		// Before we 
-		if (obj instanceof ParserRuleImpl) {
-			ParserRuleImpl ri = (ParserRuleImpl)obj;
-			ICompositeNode ri_n = NodeModelUtils.getNode(ri);
-			int lineno = ri_n.getStartLine();
-			
-			// Spin forward
-			while (fLeafNodes != null && fLeafNodeIdx < fLeafNodes.size() &&
-					fLeafNodes.get(fLeafNodeIdx).getStartLine() < lineno) {
-				ILeafNode ln = fLeafNodes.get(fLeafNodeIdx);
-				
-				if (ln.getText() != null && ln.getText().trim().startsWith("/*")) {
-					List<String> lines = processComment(ln.getText());
-					
-					if (lines.size() > 0 && lines.get(0).trim().startsWith("Heading:")) {
-						int heading_idx = lines.get(0).indexOf("Heading:");
-						String text = lines.get(0).substring(heading_idx+"Heading:".length()).trim();
-						sb.setFont(fHeaderFont);
-						sb.append("\n");
-						sb.append(text);
-						sb.append("\n");
-						sb.clrFont();
-						sb.append("\n");
-					}
-				}
-				fLeafNodeIdx++;
+		if (obj instanceof ParserRule) {
+			ParserRule ri = (ParserRule)obj;
+
+			if (processHeaderComment(sb, obj)) {
+				// The header provides a replacement for the element
+				return;
 			}
 			
 			sb.append(ind);
@@ -169,11 +162,73 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 				production(sb, ind + "    ", eo);
 			}
 			sb.append("\n\n");
+		} else if (obj instanceof TerminalRule &&
+				!((TerminalRule)obj).getName().equals("WS")) {
+			if (processHeaderComment(sb, obj)) {
+				return;
+			}
+			
+			TerminalRule t = (TerminalRule)obj;
+			
+			sb.append(ind);
+			sb.append(t.getName() + " ::= ");
+			
+			for (EObject eo : obj.eContents()) {
+				terminal_production(sb, ind + "    ", eo);
+			}
+			
+			sb.append("\n\n");
+			
+//			AbstractElement alts = t.getAlternatives();
+//			System.out.println("Terminal: " + t.getName() + " cardinality: " + alts.getCardinality());
+//			for (EObject e : alts.eContents()) {
+//				System.out.println("  e: " + e);
+//			}
 		} else {
 			for (EObject eo : obj.eContents()) {
 				traverse(sb, ind, eo);
 			}
 		}
+	}
+	
+	private boolean processHeaderComment(TextPresentationStringBuilder sb, EObject eobj) {
+		boolean skip_item = false;
+		ICompositeNode ri_n = NodeModelUtils.getNode(eobj);
+		int lineno = ri_n.getStartLine();
+		
+		// Spin forward
+		while (fLeafNodes != null && fLeafNodeIdx < fLeafNodes.size() &&
+				fLeafNodes.get(fLeafNodeIdx).getStartLine() < lineno) {
+			ILeafNode ln = fLeafNodes.get(fLeafNodeIdx);
+			
+			if (ln.getText() != null && ln.getText().trim().startsWith("/*")) {
+				List<String> lines = processComment(ln.getText());
+				
+				if (lines.size() > 0 && lines.get(0).trim().startsWith("Heading:")) {
+					int heading_idx = lines.get(0).indexOf("Heading:");
+					String text = lines.get(0).substring(heading_idx+"Heading:".length()).trim();
+					sb.setFont(fHeaderFont);
+					sb.append("\n");
+					sb.append(text);
+					sb.append("\n");
+					sb.clrFont();
+					sb.append("\n");
+				} else if (lines.size() > 0 && lines.get(0).trim().startsWith("BNF:")) {
+					int heading_idx = lines.get(0).indexOf("BNF:");
+					String text = lines.get(0).substring(heading_idx+"BNF:".length()).trim();
+//					sb.setFont(fHeaderFont);
+//					sb.append("\n");
+					sb.process(text);
+					sb.append("\n\n");
+//					sb.clrFont();
+//					sb.append("\n");
+					skip_item = true;
+				}
+			}
+			fLeafNodeIdx++;
+		}		
+		
+		return skip_item;
 	}
 	
 	private List<String> processComment(String comment) {
@@ -247,7 +302,7 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 			}
 		}
 		
-		if (obj instanceof AlternativesImpl) {
+		if (obj instanceof Alternatives) {
 			boolean all_keywords = true;
 			for (EObject eo : obj.eContents()) {
 				if (!(eo instanceof KeywordImpl)) {
@@ -297,6 +352,7 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 			KeywordImpl k = (KeywordImpl)obj;
 			sb.insertWS();
 			sb.keyword(k.getValue());
+			fKeywords.add(k.getValue());
 		} else if (obj instanceof CrossReferenceImpl) {
 			CrossReferenceImpl cr = (CrossReferenceImpl)obj;
 			for (EObject eo : obj.eContents()) {
@@ -315,7 +371,142 @@ public class EBnfView extends ViewPart implements IPartListener, IDocumentListen
 			sb.append(closing);
 		}
 	}
-	
+
+	private void terminal_production(TextPresentationStringBuilder sb, String ind, EObject obj) {
+		System.out.println("terminal_production: " + obj);
+		
+		if (obj instanceof Group) {
+			Group g = (Group)obj;
+			System.out.println("Group: " + g.getCardinality());
+			for (int i=0; i<g.getElements().size(); i++) {
+				AbstractElement e = g.getElements().get(i);
+				terminal_production(sb, ind, e);
+				if (i+1 < g.getElements().size()) {
+					sb.append(" ");
+				}
+			}
+		} else if (obj instanceof CharacterRange) {
+			CharacterRange r = (CharacterRange)obj;
+			System.out.println("CharacterRange: " + r.getCardinality());
+			sb.append("[");
+			sb.keyword(r.getLeft().getValue());
+			sb.append("-");
+			sb.keyword(r.getRight().getValue());
+			sb.append("]");
+		} else if (obj instanceof Alternatives) {
+			Alternatives alt = (Alternatives)obj;
+			String end = null;
+			if (alt.getCardinality() != null) {
+				if (alt.getCardinality().equals("?")) {
+					sb.append("[");
+					end = "]";
+				} else if (alt.getCardinality().equals("*")) {
+					sb.append("{");
+					end = "}";
+				}
+			}
+			for (int i=0; i<alt.getElements().size(); i++) {
+				terminal_production(sb, ind, alt.getElements().get(i));
+				if (i+1 < alt.getElements().size()) {
+					sb.append("|");
+				}
+			}
+			
+			if (end != null) {
+				sb.append(end);
+			}			
+		} else if (obj instanceof Keyword) {
+			sb.keyword(((Keyword)obj).getValue());
+		} else if (obj instanceof NegatedToken) {
+			NegatedToken n = (NegatedToken)obj;
+			sb.append("!");
+			terminal_production(sb, ind, n.getTerminal());
+		} else {
+			System.out.println("Unknown obj: " + obj);
+		}
+//		AbstractElement ai = (obj instanceof AbstractElement)?(AbstractElement)obj:null;
+//		String closing = "";
+//
+//		if (ai != null && ai.getCardinality() != null) {
+//			sb.insertWS();
+//			if (ai.getCardinality().equals("*")) {
+//				sb.append("{");
+//				closing = "}";
+//			} else if (ai.getCardinality().equals("?")) {
+//				sb.append("[");
+//				closing = "]";
+//			}
+//		}
+//		
+//		if (obj instanceof Alternatives) {
+//			boolean all_keywords = true;
+//			for (EObject eo : obj.eContents()) {
+//				if (!(eo instanceof KeywordImpl)) {
+//					all_keywords = false;
+//				}
+//			}
+//			
+//			if (all_keywords) {
+//				for (int i=0; i<obj.eContents().size(); i++) {
+//					EObject eo = obj.eContents().get(i);
+//					
+//					sb.insertWS();
+//					int old_len = sb.length();
+//					production(sb, ind, eo);
+//					if (old_len != sb.length() && i+1 < obj.eContents().size()) {
+//						sb.append(" | ");
+//					}
+//				}
+//			} else {
+//				sb.append("\n" + ind + "  ");
+//				for (int i=0; i<obj.eContents().size(); i++) {
+//					EObject eo = obj.eContents().get(i);
+//					int old_len = sb.length();
+//					production(sb, ind, eo);
+//					if (old_len != sb.length() && i+1 < obj.eContents().size()) {
+//						sb.append("\n" + ind + "| ");
+//					}
+//				}
+//			}
+//		} else if (obj instanceof AssignmentImpl) {
+//			production(sb, ind, obj.eContents().get(0));
+//		} else if (obj instanceof RuleCallImpl) {
+//			RuleCallImpl rc = (RuleCallImpl)obj;
+//
+//			sb.insertWS();
+////			sb.append(rc.getRule().getName());
+//			if (rc.basicGetRule() != null) {
+//				sb.append(rc.basicGetRule().getName());
+//			} else {
+////				System.out.println("ruleCall: " + rc + " " + rc.eGet(XtextPackage.RULE_CALL, false, false));
+//			}
+//		} else if (obj instanceof GroupImpl) {
+//			for (EObject eo : obj.eContents()) {
+//				production(sb, ind, eo);
+//			}
+//		} else if (obj instanceof KeywordImpl) {
+//			KeywordImpl k = (KeywordImpl)obj;
+//			sb.insertWS();
+//			sb.keyword(k.getValue());
+//			fKeywords.add(k.getValue());
+//		} else if (obj instanceof CrossReferenceImpl) {
+//			CrossReferenceImpl cr = (CrossReferenceImpl)obj;
+//			for (EObject eo : obj.eContents()) {
+//				production(sb, ind, eo);
+//			}
+//		} else if (obj instanceof RuleCallImpl) {
+//			RuleCallImpl rc = (RuleCallImpl)obj;
+//			sb.insertWS();
+////			sb.append(rc.getRule().getName());
+//			sb.append(rc.basicGetRule().getName());
+//		} else if (obj instanceof TypeRefImpl) {
+//		}
+//	
+//		if (!closing.equals("")) {
+//			sb.insertWS();
+//			sb.append(closing);
+//		}
+	}
 
 	@Override
 	public void partBroughtToTop(IWorkbenchPart part) { }
