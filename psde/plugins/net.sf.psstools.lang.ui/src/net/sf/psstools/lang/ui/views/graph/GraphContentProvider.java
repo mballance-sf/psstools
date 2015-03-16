@@ -20,7 +20,6 @@ public class GraphContentProvider implements IStructuredContentProvider,
 
 	@Override
 	public Object[] getConnectedTo(Object obj) {
-		System.out.println("getConnectedTo: " + obj);
 		if (obj instanceof GraphNode) {
 			return ((GraphNode)obj).getConnected().toArray();
 		}

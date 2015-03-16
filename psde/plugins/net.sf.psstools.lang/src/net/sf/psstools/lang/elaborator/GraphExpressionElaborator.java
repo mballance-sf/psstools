@@ -11,13 +11,11 @@ import net.sf.psstools.lang.pSS.binary_or_expr;
 import net.sf.psstools.lang.pSS.binary_xor_expr;
 import net.sf.psstools.lang.pSS.expression;
 import net.sf.psstools.lang.pSS.hierarchical_id;
-import net.sf.psstools.lang.pSS.literal;
 import net.sf.psstools.lang.pSS.logical_and_expr;
 import net.sf.psstools.lang.pSS.logical_equality_expr;
 import net.sf.psstools.lang.pSS.logical_or_expr;
-import net.sf.psstools.lang.pSS.primary;
+import net.sf.psstools.lang.pSS.number;
 import net.sf.psstools.lang.pSS.variable_ref;
-import net.sf.psstools.lang.services.PSSGrammarAccess.PrimaryElements;
 
 public class GraphExpressionElaborator {
 	
@@ -65,8 +63,8 @@ public class GraphExpressionElaborator {
 					elaborate_hierarchical_id(ref.getExpr()),
 					(ref.getLhs() != null)?elaborate(ref.getLhs()):null,
 					(ref.getRhs() != null)?elaborate(ref.getRhs()):null);
-		} else if (expr instanceof literal) {
-			ret = new PSSLiteralExpr("" + ((literal)expr).getValue());
+		} else if (expr instanceof number) {
+			ret = new PSSLiteralExpr("" + ((number)expr).getValue());
 		} else {
 			System.out.println("Unhandled expr: " + expr);
 		}

@@ -49,7 +49,8 @@ public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 		fGraphViewer.getControl().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		LayoutAlgorithm m;
 		
-		fGraphViewer.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+//		fGraphViewer.setLayoutAlgorithm(new TreeLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
+		fGraphViewer.setLayoutAlgorithm(new GraphLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
 //		fGraphViewer.setLayoutAlgorithm(new SpringLayoutAlgorithm(LayoutStyles.NO_LAYOUT_NODE_RESIZING));
 	}
 	

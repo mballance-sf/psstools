@@ -83,11 +83,11 @@ public class GraphViewNodeFactory {
 				
 			case Repeat: {
 				RuleRepeatProduction p = (RuleRepeatProduction)root;
-				ret = new GraphNode(GraphNodeType.Join);
+				ret = new GraphNode(GraphNodeType.RepeatStart);
 				parent.addConnection(ret);
 				
 				s = build(ret, p.getProduction());
-				curr = new GraphNode(GraphNodeType.Join);
+				curr = new GraphNode(GraphNodeType.RepeatEnd);
 				s.second().addConnection(curr);
 				ret.addConnection(curr);
 				} break;

@@ -261,7 +261,11 @@ data_declaration:
 ;
 
 data_instantiation:
-	name=identifier ('(' portmap=graph_interface_portmap_list ')')?
+	name=identifier ('(' portmap=graph_interface_portmap_list ')')? dim=array_dim? ('=' init=constant_expression)?
+;
+
+array_dim:
+	{array_dim} '[' (lhs=constant_expression (':' rhs=constant_expression)?)? ']'
 ;
 
 graph_interface_portmap_list:
@@ -289,7 +293,7 @@ user_defined_type:
 ;
 
 typedef_declaration:
- 	'typedef' type=data_type type_identifier=identifier ';' 
+ 	'typedef' (=> signed?='signed'|=>unsigned?='unsigned')? type=data_type type_identifier=identifier ';' 
 ;
   
 enum_type:
@@ -493,7 +497,7 @@ unary_expr returns expression:
 ;
 
 primary: //; returns expression:
-	literal | 
+	number | 
 	paren_expr |
 	variable_ref
 ;
@@ -529,10 +533,10 @@ graph_struct_interface_identiifer: identifier;
 port_identifier: identifier;
 variable_identifier: identifier;
 bin_identifier: identifier;
-constant: literal | identifier;
+constant: number | identifier;
 package_identifier: hierarchical_id;
 
-identifier: ID;
+identifier: ID | ESCAPED_ID;
 
 hierarchical_id:
 	path+=identifier ('.' path+=identifier)*
@@ -546,32 +550,66 @@ interface_action_id:
 	ifc=identifier '.' action=identifier
 ;
 
-literal:
-	value=INT
-/*	  decimal_number 
-	| octal_number
-	| binary_number
-	| hex_number */;
-	
-decimal_number:
-	value=INT |
-	(size)?	
+/********************************************************************
+ * Heading: Numbers
+ ********************************************************************/
+number:
+	value=based_hex_number 		|
+	value=based_dec_number		|
+	value=based_bin_number		|
+	value=based_oct_number		|
+	value=dec_number			|
+	value=oct_number
 ;
 
-size:
-	value=INT
-;
 
-terminal INT returns ecore::EInt: ('0'..'9')+;
+based_hex_number: size=DEC_LITERAL? value=BASED_HEX_LITERAL;
+terminal BASED_HEX_LITERAL: '\'' ('s'|'S')? ('h'|'H'|'0x') ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F'|'_')*;
+
+based_dec_number: size=DEC_LITERAL? value=BASED_DEC_LITERAL;
+terminal BASED_DEC_LITERAL: '\'' ('s'|'S')? ('d'|'D') ('0'..'9') ('0'..'9'|'_')*;
+
+dec_number: value=DEC_LITERAL;
+terminal DEC_LITERAL: ('1'..'9') ('0'..'9'|'_')*;
+
+based_bin_number: size=DEC_LITERAL? value=BASED_BIN_LITERAL;
+terminal BASED_BIN_LITERAL: '\'' ('s'|'S')? ('b'|'B') (('0'..'1') ('0'..'1'|'_')*);
+
+based_oct_number: size=DEC_LITERAL? value=BASED_OCT_LITERAL;
+terminal BASED_OCT_LITERAL: '\'' ('s'|'S')? ('o'|'O') (('0'..'7') ('0'..'7'|'_')*);
+
+
+oct_number: value=OCT_LITERAL;
+terminal OCT_LITERAL: '0' ('0'..'7')*;
+
+
+/**
+ * Exclude:
+ */
 terminal WS			: (' '|'\t'|'\r'|'\n')+;
-terminal ML_COMMENT	: '/*' -> '*/';
-terminal SL_COMMENT 	: '//' !('\n'|'\r')* ('\r'? '\n')?;
-terminal STRING	: 
-			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' 
-		; 
 
-terminal ID:
-	'\\' !(' '|'\t'|'\r'|'\n')+ |
-	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*
-;
+/********************************************************************
+ * Heading: Comments
+ ********************************************************************/
+ 
+/**
+ * BNF: SL_COMMENT ::= <kw>//</kw>{any_ASCII_character_except_newline}\n 
+ */
+terminal SL_COMMENT 	: '//' !('\n'|'\r')* ('\r'? '\n')?;
+
+/**
+ * BNF: ML_COMMENT ::= <kw>/*</kw>{any_ASCII_character}<kw>/*</kw>
+ */
+terminal ML_COMMENT	: '/*' -> '*/';
+
+//terminal STRING	: 
+//			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' 
+//		; 
+
+terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+
+/**
+ * BNF: ESCAPED_ID ::= <kw>\</kw>{any_ASCII_character_except_whitespace} whitespace
+ */
+terminal ESCAPED_ID: '\\' !(' '|'\t'|'\r'|'\n')+ ;
 

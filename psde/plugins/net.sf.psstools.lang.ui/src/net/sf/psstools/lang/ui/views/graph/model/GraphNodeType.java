@@ -4,6 +4,8 @@ public enum GraphNodeType {
 	Root,
 	Branch,
 	Join,
-	Item
+	Item,
+	RepeatStart,
+	RepeatEnd
 
 }
