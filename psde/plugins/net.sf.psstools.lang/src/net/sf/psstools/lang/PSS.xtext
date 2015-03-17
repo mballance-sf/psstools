@@ -101,7 +101,7 @@ field_declaration:
 ;
 
 symbol_definition:
-	symbol_name=identifier ':=' production=rule_production 
+	symbol_name=identifier ('(' (ports+=action_port (',' ports+=action_port)*)? ')')? ':=' production=rule_production 
 ;
 
 
@@ -153,6 +153,7 @@ symbol_decl_item:
 rule_production: 
 	rule_if_production 				|
 	rule_repeat_stmt 				|
+	rule_foreach_stmt				|
 	rule_assign_stmt				|
 	rule_break_stmt					|
 	rule_expr_stmt
@@ -168,13 +169,18 @@ rule_if_production:
 
 // The statement for a rule-if production can be anything but an 'if'
 rule_if_production_stmt:
-	rule_stmt_parallel |
-	rule_repeat_stmt
+	rule_stmt_parallel 	|
+	rule_repeat_stmt	|
+	rule_foreach_stmt
 ;
 
 rule_repeat_stmt:
 //	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? '{' stmts+=rule_production* '}' 
 	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? body=rule_block_stmt
+;
+
+rule_foreach_stmt:
+	'foreach' '(' expr=expression ')' body=rule_block_stmt
 ;
 
 rule_assign_stmt:
@@ -202,8 +208,16 @@ rule_sequence:
 ;
 
 rule_seq_item:
-	rule_interface_action_call |
+	rule_interface_action_call 	|
+	symbol_traversal 			|
 	rule_variable_reference
+;
+
+symbol_traversal:
+	item=identifier
+	'(' 
+		(parameters+=expression (',' parameters+=expression)*)?
+	')'
 ;
 
 rule_interface_action_call:
