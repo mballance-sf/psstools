@@ -45,7 +45,7 @@ graph axi4_reg_rw_translator (
 		}
 		
 		// Definition	
-		read_reg := {
+		write_reg := {
 			// Inline constraint to force a write
 			write_trans with {
 				is_write == 1;
