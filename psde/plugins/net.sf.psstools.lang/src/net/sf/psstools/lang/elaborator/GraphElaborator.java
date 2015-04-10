@@ -6,16 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.TreeIterator;
-
-import net.sf.psstools.lang.elaborator.processor.GraphChoiceProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirectiveDumper;
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirectiveFactory;
-import net.sf.psstools.lang.elaborator.processor.GraphProcDirectiveType;
 import net.sf.psstools.lang.elaborator.processor.GraphProcessingStrategy;
-import net.sf.psstools.lang.elaborator.processor.GraphRandSetDirective;
 import net.sf.psstools.lang.elaborator.rules.RuleBlockProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleProduction;
 import net.sf.psstools.lang.elaborator.rules.RuleProductionType;
@@ -38,27 +32,32 @@ import net.sf.psstools.lang.pSS.graph_body_item;
 import net.sf.psstools.lang.pSS.graph_declaration;
 import net.sf.psstools.lang.pSS.graph_or_struct_declaration;
 import net.sf.psstools.lang.pSS.integer_type;
-import net.sf.psstools.lang.pSS.interface_action_definition;
-import net.sf.psstools.lang.pSS.interface_action_id;
 import net.sf.psstools.lang.pSS.interface_body_item;
 import net.sf.psstools.lang.pSS.interface_declaration;
 import net.sf.psstools.lang.pSS.port_declaration;
 import net.sf.psstools.lang.pSS.portable_stimulus_description;
 import net.sf.psstools.lang.pSS.rule_block_stmt;
-import net.sf.psstools.lang.pSS.rule_expr_stmt;
+import net.sf.psstools.lang.pSS.rule_fork_production;
+import net.sf.psstools.lang.pSS.rule_fork_stmt;
 import net.sf.psstools.lang.pSS.rule_interface_action_call;
 import net.sf.psstools.lang.pSS.rule_production;
 import net.sf.psstools.lang.pSS.rule_repeat_stmt;
+import net.sf.psstools.lang.pSS.rule_select_fork_block;
+import net.sf.psstools.lang.pSS.rule_select_fork_production;
+import net.sf.psstools.lang.pSS.rule_select_production;
+import net.sf.psstools.lang.pSS.rule_select_stmt;
 import net.sf.psstools.lang.pSS.rule_seq_item;
 import net.sf.psstools.lang.pSS.rule_sequence;
 import net.sf.psstools.lang.pSS.rule_stmt;
-import net.sf.psstools.lang.pSS.rule_stmt_primary;
 import net.sf.psstools.lang.pSS.rule_variable_reference;
 import net.sf.psstools.lang.pSS.struct_body_item;
 import net.sf.psstools.lang.pSS.struct_declaration;
 import net.sf.psstools.lang.pSS.symbol_declaration;
 import net.sf.psstools.lang.pSS.symbol_definition;
 import net.sf.psstools.lang.pSS.user_defined_type;
+
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.TreeIterator;
 
 public class GraphElaborator {
 	
@@ -289,7 +288,7 @@ public class GraphElaborator {
 	
 //	private GraphConstraint buildConstraint()
 	
-	private RuleProduction buildRuleProduction(rule_production production, boolean resolve) throws ElabException {
+	private RuleProduction buildRuleProduction(Object production, boolean resolve) throws ElabException {
 		RuleProduction ret = null;
 //		debug("rule_production: " + production);
 		if (production instanceof rule_repeat_stmt) {
@@ -304,6 +303,14 @@ public class GraphElaborator {
 			
 			for (rule_production rp : block_stmt.getStmt_list()) {
 				block.addChild(buildRuleProduction(rp, resolve));
+			}
+			ret = block;
+		} else if (production instanceof rule_select_fork_block) {
+			rule_select_fork_block block_stmt = (rule_select_fork_block)production;
+			RuleBlockProduction block = new RuleBlockProduction();
+			
+			for (rule_select_fork_production p : block_stmt.getProductions()) {
+				block.addChild(buildRuleProduction(p, resolve));
 			}
 			ret = block;
 		} else if (production instanceof rule_stmt) {
@@ -338,6 +345,20 @@ public class GraphElaborator {
 				stmt_ret.addChild(right);
 			}
 			
+			ret = stmt_ret;
+		} else if (production instanceof rule_select_stmt) {
+			rule_select_stmt select = (rule_select_stmt)production;
+			RuleStmtProduction stmt_ret = new RuleStmtProduction(RuleStmtType.Alternative);
+			for (rule_select_production p : select.getProductions()) {
+				stmt_ret.addChild(buildRuleProduction(p.getProduction(), resolve));
+			}
+			ret = stmt_ret;
+		} else if (production instanceof rule_fork_stmt) {
+			rule_fork_stmt fork = (rule_fork_stmt)production;
+			RuleStmtProduction stmt_ret = new RuleStmtProduction(RuleStmtType.Parallel);
+			for (rule_fork_production p : fork.getProductions()) {
+				stmt_ret.addChild(buildRuleProduction(p.getProduction(), resolve));
+			}
 			ret = stmt_ret;
 		} else if (production instanceof rule_sequence) {
 			rule_sequence seq = (rule_sequence)production;

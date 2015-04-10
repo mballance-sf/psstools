@@ -24,5 +24,9 @@ public class RuleSeqItemRef {
 	public void setDataField(DataField field) {
 		fField = field;
 	}
+	
+	public DataField getDataField() {
+		return fField;
+	}
 
 }
