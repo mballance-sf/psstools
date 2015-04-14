@@ -12,6 +12,8 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
 import org.eclipse.zest.core.viewers.GraphViewer;
@@ -34,11 +36,14 @@ public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 
 	@Override
 	public void createPartControl(Composite parent) {
+		Display d = Display.getCurrent();
 		Canvas c = new Canvas(parent, SWT.NONE);
+		c.setBackground(d.getSystemColor(SWT.COLOR_WHITE));
 		fLWS = new LightweightSystem(c);
 	}
 	
 	public void setInput(Object input) {
+		System.out.println("setInput");
 		if (input instanceof GraphElabResult) {
 			fInput = (GraphElabResult)input;
 			GraphFigureFactory figure_f = new GraphFigureFactory();

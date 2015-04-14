@@ -37,7 +37,7 @@ public class GraphContentProvider implements IStructuredContentProvider,
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		if (newInput instanceof GraphElabResult) {
 			fElabResult = (GraphElabResult)newInput;
-			fRoot = GraphViewNodeFactory.build(fElabResult.getGraph().getRootRule()).first();
+			fRoot = GraphViewNodeFactory.build(fElabResult.getGraph().getRoot()).first();
 			fElements.clear();
 			collect_nodes(fRoot, fElements);
 		} else {

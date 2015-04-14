@@ -48,10 +48,10 @@ import net.sf.psstools.lang.pSS.rule_select_production;
 import net.sf.psstools.lang.pSS.rule_select_stmt;
 import net.sf.psstools.lang.pSS.rule_seq_item;
 import net.sf.psstools.lang.pSS.rule_sequence;
-import net.sf.psstools.lang.pSS.rule_stmt;
 import net.sf.psstools.lang.pSS.rule_variable_reference;
 import net.sf.psstools.lang.pSS.struct_body_item;
 import net.sf.psstools.lang.pSS.struct_declaration;
+import net.sf.psstools.lang.pSS.symbol_decl_item;
 import net.sf.psstools.lang.pSS.symbol_declaration;
 import net.sf.psstools.lang.pSS.symbol_definition;
 import net.sf.psstools.lang.pSS.user_defined_type;
@@ -65,20 +65,24 @@ public class GraphElaborator {
 		BUILD_PROCESSING_STRATEGY
 	}
 
-	private List<Model>						fModelList;
-	private GraphElabResult					fElabResult;
-	private Stack<Object>					fScopeStack;
-	private Map<ElabOptions, Object>		fElabOptions;
-	private GraphExpressionElaborator		fExprElaborator;
+	private List<Model>							fModelList;
+	private GraphElabResult						fElabResult;
+	private Stack<IDeclScope>					fScopeStack;
+	private Map<ElabOptions, Object>			fElabOptions;
+	private GraphExpressionElaborator			fExprElaborator;
+	private DeclScope							fGlobalScope;
+	private Stack<GraphElaboratorDeclContext>	fContext;
 	
 	public GraphElaborator() {
+		fGlobalScope = new DeclScope();
 		fModelList = new ArrayList<Model>();
-		fScopeStack = new Stack<Object>();
+		fScopeStack = new Stack<IDeclScope>();
 		fElabOptions = new HashMap<GraphElaborator.ElabOptions, Object>();
 		
 		// Set default options
 		setElabOption(ElabOptions.BUILD_PROCESSING_STRATEGY, true);
 		fExprElaborator = new GraphExpressionElaborator();
+		
 	}
 	
 	public GraphElaborator(TreeIterator<Notifier> contents) {
@@ -118,12 +122,16 @@ public class GraphElaborator {
 		GraphElabResult result = new GraphElabResult();
 		graph_or_struct_declaration gs = find_graph_or_struct(name);
 		
+		// Push global scope
+		fScopeStack.clear();
+		fScopeStack.push(fGlobalScope);
+		
 		if (!(gs instanceof graph_declaration)) {
 			error("Not instanceof graph");
 		}
 	
 		graph_declaration g = (graph_declaration)gs;
-		GraphInstance graph = elaborate_graph(g);
+		DataTypeGraph graph = elaborate_graph(g);
 		result.setGraph(graph);
 		
 		if (getBoolElabOption(ElabOptions.BUILD_PROCESSING_STRATEGY)) {
@@ -134,90 +142,149 @@ public class GraphElaborator {
 		return result;
 	}
 	
-	private GraphInstance elaborate_graph(graph_declaration graph) throws ElabException {
-		GraphInstance inst = new GraphInstance(graph.getName());
+	private DataTypeGraph elaborate_graph(graph_declaration graph) throws ElabException {
+		int push_num=0;
+//		GraphInstance inst = new GraphInstance(graph.getName());
+		DataTypeGraph ret = new DataTypeGraph(graph.getName());
 		symbol_definition root_symbol = null;
 		
-		fScopeStack.clear();
-		
-		// Build the ports and identify interface types that will need to be built
-		for (port_declaration p : graph.getPorts()) {
-			InterfaceDeclaration ifc_decl;
-			if ((ifc_decl = inst.findInterfaceDecl(p.getIfc_type().getName())) == null) {
-				ifc_decl = elaborate_interface_decl(p.getIfc_type());
-				inst.addInterfaceDecl(ifc_decl);
-			}
+		// First build out the super structure
+		if (graph.getSuper() != null) {
 			
-			GraphInterface ifc = new GraphInterface(
-					p.getName(),
-					ifc_decl,
-					p.isExport());
-			inst.addInterface(ifc);
+		}
+	
+		DataType s = ret.getSuper();
+		while (s != null && s instanceof IDeclScope) {
+			push_num++;
+			fScopeStack.push((IDeclScope)s);
+			s = ret.getSuper();
 		}
 		
+		fScopeStack.push(ret);
+		push_num++;
+		
+		// Build the ports and identify interface types that will need to be built
+//		for (port_declaration p : graph.getPorts()) {
+//			InterfaceDeclaration ifc_decl;
+//			if ((ifc_decl = ret.findInterfaceDecl(p.getIfc_type().getName())) == null) {
+//				ifc_decl = elaborate_interface_decl(p.getIfc_type());
+//				inst.addInterfaceDecl(ifc_decl);
+//			}
+//			
+//			GraphInterface ifc = new GraphInterface(
+//					p.getName(),
+//					ifc_decl,
+//					p.isExport());
+//			inst.addInterface(ifc);
+//		}
+		
 		// TODO: Find all structs and ensure they're registered with the ElabResult
-		find_struct_types(inst);
+		find_struct_types(ret);
 	
 		// Process the body items
 		for (graph_body_item it : graph.getBody()) {
 			if (it instanceof field_declaration) {
-				field_declaration fd = (field_declaration)it;
-				data_declaration d = fd.getDeclaration();
-				
-				DataType dt = elaborate_data_type(d.getType());
-				
-				for (data_instantiation di : d.getInstances()) {
-					DataField field = new DataField(dt, di.getName());
-					field.setIsRand(fd.isRand());
-					inst.addField(field);
-				}
+				elaborate_field_declaration((field_declaration)it);
 			} else if (it instanceof symbol_definition) {
 				symbol_definition def = (symbol_definition)it;
+				System.out.println("Symbol-def: field=" + def.getSymbol_name());
 				if (def.getSymbol_name().equals(graph.getName())) {
 					// Root symbol
 					root_symbol = def;
 				} else {
-					// Build out without resolution 
-//					buildRuleProduction(def, false);
+					// Build out with resolution 
+					RuleProduction rule = buildRuleProduction(def, true);
+					DataField field = findVariable(def.getSymbol_name());
+					((DataTypeSymbol)field.getType()).setProduction(rule);
+					System.out.println("Symbol-def: field=" + field);
 				}
 			} else if (it instanceof symbol_declaration) {
 				symbol_declaration decl = (symbol_declaration)it;
+
+				
+				for (int i=0; i<decl.getDecl_list().size(); i++) {
+					rule_production def = (i==0)?decl.getInline_rule():null;
+					symbol_decl_item s_it = decl.getDecl_list().get(i);
+					
+					DataTypeSymbol dt = new DataTypeSymbol();
+					
+					if (def != null) {
+						dt.setProduction(buildRuleProduction(def, true));
+					}
+				
+					DataField field = new DataField(dt, s_it.getName());
+					ret.addVariable(field);
+				}
 			}
 		}
 		
 		if (root_symbol != null) {
 			debug("Elaborating root symbol");
-			fScopeStack.push(inst);
 			RuleProduction root = buildRuleProduction(root_symbol.getProduction(), true);
-			inst.setRootRule(root);
-			fScopeStack.pop();
+			ret.setRoot(root);
 		} else {
 			error("Root symbol not specified for graph " + graph.getName());
 		}
+
+		// Pop what we pushed
+		for (int i=0; i<push_num; i++) {
+			fScopeStack.pop();
+		}
 		
-		return inst;
+		return ret;
 	}
 	
-	private void find_struct_types(GraphInstance inst) {
+	private void elaborate_field_declaration(field_declaration fd) throws ElabException {
+		data_declaration d = fd.getDeclaration();
+
+		DataType dt = elaborate_data_type(d.getType());
+
+		for (data_instantiation di : d.getInstances()) {
+			System.out.println("addField: " + di.getName());
+			DataField field = new DataField(dt, di.getName());
+			field.setIsRand(fd.isRand());
+			addVariable(field);
+		}
+
+	}
+	
+	private void find_struct_types(DataTypeGraph inst) throws ElabException {
 		for (Model m : fModelList) {
 			for (portable_stimulus_description d : m.getRoot()) {
 				if (d instanceof struct_declaration) {
 					struct_declaration s = (struct_declaration)d;
-					if (inst.findStructType(s.getName()) != null) {
+					if (fGlobalScope.findType(s.getName()) != null) {
 						continue;
 					}
 					
 					DataTypeStruct dt = new DataTypeStruct(s.getName());
+					fScopeStack.push(dt);
 					
 					for (struct_body_item it : s.getBody()) {
-						
-						
+						if (it instanceof field_declaration) {
+							elaborate_field_declaration((field_declaration)it);
+						}
 					}
 					
-					inst.addStructType(dt);
+					fScopeStack.pop();
+				
+					fGlobalScope.addType(dt);
 				}
 			}
 		}
+	}
+	
+	private DataTypeStruct elaborate_struct_type(struct_declaration decl) {
+		DataTypeStruct dts = new DataTypeStruct(decl.getName());
+		
+		for (struct_body_item it : decl.getBody()) {
+			if (it instanceof data_declaration) {
+				
+			}
+			
+		}
+		
+		return dts;
 	}
 	
 	private InterfaceDeclaration elaborate_interface_decl(interface_declaration ifc_decl) throws ElabException {
@@ -261,8 +328,23 @@ public class GraphElaborator {
 		
 		if (dt instanceof user_defined_type) {
 			user_defined_type udt = (user_defined_type)dt;
-			
 			debug("user-defined type: " + udt.getTypename());
+			
+			if ((type = findType(udt.getTypename())) == null) {
+				// Go searching
+				graph_or_struct_declaration decl = find_graph_or_struct(udt.getTypename());
+				
+				if (decl == null) {
+					error("Struct or graph \"" + udt.getTypename() + "\" undeclared");
+				}
+				
+				if (decl instanceof graph_declaration) {
+					// TODO: elab
+				} else if (decl instanceof struct_declaration) {
+					DataTypeStruct dts = elaborate_struct_type((struct_declaration)decl);
+				}
+				
+			}
 			
 		} else if (dt instanceof integer_type) {
 			integer_type int_type = (integer_type)dt;
@@ -313,39 +395,6 @@ public class GraphElaborator {
 				block.addChild(buildRuleProduction(p, resolve));
 			}
 			ret = block;
-		} else if (production instanceof rule_stmt) {
-			rule_stmt stmt = (rule_stmt)production;
-			
-			
-			if (!stmt.isParallel() && !stmt.isAlt()) {
-				debug("stmt=" + stmt);
-				error("unknown rule stmt type");
-			}
-
-			RuleStmtProduction stmt_ret = new RuleStmtProduction(
-					(stmt.isAlt())?RuleStmtType.Alternative:RuleStmtType.Parallel);
-			
-			RuleProduction left = buildRuleProduction(stmt.getLeft(), resolve);
-			RuleProduction right = buildRuleProduction(stmt.getRight(), resolve);
-			
-			if (left.getType() == RuleProductionType.AltParallel &&
-					((RuleStmtProduction)left).getStmtType() == stmt_ret.getStmtType()) {
-				for (RuleProduction p : ((RuleStmtProduction)left).getChildren()) {
-					stmt_ret.addChild(p);
-				}
-			} else {
-				stmt_ret.addChild(left);
-			}
-			if (right.getType() == RuleProductionType.AltParallel &&
-					((RuleStmtProduction)right).getStmtType() == stmt_ret.getStmtType()) {
-				for (RuleProduction p : ((RuleStmtProduction)right).getChildren()) {
-					stmt_ret.addChild(p);
-				}
-			} else {
-				stmt_ret.addChild(right);
-			}
-			
-			ret = stmt_ret;
 		} else if (production instanceof rule_select_stmt) {
 			rule_select_stmt select = (rule_select_stmt)production;
 			RuleStmtProduction stmt_ret = new RuleStmtProduction(RuleStmtType.Alternative);
@@ -413,23 +462,54 @@ public class GraphElaborator {
 	
 	private DataField findVariable(String name) throws ElabException {
 		// Implied context
-		Object scope = fScopeStack.peek();
+		DataField f = null;
+		for (int i=fScopeStack.size()-1; i>=0; i--) {
+			IDeclScope scope = fScopeStack.get(i);
 		
-		GraphInstance inst = (GraphInstance)scope;
-		
-		for (DataField f : inst.getFields()) {
-			if (f.getName().equals(name)) {
-				return f;
+			if ((f = scope.findVariable(name)) != null) {
+				break;
 			}
 		}
 		
-		return null;
+		return f;
+	}
+	
+	private DataType findType(String name) throws ElabException {
+		DataType t = null;
+		
+		for (int i=fScopeStack.size()-1; i>=0; i--) {
+			IDeclScope scope = fScopeStack.get(i);
+			
+			if ((t = scope.findType(name)) != null) {
+				break;
+			}
+		}
+		
+		return t;
+	}
+	
+	private DataType findType(String name, DataType.Type type) throws ElabException {
+		DataType t = null;
+		
+		if (t == null) {
+			
+		}
+		
+		return t;
+	}
+	
+	private void addType(DataType type) {
+		fScopeStack.peek().addType(type);
+	}
+	
+	private void addVariable(DataField field) {
+		fScopeStack.peek().addVariable(field);
 	}
 
-	private GraphProcessingStrategy computeGraphProcessingStrategy(GraphInstance instance) throws ElabException {
+	private GraphProcessingStrategy computeGraphProcessingStrategy(DataTypeGraph instance) throws ElabException {
 		GraphProcessingStrategy strategy = new GraphProcessingStrategy();
 		
-		RuleProduction production = instance.getRootRule();
+		RuleProduction production = instance.getRoot();
 
 		GraphProcDirectiveFactory factory = new GraphProcDirectiveFactory();
 		GraphProcDirective root = factory.build(production);

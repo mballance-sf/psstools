@@ -3,6 +3,7 @@ package net.sf.psstools.lang.ui.views.graph;
 import java.io.File;
 
 import net.sf.psstools.lang.PssParseUtils;
+import net.sf.psstools.lang.elaborator.DataTypeGraph;
 import net.sf.psstools.lang.elaborator.ElabException;
 import net.sf.psstools.lang.elaborator.GraphElabResult;
 import net.sf.psstools.lang.elaborator.GraphElaborator;
@@ -66,7 +67,7 @@ public class TestClass {
 			e.printStackTrace();
 		}
 		
-		GraphInstance inst = result.getGraph();
+		DataTypeGraph inst = result.getGraph();
 		GraphFigureFactory figure_factory = new GraphFigureFactory();
 		IFigure fig = figure_factory.build(result);
 		

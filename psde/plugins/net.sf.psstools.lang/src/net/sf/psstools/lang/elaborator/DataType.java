@@ -5,7 +5,10 @@ public class DataType {
 	public enum Type {
 		Scalar,
 		UserDefined,
-		Struct
+		Struct,
+		Symbol,
+		Graph,
+		Interface
 	}
 	
 	private Type				fType;

@@ -155,6 +155,7 @@ symbol_decl_item:
 rule_production: 
 	rule_if_else_production			|
 	rule_repeat_stmt 				|
+	rule_constraint_stmt			|
 	rule_foreach_stmt				|
 	rule_assign_stmt				|
 	rule_break_stmt					|
@@ -163,21 +164,6 @@ rule_production:
 	rule_fork_stmt
 ;
 
-//rule_if_production:
-//	'if' '(' expr+=expression ')' alts+=rule_if_production_stmt
-//		(
-//			((alt?='|' alts+=rule_if_production_stmt) ('|' alts+=rule_if_production_stmt)* ('else' false_case=rule_if_production_stmt)?) |
-//			(else?='else' false_case=rule_if_production_stmt) 
-//		)
-//;
-
-//rule_if_production:
-//	'if' '(' expr+=expression ')' alts+=rule_if_production_stmt
-//		(
-//			((alt?='|' alts+=rule_if_production_stmt) ('|' alts+=rule_if_production_stmt)* ('else' false_case=rule_if_production_stmt)?) |
-//			(else?='else' false_case=rule_if_production_stmt) 
-//		)
-//;
 rule_if_else_production:
 	'if' '(' expr=expression ')' if_production=rule_production 
 	'else' else_production=rule_production
@@ -185,6 +171,7 @@ rule_if_else_production:
 
 rule_select_fork_production:
 	rule_repeat_stmt 				|
+	rule_constraint_stmt			|
 	rule_foreach_stmt				|
 	rule_assign_stmt				|
 	rule_break_stmt					|
@@ -215,7 +202,6 @@ rule_sequence_stmt:
 ;
 
 rule_select_production:
-//	(label=identifier (':=' weight=rule_select_weight)? ':')? ('if' '(' expr=expression ')')? production=rule_select_fork_production 
 	(label=identifier (':=' weight=rule_select_weight)? ':')? production=rule_select_fork_production 
 ;
 
@@ -232,19 +218,15 @@ rule_fork_stmt:
 ;
 
 rule_fork_production:
-//	(label=identifier ':')? ('if' '(' expr=expression ')')? production=rule_select_fork_production
 	(label=identifier ':')? production=rule_select_fork_production
-;
-
-// The statement for a rule-if production can be anything but an 'if'
-rule_if_production_stmt:
-	rule_stmt_parallel 	|
-	rule_repeat_stmt	|
-	rule_foreach_stmt
 ;
 
 rule_repeat_stmt:
 	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? body=rule_block_stmt
+;
+
+rule_constraint_stmt:
+	'constraint' (name=identifier)? constraints=constraint_block
 ;
 
 rule_foreach_stmt:
@@ -260,16 +242,17 @@ rule_break_stmt:
 ;
 
 rule_expr_stmt:
-	rule_stmt_alt_parallel_seq (';')?
+	rule_stmt_primary
+//	rule_stmt_alt_parallel_seq (';')?
 ;
 
-rule_stmt_alt_parallel_seq:
-	rule_stmt_parallel ({rule_stmt.left=current} alt?='|' ('if' '(' cond=expression ')')? right=rule_stmt_parallel)* 
-;
-
-rule_stmt_parallel:
-	rule_stmt_primary ({rule_stmt.left=current} parallel?='&' right=rule_stmt_primary)* 
-;
+//rule_stmt_alt_parallel_seq:
+//	rule_stmt_parallel ({rule_stmt.left=current} alt?='|' ('if' '(' cond=expression ')')? right=rule_stmt_parallel)* 
+//;
+//
+//rule_stmt_parallel:
+//	rule_stmt_primary ({rule_stmt.left=current} parallel?='&' right=rule_stmt_primary)* 
+//;
 
 rule_sequence:
 	items+=rule_seq_item (',' items+=rule_seq_item)*
@@ -304,7 +287,7 @@ rule_with_clause:
 ;
 
 rule_stmt_primary:
-	rule_sequence | 
+	rule_sequence_stmt | 
 	rule_block_stmt
 ;
 

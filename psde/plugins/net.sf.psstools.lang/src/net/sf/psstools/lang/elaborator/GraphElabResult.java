@@ -3,14 +3,14 @@ package net.sf.psstools.lang.elaborator;
 import net.sf.psstools.lang.elaborator.processor.GraphProcessingStrategy;
 
 public class GraphElabResult {
-	private GraphInstance				fGraph;
+	private DataTypeGraph				fGraph;
 	private GraphProcessingStrategy		fProcessingStrategy;
 	
-	public void setGraph(GraphInstance instance) {
+	public void setGraph(DataTypeGraph instance) {
 		fGraph = instance;
 	}
 	
-	public GraphInstance getGraph() {
+	public DataTypeGraph getGraph() {
 		return fGraph;
 	}
 	
