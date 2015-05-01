@@ -16,14 +16,12 @@ portable_stimulus_description:
 	graph_declaration | 
 	struct_declaration |
 	interface_declaration |
+	coverspec_declaration |
 	data_declaration |
 	typedef_declaration |
 	bins_declaration |
 	package_declaration |
-	import_stmt /* |
-	include_statement |
-	bins_declaration |
-	package_declaration */
+	import_stmt 
 ;
 
 package_declaration:
@@ -158,6 +156,7 @@ rule_production:
 	rule_constraint_stmt			|
 	rule_foreach_stmt				|
 	rule_assign_stmt				|
+	rule_inc_dec_stmt				|
 	rule_break_stmt					|
 	rule_expr_stmt					|
 	rule_select_stmt				|
@@ -174,6 +173,7 @@ rule_select_fork_production:
 	rule_constraint_stmt			|
 	rule_foreach_stmt				|
 	rule_assign_stmt				|
+	rule_inc_dec_stmt				|
 	rule_break_stmt					|
 	rule_select_stmt				|
 	rule_fork_stmt					|
@@ -234,7 +234,11 @@ rule_foreach_stmt:
 ;
 
 rule_assign_stmt:
-	param=identifier '<=' rhs=expression ';'
+	param=hierarchical_id op=('='|'+='|'-='|'|='|'&=') rhs=expression ';'
+;
+
+rule_inc_dec_stmt:
+	param=hierarchical_id op=('++'|'--')
 ;
 
 rule_break_stmt:
@@ -446,15 +450,20 @@ constraint_block:
 ;
 
 path_constraint_item:
-	'{' src=path_constraint_pattern '}' '->' '{' dst=path_constraint_pattern '}'
-;
-
-path_constraint_pattern:
-	path_constraint_wildcard_seq ({path_constraint_pattern_item.left=current} ',' right=path_constraint_wildcard_seq)*
+	'{' src=path_constraint_wildcard_seq '}' '->' (neg?='!')? '{' dst=path_constraint_pattern '}'
 ;
 
 path_constraint_wildcard_seq:
-	start=hierarchical_id ('..' end=hierarchical_id)?
+	path+=path_constraint_pattern (path+=path_constraint_pattern)*
+;
+
+path_constraint_pattern:
+	path_constraint_seq_item ({path_constraint_pattern.left=current} ',' right=path_constraint_seq_item)*
+;
+
+
+path_constraint_seq_item:
+	orlist+=hierarchical_id ('|' orlist+=hierarchical_id)*
 ;
 
 /********************************************************************
