@@ -1,0 +1,65 @@
+
+interface car_controls_if {
+	action on();
+	action off();
+	action park();
+	action reverse();
+	action drive();
+	action gas();
+	action brake();	
+}
+
+graph expects {
+	
+	symbol forward := {}
+	symbol stop := {}
+	
+	expects := select {
+		forward;
+		stop;
+	}
+}
+
+graph inputs(car_controls_if car_ctrl) {
+	
+	
+	symbol ignition := select {
+		on := 10: car_ctrl.on();
+		car_ctrl.off();
+	}
+	
+	symbol gear := select {
+		car_ctrl.park();
+		car_ctrl.reverse();
+		car_ctrl.drive();
+	}
+	
+	symbol pedal := select {
+		car_ctrl.gas();
+		car_ctrl.brake();
+	}
+	
+	inputs := ignition, gear, pedal;
+	
+}
+
+graph test_top(car_controls_if car_ctrl) {
+	expects	expects0;
+	inputs	inputs0(car_ctrl);
+	
+	constraint inputs_expects_c {
+		{expects0.forward} -> {inputs0.on}
+		{expects0.forward} -> {inputs0.drive}
+		{expects0.forward} -> {inputs0.gas}
+		
+		{expects0.stop} -> {inputs0.on}
+		{expects0.stop} -> {inputs0.park}
+		{expects0.stop} -> {inputs0.brake}
+	}
+	
+	test_top := repeat (20) {
+		expects0;
+		inputs0;
+	}
+	
+}

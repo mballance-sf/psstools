@@ -15,7 +15,7 @@ graph use_case (use_case_if	ifc) extends foo {
 	rand proc_tag_e			display_proc;
 	
 	rand video_stream_t		display_stream;
-
+	
 	use_case := {
 		// Select which processor will capture data from the camera,
 		// where the data will be stored and in what format
@@ -32,7 +32,7 @@ graph use_case (use_case_if	ifc) extends foo {
 		
 		// Determine how the data will be decoded and shown
 		display_stream;
-		
+
 		// Run the transmit, decode, and display operations in parallel
 		ifc.transmit(transmit_proc, convert_buff) &
 		ifc.decode_to_display(proc_tag, convert_buff, display_stream) &

@@ -1,0 +1,5 @@
+
+interface reg_rw_if {
+	action write_reg(int addr, int data);
+	action read_reg(int addr, output int data);
+}

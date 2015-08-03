@@ -1,0 +1,18 @@
+
+interface dma_alloc_ops {
+	
+	action setup_ip1(bit is_write, int n_bytes);
+	action setup_ip2(bit is_write, int n_bytes);
+	action setup_ip3(bit is_write, int n_bytes);
+	
+	action setup_dma(
+		int engine,
+		int channel,
+		bit is_write,
+		int ip_id,
+		int buffer_id);
+		
+	action wait_dma_irq(
+		int engine,
+		int channel);
+}

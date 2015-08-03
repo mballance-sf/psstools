@@ -1,0 +1,16 @@
+
+struct power_state {
+	rand bit[1:0]	A_state, B_state, C_state;
+	
+	constraint c {
+		
+
+		// The level for switch A must be >= level for switch B
+		A_state >= B_state;
+		
+		// If C is in a functional state, then B must be off
+		if (C_state != 0) {
+			B_state == 0;
+		}
+	}
+}

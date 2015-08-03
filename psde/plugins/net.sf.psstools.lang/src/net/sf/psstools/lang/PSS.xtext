@@ -93,8 +93,17 @@ graph_body_item:
 	symbol_definition 			|
 	interface_action_definition	|
 	import_stmt					|
-	coverspec_declaration
+	coverspec_declaration		
+//	attributes_block
 ;
+
+//attributes_block:
+//	'attributes' name=ID '{' body+=(attributes_stmt)* '}'
+//;
+//
+//attributes_stmt:
+//	name=ID '=' value=ATTR ';'
+//;
 
 field_declaration:
 	(rand?='rand')? declaration=data_declaration
@@ -408,7 +417,8 @@ constraint_body_item:
 	expression_or_dist_item |
 	foreach_constraint_item |
 	if_constraint_item		|
-	path_constraint_item
+	path_constraint_item	|
+	unique_constraint_item
 ;
 
 expression_or_dist_item:
@@ -466,6 +476,10 @@ path_constraint_seq_item:
 	orlist+=hierarchical_id ('|' orlist+=hierarchical_id)*
 ;
 
+unique_constraint_item:
+	'unique' '{' items+=hierarchical_id (',' items+=hierarchical_id)* '}' ';'
+;
+
 /********************************************************************
  * Heading: Bins and Bin Schemes
  ********************************************************************/
@@ -475,7 +489,7 @@ path_constraint_seq_item:
  ;
  
  bins_declaration:
- 	'bins' item=variable_identifier name=identifier bins=bin_specification ';'
+ 	'bins' name=identifier (item=variable_identifier)? bins=bin_specification ';'
  ;
  
  bin_specification:
@@ -514,7 +528,7 @@ path_constraint_seq_item:
  ;
  
  bin_scheme_specifier:
- 	name=identifier (bin_identifier | spec=bin_specifier) ';'
+ 	'bins' name=identifier item=variable_identifier (binref=bin_identifier | spec=bin_specifier) ';'
  ;
  
 /********************************************************************
@@ -557,7 +571,8 @@ coverspec_coverpoint_body_item:
 ;
 
 coverspec_coverpoint_binspec:
-	'bins' name=identifier bins=bin_specification ';'
+	'bins' name=identifier 
+		(bins=bin_specification | binsref=hierarchical_id) ';'
 ;
 
 coverspec_cross_body_item:
@@ -572,7 +587,8 @@ coverspec_cross:
 ;
 
 coverspec_paths_body_item:
-	coverspec_option
+	coverspec_option |
+	coverspec_paths_include_exclude
 ;
 
 coverspec_paths:
@@ -582,7 +598,10 @@ coverspec_paths:
 		)
 ;
 
- 
+coverspec_paths_include_exclude:
+	inc_excl=('include'|'exclude') paths_vals=('paths'|'values') ('{' list+=identifier (',' list+=identifier)* '}')? ';'
+;
+
  
 /********************************************************************
  * Heading: Expressions
@@ -774,6 +793,8 @@ terminal ML_COMMENT	: '/*' -> '*/';
 //terminal STRING	: 
 //			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' 
 //		; 
+
+terminal ATTR: '"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' ;
 
 terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 

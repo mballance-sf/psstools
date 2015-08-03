@@ -1,0 +1,8 @@
+
+graph power_state_sys_top(power_ctrl_if ctrl) {
+	power_state_sys ps(ctrl);
+	
+	power_state_sys_top := repeat {
+		ps;
+	}
+}
