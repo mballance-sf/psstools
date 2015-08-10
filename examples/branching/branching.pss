@@ -1,0 +1,57 @@
+
+package foo.bar.baz;
+
+//struct S {
+//	rand int a, b, c, d, e;
+//	
+//	constraint c {
+//		a inside {[0:5]};
+//		b inside {[0:5]};
+//		c inside {[0:5]};
+//		d inside {[0:5]};
+//	}
+//}
+
+interface simple_callout {
+	action callout(int val);
+}
+
+graph branching (
+	simple_callout		call_if
+	) {
+//	rand S s1, s2, s3, s4;
+//	rand S s5, s6;
+	rand int a, b, c;
+	rand bit d, e, f, g;
+	rand bit h, i, j, k;
+	
+//	constraint global_c {
+//		s1.a == s3.a;
+//		s1.b == s5.a;
+//	}
+	
+	branching := {
+		repeat {
+		repeat {
+		a,b,c | d,e,f; 
+		h,i,j,k;
+		}
+		}
+	}
+//	{
+//		a, b; 
+//		c | d,e,f 
+//		call_if.callout(c+5)
+//		g
+//		call_if.callout(g);
+//		
+//		{
+//			h
+//			call_if.callout(h) 
+//		} | {
+//			i
+//			call_if.callout(i);
+//		}
+//	}
+	
+}

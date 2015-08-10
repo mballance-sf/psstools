@@ -1,0 +1,22 @@
+
+
+
+/*
+ * Graph: reg_accessor
+ * 
+ * This graph reads and writes registers via the 'reg_rw_if' interface
+ */
+graph reg_accessor(
+	reg_rw_if			reg_if
+	) {
+	rand int addr;
+	rand int data;
+	int data_in;
+	
+	reg_accessor := repeat { 
+		addr, data;
+		reg_if.write_reg(addr, data) | reg_if.read_reg(addr, data_in);
+		}
+}
+
+

@@ -1,0 +1,62 @@
+
+
+typedef enum {
+	SDRAM0,
+	SDRAM1,
+	IRAM0,
+	IRAM1
+} mem_region_e;
+
+struct mem_transfer {
+	rand mem_region_e			src;
+	rand mem_region_e			dst;
+	rand bit[31:0]				sz;	
+	
+	constraint region_sz_c {
+		sz inside {[1..1024*1024*1024]};
+	}
+}
+
+interface mem_if {
+	action c0(mem_transfer t);
+	action c1(mem_transfer t);
+	action dma0(mem_transfer t);
+	action dma1(mem_transfer t);
+}
+
+
+graph multi_engine_traffic (mem_if mem) {
+	rand mem_transfer		c0, c1, dma0, dma1;
+
+	// Engine-specific constraints	
+	constraint engine_c {
+		(dma0.size & 'h7) == 0;
+		(dma0.size & 'h7) == 0;
+	
+		// DMA0 cannot access IRAMs	
+		!(dma0.dst inside {IRAM0, IRAM1});
+		!(dma0.src inside {IRAM0, IRAM1});
+	}
+	
+	multi_engine_traffic := repeat {
+		// Select transfer specifics
+		c0, c1, dma0, dma1;
+		fork {
+			mem.c0(c0);
+			mem.c1(c1);
+			mem.dma0(dma0);
+			mem.dma1(dma1);
+		}
+	}
+	
+	coverspec traffic_goals(multi_engine_traffic t) {
+		c0_sz : coverpoint t.c0.sz {
+			bins c0_sz [1..7]:1 [8..65535]/8;
+		}
+		c1_sz : coverpoint t.c1.sz {
+			bins c1_sz [1..7]:1 [8..65535]/8;
+		}
+		
+	}
+	
+}

@@ -10,11 +10,13 @@ public class GraphNode {
 	private GraphNodeType		fType;
 	private Object				fTarget;
 	private List<GraphNode>		fConnected;
+	private List<GraphNode>		fChildren;
 	
 	public GraphNode(GraphNodeType type) {
 		fType = type;
 		fTarget = null;
 		fConnected = new ArrayList<GraphNode>();
+		fChildren = new ArrayList<GraphNode>();
 	}
 	
 	public GraphNode(GraphNodeType type, Object target) {
@@ -22,6 +24,14 @@ public class GraphNode {
 		fTarget = target;
 	}
 	
+	public List<GraphNode> getChildren() {
+		return fChildren;
+	}
+	
+	public void addChild(GraphNode c) {
+		fChildren.add(c);
+	}
+
 	public GraphNodeType getType() {
 		return fType;
 	}

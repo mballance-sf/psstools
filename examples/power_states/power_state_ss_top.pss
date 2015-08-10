@@ -1,0 +1,8 @@
+
+graph power_state_ss_top(power_ctrl_if ctrl) {
+	power_state_ss ps(ctrl);
+	
+	power_state_ss := repeat {
+		ps;
+	}
+}

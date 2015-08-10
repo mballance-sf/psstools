@@ -1,0 +1,26 @@
+
+coverspec power_state_sys_cov(power_states_sys ps_sys) {
+	
+	ss0_end_cp : coverpoint ps_sys.ps_ss0.ps3.B_state {
+		bins ss_end [1..3]:1;
+	}
+	
+	ss1_end_cp : coverpoint ps_sys.ps_ss1.ps3.B_state {
+		bins ss_end [1..3]:1;
+	}
+
+	ss1Xss2_end : cross ss0_end_cp, ss1_end_cp;
+		
+}
+
+graph power_state_sys(power_ctrl_if ctrl) {
+	power_state_ss ps_ss0(ctrl), ps_ss1(ctrl);
+
+	power_state_sys_cov sys_cov(this);
+
+	power_state_sys := {
+		ps_ss0;
+		ps_ss1;
+	}
+	
+}

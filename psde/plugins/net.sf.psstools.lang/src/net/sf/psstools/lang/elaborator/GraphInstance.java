@@ -8,7 +8,7 @@ import java.util.Map;
 
 import net.sf.psstools.lang.elaborator.rules.RuleProduction;
 
-public class GraphInstance {
+public class GraphInstance extends DeclScope {
 
 	private String								fName;
 	private List<DataField>						fDataFields;
@@ -16,7 +16,7 @@ public class GraphInstance {
 	private Map<String, InterfaceDeclaration>	fInterfaceMap;
 	private List<GraphInterface>				fInterfaceList;
 	private Map<String, DataTypeStruct>			fStructMap;
-
+	
 	public GraphInstance(String name) {
 		fName = name;
 		fDataFields = new ArrayList<DataField>();
@@ -29,10 +29,16 @@ public class GraphInstance {
 		return fName;
 	}
 	
-	public void addField(DataField field) {
-		fDataFields.add(field);
-	}
+//	public void addField(DataField field) {
+//		fDataFields.add(field);
+//	}
 	
+	@Override
+	public void addVariable(DataField field) {
+		fDataFields.add(field);
+		super.addVariable(field);
+	}
+
 	public List<DataField> getFields() {
 		return fDataFields;
 	}

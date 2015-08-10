@@ -9,6 +9,7 @@ import java.util.Stack;
 import net.sf.psstools.lang.elaborator.ActionParameter;
 import net.sf.psstools.lang.elaborator.DataField;
 import net.sf.psstools.lang.elaborator.DataType;
+import net.sf.psstools.lang.elaborator.DataTypeGraph;
 import net.sf.psstools.lang.elaborator.DataTypeScalar;
 import net.sf.psstools.lang.elaborator.GraphElabResult;
 import net.sf.psstools.lang.elaborator.GraphInstance;
@@ -94,75 +95,75 @@ public class PssSystemVerilogClassGenerator {
 	}
 	
 	private void generate_interface_classes() {
-		for (InterfaceDeclaration ifc_decl : fElabResult.getGraph().getInterfaceDecls()) {
-			
-			println("virtual class " + ifc_decl.getName() + ";");
-			println();
-			indent();
-			
-			for (InterfaceAction action : ifc_decl.getActions()) {
-				println("pure virtual task " + action.getName() + "(");
-				indent();
-				indent();
-				for (int i=0; i<action.getParameters().size(); i++) {
-					ActionParameter p = action.getParameters().get(i);
-					DataType type = p.getType();
-					
-					String port_decl = "";
-					
-					switch (p.getDirection()) {
-						case In: port_decl = "input "; break;
-						case Out: port_decl = "output "; break;
-						case InOut: port_decl = "inout "; break;
-					}
-
-					port_decl += getTypeString(p.getType());
-					port_decl += " ";
-					port_decl += p.getName();
-					
-					if (i+1 < action.getParameters().size()) {
-						port_decl += ",";
-					} else {
-						port_decl += ");";
-					}
-					
-					println(port_decl);
-				}
-				unindent();
-				unindent();
-				
-				if (action.getParameters().size() == 0) {
-					println(");");
-				}
-			}
-		
-			unindent();
-			println("endclass");
-			println();
-		}
+//		for (InterfaceDeclaration ifc_decl : fElabResult.getGraph().getInterfaceDecls()) {
+//			
+//			println("virtual class " + ifc_decl.getName() + ";");
+//			println();
+//			indent();
+//			
+//			for (InterfaceAction action : ifc_decl.getActions()) {
+//				println("pure virtual task " + action.getName() + "(");
+//				indent();
+//				indent();
+//				for (int i=0; i<action.getParameters().size(); i++) {
+//					ActionParameter p = action.getParameters().get(i);
+//					DataType type = p.getType();
+//					
+//					String port_decl = "";
+//					
+//					switch (p.getDirection()) {
+//						case In: port_decl = "input "; break;
+//						case Out: port_decl = "output "; break;
+//						case InOut: port_decl = "inout "; break;
+//					}
+//
+//					port_decl += getTypeString(p.getType());
+//					port_decl += " ";
+//					port_decl += p.getName();
+//					
+//					if (i+1 < action.getParameters().size()) {
+//						port_decl += ",";
+//					} else {
+//						port_decl += ");";
+//					}
+//					
+//					println(port_decl);
+//				}
+//				unindent();
+//				unindent();
+//				
+//				if (action.getParameters().size() == 0) {
+//					println(");");
+//				}
+//			}
+//		
+//			unindent();
+//			println("endclass");
+//			println();
+//		}
 	}
 	
 	private void generate_interface_fields() {
-		GraphInstance graph = fElabResult.getGraph();
+		DataTypeGraph graph = fElabResult.getGraph();
 
 		println("// Interface fields");
 	
-		for (GraphInterface ifc : graph.getInterfaces()) {
-			println(ifc.getInterfaceTypeName() + " " + ifc.getName() + ";");
-		}
+//		for (GraphInterface ifc : graph.getInterfaces()) {
+//			println(ifc.getInterfaceTypeName() + " " + ifc.getName() + ";");
+//		}
 	}
 	
 	private void generate_graph_fields() {
-		GraphInstance graph = fElabResult.getGraph();
+		DataTypeGraph graph = fElabResult.getGraph();
 	
 		println("// Graph fields");
-		for (DataField field : graph.getFields()) {
-			String definition = 
-				((field.isRand())?"rand ":"") + 
-				getTypeString(field.getType());
-			
-			println(definition + " " + field.getName() + ";");
-		}
+//		for (DataField field : graph.getFields()) {
+//			String definition = 
+//				((field.isRand())?"rand ":"") + 
+//				getTypeString(field.getType());
+//			
+//			println(definition + " " + field.getName() + ";");
+//		}
 	}
 	
 	private void generate_graph_body() {
@@ -208,28 +209,28 @@ public class PssSystemVerilogClassGenerator {
 	}
 	
 	private void generate_tostring() {
-		GraphInstance graph = fElabResult.getGraph();
+		DataTypeGraph graph = fElabResult.getGraph();
 	
-		println("// tostring method");
-		println("function string tostring();");
-		indent();
-		println("string ret;");
-		
-		for (DataField field : graph.getFields()) {
-			DataType type = field.getType();
-			
-			switch (type.getType()) {
-				case Scalar: {
-//					ScalarDataField sfield = (ScalarDataField)field;
-					// TODO: handle enumerated values
-					println("ret = {ret, $psprintf(\"  " + field.getName() + " = %0d\\n\", " + field.getName() + ")};");
-				} break;
-			}
-		}
-		
-		println("return ret;");
-		unindent();
-		println("endfunction");
+//		println("// tostring method");
+//		println("function string tostring();");
+//		indent();
+//		println("string ret;");
+//		
+//		for (DataField field : graph.getFields()) {
+//			DataType type = field.getType();
+//			
+//			switch (type.getType()) {
+//				case Scalar: {
+////					ScalarDataField sfield = (ScalarDataField)field;
+//					// TODO: handle enumerated values
+//					println("ret = {ret, $psprintf(\"  " + field.getName() + " = %0d\\n\", " + field.getName() + ")};");
+//				} break;
+//			}
+//		}
+//		
+//		println("return ret;");
+//		unindent();
+//		println("endfunction");
 	}	
 	
 	private void implement_strategy(int branch_id, GraphProcDirective directive) {

@@ -16,14 +16,12 @@ portable_stimulus_description:
 	graph_declaration | 
 	struct_declaration |
 	interface_declaration |
+	coverspec_declaration |
 	data_declaration |
 	typedef_declaration |
 	bins_declaration |
 	package_declaration |
-	import_stmt /* |
-	include_statement |
-	bins_declaration |
-	package_declaration */
+	import_stmt 
 ;
 
 package_declaration:
@@ -81,7 +79,8 @@ struct_body_item:
 	field_declaration			|
 	typedef_declaration			|
 	bin_or_scheme_declaration	|
-	import_stmt
+	import_stmt					|
+	coverspec_declaration
 ;
 
 graph_body_item:
@@ -93,8 +92,18 @@ graph_body_item:
 	symbol_declaration 			|
 	symbol_definition 			|
 	interface_action_definition	|
-	import_stmt
+	import_stmt					|
+	coverspec_declaration		
+//	attributes_block
 ;
+
+//attributes_block:
+//	'attributes' name=ID '{' body+=(attributes_stmt)* '}'
+//;
+//
+//attributes_stmt:
+//	name=ID '=' value=ATTR ';'
+//;
 
 field_declaration:
 	(rand?='rand')? declaration=data_declaration
@@ -151,32 +160,82 @@ symbol_decl_item:
  * Heading: Rule Productions
  ********************************************************************/
 rule_production: 
-	rule_if_production 				|
+	rule_if_else_production			|
 	rule_repeat_stmt 				|
+	rule_constraint_stmt			|
 	rule_foreach_stmt				|
 	rule_assign_stmt				|
+	rule_inc_dec_stmt				|
 	rule_break_stmt					|
-	rule_expr_stmt
+	rule_expr_stmt					|
+	rule_select_stmt				|
+	rule_fork_stmt
 ;
 
-rule_if_production:
-	'if' '(' expr+=expression ')' alts+=rule_if_production_stmt
-		(
-			((alt?='|' alts+=rule_if_production_stmt) ('|' alts+=rule_if_production_stmt)* ('else' false_case=rule_if_production_stmt)?) |
-			(else?='else' false_case=rule_if_production_stmt) 
-		)
+rule_if_else_production:
+	'if' '(' expr=expression ')' if_production=rule_production 
+	'else' else_production=rule_production
 ;
 
-// The statement for a rule-if production can be anything but an 'if'
-rule_if_production_stmt:
-	rule_stmt_parallel 	|
-	rule_repeat_stmt	|
-	rule_foreach_stmt
+rule_select_fork_production:
+	rule_repeat_stmt 				|
+	rule_constraint_stmt			|
+	rule_foreach_stmt				|
+	rule_assign_stmt				|
+	rule_inc_dec_stmt				|
+	rule_break_stmt					|
+	rule_select_stmt				|
+	rule_fork_stmt					|
+	rule_select_fork_block			|
+	rule_select_fork_if_else_stmt	|
+	rule_sequence_stmt
+	;
+
+rule_select_fork_if_else_stmt:
+	'if' '(' expr=expression ')' true_prod=rule_select_fork_production
+	(=> 'else' false_prod=rule_select_fork_production)?
+;	
+
+rule_select_fork_block:
+	{rule_select_fork_block} '{' productions+=rule_select_fork_production* '}'
+;
+
+rule_select_stmt:
+	'select' '{'
+		productions+=rule_select_production productions+=rule_select_production*
+	'}'
+;
+
+rule_sequence_stmt:
+	rule_sequence ';'
+;
+
+rule_select_production:
+	(label=identifier (':=' weight=rule_select_weight)? ':')? production=rule_select_fork_production 
+;
+
+rule_select_weight:
+	value=number |
+	id=identifier |
+	'(' expr=expression ')'
+;
+
+rule_fork_stmt:
+	{rule_fork_stmt} 'fork' '{'
+		productions+=rule_fork_production*
+	'}'
+;
+
+rule_fork_production:
+	(label=identifier ':')? production=rule_select_fork_production
 ;
 
 rule_repeat_stmt:
-//	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? '{' stmts+=rule_production* '}' 
 	{rule_repeat_stmt} 'repeat' ('(' expr=expression ')')? body=rule_block_stmt
+;
+
+rule_constraint_stmt:
+	'constraint' (name=identifier)? constraints=constraint_block
 ;
 
 rule_foreach_stmt:
@@ -184,7 +243,11 @@ rule_foreach_stmt:
 ;
 
 rule_assign_stmt:
-	param=identifier '<=' rhs=expression ';'
+	param=hierarchical_id op=('='|'+='|'-='|'|='|'&=') rhs=expression ';'
+;
+
+rule_inc_dec_stmt:
+	param=hierarchical_id op=('++'|'--')
 ;
 
 rule_break_stmt:
@@ -192,16 +255,17 @@ rule_break_stmt:
 ;
 
 rule_expr_stmt:
-	rule_stmt_alt_parallel_seq (';')?
+	rule_stmt_primary
+//	rule_stmt_alt_parallel_seq (';')?
 ;
 
-rule_stmt_alt_parallel_seq:
-	rule_stmt_parallel ({rule_stmt.left=current} alt?='|' right=rule_stmt_parallel)* 
-;
-
-rule_stmt_parallel:
-	rule_stmt_primary ({rule_stmt.left=current} parallel?='&' right=rule_stmt_primary)* 
-;
+//rule_stmt_alt_parallel_seq:
+//	rule_stmt_parallel ({rule_stmt.left=current} alt?='|' ('if' '(' cond=expression ')')? right=rule_stmt_parallel)* 
+//;
+//
+//rule_stmt_parallel:
+//	rule_stmt_primary ({rule_stmt.left=current} parallel?='&' right=rule_stmt_primary)* 
+//;
 
 rule_sequence:
 	items+=rule_seq_item (',' items+=rule_seq_item)*
@@ -236,7 +300,7 @@ rule_with_clause:
 ;
 
 rule_stmt_primary:
-	rule_sequence | 
+	rule_sequence_stmt | 
 	rule_block_stmt
 ;
 
@@ -352,12 +416,31 @@ constraint_declaration:
 constraint_body_item:
 	expression_or_dist_item |
 	foreach_constraint_item |
-	if_constraint_item
+	if_constraint_item		|
+	path_constraint_item	|
+	unique_constraint_item
 ;
 
 expression_or_dist_item:
-	// TODO: dist item
-	expression (('->' impl_constraint=constraint_set)|';')
+	expression (
+		('->' impl_constraint=constraint_set)						|
+		('dist' '{' items+=dist_item (',' items+=dist_item)* '}') 	|
+		';'
+	)
+;
+
+dist_item:
+	range=value_range (weight=dist_weight)?
+;
+
+dist_weight:
+	':=' expression |
+	':/' expression
+;
+
+value_range:
+	lhs=expression |
+	'[' lhs=expression (':'|'..') rhs=expression ']'
 ;
 
 if_constraint_item:
@@ -376,6 +459,27 @@ constraint_block:
 	'{' {constraint_set} items+=constraint_body_item* '}'
 ;
 
+path_constraint_item:
+	'{' src=path_constraint_wildcard_seq '}' '->' (neg?='!')? '{' dst=path_constraint_pattern '}'
+;
+
+path_constraint_wildcard_seq:
+	path+=path_constraint_pattern (path+=path_constraint_pattern)*
+;
+
+path_constraint_pattern:
+	path_constraint_seq_item ({path_constraint_pattern.left=current} ',' right=path_constraint_seq_item)*
+;
+
+
+path_constraint_seq_item:
+	orlist+=hierarchical_id ('|' orlist+=hierarchical_id)*
+;
+
+unique_constraint_item:
+	'unique' '{' items+=hierarchical_id (',' items+=hierarchical_id)* '}' ';'
+;
+
 /********************************************************************
  * Heading: Bins and Bin Schemes
  ********************************************************************/
@@ -385,7 +489,7 @@ constraint_block:
  ;
  
  bins_declaration:
- 	'bins' item=variable_identifier name=identifier bins=bin_specification ';'
+ 	'bins' name=identifier (item=variable_identifier)? bins=bin_specification ';'
  ;
  
  bin_specification:
@@ -424,8 +528,80 @@ constraint_block:
  ;
  
  bin_scheme_specifier:
- 	name=identifier (bin_identifier | spec=bin_specifier) ';'
+ 	'bins' name=identifier item=variable_identifier (binref=bin_identifier | spec=bin_specifier) ';'
  ;
+ 
+/********************************************************************
+ * Heading: Coverspec
+ ********************************************************************/
+
+coverspec_declaration:
+	'coverspec' name=identifier '(' ports+=coverspec_port (',' ports+=coverspec_port)* ')' '{'
+		body_items+=coverspec_body_item*
+	'}'
+;
+
+coverspec_port:
+	type=data_type name=identifier
+;
+
+coverspec_body_item:
+	coverspec_option		|
+	coverspec_coverpoint	|
+	coverspec_cross			|
+	coverspec_paths			|
+	constraint_declaration
+;
+
+coverspec_option:
+	'option' '.' option=identifier '=' value=constant_expression ';'
+;
+
+
+coverspec_coverpoint:
+	name=ID ':' 'coverpoint' target=hierarchical_id 
+		(
+			( '{' body_items+=coverspec_coverpoint_body_item* '}') | ';'
+		)
+;
+
+coverspec_coverpoint_body_item:
+	coverspec_option			|
+	coverspec_coverpoint_binspec
+;
+
+coverspec_coverpoint_binspec:
+	'bins' name=identifier 
+		(bins=bin_specification | binsref=hierarchical_id) ';'
+;
+
+coverspec_cross_body_item:
+	coverspec_option
+;
+
+coverspec_cross:
+	name=ID ':' 'cross' targets+=hierarchical_id (',' targets+=hierarchical_id)*
+		(
+			( '{' body_items+=coverspec_cross_body_item* '}') | ';'
+		)
+;
+
+coverspec_paths_body_item:
+	coverspec_option |
+	coverspec_paths_include_exclude
+;
+
+coverspec_paths:
+	name=ID ':' 'paths' start=hierarchical_id ',' (stop+=hierarchical_id | '{' stop+=hierarchical_id (',' stop+=hierarchical_id)*)
+		(
+			( '{' body_items+=coverspec_paths_body_item* '}') | ';'
+		)
+;
+
+coverspec_paths_include_exclude:
+	inc_excl=('include'|'exclude') paths_vals=('paths'|'values') ('{' list+=identifier (',' list+=identifier)* '}')? ';'
+;
+
  
 /********************************************************************
  * Heading: Expressions
@@ -511,8 +687,8 @@ unary_expr returns expression:
 ;
 
 primary: //; returns expression:
-	number | 
-	paren_expr |
+	number 			| 
+	paren_expr 		|
 	variable_ref
 ;
 
@@ -532,8 +708,6 @@ variable_ref:
 //port_map:
 //	'.' port=identifier '(' map=hierarchical_id ')'
 //;
-
-
 
 
 /********************************************************************
@@ -619,6 +793,8 @@ terminal ML_COMMENT	: '/*' -> '*/';
 //terminal STRING	: 
 //			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' 
 //		; 
+
+terminal ATTR: '"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' ;
 
 terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
 
