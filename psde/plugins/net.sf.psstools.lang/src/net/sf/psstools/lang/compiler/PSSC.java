@@ -1,34 +1,19 @@
 package net.sf.psstools.lang.compiler;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.sf.psstools.lang.PSSStandaloneSetup;
 import net.sf.psstools.lang.elaborator.GraphElaborator;
 import net.sf.psstools.lang.pSS.Model;
-import net.sf.psstools.lang.pSS.graph_declaration;
-import net.sf.psstools.lang.pSS.graph_or_struct_declaration;
-import net.sf.psstools.lang.pSS.impl.ModelImpl;
-import net.sf.psstools.lang.parser.antlr.PSSParser;
 
 import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
-import org.eclipse.xtext.parser.IParseResult;
-import org.eclipse.xtext.parser.IParser;
-import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
-import org.eclipse.xtext.parser.antlr.XtextParser;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
@@ -116,17 +101,17 @@ public class PSSC implements IApplication {
 	private void recurse(String ind, EObject obj) {
 		System.out.println(ind + obj.toString());
 		
-		if (obj instanceof graph_declaration) {
-			graph_declaration g = (graph_declaration)obj;
-			graph_or_struct_declaration gs = (graph_or_struct_declaration)g.getSuper();
-			System.out.println("Super: " + gs.eIsProxy());
-			System.out.println("  instanceof graph: " + (gs instanceof graph_declaration));
-			System.out.println("  instanceof struct: " + (gs instanceof graph_declaration));
-			recurse("      ", gs);
-			for (EObject eo : g.eCrossReferences()) {
-				System.out.println("cross: " + eo);
-			}
-		}
+//		if (obj instanceof graph_declaration) {
+//			graph_declaration g = (graph_declaration)obj;
+//			graph_or_struct_declaration gs = (graph_or_struct_declaration)g.getSuper();
+//			System.out.println("Super: " + gs.eIsProxy());
+//			System.out.println("  instanceof graph: " + (gs instanceof graph_declaration));
+//			System.out.println("  instanceof struct: " + (gs instanceof graph_declaration));
+//			recurse("      ", gs);
+//			for (EObject eo : g.eCrossReferences()) {
+//				System.out.println("cross: " + eo);
+//			}
+//		}
 		for (EObject eo : obj.eContents()) {
 			recurse(ind + "  ", eo);
 		}

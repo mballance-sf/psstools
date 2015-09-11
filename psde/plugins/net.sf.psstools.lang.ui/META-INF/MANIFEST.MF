@@ -16,9 +16,7 @@ Require-Bundle: net.sf.psstools.lang;visibility:=reexport,
  org.antlr.runtime,
  org.eclipse.xtext.common.types.ui,
  org.eclipse.xtext.ui.codetemplates.ui,
- org.eclipse.compare,
- org.eclipse.zest.core,
- org.eclipse.zest.layouts
+ org.eclipse.compare
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: net.sf.psstools.lang.ui.quickfix,

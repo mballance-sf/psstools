@@ -1,38 +1,14 @@
 package net.sf.psstools.lang.ui.editor.actions;
 
-import net.sf.psstools.lang.elaborator.ElabException;
-import net.sf.psstools.lang.elaborator.GraphElabResult;
-import net.sf.psstools.lang.elaborator.GraphElaborator;
-import net.sf.psstools.lang.elaborator.GraphInstance;
-import net.sf.psstools.lang.pSS.Model;
-import net.sf.psstools.lang.pSS.graph_declaration;
-import net.sf.psstools.lang.ui.views.graph.PSSGraphView;
-
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.commands.IHandler;
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess;
 import org.eclipse.xtext.generator.IGenerator;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
@@ -96,58 +72,58 @@ public class ViewGraphHandler extends AbstractHandler implements IHandler {
 				}
 			});
 			
-			if (eObj instanceof graph_declaration && xe.getEditorInput() instanceof FileEditorInput) {
-				graph_declaration graph = (graph_declaration)eObj;
-				
-				System.out.println("eobj: " + eObj);
-				IFile file = ((FileEditorInput)xe.getEditorInput()).getFile();
-				IProject project = file.getProject();
-//				Injector injector = PSSActivator.getInstance().getInjector(PSSActivator.NET_SF_PSSTOOLS_LANG_PSS);
-//				XtextResourceSetProvider injector.getInstance(XtextResourceSetProvider.class);
-//				PSSExecutableExtensionFactory factory = new PSSExecutableExtensionFactory();
-				ResourceSet rs = resourceSetProvider.get(project);
-			
-				try {
-				for (IResource r : project.members()) {
-					if (r instanceof IFile && ((IFile)r).getName().endsWith(".pss")) {
-						URI uri = URI.createPlatformResourceURI(r.getFullPath().toString());
-						rs.getResource(uri, true);
-					}
-				}
-				} catch (CoreException e) { }
-				
-				for (Resource resource : rs.getResources()) {
-					System.out.println("resource: " + resource);
-				}
-				
-				System.out.println("rs: " + rs);
-				TreeIterator<Notifier> all_contents = rs.getAllContents();
-				EcoreUtil.resolveAll(rs);
-				
-				GraphElaborator elab = new GraphElaborator();
-				
-				while (all_contents.hasNext()) {
-					Notifier n = all_contents.next();
-					if (n instanceof Model) {
-						elab.addModel((Model)n);
-					}
-				}
-				
-				GraphElabResult elab_result = null;
-
-				try {
-					elab_result = elab.elaborate(graph.getName());
-				} catch (ElabException e) {
-					e.printStackTrace();
-				}
-				
-				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-				IWorkbenchPage page = window.getActivePage();
-				try {
-					IViewPart view = page.showView("net.sf.psstools.lang.ui.pssGraphView");
-					((PSSGraphView)view).setInput(elab_result);
-				} catch (PartInitException e) { }
-			};			
+//			if (eObj instanceof graph_declaration && xe.getEditorInput() instanceof FileEditorInput) {
+//				graph_declaration graph = (graph_declaration)eObj;
+//				
+//				System.out.println("eobj: " + eObj);
+//				IFile file = ((FileEditorInput)xe.getEditorInput()).getFile();
+//				IProject project = file.getProject();
+////				Injector injector = PSSActivator.getInstance().getInjector(PSSActivator.NET_SF_PSSTOOLS_LANG_PSS);
+////				XtextResourceSetProvider injector.getInstance(XtextResourceSetProvider.class);
+////				PSSExecutableExtensionFactory factory = new PSSExecutableExtensionFactory();
+//				ResourceSet rs = resourceSetProvider.get(project);
+//			
+//				try {
+//				for (IResource r : project.members()) {
+//					if (r instanceof IFile && ((IFile)r).getName().endsWith(".pss")) {
+//						URI uri = URI.createPlatformResourceURI(r.getFullPath().toString());
+//						rs.getResource(uri, true);
+//					}
+//				}
+//				} catch (CoreException e) { }
+//				
+//				for (Resource resource : rs.getResources()) {
+//					System.out.println("resource: " + resource);
+//				}
+//				
+//				System.out.println("rs: " + rs);
+//				TreeIterator<Notifier> all_contents = rs.getAllContents();
+//				EcoreUtil.resolveAll(rs);
+//				
+//				GraphElaborator elab = new GraphElaborator();
+//				
+//				while (all_contents.hasNext()) {
+//					Notifier n = all_contents.next();
+//					if (n instanceof Model) {
+//						elab.addModel((Model)n);
+//					}
+//				}
+//				
+//				GraphElabResult elab_result = null;
+//
+//				try {
+//					elab_result = elab.elaborate(graph.getName());
+//				} catch (ElabException e) {
+//					e.printStackTrace();
+//				}
+//				
+//				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+//				IWorkbenchPage page = window.getActivePage();
+//				try {
+//					IViewPart view = page.showView("net.sf.psstools.lang.ui.pssGraphView");
+//					((PSSGraphView)view).setInput(elab_result);
+//				} catch (PartInitException e) { }
+//			};			
 		}
 
 		return null;

@@ -3,8 +3,6 @@
  */
 package net.sf.psstools.lang.generator
 
-import net.sf.psstools.lang.pSS.graph_declaration
-import net.sf.psstools.lang.pSS.rule_production
 import org.eclipse.emf.ecore.resource.Resource
 import org.eclipse.xtext.generator.IFileSystemAccess
 import org.eclipse.xtext.generator.IGenerator

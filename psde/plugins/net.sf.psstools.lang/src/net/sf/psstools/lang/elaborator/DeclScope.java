@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.psstools.lang.elaborator.DataType.Type;
+import net.sf.psstools.lang.pSS.type_identifier;
 
 public class DeclScope implements IDeclScope {
 	private List<DataType>					fTypeDecl;
@@ -30,7 +31,7 @@ public class DeclScope implements IDeclScope {
 	}
 
 	@Override
-	public DataType findType(String name) {
+	public DataType findType(type_identifier name) {
 		DataType t = null;
 		
 		for (DataType dt : fTypeDecl) {

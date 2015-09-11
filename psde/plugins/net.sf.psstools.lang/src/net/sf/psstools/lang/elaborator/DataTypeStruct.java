@@ -3,6 +3,8 @@ package net.sf.psstools.lang.elaborator;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sf.psstools.lang.pSS.type_identifier;
+
 public class DataTypeStruct extends DataType implements IDeclScope {
 	private String					fName;
 	private List<DataField>			fFields;
@@ -54,7 +56,7 @@ public class DataTypeStruct extends DataType implements IDeclScope {
 	}
 
 	@Override
-	public DataType findType(String name) { return null; }
+	public DataType findType(type_identifier name) { return null; }
 
 	@Override
 	public void addType(DataType type) { }

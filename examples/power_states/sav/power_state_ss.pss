@@ -15,26 +15,38 @@ coverspec power_state_ss_cov(power_states ps) {
 }
 
 graph power_state_ss(power_ctrl_if ctrl) {
+	rand power_state curr, next;
 	rand power_state s1, s2, s3;
+	rand int inside {-1,1} step1, step2, step3;
 
-	constraint scenario_c {
-		// First operation must set B to an active state
-		s1.B_state > 0;
-		
-		// Second operation must set C to full power
-		s2.C_state == 3;
-		
-		// Third operation must set B to an active state
-		s1.B_state > 0;
-	}
+//	constraint scenario_c {
+//		// First operation must set B to an active state
+//		s1.B_state > 0;
+//		
+//		// Second operation must set C to full power
+//		s2.C_state == 3;
+//		
+//		// Third operation must set B to an active state
+//		s1.B_state > 0;
+//	}
+
+	// B on
+	// C == 3
+	// B on
 	
 	powers_state_ss_cov pscov(this);
-	
+
 	power_state_ss := {
+		
+		
+		
+		step1;
 		s1;
 		ctrl.set_state(s1.A_state, s1.B_state, s1.C_state);
+		step2;
 		s2;
 		ctrl.set_state(s2.A_state, s2.B_state, s2.C_state);
+		step3;
 		s3;
 		ctrl.set_state(s3.A_state, s3.B_state, s3.C_state);
 	}

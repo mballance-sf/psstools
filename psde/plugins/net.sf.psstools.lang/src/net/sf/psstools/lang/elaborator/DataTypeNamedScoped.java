@@ -1,5 +1,7 @@
 package net.sf.psstools.lang.elaborator;
 
+import net.sf.psstools.lang.pSS.type_identifier;
+
 public class DataTypeNamedScoped extends DataTypeNamed implements IDeclScope {
 	private DeclScope				fScope;
 	private DataType				fSuper;
@@ -38,7 +40,7 @@ public class DataTypeNamedScoped extends DataTypeNamed implements IDeclScope {
 	}
 
 	@Override
-	public DataType findType(String name) {
+	public DataType findType(type_identifier name) {
 		DataType type = null;
 		
 		if ((type = fScope.findType(name)) != null) {

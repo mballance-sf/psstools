@@ -17,7 +17,7 @@ graph power_state_sys(power_ctrl_if ctrl) {
 	power_state_ss ps_ss0(ctrl), ps_ss1(ctrl);
 
 	power_state_sys_cov sys_cov(this);
-
+	
 	power_state_sys := {
 		ps_ss0;
 		ps_ss1;
