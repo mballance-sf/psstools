@@ -1,0 +1,86 @@
+
+struct power_state {
+	rand bit[1:0]	A_state, B_state, C_state;
+	
+	constraint c {
+		// The level for switch A must be >= level for switch B
+		A_state >= B_state;
+		
+		// If C is in a functional state, then B must be off
+		if (C_state != 0) {
+			B_state == 0;
+		}
+	}
+}
+
+// Transitions power state from initial to final state
+action change_power_state {
+	input power_state		state_i;
+	rand power_state		s[4];
+	output power_state		state_o;
+	
+	constraint {
+		s[0].A_state == state_i.A_state;
+		s[0].B_state == state_i.B_state;
+		s[0].C_state == state_i.C_state;
+		foreach (s[i]) {
+			if (i > 0) {
+				if (s[i].A_state > s[i-1].A_state) {
+					s[i].A_state == s[i-1].A_state+1;
+				} else if (s[i].A_state < s[i-1].A_state) {
+					s[i].A_state == s[i-1].A_state-1;
+				} else {
+					s[i].A_state == s[i-1].A_state;
+				}
+				if (s[i].B_state > s[i-1].B_state) {
+					s[i].B_state == s[i-1].B_state+1;
+				} else if (s[i].B_state < s[i-1].B_state) {
+					s[i].B_state == s[i-1].B_state-1;
+				} else {
+					s[i].B_state == s[i-1].B_state;
+				}	
+				if (s[i].C_state > s[i-1].C_state) {
+					s[i].C_state == s[i-1].C_state+1;
+				} else if (s[i].C_state < s[i-1].C_state) {
+					s[i].C_state == s[i-1].C_state-1;
+				} else {
+					s[i].C_state == s[i-1].C_state;
+				}							
+			}
+		}
+		
+		state_o.A_state == s[s.size-1].A_state;
+		state_o.B_state == s[s.size-1].B_state;
+		state_o.C_state == s[s.size-1].C_state;
+
+	}
+}
+
+action power_state_scenario {
+	change_power_state			t1, t2, t3;
+	
+	constraint {
+		// Set initial state as powered down
+		t1.state_i.A_state == 0;
+		t1.state_i.B_state == 0;
+		t1.state_i.C_state == 0;
+		
+		// Move to an operational state of B
+		t1.state_o.B_state > 0;
+		
+		// Move to C full power
+		t2.state_o.C_cstate == 3;
+		
+		// Move back to an operational state of B
+		t3.state_o.B_state > 0;
+	}
+	
+	graph {
+		bind(t1.state_o, t2.state_i);
+		bind(t2.state_o, t3.state_i);
+		
+		t1;
+		t2;
+		t3;
+	}
+}

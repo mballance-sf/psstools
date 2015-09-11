@@ -8,11 +8,9 @@ import net.sf.psstools.lang.pSS.bin_scheme_declaration
 import net.sf.psstools.lang.pSS.bins_declaration
 import net.sf.psstools.lang.pSS.constraint_declaration
 import net.sf.psstools.lang.pSS.data_instantiation
-import net.sf.psstools.lang.pSS.field_declaration
-import net.sf.psstools.lang.pSS.graph_declaration
 import net.sf.psstools.lang.pSS.overrides_declaration
 import net.sf.psstools.lang.pSS.struct_declaration
-import net.sf.psstools.lang.pSS.symbol_definition
+import net.sf.psstools.lang.pSS.struct_field_declaration
 import net.sf.psstools.lang.pSS.typedef_declaration
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode
@@ -26,7 +24,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	
 	def _isLeaf(constraint_declaration e) { true }
-	def _isLeaf(symbol_definition e) { true }
+//	def _isLeaf(symbol_definition e) { true }
 	def _isLeaf(typedef_declaration e) { true }
 	def _isLeaf(data_instantiation e) { true }
 	def _isLeaf(action_declaration e) { true }
@@ -36,8 +34,8 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	
 	def _createChildren(IOutlineNode parentNode, struct_declaration struct) {
 		for (EObject child : struct.body) {
-			if (child instanceof field_declaration) {
-				var field = child as field_declaration;
+			if (child instanceof struct_field_declaration) {
+				var field = child as struct_field_declaration;
 				for (EObject value : field.declaration.instances) {
 					createNode(parentNode, value);
 				}
@@ -47,10 +45,10 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider {
 		}
 	}
 
-	def _createChildren(IOutlineNode parentNode, graph_declaration struct) {
+	def _createChildren(IOutlineNode parentNode, action_declaration struct) {
 		for (EObject child : struct.body) {
-			if (child instanceof field_declaration) {
-				var field = child as field_declaration;
+			if (child instanceof struct_field_declaration) {
+				var field = child as struct_field_declaration;
 				for (EObject value : field.declaration.instances) {
 					createNode(parentNode, value);
 				}

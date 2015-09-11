@@ -1,34 +1,21 @@
 package net.sf.psstools.lang.ui.views.graph;
 
-import net.sf.psstools.lang.elaborator.GraphElabResult;
+import java.awt.LayoutManager;
 
-import org.eclipse.draw2d.IFigure;
-import org.eclipse.draw2d.LayoutManager;
-import org.eclipse.draw2d.LightweightSystem;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.zest.core.viewers.AbstractZoomableViewer;
-import org.eclipse.zest.core.viewers.GraphViewer;
-import org.eclipse.zest.core.viewers.IZoomableWorkbenchPart;
-import org.eclipse.zest.core.widgets.GraphContainer;
-import org.eclipse.zest.layouts.LayoutAlgorithm;
-import org.eclipse.zest.layouts.LayoutStyles;
-import org.eclipse.zest.layouts.algorithms.SpringLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.TreeLayoutAlgorithm;
-import org.eclipse.zest.layouts.algorithms.VerticalLayoutAlgorithm;
 
-public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
+import net.sf.psstools.lang.elaborator.GraphElabResult;
+
+public class PSSGraphView extends ViewPart implements /*IZoomableWorkbenchPart,*/
 		SelectionListener {
 	private GraphElabResult				fInput;
-	private LightweightSystem			fLWS;
+//	private LightweightSystem			fLWS;
 
 	public PSSGraphView() {
 		// TODO Auto-generated constructor stub
@@ -39,17 +26,17 @@ public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 		Display d = Display.getCurrent();
 		Canvas c = new Canvas(parent, SWT.NONE);
 		c.setBackground(d.getSystemColor(SWT.COLOR_WHITE));
-		fLWS = new LightweightSystem(c);
+//		fLWS = new LightweightSystem(c);
 	}
 	
 	public void setInput(Object input) {
 		System.out.println("setInput");
-		if (input instanceof GraphElabResult) {
-			fInput = (GraphElabResult)input;
-			GraphFigureFactory figure_f = new GraphFigureFactory();
-			IFigure root = figure_f.build(fInput);
-			fLWS.setContents(root);
-		}
+//		if (input instanceof GraphElabResult) {
+//			fInput = (GraphElabResult)input;
+//			GraphFigureFactory figure_f = new GraphFigureFactory();
+//			IFigure root = figure_f.build(fInput);
+//			fLWS.setContents(root);
+//		}
 	}
 	
 //	private void createGraphViewer(Composite parent) {
@@ -68,9 +55,9 @@ public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 	
 	@Override
 	public void widgetSelected(SelectionEvent e) {
-		IFigure f;
-		LayoutManager l;
-		System.out.println("widgetSelected: " + e);
+//		IFigure f;
+//		LayoutManager l;
+//		System.out.println("widgetSelected: " + e);
 		// TODO Auto-generated method stub
 
 	}
@@ -81,11 +68,11 @@ public class PSSGraphView extends ViewPart implements IZoomableWorkbenchPart,
 
 	}
 
-	@Override
-	public AbstractZoomableViewer getZoomableViewer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public AbstractZoomableViewer getZoomableViewer() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 
 	@Override
