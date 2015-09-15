@@ -2,6 +2,7 @@ package net.sf.psstools.lang.ui.views;
 
 import java.util.Stack;
 
+import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.TextPresentation;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.StyleRange;
@@ -9,7 +10,10 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.widgets.Display;
 
-public class TextPresentationStringBuilder {
+import net.sf.psstools.lang.docbuilder.IDocRenderer;
+
+public class TextPresentationStringBuilder implements IDocRenderer {
+	private Font							fHeaderFont;
 	private StringBuilder					fSB;
 	private TextPresentation				fPresentation;
 	private int 							fLastRegionEnd;
@@ -31,6 +35,7 @@ public class TextPresentationStringBuilder {
 		fPresentation = new TextPresentation();
 		fFontStack = new Stack<Font>();
 		fColorStack = new Stack<Color>();
+		fHeaderFont = JFaceResources.getHeaderFont();
 	}
 	
 	public TextPresentation presentation() {
@@ -51,7 +56,7 @@ public class TextPresentationStringBuilder {
 		fSB.append(c);
 	}
 	
-	public void process(String markup) {
+	private void process(String markup) {
 		int last_idx=0, idx=0;
 		
 		while ((idx=markup.indexOf("<kw>", last_idx)) != -1) {
@@ -80,6 +85,15 @@ public class TextPresentationStringBuilder {
 	
 	public String toString() {
 		return fSB.toString();
+	}
+	
+	public void header(int level, String text) {
+		setFont(fHeaderFont);
+		append("\n");
+		append(text);
+		append("\n");
+		clrFont();
+		append("\n");
 	}
 	
 	public void keyword(String kw) {

@@ -4,6 +4,9 @@
 package net.sf.psstools.lang.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.folding.IFoldingStructureProvider;
+
+import net.sf.psstools.lang.ui.editor.PSSFoldingStructureProvider;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -11,5 +14,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class PSSUiModule extends net.sf.psstools.lang.ui.AbstractPSSUiModule {
 	public PSSUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+	
+	public Class<? extends IFoldingStructureProvider> bindIFoldingStructureProvider() {
+		return PSSFoldingStructureProvider.class;
 	}
 }

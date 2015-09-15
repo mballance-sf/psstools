@@ -4,7 +4,6 @@
 package net.sf.psstools.lang.ui.outline
 
 import net.sf.psstools.lang.pSS.action_declaration
-import net.sf.psstools.lang.pSS.bin_scheme_declaration
 import net.sf.psstools.lang.pSS.bins_declaration
 import net.sf.psstools.lang.pSS.constraint_declaration
 import net.sf.psstools.lang.pSS.data_instantiation
@@ -29,7 +28,7 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	def _isLeaf(data_instantiation e) { true }
 	def _isLeaf(action_declaration e) { true }
 	def _isLeaf(bins_declaration e) { true }
-	def _isLeaf(bin_scheme_declaration e) { true }
+//	def _isLeaf(bin_scheme_declaration e) { true }
 	def _isLeaf(overrides_declaration e) { true }
 	
 	def _createChildren(IOutlineNode parentNode, struct_declaration struct) {

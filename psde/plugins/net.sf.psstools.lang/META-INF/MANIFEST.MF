@@ -26,6 +26,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: net.sf.psstools.lang,
  net.sf.psstools.lang.builder,
  net.sf.psstools.lang.compiler,
+ net.sf.psstools.lang.docbuilder,
  net.sf.psstools.lang.elaborator,
  net.sf.psstools.lang.elaborator.constraints,
  net.sf.psstools.lang.elaborator.expr,
@@ -42,3 +43,5 @@ Export-Package: net.sf.psstools.lang,
  net.sf.psstools.lang.serializer,
  net.sf.psstools.lang.services,
  net.sf.psstools.lang.validation
+Bundle-ClassPath: .,
+ docx4j/docx4j-3.2.1.jar
