@@ -1,0 +1,587 @@
+<project name="mk_psde" default="mk_psde">
+	
+	<property name="psde_srcdir" value="${basedir}/../psde"/>
+	<property environment="env"/>
+	
+	<!-- Import the version info -->
+	<property file="${basedir}/../etc/psstools.info"/>
+	<property file="${basedir}/packages.properties"/>
+	<property environment="env"/>
+	<property name="feature.version" value="${version}"/>
+	<property name="sf_frs_url" value="${env.SF_USERNAME},psstools@frs.sourceforge.net"/>
+
+	<property name="buildRoot" location="${basedir}/../buildRoot"/>
+	<property name="buildRun" location="${buildRoot}/buildRun"/>
+	<property name="packages" location="${basedir}/../packages"/>
+	<property name="build" location="${buildRoot}/build"/>
+	<property name="buildResult" location="${basedir}/../buildResult"/>
+	<!--
+	<property name="sveditor" location="${buildRoot}/sveditor"/>
+	  -->
+	<property name="builder" value="${buildRoot}/builder"/>
+	<property name="installerTmp" value="${basedir}/../installerTmp"/>
+	
+	<property name="eclipse.home" location="${buildRoot}/eclipse"/>
+	<condition property="eclipsec" 
+		value="${buildRoot}/eclipse/eclipsec" 
+		else="${buildRoot}/eclipse/eclipse">
+		<os family="windows"/>
+	</condition>
+
+	<!--
+	<property name="mpc_repository" location="${buildRoot}/mpc"/>
+	<property name="equinox_repository" location="${buildRoot}/equinox"/>
+	<property name="vrapper_repository" location="${buildRoot}/vrapper"/>
+	  -->
+	<property name="zest_repository" location="${buildRoot}/zest"/>
+	<property name="xtext_repository" location="${buildRoot}/xtext"/>
+	<property name="xpand_repository" location="${buildRoot}/xpand"/>
+	<property name="emf_repository" location="${buildRoot}/emf"/>
+	<property name="mwe2_repository" location="${buildRoot}/mwe2"/>
+	<property name="mwe_repository" location="${buildRoot}/mwe"/>
+
+	<property file="${basedir}/mk_psde.properties"/>
+	<property file="${basedir}/mk_psde_${os}.properties"/>
+	<property name="eclipse.home" location="${buildRoot}/eclipse"/>
+
+	<condition property="is_win">
+		<os family="windows"/>
+	</condition>
+
+	<condition property="build_ws" value="win32" else="gtk">
+		<os family="windows"/>
+	</condition>
+	<condition property="build_arch" value="x86_64" else="x86">
+		<os arch="amd64"/>
+	</condition>
+	<condition property="build_os" value="win32" else="linux">
+		<os family="windows"/>
+	</condition>
+	
+	<condition property="eclipse_win_zip" 
+		value="${eclipse_win32_x86_64_zip}"
+		else="${eclipse_win32_zip}">
+		<os arch="amd64"/>
+	</condition>
+
+	<target name="mk_psde" depends="collect,mk_psde-pre,build_release,build_archive">
+		<!--
+		<antcall target="mk_msi"/>
+		<antcall target="mk_deb"/>
+		-->
+	</target>
+	
+	<target name="collect">
+		<ant antfile="${basedir}/collect.xml" inheritall="false" target="collect"/>
+	</target>
+
+	<target name="mk_psde-pre">
+		<delete dir="${buildResult}"/>
+		<delete dir="${buildRoot}"/>
+		
+		<mkdir dir="${buildRoot}"/>
+		
+		<!-- Create host eclipse -->
+		<antcall target="linux_unpack_eclipse"/>
+		<antcall target="windows_unpack_eclipse"/>
+		
+		<!-- Unpack zips -->
+		<mkdir dir="${buildRoot}/eclipse/deltapack"/>
+		<unzip dest="${buildRoot}/eclipse/deltapack"
+			src="${packages}/${eclipse_delta_pack_zip}"/>
+
+		<unzip dest="${emf_repository}"
+			src="${packages}/${emf_zip}"/>
+		<unzip dest="${mwe2_repository}"
+			src="${packages}/${mwe2_zip}"/>
+		<unzip dest="${mwe_repository}"
+			src="${packages}/${mwe_zip}"/>
+		<unzip dest="${xtext_repository}"
+			src="${packages}/${xtext_zip}"/>
+		<unzip dest="${xpand_repository}"
+			src="${packages}/${xpand_zip}"/>
+		<unzip dest="${zest_repository}"
+			src="${packages}/${zest_zip}"/>
+		
+		<!--
+		<unzip dest="${equinox_repository}"
+			src="${packages}/${equinox_zip}"/>
+		
+		<unzip dest="${mpc_repository}"
+			src="${packages}/${mpc_zip}"/>
+		
+		<unzip dest="${vrapper_repository}"
+			src="${packages}/${vrapper_zip}"/>
+			-->
+		
+		<!--
+		<exec executable="${eclipsec}" failonerror="true">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.equinox.p2.director"/>
+			<arg value="-installIU"/>
+			<arg value="
+				org.eclipse.emf.edit.feature.group,
+				org.eclipse.emf.edit.ui.feature.group,
+				org.eclipse.emf.codegen.feature.group
+				"/>
+			<arg value="-repository"/>
+			<arg value="file://${emf_repository}"/>
+			<arg value="-tag"/>
+			<arg value="AddEMF"/>
+			<arg value="-destination"/>
+			<arg value="${buildRoot}/eclipse"/>
+		</exec>
+		
+		
+		<exec executable="${eclipsec}" failonerror="true">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.equinox.p2.director"/>
+			<arg value="-installIU"/>
+			<arg value="
+				org.eclipse.xtend
+				"/>
+			<arg value="-repository"/>
+			<arg value="file://${xpand_repository},file://${mwe2_repository},file://${mwe_repository}"/>
+			<arg value="-tag"/>
+			<arg value="AddXpand"/>
+			<arg value="-destination"/>
+			<arg value="${buildRoot}/eclipse"/>
+		</exec>
+
+		<exec executable="${eclipsec}" failonerror="true">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.equinox.p2.director"/>
+			<arg value="-installIU"/>
+			<arg value="
+				org.eclipse.xtext.sdk.feature.group
+				"/>
+			<arg value="-repository"/>
+			<arg value="file://${xtext_repository}"/>
+			<arg value="-tag"/>
+			<arg value="AddXText"/>
+			<arg value="-destination"/>
+			<arg value="${buildRoot}/eclipse"/>
+		</exec>
+		
+		<exec executable="${eclipsec}" failonerror="true">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.equinox.p2.director"/>
+			<arg value="-installIU"/>
+			<arg value="
+				org.eclipse.emf.mwe2.language.sdk.feature.group
+				"/>
+			<arg value="-repository"/>
+			<arg value="file://${mwe2_repository}"/>
+			<arg value="-tag"/>
+			<arg value="AddMWE2"/>
+			<arg value="-destination"/>
+			<arg value="${buildRoot}/eclipse"/>
+		</exec>
+		-->
+		
+		<exec executable="${eclipsec}" failonerror="true">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.equinox.p2.director"/>
+			<arg value="-installIU"/>
+			<arg value="
+				org.eclipse.xtext.sdk.feature.group,
+				"/>
+			<arg value="-repository"/>
+			<arg value="file://${xtext_repository},
+				file://${mwe2_repository},
+				file://${emf_repository},
+				file://${xpand_repository},
+				file://${mwe_repository},
+				file://${zest_repository}"/>
+			<arg value="-tag"/>
+			<arg value="AddXText"/>
+			<arg value="-destination"/>
+			<arg value="${buildRoot}/eclipse"/>
+		</exec>		
+	</target>
+		
+	<target name="linux_unpack_eclipse" unless="is_win">
+	</target>
+		
+	<target name="windows_unpack_eclipse" if="is_win">
+		<unzip dest="${buildRoot}"
+			src="${packages}/${eclipse_win_zip}"/>
+	</target>
+
+	<target name="build_release">
+			<!-- It's necessary to specify some WS/Arch for build
+			 	 Since PSDE isn't tied to either, doesn't really matter
+			  -->
+		<exec executable="${eclipsec}" failonerror="true">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.ant.core.antRunner"/>
+			<arg value="--launcher.suppressErrors"/>
+			<arg value="-data"/>
+			<arg value="${basedir}/../buildRoot/ws2"/>
+			<arg value="-buildfile"/>
+			<arg value="${basedir}/build.xml"/>
+			<arg value="-verbose"/>
+			<arg value="-Dos=${build_os}"/>
+			<arg value="-Dws=${build_ws}"/>
+			<arg value="-Darch=${build_arch}"/>
+		</exec>
+	</target>
+
+	<!--
+          ** Create installers for Windows x86 and x86_64
+	  -->
+	<target name="mk_msi" if="is_win">
+		<delete dir="${installerTmp}"/>
+		<mkdir dir="${installerTmp}"/>
+		<echo message="--&gt; unzip win32_x86_64.zip"/>
+		<unzip dest="${installerTmp}" 
+			src="${buildResult}/psde-${psde_version}-win32_x86_64.zip"/>
+		<echo message="&lt;-- unzip win32_x86_64.zip"/>
+		<ant antfile="${basedir}/mk_msi.xml" 
+			dir="${installerTmp}/psde-${psde_version}" inheritall="false">
+			<property name="script.dir" value="${basedir}"/>
+			<property name="etc.dir" value="${basedir}/../etc"/>
+			<property name="ProgramFilesFolder" 
+				value="ProgramFiles64Folder"/>
+			<property name="dest" 
+				value="${buildResult}/psde-${psde_version}-x64.msi"/>
+			<property name="arch" value="x64"/>
+			<property name="Win64" value="yes"/>
+		</ant>
+		<delete dir="${installerTmp}"/>
+		<mkdir dir="${installerTmp}"/>
+		<unzip dest="${installerTmp}"
+			src="${buildResult}/psde-${psde_version}-win32_x86.zip"/>
+		<ant antfile="${basedir}/mk_msi.xml" 
+			dir="${installerTmp}/psde-${psde_version}" inheritall="false">
+			<property name="script.dir" value="${basedir}"/>
+			<property name="etc.dir" value="${basedir}/../etc"/>
+			<property name="dest" 
+				value="${buildResult}/psde-${psde_version}-x86.msi"/>
+			<property name="arch" value="x86"/>
+			<property name="Win64" value="no"/>
+		</ant>
+		<delete dir="${installerTmp}"/>
+	</target>
+
+	<target name="mk_deb">
+		<ant antfile="${basedir}/mk_deb.xml" inheritall="false">
+			<property name="arch" value="x86"/>
+			<property name="deb_arch" value="i386"/>
+		</ant>
+		<ant antfile="${basedir}/mk_deb.xml" inheritall="false">
+			<property name="arch" value="x86_64"/>
+			<property name="deb_arch" value="amd64"/>
+		</ant>
+	</target>
+
+	<target name="build_archive">
+		<!--
+		<condition property="c_is_win">
+			<equals arg1="${c_os}" arg2="win32"/>
+		</condition>
+		
+		<condition property="c_is_linux">
+			<equals arg1="${c_os}" arg2="linux"/>
+		</condition>
+		
+		<condition property="c_is_osx">
+			<equals arg1="${c_os}" arg2="macosx"/>
+		</condition>
+		  -->
+
+
+		<!--
+		<delete dir="${buildRoot}"/> 
+		<mkdir dir="${buildRoot}"/> 
+		  -->
+		<delete dir="${buildRun}"/> 
+		<mkdir dir="${buildRun}"/> 
+		<delete dir="${build}"/> 
+		<mkdir dir="${build}"/> 
+		<delete dir="${sveditor}"/> 
+		<mkdir dir="${sveditor}"/> 
+		<mkdir dir="${sveditor}/eclipse"/> 
+		<property name="baseLocation" value="${eclipse.home}"/>
+		<copy todir="${build}">
+			<fileset dir="${sve_srcdir}">
+				<include name="plugins/**"/>
+				<include name="features/**"/>
+				<exclude name="**/*.svn/**"/>
+				<exclude name="**/*.git/**"/>
+			</fileset>
+		</copy>
+		<copy todir="${build}" overwrite="true">
+			<fileset dir="${sve_srcdir}">
+				<include name="features/**/*.xml"/>
+				<include name="features/**/*.product"/>
+				<include name="plugins/**/*.xml"/>
+				<include name="plugins/**/*.MF"/>
+				<include name="plugins/**/*.properties"/>
+			</fileset>
+			<filterset begintoken="1" endtoken="3">
+				<filter token=".2." value="${feature.version}"/>
+			</filterset>
+		</copy>
+		<unzip dest="${sveditor}/eclipse">
+			<fileset dir="${buildResult}">
+				<include name="sveditor-feature-${feature.version}.zip"/>
+			</fileset>
+		</unzip> 
+		
+		<copy file="${basedir}/mk_sve_1.xml" todir="${buildRun}"/>
+		<echo message="mk_sve_1: ${os} ${ws} ${arch}"/>
+		<exec executable="${eclipsec}" failonerror="true"
+				dir="${buildRun}">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.ant.core.antRunner"/>
+			<arg value="--launcher.suppressErrors"/>
+			<arg value="-data"/>
+			<arg value="${basedir}/../buildRoot/ws2"/>
+			<arg value="-buildfile"/>
+			<arg value="${buildRun}/mk_sve_1.xml"/>
+			<arg value="-verbose"/>
+			<arg value="-DbaseLocation=${eclipse.home}"/>
+		</exec>		
+			<!--
+			<arg value="-Dos=${os}"/>
+			<arg value="-Dws=${ws}"/>
+			<arg value="-Darch=${arch}"/>
+		 	  -->
+
+		<copy todir="${buildResult}">
+			<fileset dir="${build}/I.sve">
+				<include name="*.zip"/>
+			</fileset>
+		</copy>
+
+		<antcall target="win_install_addins"/>
+		<antcall target="linux_install_addins"/>
+		<antcall target="macosx_install_addins"/>
+
+		<delete dir="${buildRoot}"/>
+	</target>
+
+	<target name="win_install_addins">
+		<antcall target="install_addins">
+			<param name="c_os" value="win32"/>
+			<param name="c_ws" value="win32"/>
+			<param name="c_arch" value="x86"/>
+		</antcall>
+
+		<antcall target="install_addins">
+			<param name="c_os" value="win32"/>
+			<param name="c_ws" value="win32"/>
+			<param name="c_arch" value="x86_64"/>
+		</antcall>
+	</target>
+
+	<target name="linux_install_addins">
+		<antcall target="install_addins">
+			<param name="c_os" value="linux"/>
+			<param name="c_ws" value="gtk"/>
+			<param name="c_arch" value="x86_64"/>
+		</antcall>
+
+		<antcall target="install_addins">
+			<param name="c_os" value="linux"/>
+			<param name="c_ws" value="gtk"/>
+			<param name="c_arch" value="x86"/>
+		</antcall>
+	</target>
+	
+	<target name="macosx_install_addins">
+		<antcall target="install_addins">
+			<param name="c_os" value="macosx"/>
+			<param name="c_ws" value="cocoa"/>
+			<param name="c_arch" value="x86_64"/>
+		</antcall>
+	</target>
+	
+	<macrodef name="install">
+		<attribute name="installIU"/>
+		<attribute name="repository"/>
+		<attribute name="tag"/>
+	
+		<sequential>
+		<exec executable="${eclipsec}" failonerror="true">
+			<arg value="-console"/>
+			<arg value="-consoleLog"/>
+			<arg value="-nosplash"/>
+			<arg value="-application"/>
+			<arg value="org.eclipse.equinox.p2.director"/>
+			<arg value="-installIU"/>
+			<arg value="@{installIU}"/>
+			<arg value="-repository"/>
+			<arg value="@{repository}"/>
+			<arg value="-tag"/>
+			<arg value="@{tag}"/>
+			<arg value="-destination"/>
+			<arg value="${buildResult}/sve-${sve_version}"/>
+		</exec>
+		</sequential>
+	</macrodef>	
+
+	<target name="install_addins">
+		
+		<condition property="c_is_win">
+			<and>
+				<equals arg1="${c_os}" arg2="win32"/>
+			</and>
+		</condition>
+
+		<condition property="c_is_unix_win">
+			<and>
+				<os family="windows"/>
+				<or>
+					<equals arg1="${c_os}" arg2="linux"/>
+					<equals arg1="${c_os}" arg2="macosx"/>
+				</or>
+			</and>
+		</condition>
+		
+		<condition property="c_is_unix_unix">
+			<and>
+				<not>
+					<os family="windows"/>
+				</not>
+				<or>
+					<equals arg1="${c_os}" arg2="linux"/>
+					<equals arg1="${c_os}" arg2="macosx"/>
+				</or>
+			</and>
+		</condition>
+		
+		<condition property="unix_sve_exe"
+			value="sve.app/Contents/MacOS/sve"
+			else="sve">
+			<equals arg1="${c_os}" arg2="macosx"/>
+		</condition>
+			<condition property="c_is_unix_win">
+			<and>
+				<os family="windows"/>
+				<or>
+					<equals arg1="${c_os}" arg2="linux"/>
+					<equals arg1="${c_os}" arg2="macosx"/>
+				</or>
+			</and>
+		</condition>
+		
+		<delete dir="${buildResult}/sveditor"/>
+		<unzip dest="${buildResult}" 
+                    src="${buildResult}/sve-${c_os}.${c_ws}.${c_arch}.zip"/>
+		
+		<unzip dest="${buildResult}/sveditor" 
+                    src="${buildResult}/sveditor-${feature.version}.jar"/>
+		<install installIU="net.sf.sveditor.feature.group"
+			tag="AddSVEditor"
+			repository="file://${buildResult}/sveditor"/>
+		
+		<install installIU="org.eclipse.equinox.p2.discovery.feature.feature.group"
+			tag="AddEquinox"
+			repository="file://${equinox_repository}"/>
+		
+		<install installIU="org.eclipse.epp.mpc.feature.group"
+			tag="AddMPC"
+			repository="file://${mpc_repository}"/>
+		
+		<install installIU="
+			net.sourceforge.vrapper.feature.group,
+            net.sourceforge.vrapper.plugin.argtextobj.feature.group,
+            net.sourceforge.vrapper.plugin.ipmotion.feature.group,
+            net.sourceforge.vrapper.plugin.splitEditor.feature.group,
+            net.sourceforge.vrapper.plugin.surround.feature.group"
+			tag="AddVrapper"
+			repository="file://${vrapper_repository}"/>
+		
+		<delete file="${buildResult}/sve-${c_os}.${c_ws}.${c_arch}.zip"/>
+		<antcall target="tar_unix_unix"/>
+		<antcall target="tar_unix_win"/>
+		<antcall target="zip_windows"/>
+		<delete dir="${buildResult}/sve-${sve_version}"/>
+		<delete dir="${buildResult}/sveditor"/>
+	</target>
+	
+	<target name="tar_unix_unix" if="c_is_unix_unix">
+		<exec executable="chmod" dir="${buildResult}/sve-${sve_version}">
+			<arg value="+x"/>
+			<arg value="sve"/>
+		</exec>
+		<exec executable="tar" dir="${buildResult}" failonerror="true">
+			<arg value="czf"/>
+			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar.gz"/>
+			<arg value="sve-${sve_version}"/>
+		</exec>
+	</target>
+
+	<target name="tar_unix_win" if="c_is_unix_win">
+		<exec executable="tar" dir="${buildResult}" failonerror="true">
+			<arg value="--exclude=sve-${sve_version}/${unix_sve_exe}"/>
+			<arg value="-cf"/>
+			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar"/>
+			<arg value="sve-${sve_version}"/>
+		</exec>
+		<exec executable="tar" dir="${buildResult}" failonerror="true">
+			<arg value="-rf"/>
+			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar"/>
+			<arg value="--mode=755"/>
+			<arg value="sve-${sve_version}/${unix_sve_exe}"/>
+		</exec>
+		<exec executable="gzip" dir="${buildResult}" failonerror="true">
+			<arg value="-f"/>
+			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar"/>
+		</exec>
+	</target>
+
+	<target name="zip_windows" if="c_is_win">
+		<zip destfile="${buildResult}/sve-${sve_version}-${c_os}_${c_arch}.zip"
+			basedir="${buildResult}" includes="sve-${sve_version}/**">
+		</zip>
+	</target>	
+
+	<target name="upload_sve">
+		<!-- First, create appropriate directories -->
+		<tempfile property="release_mkdirs_cmds"/>
+		<echo file="${release_mkdirs_cmds}">
+                cd ${sveditor_dir}
+                -mkdir sve
+                cd sve
+                -mkdir ${sve_version}
+		</echo>
+		<exec executable="sftp" input="${release_mkdirs_cmds}">
+                    <arg value="-b"/>
+                    <arg value="/dev/stdin"/>
+                    <arg value="${sf_frs_url}"/>
+                </exec>
+		<delete file="${release_mkdirs_cmds}"/>
+		<!-- Now, copy the release files to the SVE release dir -->
+		<exec executable="sftp" dir="${buildResult}"
+                    inputstring="put sve-${sve_version}*">
+			<arg value="-b"/>
+			<arg value="/dev/stdin"/>
+			<arg value="${sf_frs_url}:${sveditor_dir}/sve/${sve_version}"/>
+		</exec>
+	</target>
+
+</project>

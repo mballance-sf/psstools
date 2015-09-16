@@ -13,6 +13,7 @@ import net.sf.psstools.lang.pSS.struct_field_declaration
 import net.sf.psstools.lang.pSS.typedef_declaration
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode
+import org.eclipse.xtext.ui.editor.outline.IOutlineTreeProvider
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
 
 /**
@@ -20,7 +21,8 @@ import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
  *
  * see http://www.eclipse.org/Xtext/documentation.html#outline
  */
-class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider {
+class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider 
+	implements IOutlineTreeProvider.Background {
 	
 	def _isLeaf(constraint_declaration e) { true }
 //	def _isLeaf(symbol_definition e) { true }

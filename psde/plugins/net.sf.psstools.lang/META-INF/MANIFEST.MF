@@ -43,5 +43,4 @@ Export-Package: net.sf.psstools.lang,
  net.sf.psstools.lang.serializer,
  net.sf.psstools.lang.services,
  net.sf.psstools.lang.validation
-Bundle-ClassPath: .,
- docx4j/docx4j-3.2.1.jar
+Bundle-ClassPath: .

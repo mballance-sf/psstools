@@ -502,7 +502,7 @@ coverspec_body_item:
 	coverspec_option		|
 	coverspec_coverpoint	|
 	coverspec_cross			|
-	coverspec_paths			|
+//	coverspec_paths			|
 	constraint_declaration
 ;
 
@@ -539,21 +539,21 @@ coverspec_cross:
 		)
 ;
 
-coverspec_paths_body_item:
-	coverspec_option |
-	coverspec_paths_include_exclude
-;
-
-coverspec_paths:
-	name=ID ':' 'paths' start=hierarchical_id ',' (stop+=hierarchical_id | '{' stop+=hierarchical_id (',' stop+=hierarchical_id)*)
-		(
-			( '{' body_items+=coverspec_paths_body_item* '}') | ';'
-		)
-;
-
-coverspec_paths_include_exclude:
-	inc_excl=('include'|'exclude') paths_vals=('paths'|'values') ('{' list+=identifier (',' list+=identifier)* '}')? ';'
-;
+//coverspec_paths_body_item:
+//	coverspec_option |
+//	coverspec_paths_include_exclude
+//;
+//
+//coverspec_paths:
+//	name=ID ':' 'paths' start=hierarchical_id ',' (stop+=hierarchical_id | '{' stop+=hierarchical_id (',' stop+=hierarchical_id)*)
+//		(
+//			( '{' body_items+=coverspec_paths_body_item* '}') | ';'
+//		)
+//;
+//
+//coverspec_paths_include_exclude:
+//	inc_excl=('include'|'exclude') paths_vals=('paths'|'values') ('{' list+=identifier (',' list+=identifier)* '}')? ';'
+//;
 
  
 /********************************************************************

@@ -5,8 +5,10 @@ package net.sf.psstools.lang.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.xtext.ui.editor.folding.IFoldingStructureProvider;
+import org.eclipse.xtext.ui.editor.outline.impl.OutlinePage;
 
 import net.sf.psstools.lang.ui.editor.PSSFoldingStructureProvider;
+import net.sf.psstools.lang.ui.editor.PSSOutlinePage;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -18,5 +20,10 @@ public class PSSUiModule extends net.sf.psstools.lang.ui.AbstractPSSUiModule {
 	
 	public Class<? extends IFoldingStructureProvider> bindIFoldingStructureProvider() {
 		return PSSFoldingStructureProvider.class;
+	}
+	
+	public Class<? extends OutlinePage> bindOutlinePage() {
+		System.out.println("bindOutlinePage");
+		return PSSOutlinePage.class;
 	}
 }
