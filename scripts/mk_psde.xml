@@ -15,9 +15,7 @@
 	<property name="packages" location="${basedir}/../packages"/>
 	<property name="build" location="${buildRoot}/build"/>
 	<property name="buildResult" location="${basedir}/../buildResult"/>
-	<!--
-	<property name="sveditor" location="${buildRoot}/sveditor"/>
-	  -->
+	<property name="psstools" location="${buildRoot}/psstools"/>
 	<property name="builder" value="${buildRoot}/builder"/>
 	<property name="installerTmp" value="${basedir}/../installerTmp"/>
 	
@@ -317,12 +315,12 @@
 		<mkdir dir="${buildRun}"/> 
 		<delete dir="${build}"/> 
 		<mkdir dir="${build}"/> 
-		<delete dir="${sveditor}"/> 
-		<mkdir dir="${sveditor}"/> 
-		<mkdir dir="${sveditor}/eclipse"/> 
+		<delete dir="${psstools}"/> 
+		<mkdir dir="${psstools}"/> 
+		<mkdir dir="${psstools}/eclipse"/> 
 		<property name="baseLocation" value="${eclipse.home}"/>
 		<copy todir="${build}">
-			<fileset dir="${sve_srcdir}">
+			<fileset dir="${psde_srcdir}">
 				<include name="plugins/**"/>
 				<include name="features/**"/>
 				<exclude name="**/*.svn/**"/>
@@ -330,7 +328,7 @@
 			</fileset>
 		</copy>
 		<copy todir="${build}" overwrite="true">
-			<fileset dir="${sve_srcdir}">
+			<fileset dir="${psde_srcdir}">
 				<include name="features/**/*.xml"/>
 				<include name="features/**/*.product"/>
 				<include name="plugins/**/*.xml"/>
@@ -341,9 +339,10 @@
 				<filter token=".2." value="${feature.version}"/>
 			</filterset>
 		</copy>
-		<unzip dest="${sveditor}/eclipse">
+		<unzip dest="${psstools}/eclipse">
 			<fileset dir="${buildResult}">
-				<include name="sveditor-feature-${feature.version}.zip"/>
+				<!-- TODO: change to psstools feature -->
+				<include name="psde-feature-${feature.version}.zip"/>
 			</fileset>
 		</unzip> 
 		

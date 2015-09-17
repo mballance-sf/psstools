@@ -3,4 +3,5 @@ buildResult/
 *.class
 bin/
 generated/
+packages
 

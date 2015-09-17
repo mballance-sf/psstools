@@ -1,0 +1,166 @@
+//---------------
+// Common pad-related definitions
+//---------------
+enum pad_role_e {};
+enum module_id_e {};
+
+resource struct pad_s {
+  // each pad instance is assigned to exactly one module in one role
+  rand module_id_e module_id;
+  rand pad_role_e role;
+};
+
+//---------------
+// DSP definitions
+//---------------
+extend enum pad_role_e {OUT, IN, CLOCK, SLAVE_SELECT0, SLAVE_SELECT1, SLAVE_SELECT2, SLAVE_SELECT3};
+
+component slave_module_c {
+  state struct config_status_s {}; // configured iff not initial
+    
+  action configure {        
+      rand module_id_e module_id;
+
+        lock pad_s out_pad;
+        constraint out_pad.role == OUT;
+        constraint out_pad.module_id == module_id;
+        
+        lock pad_s in_pad;        
+        constraint in_pad.role == IN;
+        constraint in_pad.module_id == module_id;
+        
+        lock pad_s clock_pad;        
+        constraint clock_pad.role == CLOCK;
+        constraint clock_pad.module_id == module_id;
+        
+        lock pad_s slave_select_pad;
+        constraint slave_select_pad.role == SLAVE_SELECT0;
+        constraint slave_select_pad.module_id == module_id;
+
+        output config_status_s conf;
+    };
+    
+    action activate_m {
+        input config_status_s curr_conf; 
+        constraint !curr_conf.initial;
+    };
+};
+
+component master_module_c {
+    state struct config_status_s {}; // configured iff not initial
+    
+    action configure {        
+        rand module_id_e module_id;
+
+        lock pad_s out_pad;
+        constraint out_pad.role == OUT;
+        constraint out_pad.module_id == module_id;
+        
+        lock pad_s in_pad;        
+        constraint in_pad.role == IN;
+        constraint in_pad.module_id == module_id;
+        
+        lock pad_s clock_pad;        
+        constraint clock_pad.role == CLOCK;
+        constraint clock_pad.module_id == module_id;
+        
+        lock pad_s slave_select0_pad;
+        constraint slave_select0_pad.role == SLAVE_SELECT0;
+        constraint slave_select0_pad.module_id == module_id;
+
+        lock pad_s slave_select1_pad;
+        constraint slave_select1_pad.role == SLAVE_SELECT1;
+        constraint slave_select1_pad.module_id == module_id;
+
+        lock pad_s slave_select2_pad;
+        constraint slave_select2_pad.role == SLAVE_SELECT2;
+        constraint slave_select2_pad.module_id == module_id;
+
+        lock pad_s slave_select3_pad;
+        constraint slave_select3_pad.role == SLAVE_SELECT3;
+        constraint slave_select3_pad.module_id == module_id;
+
+        output config_status_s conf;
+    };
+    
+    action activate_m {
+        input config_status_s curr_conf; 
+        constraint !curr_conf.initial;
+    };
+};
+
+//---------------
+// Abstract use-case specification
+//---------------
+action activate_3_masters_3_slaves {
+    graph {
+        schedule {
+            master_module_c::activate m0;
+            master_module_c::activate m1;
+            master_module_c::activate m2;
+            constraint m0.module_id != m1.module_id
+                    && m0.module_id != m2.module_id
+                    && m1.module_id != m2.module_id;
+            
+            slave_module_c::activate s0;
+            slave_module_c::activate s1;
+            slave_module_c::activate s2;
+            constraint s0.module_id != s1.module_id
+                    && s0.module_id != s2.module_id
+                    && s1.module_id != s2.module_id;            
+        };
+    };
+};
+
+//---------------
+// DUT configuration
+//---------------
+extend enum module_id_e {MM0, MM1, MM2, MM3, MS0, MS1, MS2, MS3, MS4, MS5};
+
+extend component DVE {
+    master_module_c masters[4];
+    slave_module_c slaves[6];
+};
+
+// Mapping components to module_ids
+extend action master_module_c::configure {
+    constraint comp == DVE.masters[0] -> module_id == MM0;
+    constraint comp == DVE.masters[1] -> module_id == MM1;
+    constraint comp == DVE.masters[2] -> module_id == MM2;
+    constraint comp == DVE.masters[3] -> module_id == MM3;
+};
+extend action slave_module_c::configure {
+    constraint comp == DVE.masters[0] -> module_id == MS0;
+    constraint comp == DVE.masters[1] -> module_id == MS1;
+    constraint comp == DVE.masters[2] -> module_id == MS2;
+    constraint comp == DVE.masters[3] -> module_id == MS3;
+    constraint comp == DVE.masters[4] -> module_id == MS4;
+    constraint comp == DVE.masters[5] -> module_id == MS5;
+};
+
+// Pad configuration constraints
+extend struct pad_s {
+    constraint instance_id inside [0..59];
+    
+    // constraints on roles of pads
+    constraint role inside [IN, OUT] -> !(instance_id inside [0..19]);
+    constraint role == CLOCK -> instance_id inside [3,7,11,15,19,23,27];
+    
+    // connectivity constraints
+    constraint module_id == MM0 -> instance_id inside [20..39];
+    constraint module_id inside [MS0..MS5] -> instance_id inside [55..59];
+};
+
+//---------------
+// Pad configuration implementation
+//---------------
+extend action configure {
+    exec run_start C = """
+        configure_pin(<(instance_id)>,<(module_id)>,<(role)>);
+    """;
+};
+
+
+
+
+

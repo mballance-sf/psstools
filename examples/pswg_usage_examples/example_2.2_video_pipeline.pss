@@ -1,0 +1,268 @@
+
+// ------------------------------------
+// Common definitions
+// ------------------------------------
+enum orientation_e { OR_0,OR_90, OR_180, OR_270};
+enum geometry_e {GM_3_4, GM_9_16};
+enum format_e {FA, FB, FC};
+
+struct video_data_s {
+  rand orientation_e orientation;
+  rand geometry_e geometry;
+  rand format_e format; 
+  rand int num_of_frames; 
+};
+
+memory struct video_data_buff_s {
+  rand video_data_s vid_data;
+};
+
+// ------------------------------------
+// Video Subsystem action model
+// ------------------------------------
+component video_subsystem_c { 
+
+  stream struct video_stream_s {
+    rand video_data_s vid_data;
+ 
+    rand int transform_count; 
+    rand int rotate_count; 
+    rand bool resized; 
+    rand bool format_changed; 
+
+  };
+ 
+  resource[8] struct vid_engine_s {};
+ 
+  action read_in {
+    input video_data_buff_s in_buff;
+    output video_stream_s out_stream;
+    
+    constraint in_buff.vid_data.num_of_frames == out_stream.vid_data.num_of_frames;
+ 
+    // initial stream values
+    constraint {
+      out_stream.format_changed == false;
+      out_stream.vid_data.format == in_buff.vid_data.format;
+      out_stream.transform_count == 0;
+      out_stream.rotate_count == 0;
+      out_stream.resized == false;
+    }
+  };
+ 
+  action write_back {
+    input video_stream_s in_stream;
+    output video_data_buff_s out_buff;
+    
+    constraint {
+      in_stream.vid_data.num_of_frames == out_buff.vid_data.num_of_frames;
+      in_stream.resized; // Rule I: must resize at least once
+    }
+  };
+ 
+  abstract action transform_base {
+    input video_stream_s in_stream;
+    output video_stream_s out_stream;
+    lock vid_engine_s proc_busy;
+    
+    constraint {
+      in_stream.vid_data.num_of_frames == out_stream.vid_data.num_of_frames;
+      in_stream.transform_count + 1 == out_stream.transform_count;
+    }
+    
+    constraint format_c { 
+      in_stream.format_changed == out_stream.format_changed;
+      out_stream.vid_data.format == in_stream.vid_data.format;
+    }
+    
+    constraint resize_c {
+      in_stream.vid_data.geometry == out_stream.vid_data.geometry;
+      out_stream.resized == in_stream.resized;
+    }
+    
+    constraint rotate_c {
+      in_stream.rotate_count == out_stream.rotate_count; 
+      in_stream.vid_data.orientation == out_stream.vid_data.orientation;
+    }
+  };
+ 
+  action rotate : transform_base {
+    rand bool clockwise;
+    
+    constraint rotate_c { // override default constraint
+      if (clockwise) {
+        out_stream.vid_data.orientation == ((in_stream.vid_data.orientation + 1) % 4);
+      } else {
+        out_stream.vid_data.orientation == ((in_stream.vid_data.orientation - 1) % 4);
+      }
+      in_stream.rotate_count + 1 == out_stream.rotate_count;
+    }
+
+    constraint in_stream.resized == false; // Rule II: cannot rotate after resize
+  };
+ 
+  action resize : transform_base {
+    
+    constraint resize_c { // override default constraint
+      in_stream.vid_data.geometry != out_stream.vid_data.geometry;
+      out_stream.resized == true;  
+    }
+    
+    // Rule III: cannot resize after more than two rotations
+    constraint in_stream.rotate_count <= 2; 
+
+  };
+ 
+  action change_format : transform_base {
+    
+    constraint format_c { // override base constraint
+      in_stream.format_changed == false; // Rule IV: cannot change format more then once
+      out_stream.format_changed == true;
+      out_stream.vid_data.format != in_stream.vid_data.format;
+    }
+  };
+};
+
+////////////////////////////////////////////
+// Use case test example
+////////////////////////////////////////////
+component pss_top {
+  
+  video_subsystem_c vid_ss;
+  
+  // Resource pool that allows the 
+  // load_vid_data action to feed the video subsystem
+  pool video_data_buff_s    vb_pool;
+  // Share the pool with this component and the vid_ss
+  share vb_pool {this, vid_ss};
+  
+  action load_vid_data {
+    output video_data_buff_s out_buff;
+    constraint out_buff.vid_data.num_of_frames == 50;
+  };
+};
+
+package video_rotate_actions_pkg {
+extend component video_subsystem_c {
+   
+  // -------------------------- 
+  // use case test examples
+  // -------------------------- 
+  action rotate_opposite_dirs {
+    graph {
+      parallel {
+        rotate rcw with {clockwise == true;};
+        rotate rccw with {clockwise == false;};
+        write_back wb with {
+          in_stream.transform_count == 6;
+        };
+      };
+    };
+  };  
+  
+  action rotate_same_dirs {
+    graph {
+      parallel {
+        rotate rcw with {clockwise == 1;};
+        rotate rccw with {clockwise == 1;};
+        write_back wb with {
+          in_stream.transform_count == 6;
+        };
+      };
+    };
+  };  
+};
+} // end video_rotate_actions_pkg
+
+
+// Specific implementation code
+package video_subsystem_c_implementation {
+
+extend action video_subsystem_c::transform_base { 
+exec body C = """
+ {
+ static int frame_index;
+ for (frame_index = 0; frame_index < {{in_stream.vid_data.num_of_frames}}; frame_index++ ) {
+ PSS_WAIT({{in_stream.next_line_pending.eid()}});
+ if (frame_index > 0) {
+ PSS_WAIT({{out_stream.prev_line_done.eid()}});
+ }
+ PSS_MESSAGE(PSS_MEDIUM,"Engine %d processing frame %d",{{proc_busy.instance_id}},frame_index);
+ start_frame_process({{proc_busy.instance_id}});
+ PSS_WAIT_CONDITION(!process_in_progress({{proc_busy.instance_id}})); 
+ PSS_EMIT({{out_stream.next_line_pending.eid()}});
+ PSS_EMIT({{in_stream.prev_line_done.eid()}});
+ }
+ }
+ """;
+};
+
+extend action video_subsystem_c::read_in {
+ exec body C = """
+ {
+ static int frame_index;
+ for (frame_index = 0; frame_index < {{out_stream.vid_data.num_of_frames}}; frame_index++ ) {
+ PSS_MESSAGE(PSS_MEDIUM,"Reading in frame %d",frame_index);
+ PSS_EMIT({{out_stream.next_line_pending.eid()}});
+ PSS_WAIT({{out_stream.prev_line_done.eid()}});
+ }
+ }
+ """;
+};
+
+extend action video_subsystem_c::write_back {
+ exec body C = """
+ {
+ static int frame_index;
+ for (frame_index = 0; frame_index < {{in_stream.vid_data.num_of_frames}}; frame_index++ ) {
+ PSS_WAIT({{in_stream.next_line_pending.eid()}});
+ PSS_MESSAGE(PSS_MEDIUM,"Writing back frame %d",frame_index);
+ PSS_EMIT({{in_stream.prev_line_done.eid()}});
+ }
+ }
+ """;
+};
+};
+
+//------------------------------------------------------------------
+// portability/reuse challenge
+// ----------------------------------------------------------------
+
+// Assume the following API to set up a video processing command
+// in memory, available to a host CPU:
+//    initialize_descriptor();
+//    setup_transformation(int transformation_kind, int engine_id);
+//    activate_subsystem();
+
+package video_subsystem_fw_implementation {
+  
+extend action video_subsystem_c::rotate { 
+  exec body C = """
+    register_transformation(ROTATE,{{proc_busy.instance_id}});
+  """;
+};
+extend action video_subsystem_c::resize { 
+  exec body C = """
+    register_transformation(RESIZE,{{proc_busy.instance_id}});
+  """;
+};
+extend action video_subsystem_c::change_format { 
+  exec body C = """
+    register_transformation(CHANGE_FORMAT,{{proc_busy.instance_id}});
+  """;
+};
+
+extend action video_subsystem_c::read_in {
+  exec body C = """
+    initialize_descriptor();
+  """;
+};
+
+extend action video_subsystem_c::write_back {
+  exec body C = """
+    activate_subsystem();
+  """;
+};
+
+}
+

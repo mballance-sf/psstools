@@ -1,0 +1,158 @@
+// ------------------------------------
+// Common definitions
+// ------------------------------------
+struct mem_segment_s {
+  rand int[4..1024] size;
+  rand bit[63:0] addr;
+};
+
+memory struct data_buff_s {
+  rand mem_segment_s seg;
+};
+
+enum stream_direction_e {outwards, inwards};
+
+stream struct data_stream_s {
+  rand int[4..1024] size;
+  rand bit[63:0] fifo_addr;
+  stream_direction_e direction;
+};
+
+// ------------------------------------
+// DMA action model
+// ------------------------------------
+component dma_c {
+  resource[4] struct channel_s {};
+
+  abstract action xfer_base_a {
+    rand mem_segment_s descriptor_buff;
+    lock channel_s channel;
+  };
+ 
+  action mem2mem_xfer_a : xfer_base_a {
+    input data_buff_s src_data;
+    output data_buff_s dst_data;
+    constraint src_data.seg.size == dst_data.seg.size;
+  }; 
+
+  action mem2queue_xfer_a : xfer_base_a {
+    input data_buff_s src_data;
+    output data_stream_s dst_data;
+    constraint dst_data.direction == outwards;
+    constraint src_data.seg.size == dst_data.size;
+  };
+ 
+  action queue2mem_xfer_a : xfer_base_a {
+    input data_stream_s src_data;
+    output data_buff_s dst_data;
+    constraint src_data.size == dst_data.seg.size;
+    constraint src_data.direction == inwards;
+  };
+};
+
+// ------------------------------------
+// Peripheral model
+// ------------------------------------
+component peripheral_c {
+  resource[1] struct periph_s {};
+ 
+  action write_out_a {
+    input data_stream_s src_data;
+    constraint src_data.direction == outwards; 
+    lock periph_s busy;         
+  };     
+ 
+  action read_in_a {
+    output data_stream_s dst_data;
+    constraint dst_data.direction == inwards; 
+    lock periph_s busy;
+  };
+};
+
+// ------------------------------------
+// Abstract test cases
+// ------------------------------------
+component pss_top {
+
+  action parallel_periph_write_read_a {
+    graph {
+      parallel { // automatically manage resources
+        peripheral_c::write_out_a wo1;
+        peripheral_c::write_out_a wo2;
+        peripheral_c::write_out_a wo3;
+      };
+      parallel {
+        peripheral_c::read_in_a ri1;
+        peripheral_c::read_in_a ri2;
+        peripheral_c::read_in_a ri3;
+      }; 
+    };
+  };
+};
+
+// ------------------------------------
+// Embedded C implelemtation layer
+// ------------------------------------
+package dma_C_implementation {
+
+  extend action dma_c::mem2queue_xfer_a {
+    exec body C = """        
+      /* program the transfer */ 
+      dma_program({{channel.instance_id}},
+        {{src_data.seg.size}},{{src_data.seg.addr}},
+        {{dst_data.fifo_addr}},FIXED);
+      /* invoke the transfer */
+      dma_activate({{channel.instance_id}});
+      /* block until done */
+      while (!dma_xfer_done({{channel.instance_id}}))
+        ;
+      """;
+  };
+};
+
+
+// ------------------------------------
+// Specific scenario configuration
+// ------------------------------------
+
+extend component pss_top { 
+  peripheral_c periph_a;
+  peripheral_c periph_b;
+  peripheral_c periph_c;
+  
+  action load_mem_buff_a {
+     output data_buff_s out_buff;
+  };
+ 
+  dma_c dma;
+  
+  pool data_buff_s sysmem;
+  share sysmem {*};
+  pool data_stream_s sysfabric;
+  share sysfabric {*};
+};
+
+
+// ------------------------------------
+// Reuse challenge
+// ------------------------------------
+
+// Another DMA engine instance
+extend component pss_top {
+    dma_c dma2;
+};
+
+// A new attribute for DMA/periph data exchange – supporting peripheral C
+extend struct data_stream_s {
+    rand bool support_periph_c;
+};
+
+// if Peripheral C then must support peripheral
+extend action peripheral_c::write_out_a {
+    constraint comp == DVE.periph_c -> src_data.support_periph_c;
+};
+
+// if DMA2 component then should not be support peripheral C
+extend action dma_c::mem2queue_xfer_a {
+    constraint comp == DVE.dma2 -> !dst_data.support_periph_c; 
+};

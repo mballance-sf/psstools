@@ -1,0 +1,101 @@
+
+// ------------------------------------
+// Common definitions
+// ------------------------------------
+enum domain_e {A, B, C};
+
+// Coverspec captures goal of covering all pairs of 
+// state of B
+coverspec state1_state2_pairs(bit[0..3] state1, bit[0..3] state2) {
+  state1_cp : coverpoint state1;
+  state2_cp : coverpoint state2;
+              
+  state1Xstate2 : cross state1_cp, state2_cp;
+}
+
+component graphics_c {
+
+  state struct power_state_s {
+    rand bit[0..3] domain_A, domain_B, domain_C;
+        
+    constraint (initial) -> {
+      domain_A == 0;
+      domain_B == 0;
+      domain_C == 0;
+    }
+        
+    // The level for switch A must be greater or equal to that of B
+    constraint domain_A >= domain_B;
+        
+    // Domain C can be in a functional state only if B is off
+    constraint (domain_C != 0) -> domain_B == 0;
+  };
+    
+  action power_transition_hw {
+    
+    rand int[-1,1] step;
+        
+    input power_state_s prev_state;
+    output power_state_s next_state;
+        
+    constraint next_state.domain_A == prev_state.domain_A;
+        
+    constraint {
+      if (domain == B) {
+        next_state.domain_B == prev_state.domain_B + step;
+      } else {
+        next_state.domain_B == prev_state.domain_B;
+      }
+      if (domain == C) {
+        next_state.domain_C == prev_state.domain_C + step;
+      } else {
+        next_state.domain_C == prev_state.domain_C;
+      }
+    }
+
+    exec body SV = """
+      transaction({{domain}}, {{step}});
+    """;
+  };
+    
+  action power_state_observe_a {
+    input power_state_s curr_state;     
+  };
+
+};
+
+////////////////////////////////////////////////////
+// Test Code
+////////////////////////////////////////////////////
+
+component pss_top {
+    graphics_c graphics1;
+    graphics_c graphics2;
+}
+
+package power_transition_tests_pkg {
+extend component graphics_c {
+  
+  // Get from a given functional state of B to another functional 
+  // state of B, while traversing full power on C in between 
+  // (and so having to power B down). This needs to be exercised for 
+  // all pairs of start and end states of B. 
+  action full_C_between_functional_Bs_a {
+    rand int[1..3] first_B_state, second_B_state; 
+    graph {           
+      power_state_observe_a a0 with {
+        curr_state.domain_B == first_B_state;
+      };
+      power_state_observe_a a1 with {
+        curr_state.domain_C == 3;
+      };
+      power_state_observe_a a2 with {
+        curr_state.domain_B == second_B_state;
+      };
+    };
+    
+    // Instance of coverspec to track test goals      
+    state1_state2_pairs b_pairs(first_B_state, second_B_state);
+  };
+};
+} // close package power_transition_tests_pkg
