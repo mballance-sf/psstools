@@ -20,8 +20,8 @@
 
     <property name="eclipse.home" location="${env.ECLIPSE_HOME}"/>
 	<condition property="eclipsec" 
-		value="${env.ECLIPSE_HOME}/eclipsec" 
-		else="${env.ECLIPSE_HOME}/eclipse">
+		value="${eclipse.home}/eclipsec" 
+		else="${eclipse.home}/eclipse">
 		<os family="windows"/>
 	</condition>
 	
@@ -37,7 +37,7 @@
     <property name="buildDirectory"   value="${basedir}/../build"/>
     <property name="buildResult"   value="${basedir}/../buildResult"/>
 
-    <property name="srcdir" value="${basedir}/../psde"/>
+    <property name="srcdir" value="${basedir}/../psstools"/>
     <property name="docs.dir" value="${srcdir}/docs"/>
     <property name="repository" value="${basedir}/../archive_tmp/repository"/>
 	
@@ -130,9 +130,9 @@
             target="build.jars"/>
         <ant antfile="${buildDirectory}/assemble.${feature.id}.${os}.${ws}.${arch}.xml"
              dir="${buildDirectory}"/>
-		<copy tofile="${buildResult}/psde-feature-${feature.version}.zip"
+		<copy tofile="${buildResult}/psstools-feature-${feature.version}.zip"
 			file="${buildDirectory}/${feature.id}-${feature.version}-${os}.${ws}.${arch}.zip"/>
-	    </target>
+    </target>
 
 
     <!-- ************************************************************
@@ -161,20 +161,6 @@
                 <filter token=".2." value="${feature.version}"/>
             </filterset>
         </copy>
-
-    	<!--
-        <copy todir="${basedir}/../archive_tmp/features">
-            <fileset dir="${gef_zest}/eclipse/features">
-                <include name="**/*"/>
-            </fileset>
-        </copy>
-
-        <copy todir="${basedir}/../archive_tmp/plugins">
-            <fileset dir="${gef_zest}/eclipse/plugins">
-                <include name="**/*"/>
-            </fileset>
-        </copy>
-          -->
 
         <!-- Create the P2 repository -->
         <p2.publish.featuresAndBundles
@@ -219,7 +205,7 @@
 			-->
 
 
-        <jar destfile="${buildResult}/psde-${feature.version}.jar"
+        <jar destfile="${buildResult}/psstools-${feature.version}.jar"
              basedir="${repository}"
              includes="*.xml, features/**, plugins/**"/>
 
@@ -255,7 +241,7 @@
             <fileset dir="${repository}" includes="*.xml"/>
         </delete>
 
-		<zip destfile="${buildResult}/psde-release-${feature.version}.zip">
+		<zip destfile="${buildResult}/psstools-release-${feature.version}.zip">
 			<fileset dir="${repository}">
 				<include name="*.jar"/>
 				<include name="features/**"/>

@@ -59,7 +59,8 @@
   -->    	
     <target name="collect" 
     	depends="init,collect_eclipse,collect_emf,collect_mwe2,
-    	collect_mwe,collect_xtext,collect_xpand,collect_zest"
+    	collect_mwe,collect_xtext,collect_xpand,collect_zest,
+    	collect_vrapper"
 		/>
 	
 	<target name="init">
@@ -402,7 +403,7 @@
 			<arg value="-nv"/>
 			<arg value="-O"/>
 			<arg value="${vrapper_zip}"/>
-			<arg value="${vrapper_release}"/>
+			<arg value="${vrapper_release}/${vrapper_zip}/download"/>
 		</exec>
 	</target>
 	

@@ -1,0 +1,13 @@
+Source: psde
+Package: psde
+Version: 1.2.3
+Section: unknown
+Priority: extra
+Maintainer: Matthew Ballance <matt.ballance@gmail.com>
+Standards-Version: 3.9.2
+Homepage: http://psstools.sourceforge.net
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
+Depends: java8-runtime
+Architecture: @arch@
+

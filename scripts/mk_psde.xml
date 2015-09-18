@@ -6,7 +6,6 @@
 	<!-- Import the version info -->
 	<property file="${basedir}/../etc/psstools.info"/>
 	<property file="${basedir}/packages.properties"/>
-	<property environment="env"/>
 	<property name="feature.version" value="${version}"/>
 	<property name="sf_frs_url" value="${env.SF_USERNAME},psstools@frs.sourceforge.net"/>
 
@@ -19,7 +18,7 @@
 	<property name="builder" value="${buildRoot}/builder"/>
 	<property name="installerTmp" value="${basedir}/../installerTmp"/>
 	
-	<property name="eclipse.home" location="${buildRoot}/eclipse"/>
+	<property name="local.eclipse.home" location="${buildRoot}/eclipse"/>
 	<condition property="eclipsec" 
 		value="${buildRoot}/eclipse/eclipsec" 
 		else="${buildRoot}/eclipse/eclipse">
@@ -29,8 +28,8 @@
 	<!--
 	<property name="mpc_repository" location="${buildRoot}/mpc"/>
 	<property name="equinox_repository" location="${buildRoot}/equinox"/>
-	<property name="vrapper_repository" location="${buildRoot}/vrapper"/>
 	  -->
+	<property name="vrapper_repository" location="${buildRoot}/vrapper"/>
 	<property name="zest_repository" location="${buildRoot}/zest"/>
 	<property name="xtext_repository" location="${buildRoot}/xtext"/>
 	<property name="xpand_repository" location="${buildRoot}/xpand"/>
@@ -40,7 +39,6 @@
 
 	<property file="${basedir}/mk_psde.properties"/>
 	<property file="${basedir}/mk_psde_${os}.properties"/>
-	<property name="eclipse.home" location="${buildRoot}/eclipse"/>
 
 	<condition property="is_win">
 		<os family="windows"/>
@@ -107,10 +105,10 @@
 		
 		<unzip dest="${mpc_repository}"
 			src="${packages}/${mpc_zip}"/>
+			-->
 		
 		<unzip dest="${vrapper_repository}"
 			src="${packages}/${vrapper_zip}"/>
-			-->
 		
 		<!--
 		<exec executable="${eclipsec}" failonerror="true">
@@ -236,7 +234,6 @@
 			<arg value="${basedir}/../buildRoot/ws2"/>
 			<arg value="-buildfile"/>
 			<arg value="${basedir}/build.xml"/>
-			<arg value="-verbose"/>
 			<arg value="-Dos=${build_os}"/>
 			<arg value="-Dws=${build_ws}"/>
 			<arg value="-Darch=${build_arch}"/>
@@ -318,7 +315,7 @@
 		<delete dir="${psstools}"/> 
 		<mkdir dir="${psstools}"/> 
 		<mkdir dir="${psstools}/eclipse"/> 
-		<property name="baseLocation" value="${eclipse.home}"/>
+		<property name="baseLocation" value="${local.eclipse.home}"/>
 		<copy todir="${build}">
 			<fileset dir="${psde_srcdir}">
 				<include name="plugins/**"/>
@@ -341,13 +338,12 @@
 		</copy>
 		<unzip dest="${psstools}/eclipse">
 			<fileset dir="${buildResult}">
-				<!-- TODO: change to psstools feature -->
-				<include name="psde-feature-${feature.version}.zip"/>
+				<include name="pstools-feature-${feature.version}.zip"/>
 			</fileset>
 		</unzip> 
 		
-		<copy file="${basedir}/mk_sve_1.xml" todir="${buildRun}"/>
-		<echo message="mk_sve_1: ${os} ${ws} ${arch}"/>
+		<copy file="${basedir}/mk_psde_1.xml" todir="${buildRun}"/>
+		<echo message="mk_psde_1: ${os} ${ws} ${arch}"/>
 		<exec executable="${eclipsec}" failonerror="true"
 				dir="${buildRun}">
 			<arg value="-console"/>
@@ -359,25 +355,31 @@
 			<arg value="-data"/>
 			<arg value="${basedir}/../buildRoot/ws2"/>
 			<arg value="-buildfile"/>
-			<arg value="${buildRun}/mk_sve_1.xml"/>
+			<arg value="${buildRun}/mk_psde_1.xml"/>
 			<arg value="-verbose"/>
-			<arg value="-DbaseLocation=${eclipse.home}"/>
 		</exec>		
 			<!--
+			<arg value="-DbaseLocation=${local.eclipse.home}"/>
+			<arg value="-Declipse.home=${eclipse.home}"/>
 			<arg value="-Dos=${os}"/>
 			<arg value="-Dws=${ws}"/>
 			<arg value="-Darch=${arch}"/>
+			<arg value="-Dos=${build_os}"/>
+			<arg value="-Dws=${build_ws}"/>
+			<arg value="-Darch=${build_arch}"/>
 		 	  -->
 
 		<copy todir="${buildResult}">
-			<fileset dir="${build}/I.sve">
+			<fileset dir="${build}/I.psde">
 				<include name="*.zip"/>
 			</fileset>
 		</copy>
 
 		<antcall target="win_install_addins"/>
 		<antcall target="linux_install_addins"/>
+		<!--
 		<antcall target="macosx_install_addins"/>
+		-->
 
 		<delete dir="${buildRoot}"/>
 	</target>
@@ -437,7 +439,7 @@
 			<arg value="-tag"/>
 			<arg value="@{tag}"/>
 			<arg value="-destination"/>
-			<arg value="${buildResult}/sve-${sve_version}"/>
+			<arg value="${buildResult}/psde-${psde_version}"/>
 		</exec>
 		</sequential>
 	</macrodef>	
@@ -472,9 +474,9 @@
 			</and>
 		</condition>
 		
-		<condition property="unix_sve_exe"
-			value="sve.app/Contents/MacOS/sve"
-			else="sve">
+		<condition property="unix_psde_exe"
+			value="psde.app/Contents/MacOS/psde"
+			else="psde">
 			<equals arg1="${c_os}" arg2="macosx"/>
 		</condition>
 			<condition property="c_is_unix_win">
@@ -487,16 +489,17 @@
 			</and>
 		</condition>
 		
-		<delete dir="${buildResult}/sveditor"/>
+		<delete dir="${buildResult}/psde"/>
 		<unzip dest="${buildResult}" 
-                    src="${buildResult}/sve-${c_os}.${c_ws}.${c_arch}.zip"/>
+                    src="${buildResult}/psde-${c_os}.${c_ws}.${c_arch}.zip"/>
 		
-		<unzip dest="${buildResult}/sveditor" 
-                    src="${buildResult}/sveditor-${feature.version}.jar"/>
-		<install installIU="net.sf.sveditor.feature.group"
-			tag="AddSVEditor"
-			repository="file://${buildResult}/sveditor"/>
-		
+		<unzip dest="${buildResult}/psde" 
+                    src="${buildResult}/psstools-${feature.version}.jar"/>
+		<install installIU="net.sf.psstools.ide.feature.feature.group"
+			tag="AddPSDE"
+			repository="file://${buildResult}/psde"/>
+	
+		<!--
 		<install installIU="org.eclipse.equinox.p2.discovery.feature.feature.group"
 			tag="AddEquinox"
 			repository="file://${equinox_repository}"/>
@@ -504,6 +507,7 @@
 		<install installIU="org.eclipse.epp.mpc.feature.group"
 			tag="AddMPC"
 			repository="file://${mpc_repository}"/>
+		 -->
 		
 		<install installIU="
 			net.sourceforge.vrapper.feature.group,
@@ -514,59 +518,59 @@
 			tag="AddVrapper"
 			repository="file://${vrapper_repository}"/>
 		
-		<delete file="${buildResult}/sve-${c_os}.${c_ws}.${c_arch}.zip"/>
+		<delete file="${buildResult}/psde-${c_os}.${c_ws}.${c_arch}.zip"/>
 		<antcall target="tar_unix_unix"/>
 		<antcall target="tar_unix_win"/>
 		<antcall target="zip_windows"/>
-		<delete dir="${buildResult}/sve-${sve_version}"/>
-		<delete dir="${buildResult}/sveditor"/>
+		<delete dir="${buildResult}/psde-${psde_version}"/>
+		<delete dir="${buildResult}/psde"/>
 	</target>
 	
 	<target name="tar_unix_unix" if="c_is_unix_unix">
-		<exec executable="chmod" dir="${buildResult}/sve-${sve_version}">
+		<exec executable="chmod" dir="${buildResult}/psde-${psde_version}">
 			<arg value="+x"/>
-			<arg value="sve"/>
+			<arg value="psde"/>
 		</exec>
 		<exec executable="tar" dir="${buildResult}" failonerror="true">
 			<arg value="czf"/>
-			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar.gz"/>
-			<arg value="sve-${sve_version}"/>
+			<arg value="psde-${psde_version}-${c_os}_${c_arch}.tar.gz"/>
+			<arg value="psde-${psde_version}"/>
 		</exec>
 	</target>
 
 	<target name="tar_unix_win" if="c_is_unix_win">
 		<exec executable="tar" dir="${buildResult}" failonerror="true">
-			<arg value="--exclude=sve-${sve_version}/${unix_sve_exe}"/>
+			<arg value="--exclude=psde-${psde_version}/${unix_psde_exe}"/>
 			<arg value="-cf"/>
-			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar"/>
-			<arg value="sve-${sve_version}"/>
+			<arg value="psde-${psde_version}-${c_os}_${c_arch}.tar"/>
+			<arg value="psde-${psde_version}"/>
 		</exec>
 		<exec executable="tar" dir="${buildResult}" failonerror="true">
 			<arg value="-rf"/>
-			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar"/>
+			<arg value="psde-${psde_version}-${c_os}_${c_arch}.tar"/>
 			<arg value="--mode=755"/>
-			<arg value="sve-${sve_version}/${unix_sve_exe}"/>
+			<arg value="psde-${psde_version}/${unix_psde_exe}"/>
 		</exec>
 		<exec executable="gzip" dir="${buildResult}" failonerror="true">
 			<arg value="-f"/>
-			<arg value="sve-${sve_version}-${c_os}_${c_arch}.tar"/>
+			<arg value="psde-${psde_version}-${c_os}_${c_arch}.tar"/>
 		</exec>
 	</target>
 
 	<target name="zip_windows" if="c_is_win">
-		<zip destfile="${buildResult}/sve-${sve_version}-${c_os}_${c_arch}.zip"
-			basedir="${buildResult}" includes="sve-${sve_version}/**">
+		<zip destfile="${buildResult}/psde-${psde_version}-${c_os}_${c_arch}.zip"
+			basedir="${buildResult}" includes="psde-${psde_version}/**">
 		</zip>
 	</target>	
 
-	<target name="upload_sve">
+	<target name="upload_psde">
 		<!-- First, create appropriate directories -->
 		<tempfile property="release_mkdirs_cmds"/>
 		<echo file="${release_mkdirs_cmds}">
-                cd ${sveditor_dir}
-                -mkdir sve
-                cd sve
-                -mkdir ${sve_version}
+                cd ${psde_dir}
+                -mkdir psde
+                cd psde
+                -mkdir ${psde_version}
 		</echo>
 		<exec executable="sftp" input="${release_mkdirs_cmds}">
                     <arg value="-b"/>
@@ -576,10 +580,10 @@
 		<delete file="${release_mkdirs_cmds}"/>
 		<!-- Now, copy the release files to the SVE release dir -->
 		<exec executable="sftp" dir="${buildResult}"
-                    inputstring="put sve-${sve_version}*">
+                    inputstring="put psde-${psde_version}*">
 			<arg value="-b"/>
 			<arg value="/dev/stdin"/>
-			<arg value="${sf_frs_url}:${sveditor_dir}/sve/${sve_version}"/>
+			<arg value="${sf_frs_url}:${psde_dir}/psde/${psde_version}"/>
 		</exec>
 	</target>
 
