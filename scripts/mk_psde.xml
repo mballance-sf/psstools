@@ -61,8 +61,8 @@
 	</condition>
 
 	<target name="mk_psde" depends="collect,mk_psde-pre,build_release,build_archive">
-		<!--
 		<antcall target="mk_msi"/>
+		<!--
 		<antcall target="mk_deb"/>
 		-->
 	</target>

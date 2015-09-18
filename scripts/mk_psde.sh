@@ -23,6 +23,8 @@ $ECLIPSE_HOME/${eclipse} \
     --launcher.suppressErrors \
     -buildfile mk_psde.xml mk_psde
 
+#-buildfile mk_psde.xml mk_msi
+
 #    -Dos=${os} -Dws=${ws} -Darch=${arch} mk_sve
 
 #    -Dos=${os} -Darch=${arch} -Dc_os=${os} -Dc_arch=${arch} -Dc_ws=${ws} build_archive
