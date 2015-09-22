@@ -1,0 +1,180 @@
+<project name="release" default="release">
+
+	<property environment="env"/>
+
+	<!-- Import the version info -->
+	<property file="${basedir}/../etc/psstools.info"/>
+    <property file="${basedir}/../etc/psstools_${version_type}.info"/>
+	<property file="${basedir}/build.properties"/>
+	
+	<condition property="is_release">
+		<equals arg1="${version_type}" arg2="release"/>
+	</condition>
+
+	<property name="sf_frs_url" value="${env.SF_USERNAME},psstools@frs.sourceforge.net"/>
+	<property name="sf_web_url" value="${env.SF_USERNAME},psstools@web.sourceforge.net"/>
+
+	<property name="sf_update_url" 
+		value="${env.SF_USERNAME},psstools@web.sourceforge.net:htdocs/${web_update_dir}"/>
+
+	<property name="rlsdir" value="${basedir}/../release"/>
+	<property name="srcdir" value="${basedir}/../psstools"/>
+	<property name="feature.version" value="${version}"/>
+	<property name="buildDirectory"   value="${basedir}/../build"/>
+	<property name="buildResult"      value="${basedir}/../buildResult"/>
+
+	<target name="release" depends="release-prereqs, upload_release">
+		<!-- remove release dir once complete -->
+		<delete dir="${basedir}/../release"/>
+	</target>
+
+	<target name="release-prereqs" depends="build, mksrc, mk_rn">
+		<mkdir dir="${rlsdir}"/>
+
+		<unzip src="${buildResult}/psstools-release-${feature.version}.zip"
+			dest="${rlsdir}"/>
+       
+<!--
+		<delete dir="${rlsdir}"/> 
+		<delete dir="${buildDirectory}"/>
+ -->
+	</target>
+
+	<target name="upload_release">
+		<!-- First, create appropriate directories -->
+		<tempfile property="sftp_cmds"/>
+
+		<echo file="${sftp_cmds}">
+				-mkdir ${psstools_dir}
+                cd ${psstools_dir}
+                -mkdir ${frs_update_site_dir}
+                cd ${frs_update_site_dir}
+                -mkdir ${feature.version}
+                cd ${feature.version}
+                -mkdir plugins
+                -mkdir features
+                -mkdir ${psstools_dir}/psstools
+                cd ${psstools_dir}/psstools
+                -mkdir ${feature.version}
+		</echo>
+
+		<exec executable="sftp">
+                    <arg value="-b"/>
+                    <arg value="${sftp_cmds}"/>
+                    <arg value="${sf_frs_url}"/>
+                </exec>
+		<delete file="${sftp_cmds}"/>
+
+		<!-- Now, copy the release files into the update site -->
+		<echo file="${sftp_cmds}">
+			put *.jar
+		</echo>
+		<exec executable="sftp" dir="${rlsdir}/features">
+			<arg value="-b"/>
+			<arg value="${sftp_cmds}"/>
+			<arg value="${sf_frs_url}:${psstools_dir}/${frs_update_site_dir}/${feature.version}/features"/>
+		</exec>
+
+		<echo file="${sftp_cmds}">
+			put *.jar
+		</echo>
+		<exec executable="sftp" dir="${rlsdir}/plugins">
+			<arg value="-b"/>
+			<arg value="${sftp_cmds}"/>
+			<arg value="${sf_frs_url}:${psstools_dir}/${frs_update_site_dir}/${feature.version}/plugins"/>
+		</exec>
+
+		<!-- Now, copy the release archive (only if in release mode) -->
+		<antcall target="upload_release_files"/>
+
+		<!-- Finally, update the SVEditor Update Site -->
+		<echo file="${sftp_cmds}">
+			-mkdir ${web_update_dir}
+			cd ${web_update_dir}
+			put content.jar
+			put artifacts.jar
+		</echo>
+		<exec executable="sftp" dir="${rlsdir}">
+			<arg value="-b"/>
+			<arg value="${sftp_cmds}"/>
+			<arg value="${sf_web_url}:htdocs"/>
+		</exec>
+		
+		<delete file="${sftp_cmds}"/>
+	</target>
+	
+	<target name="upload_release_files" if="is_release">
+		<!-- Now, copy the release archive (only if in release mode) -->
+		<echo file="${sftp_cmds}">
+			put psstools-${feature.version}.jar
+		</echo>
+		<exec executable="sftp" dir="${buildResult}">
+			<arg value="-b"/>
+			<arg value="${sftp_cmds}"/>
+			<arg value="${sf_frs_url}:${psstools_dir}/psstools/${feature.version}"/>
+		</exec>
+
+		<echo file="${sftp_cmds}">
+			put psstools-src-${feature.version}.zip
+		</echo>
+		<exec executable="sftp" dir="${basedir}/../buildResult">
+			<arg value="-b"/>
+			<arg value="${sftp_cmds}"/>
+			<arg value="${sf_frs_url}:${psstools_dir}/psstools/${feature.version}"/>
+		</exec>
+
+		<echo file="${sftp_cmds}">
+			put rn.txt
+		</echo>
+		<exec executable="sftp" dir="${rlsdir}">
+			<arg value="-b"/>
+			<arg value="${sftp_cmds}"/>
+			<arg value="${sf_frs_url}:${psstools_dir}/psstools/${feature.version}"/>
+		</exec>		
+	</target>
+
+	<target name="mk_rn">
+		<mkdir dir="${rlsdir}"/>
+		<exec executable="perl" output="${rlsdir}/rn.txt">
+			<arg value="${basedir}/mk_rn.pl"/>
+			<arg value="${feature.version}"/>
+			<arg value="${basedir}/../ChangeLog.txt"/>
+		</exec>
+	</target>
+
+	<target name="build">
+		<delete dir="${buildResult}"/>
+		<ant antfile="${basedir}/build.xml" dir="${basedir}" target="build"/>
+	</target>
+
+	<target name="mksrc">
+		<mkdir dir="${buildResult}/psstools-src-${feature.version}"/>
+		<copy todir="${buildResult}/psstools-src-${feature.version}">
+			<fileset dir="${basedir}/..">
+				<include name="psstools/**"/>
+				<include name="psde/**"/>
+				<include name="etc/**"/>
+				<include name="ChangeLog.txt"/>
+				<include name="scripts/**"/>
+				<exclude name="**/.git/**"/>
+				<exclude name="**/bin/**"/>
+				<exclude name="**/class/**"/>
+			</fileset>
+		</copy>
+		<delete includeemptydirs="true">
+			<fileset dir="${buildResult}/psstools-src-${feature.version}">
+				<include name="**/.git/**"/>
+				<include name="**/bin/**"/>
+				<include name="**/class/**"/>
+			</fileset>
+		</delete>
+		<zip destfile="${buildResult}/psstools-src-${feature.version}.zip"
+			basedir="${buildResult}">
+			<include name="psstools-src-${feature.version}/**"/>
+		</zip>
+		<delete dir="${buildResult}/psstools-src-${feature.version}"/>
+	</target>
+
+</project>
+
+

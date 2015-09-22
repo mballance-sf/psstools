@@ -1,0 +1,176 @@
+state struct power_state_s {
+    rand bool pd_a,pd_b, cd_a1, cd_b1, cd_b2;
+   
+    constraint pd_b -> (pd_a && cd_a1); 
+    constraint cd_a1 -> pd_a;
+    constraint cd_b1 -> pd_b;
+    constraint cd_b2 -> pd_b && cd_b1;  // note that the pd_b == ON is redunedant
+        
+    constraint initial ->         
+            (!pd_a && !pd_d && !pc_a1 && !pc_b1 && !pd_b2);
+};
+
+abstract action transition {
+    input power_state_s prev_state;
+    output power_state_s next_state;  
+};
+
+action transition_a: transition {
+    constraint prev_state.a != next_state.a;
+
+    // leave the others the same
+    constraint prev_state.b == next_state.b;
+    constraint prev_state.a1 == next_state.a1;
+    constraint prev_state.b1 == next_state.b1;
+    constraint prev_state.b2 == next_state.b2;
+};
+
+action transition_b: transition {
+    constraint prev_state.b != next_state.b;
+
+    // leave the others the same
+    constraint prev_state.a == next_state.a;
+    constraint prev_state.a1 == next_state.a1;
+    constraint prev_state.b1 == next_state.b1;
+    constraint prev_state.b2 == next_state.b2;
+};
+
+action transition_a1: transition {
+    constraint prev_state.a1 != next_state.a1;
+
+    // leave the others the same
+    constraint prev_state.b == next_state.b;
+    constraint prev_state.a1 == next_state.a1;
+    constraint prev_state.b1 == next_state.b1;
+    constraint prev_state.b2 == next_state.b2;
+};
+
+action transition_b1: transition {
+    constraint prev_state.b1 != next_state.b1;
+
+    // leave the others the same
+    constraint prev_state.a == next_state.a;
+    constraint prev_state.b == next_state.b;
+    constraint prev_state.a1 == next_state.a1;
+    constraint prev_state.b2 == next_state.b2;
+};
+
+action transition_b2: transition {
+    constraint prev_state.b2 != next_state.b2;
+
+    // leave the others the same
+    constraint prev_state.a == next_state.a;
+    constraint prev_state.b == next_state.b;
+    constraint prev_state.a1 == next_state.a1;
+    constraint prev_state.b1 == next_state.b1;
+};
+
+action power_observer {
+    input power_state_s goto;
+};
+
+action function {
+    function_e function;
+    input power_state_s prev_state;
+        constraint prev_state.cd_b; // must be on in order to do a function
+};
+
+action write {
+    input power_state_s prev_state;
+        constraint prev_state.cd_b2; // must be on in order to write
+};
+
+action read {
+    input power_state_s prev_state;
+        constraint prev_state.cd_b2; 
+};
+
+
+
+///////////////////////////////////////////////////// platform specific implementation
+package c_implementation {
+   extend action transition_a {
+       exec header C = """
+          #include my_firmware_apis.h
+       """;
+
+       exec body C = """
+          reset_a();
+       """;
+   };
+
+   extend action transition_b {
+       exec body C = """
+          transition_b(...);
+       """;
+   };
+//   ...
+
+};
+
+package hw_implementation { 
+    extend action transition_a {
+       exec body SV = """
+          reset_a();
+       """;
+    };
+
+   extend action transition_b {
+       exec body SV = """
+          transition_b(...);
+       """;
+   };
+//   ...
+};
+
+//////////////////////////////////////////////
+// Tests
+//////////////////////////////////////////////
+
+//1.  provide power to domain A through c4_volt_a 
+action a1 {
+     graph {
+         transition_a;
+     };
+};
+
+//2.  instruct JTAG driver to drive transaction to Voltage Control Reg B to enable power domain B and then clock domain B1
+action a2 {
+     graph {
+         transaction_b1;
+     };
+};
+
+//3.  instruct JTAG driver to drive access to DATA register, followed by ADDR register to launch RASIF transaction to Clock Endpoint CMD REG to enable clock domain B2
+action a3 {
+     graph {
+         write;
+         transaction_b2;
+     };
+};
+
+// 4.  instruct JTAG driver to exercise Clock endpoint functions F1 by writing correct opcode to the endpoint?s CMD reg
+action a4 {
+     graph {
+         function;
+         constraint function.function == F1;
+     };
+};
+
+//5.  generate and execute code needed for embedded execution engine to run the following sequence (mimicking a power management control loop):
+//a.  read GP endpoint register GP IN
+//b.  write random data to GP endpoint register GP OUT
+//c.  repeat a) and b) 10 times
+
+action a5 {
+    graph {
+        read;
+        write;
+        repeat (10) {
+            read;
+        }
+        repeat (10) {
+            write;
+        }
+    };
+};

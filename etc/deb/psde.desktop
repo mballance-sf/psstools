@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=PSDE 1.2.3
+Exec=psde
+Type=Application
+Terminal=false
+Icon=psde
+X-KDE-StartupNotify=false
+Categories=Development
+Additional Categories=IDE;Electronics;Engineering
+

@@ -4,9 +4,7 @@
 
     <!-- Import the version info -->
     <property file="${basedir}/../etc/psstools.info"/>
-	<!--
-    <property file="${basedir}/../etc/sveditor_${version_type}.info"/>
-      -->
+    <property file="${basedir}/../etc/psstools_${version_type}.info"/>
     <property file="${basedir}/build.properties"/>
 
     <property name="gef_zest" location="${env.SVE_ADDINS}/gef_zest"/>
@@ -18,10 +16,10 @@
 	<equals arg1="${version_type}" arg2="release"/>
     </condition>
 
-    <property name="eclipse.home" location="${env.ECLIPSE_HOME}"/>
+    <property name="eclipse.home" location="${env.ECLIPSE_XTEXT_HOME}"/>
 	<condition property="eclipsec" 
-		value="${env.ECLIPSE_HOME}/eclipsec" 
-		else="${env.ECLIPSE_HOME}/eclipse">
+		value="${eclipse.home}/eclipsec" 
+		else="${eclipse.home}/eclipse">
 		<os family="windows"/>
 	</condition>
 	
@@ -37,9 +35,39 @@
     <property name="buildDirectory"   value="${basedir}/../build"/>
     <property name="buildResult"   value="${basedir}/../buildResult"/>
 
-    <property name="srcdir" value="${basedir}/../psde"/>
+    <property name="srcdir" value="${basedir}/../psstools"/>
     <property name="docs.dir" value="${srcdir}/docs"/>
     <property name="repository" value="${basedir}/../archive_tmp/repository"/>
+	
+	<path id="classpath">
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.eclipse.emf.*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.apache.commons.*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.apache.log4j*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.eclipse.equinox.common*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.eclipse.xtext*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="com.google*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="javax.inject*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.antlr.runtime*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.eclipse.xpand*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.eclipse.xtend*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="com.ibm.icu*.jar"/>
+		<fileset dir="${eclipse.home}/plugins" 
+			includes="org.objectweb.asm*.jar"/>
+		<fileset dir="${srcdir}/plugins/net.sf.psstools.lang"
+			includes=".antlr-generator-3.2.0-patch.jar"/>
+		<pathelement location="${buildDirectory}/plugins/net.sf.psstools.lang/src"/>
+	</path>
 
     <taskdef name="xmltask"
         classname="com.oopsconsultancy.xmltask.ant.XmlTask">
@@ -72,6 +100,13 @@
             </filterset>
         </copy>
 
+    	<java fork="true" failonerror="true"
+    		classpathref="classpath"
+    		classname="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher"
+	    	dir="${buildDirectory}/plugins/net.sf.psstools.lang">
+    		<arg value="src/net/sf/psstools/lang/GeneratePSS.mwe2"/>
+    	</java>
+    	
         <antcall target="build_feature">
             <param name="feature.id" value="net.sf.psstools.ide.feature"/>
         </antcall>
@@ -93,9 +128,9 @@
             target="build.jars"/>
         <ant antfile="${buildDirectory}/assemble.${feature.id}.${os}.${ws}.${arch}.xml"
              dir="${buildDirectory}"/>
-		<copy tofile="${buildResult}/psde-feature-${feature.version}.zip"
+		<copy tofile="${buildResult}/psstools-feature-${feature.version}.zip"
 			file="${buildDirectory}/${feature.id}-${feature.version}-${os}.${ws}.${arch}.zip"/>
-	    </target>
+    </target>
 
 
     <!-- ************************************************************
@@ -125,20 +160,6 @@
             </filterset>
         </copy>
 
-    	<!--
-        <copy todir="${basedir}/../archive_tmp/features">
-            <fileset dir="${gef_zest}/eclipse/features">
-                <include name="**/*"/>
-            </fileset>
-        </copy>
-
-        <copy todir="${basedir}/../archive_tmp/plugins">
-            <fileset dir="${gef_zest}/eclipse/plugins">
-                <include name="**/*"/>
-            </fileset>
-        </copy>
-          -->
-
         <!-- Create the P2 repository -->
         <p2.publish.featuresAndBundles
             metadataRepository="file:${repository}"
@@ -161,11 +182,10 @@
             <arg value="-categoryQualifier"/>
         </exec>
 
-    	<!--
         <xmltask source="${repository}/artifacts.xml"
                  dest="${repository}/artifacts_1.xml">
         	<replace path="/repository/@name" 
-			withText="http://sveditor.sourceforge.net/${sf_update_dir}"/>
+			withText="http://psstools.sourceforge.net/${sf_update_dir}"/>
         </xmltask>
 
         <move file="${repository}/artifacts_1.xml"
@@ -174,19 +194,16 @@
         <xmltask source="${repository}/content.xml"
                  dest="${repository}/content_1.xml">
         	<replace path="/repository/@name" 
-			withText="http://sveditor.sourceforge.net/${sf_update_dir}"/>
+			withText="http://psstools.sourceforge.net/${sf_update_dir}"/>
         </xmltask>
 
         <move file="${repository}/content_1.xml"
               tofile="${repository}/content.xml"/>
-			-->
 
-
-        <jar destfile="${buildResult}/psde-${feature.version}.jar"
+        <jar destfile="${buildResult}/psstools-${feature.version}.jar"
              basedir="${repository}"
              includes="*.xml, features/**, plugins/**"/>
 
-    	<!--
 		<copy todir="${basedir}/../archive_tmp" overwrite="true">
 			<fileset dir="${basedir}/../etc" includes="mappings_${version_type}.xml"/>
 			<filterset begintoken="1" endtoken="3">
@@ -208,7 +225,6 @@
 
         <move file="${repository}/artifacts_1.xml"
               tofile="${repository}/artifacts.xml"/>
-		-->
 
         <zip destfile="${repository}/artifacts.jar"
              basedir="${repository}" includes="artifacts.xml"/>
@@ -218,7 +234,7 @@
             <fileset dir="${repository}" includes="*.xml"/>
         </delete>
 
-		<zip destfile="${buildResult}/psde-release-${feature.version}.zip">
+		<zip destfile="${buildResult}/psstools-release-${feature.version}.zip">
 			<fileset dir="${repository}">
 				<include name="*.jar"/>
 				<include name="features/**"/>

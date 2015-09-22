@@ -1,0 +1,777 @@
+/****************************************************************************
+ * PSS.xtext
+ *
+ * 
+ * Grammar for the Portable Stimulus Specification contribution
+ *
+ ****************************************************************************/
+grammar net.sf.psstools.lang.PSS hidden(WS, ML_COMMENT, SL_COMMENT)
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+generate pSS "http://www.sf.net/psstools/lang/PSS"
+
+Model:
+	root+=portable_stimulus_description*;
+
+portable_stimulus_description: 
+	package_body_item			|
+	package_declaration
+;
+
+package_declaration:
+	'package' name=package_identifier '{'
+		body+=package_body_item*
+	'}'	(';')?
+;
+
+package_body_item:
+	action_declaration 		|
+	component_declaration	| 
+	struct_declaration 		|
+	enum_declaration 		|
+	coverspec_declaration 	|
+	typedef_declaration 	|
+	bins_declaration 		|
+	import_stmt 			|
+	extend_stmt
+;
+
+extend_stmt:
+	'extend' 
+		(
+			('action' name=type_identifier '{'
+				body+=action_body_item*
+				'}' (';')?
+			) | 
+			('struct' name=type_identifier '{'
+				body+=struct_body_item*
+				'}' (';')?
+			) |
+			('enum' name=type_identifier '{'
+				(body+=enum_item (',' body+=enum_item)*)?
+				'}' (';')?
+			) |
+			('component' name=type_identifier '{'
+				body+=component_body_item*
+				'}' (';')?
+			)
+		)
+;
+
+import_stmt:
+	'import' package_import_pattern ';'
+;
+
+package_import_pattern:
+	package=type_identifier (wildcard?='::' '*')?
+;
+
+/****************************************************************************
+ * Heading: Action Declarations
+ ****************************************************************************/
+action_declaration:
+	(abstract?='abstract')? 'action' name=action_identifier (':' super=[action_declaration|identifier])? '{'
+		body+=action_body_item*
+	'}' (';')?
+;
+
+action_body_item:
+	graph_declaration			|
+	overrides_declaration  		|	
+	constraint_declaration 		|
+	action_field_declaration	|
+	bins_declaration   			|
+	symbol_declaration			|
+	coverspec_declaration		|
+	exec_block_stmt
+;
+
+graph_declaration:
+	{graph_declaration} 'graph' '{'
+		body+=graph_production*
+	'}' (';')?
+;
+
+action_field_declaration:
+	action_field_modifier? declaration=data_declaration
+;
+
+action_field_modifier:
+	rand?='rand'|sample?='sample'|io_direction|lock?='lock'|shared?='share'	
+;
+
+io_direction:
+	input?='input' | output?='output'
+;
+
+exec_block_stmt:
+	(inline?='inline')? 'exec' kind=exec_kind_identifier target=target_identifier '=' body=string ';' |
+	(inline?='inline')? 'exec' 'file' target_file_name=string '=' body=string ';'
+;
+
+/****************************************************************************
+ * Heading: Struct Declarations
+ ****************************************************************************/
+struct_declaration:
+	(qualifier=struct_qualifier)? 'struct' name=identifier (':' super=[struct_declaration|struct_identifier])? '{'
+		body+=struct_body_item*
+	'}' (';')?
+;
+
+struct_qualifier:
+	{struct_qualifier} ('memory' | 'stream' | 'state' | ('resource' ('[' n_resource=constant_expression ']')?))
+;
+
+struct_body_item:
+	constraint_declaration		|
+	struct_field_declaration	|
+	typedef_declaration			|
+	bins_declaration			|
+	coverspec_declaration
+;
+
+struct_field_declaration:
+	struct_field_modifier? declaration=data_declaration
+;
+
+struct_field_modifier:
+	rand?='rand'|sample?='sample'	
+;
+
+/****************************************************************************
+ * Heading: Component Declaration
+ ****************************************************************************/
+component_declaration:
+	'component' name=component_identifier (':' super=[component_declaration|component_identifier])? '{'
+	body+=component_body_item*
+	'}' (';')?
+;
+
+component_body_item:
+	overrides_declaration		|
+	component_field_declaration	|
+	action_declaration 			|
+	struct_declaration 			|
+	import_stmt					|
+	object_bind_stmt			|
+	inline_type_object_declaration
+;
+
+component_field_declaration:
+	(pool?='pool')? declaration=data_declaration
+;
+
+inline_type_object_declaration:
+	'pool' qualifier=struct_qualifier 'struct' name=identifier (':' super=[struct_declaration|struct_identifier])? '{'
+		body+=struct_body_item*
+	'}' (';')?
+;
+
+object_bind_stmt:
+	'bind' lhs=hierarchical_id rhs=object_bind_item_or_list ';'
+;
+
+object_bind_item_or_list:
+	items+=component_path | '{' items+=component_path (',' items+=component_path)* '}'
+;
+
+component_path:
+	{component_path} (path+=component_identifier ('.' path+=component_path_elem)*) |
+	path+='*'
+; 
+
+component_path_elem:
+	component_action_identifier|'*'
+;
+
+/********************************************************************
+ * Heading: Graph Productions
+ ********************************************************************/
+graph_production: 
+	graph_if_else_production		|
+	graph_repeat_stmt 				|
+	graph_constraint_stmt			|
+	graph_foreach_stmt				|
+	graph_expr_stmt					|
+	graph_select_stmt				|
+	graph_parallel_stmt				|
+	graph_schedule_stmt				|
+	graph_bind_stmt
+;
+
+
+graph_bind_stmt:
+	'bind' lhs=hierarchical_id rhs=graph_bind_item_or_list ';'
+;
+
+graph_bind_item_or_list:
+	(items+=hierarchical_id | '{' items+=hierarchical_id (',' items+=hierarchical_id)*) '}'
+;
+
+graph_if_else_production:
+	'if' '(' expr=expression ')' if_production=graph_production 
+	(=> 'else' else_production=graph_production)?
+;
+
+graph_select_parallel_schedule_production:
+	graph_repeat_stmt 				|
+	graph_constraint_stmt			|
+	graph_foreach_stmt				|
+	graph_select_stmt				|
+	graph_parallel_stmt				|
+	graph_schedule_stmt				|
+	graph_select_parallel_block			|
+	graph_select_parallel_if_else_stmt	|
+	graph_sequence_stmt
+	;
+
+graph_select_parallel_if_else_stmt:
+	'if' '(' expr=expression ')' true_prod=graph_select_parallel_schedule_production
+	(=> 'else' false_prod=graph_select_parallel_schedule_production)?
+;	
+
+graph_select_parallel_block:
+	{graph_select_parallel_block} '{' productions+=graph_select_parallel_schedule_production* '}'
+;
+
+graph_select_stmt:
+	'select' '{'
+		productions+=graph_select_production productions+=graph_select_production*
+	'}'
+;
+
+graph_sequence_stmt:
+	{graph_sequence_stmt} (
+		(type=type_identifier item=identifier 
+			('with' ('{' constraints+=constraint_body_item* '}' | constraints+=constant_expression)?)?
+		) | 
+		(item=identifier ('with' ('{' constraints+=constraint_body_item* '}' | constraints+=constant_expression)?)?
+		) | 
+		(items+=identifier ',' items+=identifier (',' items+=identifier)* 
+		) 
+	)
+	';'
+;
+
+graph_select_production:
+	(label=identifier /*(':=' weight=graph_select_weight)?*/ ':')? production=graph_select_parallel_schedule_production 
+;
+
+//graph_select_weight:
+//	value=number |
+//	id=identifier |
+//	'(' expr=expression ')'
+//;
+
+graph_parallel_stmt:
+	{graph_parallel_stmt} 'parallel' '{'
+		productions+=graph_parallel_production*
+	'}' (';')?
+;
+
+graph_schedule_stmt:
+	{graph_schedule_stmt} 'schedule' '{'
+		productions+=graph_select_production*
+	'}' (';')?
+;
+
+graph_parallel_production:
+	(label=identifier ':')? production=graph_select_parallel_schedule_production
+;
+
+graph_repeat_stmt:
+	{graph_repeat_stmt} (
+		('repeat' pre_cond?='while' '(' expr=expression ')' body=graph_block_stmt) |
+		('repeat' count?='(' (ivar=identifier ':')? expr=expression ')' body=graph_block_stmt) |
+		('repeat' body=graph_block_stmt (post_cond?='while' '(' expr=expression ')')?)
+		)
+;
+
+graph_constraint_stmt:
+	{graph_constraint_stmt} 'constraint' (('{' body+=constraint_body_item* '}' ) | (body+=expression_constraint_item))
+;
+
+graph_foreach_stmt:
+	'foreach' '(' expr=expression ')' body=graph_block_stmt
+;
+
+graph_expr_stmt:
+	graph_sequence_stmt | 
+	graph_block_stmt
+;
+
+graph_block_stmt:
+	'{' {graph_block_stmt} stmt_list+=graph_production* '}'
+;
+
+symbol_declaration:
+	'symbol' name=identifier ('(' parameters=symbol_paramlist ')')? '='
+		rules+=graph_production 
+;
+
+symbol_param:
+	(dir=io_direction)? (type=data_type) name=identifier
+;
+
+symbol_paramlist:
+	{symbol_paramlist} (params+=symbol_param (',' params+=symbol_param)*)?
+;
+
+
+
+/********************************************************************
+ * Heading: Overrides
+ ********************************************************************/
+overrides_declaration:
+	{overides_declaration} 'override' '{' overrides+=override_stmt* '}'
+;
+
+override_stmt:
+	type_override | instance_override
+;
+
+type_override:
+	'type' src=identifier 'with' dest=identifier ';'
+;
+
+instance_override:
+	'instance' src=hierarchical_id 'with' dest=identifier ';'
+;
+
+/********************************************************************
+ * Heading: Data Declarations
+ ********************************************************************/
+data_declaration:
+	type=data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
+;
+
+data_instantiation:
+	name=identifier ('(' portmap=coverspec_portmap_list ')')? dim=array_dim? ('=' init=constant_expression)?
+;
+
+array_dim:
+	{array_dim} '[' (lhs=constant_expression (':' rhs=constant_expression)?)? ']'
+;
+
+coverspec_portmap_list:
+	{coverspec_portmap_list} (
+		// Name-mapped port binding
+		(portmaps+=coverspec_portmap (',' portmaps+=coverspec_portmap)*) |
+		// Positional port binding
+		(ports+=hierarchical_id (',' ports+=hierarchical_id)*)
+	)?
+;
+
+coverspec_portmap:
+	'.' portname=identifier '(' connected_name=hierarchical_id ')'
+;
+
+/********************************************************************
+ * Heading: Data Types
+ ********************************************************************/
+data_type:
+	integer_type |
+	string_type  |
+	user_defined_type
+;
+
+enum_declaration:
+  	'enum' name=enum_identifier '{' 
+  		(items+=enum_item (',' items+=enum_item)*)?
+  		'}' (';')?
+  ;
+
+enum_item:
+	name=identifier ('=' value=expression)?
+;
+
+user_defined_type:
+	typename=type_identifier
+;
+
+typedef_declaration:
+ 	'typedef' type=data_type type_id=identifier ';' 
+;
+
+string_type: typename='string';  
+
+integer_type:
+	typename=integer_atom_type ('[' 
+		lhs=expression
+		(
+			(bitRange?=':' rhs=expression) | 
+			(domin?=',' ranges+=open_range_value (',' ranges+=open_range_value)*) | 
+			(domain?='..' rhs=expression (',' ranges+=open_range_value)*)
+		)?
+		']'
+	)? 
+;
+
+integer_atom_type:
+	'int'|'bit'
+;
+
+open_range_list:
+	ranges+=open_range_value (',' ranges+=open_range_value)*
+;
+
+open_range_value:
+	lhs=expression ('..' rhs=expression)?
+;
+
+/********************************************************************
+ * Heading: Constraints
+ ********************************************************************/
+constraint_declaration:
+	{constraint_declaration} 
+	(
+		(dynamic?=('dynamic')? 'constraint' name=identifier '{' body+=constraint_body_item* '}') |
+		('constraint' '{' body+=constraint_body_item* '}') | 
+		('constraint' body+=expression_constraint_item)
+	)
+;
+
+constraint_body_item:
+	expression_constraint_item |
+	foreach_constraint_item |
+	if_constraint_item		|
+	unique_constraint_item
+;
+
+expression_constraint_item:
+	expression (('->' impl_constraint=constraint_set)|';')
+;
+
+if_constraint_item:
+	'if' '(' if_expr=expression ')' true_case=constraint_set (=> 'else' false_set=constraint_set )? 
+;
+
+foreach_constraint_item:
+	'foreach' '(' expr=expression ')' body=constraint_set
+;
+
+constraint_set:
+	items+=constraint_body_item | items+=constraint_block
+;
+
+constraint_block:
+	'{' {constraint_set} items+=constraint_body_item* '}'
+;
+
+unique_constraint_item:
+	'unique' '{' items+=hierarchical_id (',' items+=hierarchical_id)* '}' ';'
+;
+
+/********************************************************************
+ * Heading: Bins 
+ ********************************************************************/
+ bins_declaration:
+ 	'bins' name=identifier (item=variable_identifier)? bins=bin_specification ';'
+ ;
+ 
+ bin_specification:
+ 	items+=bin_specifier (items+=bin_specifier)* (bin_wildcard)?
+ ;
+ 
+ bin_specifier:
+ 	explicit_bin_value |
+ 	explicit_bin_range |
+ 	bin_range_divide   |
+ 	bin_range_size
+ ;
+ 
+ explicit_bin_value:
+ 	'[' constant ']'
+ ;
+ 
+ explicit_bin_range:
+ 	'[' low=constant '..' high=constant ']'
+ ;
+ 
+ bin_range_divide:
+ 	explicit_bin_range '/' div=constant
+ ;
+ 
+ bin_range_size:
+ 	explicit_bin_range ':' size=constant
+ ;
+ 
+ bin_wildcard:
+ 	'[' '*' ']'
+ ;
+ 
+/********************************************************************
+ * Heading: Coverspec
+ ********************************************************************/
+
+coverspec_declaration:
+	'coverspec' name=identifier '(' ports+=coverspec_port (',' ports+=coverspec_port)* ')' '{'
+		body_items+=coverspec_body_item*
+	'}'
+;
+
+coverspec_port:
+	type=data_type name=identifier
+;
+
+coverspec_body_item:
+	coverspec_option		|
+	coverspec_coverpoint	|
+	coverspec_cross			|
+//	coverspec_paths			|
+	constraint_declaration
+;
+
+coverspec_option:
+	'option' '.' option=identifier '=' value=constant_expression ';'
+;
+
+
+coverspec_coverpoint:
+	name=ID ':' 'coverpoint' target=hierarchical_id 
+		(
+			( '{' body_items+=coverspec_coverpoint_body_item* '}') | ';'
+		)
+;
+
+coverspec_coverpoint_body_item:
+	coverspec_option			|
+	coverspec_coverpoint_binspec
+;
+
+coverspec_coverpoint_binspec:
+	'bins' name=identifier 
+		(bins=bin_specification | binsref=hierarchical_id) ';'
+;
+
+coverspec_cross_body_item:
+	coverspec_option
+;
+
+coverspec_cross:
+	name=ID ':' 'cross' targets+=hierarchical_id (',' targets+=hierarchical_id)*
+		(
+			( '{' body_items+=coverspec_cross_body_item* '}') | ';'
+		)
+;
+
+//coverspec_paths_body_item:
+//	coverspec_option |
+//	coverspec_paths_include_exclude
+//;
+//
+//coverspec_paths:
+//	name=ID ':' 'paths' start=hierarchical_id ',' (stop+=hierarchical_id | '{' stop+=hierarchical_id (',' stop+=hierarchical_id)*)
+//		(
+//			( '{' body_items+=coverspec_paths_body_item* '}') | ';'
+//		)
+//;
+//
+//coverspec_paths_include_exclude:
+//	inc_excl=('include'|'exclude') paths_vals=('paths'|'values') ('{' list+=identifier (',' list+=identifier)* '}')? ';'
+//;
+
+ 
+/********************************************************************
+ * Heading: Expressions
+ ********************************************************************/
+
+/** 
+ * Note: ANTLR doesn't support left-recursion in grammar productions.
+ * Consequently, we can't say something like: 
+ *   expression := expression '+' expression.
+ * 
+ * The expression grammar below is refactored to eliminate left 
+ * recursion and properly implement operator precedence
+ */
+// TODO: should make special-purpose declaration 
+constant_expression: expression;
+
+expression: 
+	condition_expr
+	;
+	
+condition_expr returns expression:
+	logical_or_expr ({condition_expr.left=current} '?' true_expr=logical_or_expr ':' false_expr=logical_or_expr)*
+	; 
+
+logical_or_expr returns expression:
+	logical_and_expr ({logical_or_expr.left=current} '&&' right=logical_and_expr)*
+;
+
+logical_and_expr returns expression:
+	binary_or_expr ({logical_and_expr.left=current} '||' right=binary_or_expr)*	
+;
+
+binary_or_expr returns expression:
+	binary_xor_expr ({binary_or_expr.left=current} '|' right=binary_xor_expr)*
+;
+
+binary_xor_expr returns expression:
+	binary_and_expr ({binary_xor_expr.left=current} '^' right=binary_and_expr)*
+;
+
+binary_and_expr returns expression:
+	logical_equality_expr ({binary_and_expr.left=current} '&' right=logical_equality_expr)*
+;
+
+logical_equality_expr returns expression:
+	logical_inequality_expr ({logical_equality_expr.left=current} op=eq_neq_op right=logical_inequality_expr)*
+;
+
+logical_inequality_expr returns expression:
+	binary_shift_expr ({logical_inequality_expr.left=current} 
+		((op=('<'|'<='|'>'|'>=') right=binary_shift_expr) | (op='inside' '[' right=open_range_list ']'))
+	)*
+;
+
+binary_shift_expr returns expression:
+	binary_add_sub_expr ({binary_shift_expr.left=current} op=shift_op right=binary_add_sub_expr)*
+;
+
+binary_add_sub_expr returns expression:
+	binary_mul_div_mod_expr ({binary_add_sub_expr.left=current} op=add_sub_op right=binary_mul_div_mod_expr)*
+;
+
+binary_mul_div_mod_expr returns expression:
+	binary_exp_expr ({binary_mul_div_mod_expr.left=current} op=mul_div_mod_op right=binary_exp_expr)*
+;
+
+binary_exp_expr returns expression:
+	unary_expr ({binary_exp_expr.left=current} '**' right=unary_expr)*
+;
+
+unary_op: '+' | '-' | '!' | '~' | '&' | '|' | '^';
+
+eq_neq_op: '==' | '!=';
+
+shift_op: '<<' | '>>';
+
+add_sub_op: '+' | '-';
+
+mul_div_mod_op: '*' | '/' | '%';
+
+unary_expr returns expression:
+	(unary_op)? primary
+;
+
+primary: //; returns expression:
+	number 			| 
+	paren_expr 		|
+	variable_ref	
+;
+
+paren_expr:
+	'(' expr=expression ')'
+;
+
+variable_ref:
+	expr=hierarchical_id ('[' lhs=expression (':' rhs=expression)? ']')?
+;
+
+
+/********************************************************************
+ * Heading: Identifiers and Literals
+ ********************************************************************/
+action_identifier: identifier;
+struct_identifier: identifier;
+component_identifier: identifier;
+component_action_identifier: identifier;
+enum_identifier: identifier;
+pool_identifier: identifier;
+variable_identifier: identifier;
+bin_identifier: identifier;
+exec_kind_identifier: identifier;
+constant: number | identifier;
+package_identifier: hierarchical_id;
+target_identifier: identifier;
+
+identifier: ID | ESCAPED_ID;
+
+type_identifier :
+	elems+=ID ('::' elems+=ID)*
+;
+
+hierarchical_type_identifier:
+	elems+=ID '::' elems+=ID ('::' elems+=ID)*
+;
+
+hierarchical_id:
+	path+=identifier ('.' path+=identifier)*
+;
+
+/********************************************************************
+ * Heading: Numbers
+ ********************************************************************/
+number:
+	value=based_hex_number 		|
+	value=based_dec_number		|
+	value=based_bin_number		|
+	value=based_oct_number		|
+	value=dec_number			|
+	value=oct_number			|
+	value=hex_number
+;
+
+
+based_hex_number: size=DEC_LITERAL? value=BASED_HEX_LITERAL;
+terminal BASED_HEX_LITERAL: '\'' ('s'|'S')? ('h'|'H') ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F'|'_')*;
+
+based_dec_number: size=DEC_LITERAL? value=BASED_DEC_LITERAL;
+terminal BASED_DEC_LITERAL: '\'' ('s'|'S')? ('d'|'D') ('0'..'9') ('0'..'9'|'_')*;
+
+dec_number: value=DEC_LITERAL;
+terminal DEC_LITERAL: ('1'..'9') ('0'..'9'|'_')*;
+
+based_bin_number: size=DEC_LITERAL? value=BASED_BIN_LITERAL;
+terminal BASED_BIN_LITERAL: '\'' ('s'|'S')? ('b'|'B') (('0'..'1') ('0'..'1'|'_')*);
+
+based_oct_number: size=DEC_LITERAL? value=BASED_OCT_LITERAL;
+terminal BASED_OCT_LITERAL: '\'' ('s'|'S')? ('o'|'O') (('0'..'7') ('0'..'7'|'_')*);
+
+
+oct_number: value=OCT_LITERAL;
+terminal OCT_LITERAL: '0' ('0'..'7')*;
+
+hex_number: value=HEX_LITERAL;
+terminal HEX_LITERAL: '0x' ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..'F'|'_')*;
+
+
+/**
+ * Exclude:
+ */
+terminal WS			: (' '|'\t'|'\r'|'\n')+;
+
+/********************************************************************
+ * Heading: Comments
+ ********************************************************************/
+ 
+/**
+ * BNF: SL_COMMENT ::= <kw>//</kw>{any_ASCII_character_except_newline}\n 
+ */
+terminal SL_COMMENT 	: '//' !('\n'|'\r')* ('\r'? '\n')?;
+
+/**
+ * BNF: ML_COMMENT ::= <kw>/*</kw>{any_ASCII_character}<kw>/*</kw>
+ */
+terminal ML_COMMENT	: '/*' -> '*/';
+
+string: DOUBLE_QUOTED_STRING|TRIPLE_DOUBLE_QUOTED_STRING;
+
+terminal DOUBLE_QUOTED_STRING	: 
+			'"' ( '\\' . /* 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' */ | !('\\'|'"') )* '"' 
+			;
+/**
+ * BNF: TRIPLE_DOUBLE_QUOTED_STRING ::= <kw>"""</kw>{any_ASCII_character}<kw>"""</kw>
+ */
+terminal TRIPLE_DOUBLE_QUOTED_STRING:
+			'"""' -> '"""'
+		; 
+
+terminal ID: ('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'_'|'0'..'9')*;
+
+/**
+ * BNF: ESCAPED_ID ::= <kw>\</kw>{any_ASCII_character_except_whitespace} whitespace
+ */
+terminal ESCAPED_ID: '\\' !(' '|'\t'|'\r'|'\n')+ ;
+
