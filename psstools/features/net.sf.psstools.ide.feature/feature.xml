@@ -16,6 +16,10 @@
       [Enter License Description here.]
    </license>
 
+   <url>
+      <update label="PSSTools Update" url="http://psstools.sourceforge.net/update"/>
+   </url>
+
    <plugin
          id="net.sf.psstools.lang"
          download-size="0"

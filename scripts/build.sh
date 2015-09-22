@@ -15,7 +15,7 @@ fi
 #    -verbose \
 
 
-$ECLIPSE_HOME/$eclipse \
+$ECLIPSE_XTEXT_HOME/$eclipse \
     -nosplash -application org.eclipse.ant.core.antRunner \
     --launcher.suppressErrors \
     -buildfile build.xml      \

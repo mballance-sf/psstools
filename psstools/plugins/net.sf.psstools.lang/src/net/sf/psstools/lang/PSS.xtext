@@ -153,15 +153,26 @@ component_body_item:
 	action_declaration 			|
 	struct_declaration 			|
 	import_stmt					|
-	share_stmt
+	object_bind_stmt			|
+	inline_type_object_declaration
 ;
 
 component_field_declaration:
 	(pool?='pool')? declaration=data_declaration
 ;
 
-share_stmt:
-	'share' obj=pool_identifier '{' targets+=component_path (',' targets+=component_path)* '}' ';'
+inline_type_object_declaration:
+	'pool' qualifier=struct_qualifier 'struct' name=identifier (':' super=[struct_declaration|struct_identifier])? '{'
+		body+=struct_body_item*
+	'}' (';')?
+;
+
+object_bind_stmt:
+	'bind' lhs=hierarchical_id rhs=object_bind_item_or_list ';'
+;
+
+object_bind_item_or_list:
+	items+=component_path | '{' items+=component_path (',' items+=component_path)* '}'
 ;
 
 component_path:
@@ -188,8 +199,13 @@ graph_production:
 	graph_bind_stmt
 ;
 
+
 graph_bind_stmt:
-	'bind' '(' lhs=hierarchical_id ',' rhs=hierarchical_id ')' ';'
+	'bind' lhs=hierarchical_id rhs=graph_bind_item_or_list ';'
+;
+
+graph_bind_item_or_list:
+	(items+=hierarchical_id | '{' items+=hierarchical_id (',' items+=hierarchical_id)*) '}'
 ;
 
 graph_if_else_production:

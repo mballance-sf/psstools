@@ -4,9 +4,7 @@
 
     <!-- Import the version info -->
     <property file="${basedir}/../etc/psstools.info"/>
-	<!--
-    <property file="${basedir}/../etc/sveditor_${version_type}.info"/>
-      -->
+    <property file="${basedir}/../etc/psstools_${version_type}.info"/>
     <property file="${basedir}/build.properties"/>
 
     <property name="gef_zest" location="${env.SVE_ADDINS}/gef_zest"/>
@@ -18,7 +16,7 @@
 	<equals arg1="${version_type}" arg2="release"/>
     </condition>
 
-    <property name="eclipse.home" location="${env.ECLIPSE_HOME}"/>
+    <property name="eclipse.home" location="${env.ECLIPSE_XTEXT_HOME}"/>
 	<condition property="eclipsec" 
 		value="${eclipse.home}/eclipsec" 
 		else="${eclipse.home}/eclipse">
@@ -184,11 +182,10 @@
             <arg value="-categoryQualifier"/>
         </exec>
 
-    	<!--
         <xmltask source="${repository}/artifacts.xml"
                  dest="${repository}/artifacts_1.xml">
         	<replace path="/repository/@name" 
-			withText="http://sveditor.sourceforge.net/${sf_update_dir}"/>
+			withText="http://psstools.sourceforge.net/${sf_update_dir}"/>
         </xmltask>
 
         <move file="${repository}/artifacts_1.xml"
@@ -197,19 +194,16 @@
         <xmltask source="${repository}/content.xml"
                  dest="${repository}/content_1.xml">
         	<replace path="/repository/@name" 
-			withText="http://sveditor.sourceforge.net/${sf_update_dir}"/>
+			withText="http://psstools.sourceforge.net/${sf_update_dir}"/>
         </xmltask>
 
         <move file="${repository}/content_1.xml"
               tofile="${repository}/content.xml"/>
-			-->
-
 
         <jar destfile="${buildResult}/psstools-${feature.version}.jar"
              basedir="${repository}"
              includes="*.xml, features/**, plugins/**"/>
 
-    	<!--
 		<copy todir="${basedir}/../archive_tmp" overwrite="true">
 			<fileset dir="${basedir}/../etc" includes="mappings_${version_type}.xml"/>
 			<filterset begintoken="1" endtoken="3">
@@ -231,7 +225,6 @@
 
         <move file="${repository}/artifacts_1.xml"
               tofile="${repository}/artifacts.xml"/>
-		-->
 
         <zip destfile="${repository}/artifacts.jar"
              basedir="${repository}" includes="artifacts.xml"/>
