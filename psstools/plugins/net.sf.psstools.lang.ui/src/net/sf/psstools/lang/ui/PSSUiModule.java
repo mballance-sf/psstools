@@ -41,4 +41,5 @@ public class PSSUiModule extends net.sf.psstools.lang.ui.AbstractPSSUiModule {
 		System.out.println("bindOutlinePage");
 		return PSSOutlinePage.class;
 	}
+
 }

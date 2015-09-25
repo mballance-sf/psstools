@@ -107,7 +107,7 @@ graph_declaration:
 ;
 
 action_field_declaration:
-	action_field_modifier? declaration=data_declaration
+	modifiers=action_field_modifier? declaration=data_declaration
 ;
 
 action_field_modifier:
@@ -213,13 +213,12 @@ graph_production:
 	graph_bind_stmt
 ;
 
-
 graph_bind_stmt:
 	'bind' lhs=hierarchical_id rhs=graph_bind_item_or_list ';'
 ;
 
 graph_bind_item_or_list:
-	(items+=hierarchical_id | '{' items+=hierarchical_id (',' items+=hierarchical_id)*) '}'
+	items+=hierarchical_id | ('{' items+=hierarchical_id (',' items+=hierarchical_id)* '}')
 ;
 
 graph_if_else_production:
@@ -236,7 +235,8 @@ graph_select_parallel_schedule_production:
 	graph_schedule_stmt				|
 	graph_select_parallel_block			|
 	graph_select_parallel_if_else_stmt	|
-	graph_sequence_stmt
+	graph_sequence_stmt					|
+	graph_bind_stmt
 	;
 
 graph_select_parallel_if_else_stmt:

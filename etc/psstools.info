@@ -10,5 +10,5 @@ version_type=release
 upload_archive=0
 
 # Version for the IDE application
-psde_version=0.0.1
+psde_version=0.0.2
 
