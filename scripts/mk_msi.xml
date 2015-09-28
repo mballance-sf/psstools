@@ -5,7 +5,7 @@
 		else="c:/Program Files/Windows Installer XML v3.8">
 		<os arch="amd64"/>
 	</condition>
-	<property file="${script.dir}/../etc/sveditor.info"/>
+	<property file="${script.dir}/../etc/psstools.info"/>
 	<property name="candle" value="candle.exe"/>
 	<property name="light" value="light.exe"/>
 	<property name="script.dir" value="${basedir}/scripts"/>
@@ -17,7 +17,7 @@
 	<target name="mk_msi" depends="mk_filelist">
 		<exec executable="${candle}" failonerror="true">
 			<arg value="${script.dir}/psde.wxs"/>
-			<arg value="-dversion=${sve_version}"/>
+			<arg value="-dversion=${psde_version}"/>
 			<arg value="-dbasedir=${basedir}"/>
 			<arg value="-detc.dir=${etc.dir}"/>
 			<arg value="-darch=${arch}"/>

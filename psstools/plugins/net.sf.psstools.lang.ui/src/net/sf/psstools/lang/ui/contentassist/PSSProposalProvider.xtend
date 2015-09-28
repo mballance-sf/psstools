@@ -6,7 +6,8 @@ package net.sf.psstools.lang.ui.contentassist
 import net.sf.psstools.lang.ui.contentassist.AbstractPSSProposalProvider
 
 /**
- * see http://www.eclipse.org/Xtext/documentation.html#contentAssist on how to customize content assistant
+ * See https://www.eclipse.org/Xtext/documentation/304_ide_concepts.html#content-assist
+ * on how to customize the content assistant.
  */
 class PSSProposalProvider extends AbstractPSSProposalProvider {
 }

@@ -4,7 +4,16 @@
 package net.sf.psstools.lang.ui.labeling
 
 import com.google.inject.Inject
+import net.sf.psstools.lang.pSS.data_declaration
+import net.sf.psstools.lang.pSS.data_instantiation
+import net.sf.psstools.lang.pSS.extend_stmt
+import net.sf.psstools.lang.pSS.hierarchical_id
+import net.sf.psstools.lang.pSS.integer_type
+import net.sf.psstools.lang.pSS.object_bind_stmt
 import net.sf.psstools.lang.pSS.overrides_declaration
+import net.sf.psstools.lang.pSS.string_type
+import net.sf.psstools.lang.pSS.type_identifier
+import net.sf.psstools.lang.pSS.user_defined_type
 import org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider
 import org.eclipse.xtext.ui.label.DefaultEObjectLabelProvider
 
@@ -21,6 +30,73 @@ class PSSLabelProvider extends DefaultEObjectLabelProvider {
 	}
 	
 	def text(overrides_declaration e) { "override" }
+	
+	def text(data_instantiation o) {
+		var dd = o.eContainer as data_declaration;
+		return o.name + " : " + typename(dd);
+	}
+	
+	def text(object_bind_stmt o) {
+		var ret = "bind " + hid2string(o.lhs);
+		
+		if (o.rhs.items.size > 1) {
+			ret += '{';
+		}
+		
+//		for (var i=0; i<o.rhs.items.size; i++) {
+//			ret += o.rhs.items.size
+//		}
+		
+		if (o.rhs.items.size > 1) {
+			ret += '}';
+		}
+		return ret;
+	}
+	
+	def text(extend_stmt e) {
+		var ret = "extend " + tid2string(e.name);
+		if (e.isAction) ret += " : action";
+		if (e.isStruct) ret += " : struct";
+		if (e.isEnum_e) ret += " : enum";
+		if (e.isComponent) ret += " : component";
+		return ret;
+	}
+	
+	
+	def typename(data_declaration dd) {
+		if (dd.type instanceof integer_type) {
+			var i_t = dd.type as integer_type;
+			return i_t.typename;
+		} else if (dd.type instanceof string_type) {
+			return "string";
+		} else {
+			var ud_t = dd.type as user_defined_type;
+			return tid2string(ud_t.typename);
+		}
+	}
+	
+	def tid2string(type_identifier ti) {
+		var ret = "";
+		for (var i=0; i<ti.elems.size; i++) {
+			var id = ti.elems.get(i);
+			ret += id;
+			if (i+1 < ti.elems.size) {
+				ret += "::";
+			}
+		}
+		return ret;
+	}
+	
+	def hid2string(hierarchical_id hi) {
+		var ret = "";
+		for (var i=0; i<hi.path.size; i++) {
+			ret += hi.path.get(i);
+			if (i+1<hi.path.size) {
+				ret += ".";
+			}
+		}
+		return ret;
+	}
 
 	// Labels and icons can be computed like this:
 	

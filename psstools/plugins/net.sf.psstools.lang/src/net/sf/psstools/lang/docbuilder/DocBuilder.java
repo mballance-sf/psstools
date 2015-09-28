@@ -102,12 +102,6 @@ public class DocBuilder {
 			}
 			
 			fRenderer.append("\n\n");
-			
-//			AbstractElement alts = t.getAlternatives();
-//			System.out.println("Terminal: " + t.getName() + " cardinality: " + alts.getCardinality());
-//			for (EObject e : alts.eContents()) {
-//				System.out.println("  e: " + e);
-//			}
 		} else {
 			for (EObject eo : obj.eContents()) {
 				traverse(ind, eo);
@@ -293,11 +287,11 @@ public class DocBuilder {
 	}
 
 	private void terminal_production(String ind, EObject obj) {
-		System.out.println("terminal_production: " + obj);
+		debug("terminal_production: " + obj);
 		
 		if (obj instanceof Group) {
 			Group g = (Group)obj;
-			System.out.println("Group: " + g.getCardinality());
+			debug("Group: " + g.getCardinality());
 			for (int i=0; i<g.getElements().size(); i++) {
 				AbstractElement e = g.getElements().get(i);
 				terminal_production(ind, e);
@@ -307,7 +301,7 @@ public class DocBuilder {
 			}
 		} else if (obj instanceof CharacterRange) {
 			CharacterRange r = (CharacterRange)obj;
-			System.out.println("CharacterRange: " + r.getCardinality());
+			debug("CharacterRange: " + r.getCardinality());
 			fRenderer.append("[");
 			fRenderer.keyword(r.getLeft().getValue());
 			fRenderer.append("-");
@@ -342,7 +336,7 @@ public class DocBuilder {
 			fRenderer.append("!");
 			terminal_production(ind, n.getTerminal());
 		} else {
-			System.out.println("Unknown obj: " + obj);
+			debug("Unknown obj: " + obj);
 		}
 	}	
 
@@ -356,7 +350,7 @@ public class DocBuilder {
 			int end=markup.indexOf("</kw>", idx);
 			
 			if (end < 0) {
-				System.out.println("Error: Markup \"" + markup + "\" has unterminated <kw> tag");
+				error("Markup \"" + markup + "\" has unterminated <kw> tag");
 				break;
 			}
 			fRenderer.keyword(markup.substring(idx+"<kw>".length(), end));
@@ -367,5 +361,13 @@ public class DocBuilder {
 		if (last_idx < markup.length()) {
 			fRenderer.append(markup.substring(last_idx, markup.length()));
 		}
+	}
+	
+	private void debug(String msg) {
+//		System.out.println(msg);
+	}
+	
+	private void error(String msg) {
+		System.out.println("Error: " + msg);
 	}
 }

@@ -50,22 +50,42 @@ package_body_item:
 	extend_stmt
 ;
 
+//extend_stmt:
+//	'extend' 
+//		(
+//			(action?='action' name=type_identifier '{'
+//				body+=action_body_item*
+//				'}' (';')?
+//			) | 
+//			(struct?='struct' name=type_identifier '{'
+//				body+=struct_body_item*
+//				'}' (';')?
+//			) |
+//			(enum_e?='enum' name=type_identifier '{'
+//				(body+=enum_item (',' body+=enum_item)*)?
+//				'}' (';')?
+//			) |
+//			(component?='component' name=type_identifier '{'
+//				body+=component_body_item*
+//				'}' (';')?
+//			)
+//		)
+//;
 extend_stmt:
-	'extend' 
 		(
-			('action' name=type_identifier '{'
+			('extend' action?='action' name=type_identifier '{'
 				body+=action_body_item*
 				'}' (';')?
 			) | 
-			('struct' name=type_identifier '{'
+			('extend' struct?='struct' name=type_identifier '{'
 				body+=struct_body_item*
 				'}' (';')?
 			) |
-			('enum' name=type_identifier '{'
+			('extend' enum_e?='enum' name=type_identifier '{'
 				(body+=enum_item (',' body+=enum_item)*)?
 				'}' (';')?
 			) |
-			('component' name=type_identifier '{'
+			('extend' component?='component' name=type_identifier '{'
 				body+=component_body_item*
 				'}' (';')?
 			)
@@ -107,7 +127,7 @@ graph_declaration:
 ;
 
 action_field_declaration:
-	action_field_modifier? declaration=data_declaration
+	modifiers=action_field_modifier? declaration=data_declaration
 ;
 
 action_field_modifier:
@@ -213,13 +233,12 @@ graph_production:
 	graph_bind_stmt
 ;
 
-
 graph_bind_stmt:
 	'bind' lhs=hierarchical_id rhs=graph_bind_item_or_list ';'
 ;
 
 graph_bind_item_or_list:
-	(items+=hierarchical_id | '{' items+=hierarchical_id (',' items+=hierarchical_id)*) '}'
+	items+=hierarchical_id | ('{' items+=hierarchical_id (',' items+=hierarchical_id)* '}')
 ;
 
 graph_if_else_production:
@@ -236,7 +255,8 @@ graph_select_parallel_schedule_production:
 	graph_schedule_stmt				|
 	graph_select_parallel_block			|
 	graph_select_parallel_if_else_stmt	|
-	graph_sequence_stmt
+	graph_sequence_stmt					|
+	graph_bind_stmt
 	;
 
 graph_select_parallel_if_else_stmt:
@@ -302,7 +322,7 @@ graph_repeat_stmt:
 ;
 
 graph_constraint_stmt:
-	{graph_constraint_stmt} 'constraint' (('{' body+=constraint_body_item* '}' ) | (body+=expression_constraint_item))
+	{graph_constraint_stmt} 'constraint' (('{' body+=constraint_body_item* '}' ) | (body+=single_stmt_constraint))
 ;
 
 graph_foreach_stmt:
@@ -441,7 +461,7 @@ constraint_declaration:
 	(
 		(dynamic?=('dynamic')? 'constraint' name=identifier '{' body+=constraint_body_item* '}') |
 		('constraint' '{' body+=constraint_body_item* '}') | 
-		('constraint' body+=expression_constraint_item)
+		('constraint' body+=single_stmt_constraint)
 	)
 ;
 
@@ -454,6 +474,11 @@ constraint_body_item:
 
 expression_constraint_item:
 	expression (('->' impl_constraint=constraint_set)|';')
+;
+
+single_stmt_constraint:
+	expression_constraint_item |
+	unique_constraint_item
 ;
 
 if_constraint_item:

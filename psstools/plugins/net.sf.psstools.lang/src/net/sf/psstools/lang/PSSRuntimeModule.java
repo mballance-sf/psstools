@@ -22,5 +22,9 @@ package net.sf.psstools.lang;
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
 public class PSSRuntimeModule extends net.sf.psstools.lang.AbstractPSSRuntimeModule {
-	
+
+	// contributed by org.eclipse.xtext.generator.validation.ValidatorFragment
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends net.sf.psstools.lang.validation.PSSValidator> bindPSSValidator() {
+		return net.sf.psstools.lang.validation.BasePSSValidator.class;
+	}
 }

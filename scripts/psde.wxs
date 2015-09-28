@@ -5,13 +5,13 @@
     	Codepage="1252" 
     	Language="1033" 
     	Manufacturer="PSDE" 
-    	Name="PSDE Portable Stimulus Specification IDE" 
+    	Name="PSDE Portable Stimulus IDE" 
     	UpgradeCode="{3618724B-2523-44F9-A908-866AA6191778}" 
     	Version="1.0">
         <Package 
-        	Comments="SVE SystemVerilog Development Environment Package" 
+        	Comments="Development Environment for the Mentor/Cadence Portable Stimulus language"
         	Compressed="yes" 
-        	Description="PSDE Portable Stimulus Specification IDE"
+        	Description="PSDE Portable Stimulus IDE"
         	InstallerVersion="200" 
         	Keywords="Verification, Accellera, IDE" Languages="1033" 
         	Manufacturer="PSDE" Platform="$(var.arch)" />
@@ -36,7 +36,7 @@
             <ComponentRef Id="ApplicationShortcut" />   
         </Feature>
         
-        <WixVariable Id="WixUILicenseRtf" Value="$(var.etc.dir)/epl.rtf" />
+        <WixVariable Id="WixUILicenseRtf" Value="$(var.etc.dir)/apache.rtf" />
 		<WixVariable Id="WixUIBannerBmp" Value="$(var.etc.dir)/msi_banner.bmp"/>  
 		<WixVariable Id="WixUIDialogBmp" Value="$(var.etc.dir)/msi_dialog.bmp"/>          
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR"/>

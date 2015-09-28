@@ -19,7 +19,14 @@
    <launcher name="psde">
       <solaris/>
       <win useIco="false">
-         <bmp/>
+         <bmp
+            winSmallHigh="/net.sf.psstools.psde.feature/window_img_16_16_32.bmp"
+            winSmallLow="/net.sf.psstools.psde.feature/window_img_16_16_8.bmp"
+            winMediumHigh="/net.sf.psstools.psde.feature/window_img_32_32_32.bmp"
+            winMediumLow="/net.sf.psstools.psde.feature/window_img_32_32_8.bmp"
+            winLargeHigh="/net.sf.psstools.psde.feature/window_img_48_48_32.bmp"
+            winLargeLow="/net.sf.psstools.psde.feature/window_img_48_48_8.bmp"
+            winExtraLargeHigh="/net.sf.psstools.psde.feature/window_img_256_265.bmp"/>
       </win>
    </launcher>
 
