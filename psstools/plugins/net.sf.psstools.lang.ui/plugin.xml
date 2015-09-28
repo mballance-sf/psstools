@@ -425,6 +425,7 @@
            commandId="net.sf.psstools.lang.ui.viewGraph">
      </handler>
   </extension>
+<!--  
   <extension
         point="org.eclipse.ui.views">
      <view
@@ -440,5 +441,6 @@
            restorable="true">
      </view>
   </extension>
+  -->
 
 </plugin>
