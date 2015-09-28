@@ -42,4 +42,7 @@ public class PSSUiModule extends net.sf.psstools.lang.ui.AbstractPSSUiModule {
 		return PSSOutlinePage.class;
 	}
 
+	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalProvider> bindIContentProposalProvider() {
+		return net.sf.psstools.lang.ui.contentassist.BasePSSProposalProvider.class;
+	}
 }

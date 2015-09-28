@@ -5,8 +5,13 @@ package net.sf.psstools.lang.ui.outline
 
 import net.sf.psstools.lang.pSS.action_declaration
 import net.sf.psstools.lang.pSS.bins_declaration
+import net.sf.psstools.lang.pSS.component_declaration
+import net.sf.psstools.lang.pSS.component_field_declaration
 import net.sf.psstools.lang.pSS.constraint_declaration
+import net.sf.psstools.lang.pSS.data_declaration
 import net.sf.psstools.lang.pSS.data_instantiation
+import net.sf.psstools.lang.pSS.enum_declaration
+import net.sf.psstools.lang.pSS.object_bind_stmt
 import net.sf.psstools.lang.pSS.overrides_declaration
 import net.sf.psstools.lang.pSS.struct_declaration
 import net.sf.psstools.lang.pSS.struct_field_declaration
@@ -32,6 +37,8 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider
 	def _isLeaf(bins_declaration e) { true }
 //	def _isLeaf(bin_scheme_declaration e) { true }
 	def _isLeaf(overrides_declaration e) { true }
+	def _isLeaf(enum_declaration e) { true }
+	def _isLeaf(object_bind_stmt e) { true }
 	
 	def _createChildren(IOutlineNode parentNode, struct_declaration struct) {
 		for (EObject child : struct.body) {
@@ -45,7 +52,7 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider
 			}
 		}
 	}
-
+	
 	def _createChildren(IOutlineNode parentNode, action_declaration struct) {
 		for (EObject child : struct.body) {
 			if (child instanceof struct_field_declaration) {
@@ -57,5 +64,24 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider
 				createNode(parentNode, child);
 			}
 		}
-	}	
+	}
+	
+	def _createChildren(IOutlineNode parentNode, component_declaration component) {
+		for (EObject child : component.body) {
+			if (child instanceof component_field_declaration) {
+				var field = child as component_field_declaration;
+			
+				_createChildren(parentNode, field.declaration);	
+			} else {
+				createNode(parentNode, child);
+			}
+		}
+	}
+	
+	def _createChildren(IOutlineNode parentNode, data_declaration dd) {
+		for (data_instantiation child : dd.instances) {
+//			System.out.println("data_instantiation: " + child.name);
+			createNode(parentNode, child);
+		}
+	}
 }
