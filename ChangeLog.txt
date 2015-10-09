@@ -1,6 +1,16 @@
 
 -- 0.0.5 Release --
 
+- #(nobug) - Add 'bool' type to the grammar
+
+- #(enh) - Enhance handling of 'package' in the outline view
+
+- #(enh) - Clean up handling of coverpsec in outline view
+
+- #(enh) - Add support for folding regions
+
+- #(enh) - Add outline-view icons for actions, structs, components, etc
+
 ------------------------------------------------------------------------------
 -- 0.0.4 Release --
 

@@ -4,13 +4,16 @@
 package net.sf.psstools.lang.ui.outline
 
 import net.sf.psstools.lang.pSS.action_declaration
+import net.sf.psstools.lang.pSS.action_field_declaration
 import net.sf.psstools.lang.pSS.bins_declaration
 import net.sf.psstools.lang.pSS.component_declaration
 import net.sf.psstools.lang.pSS.component_field_declaration
 import net.sf.psstools.lang.pSS.constraint_declaration
+import net.sf.psstools.lang.pSS.coverspec_declaration
 import net.sf.psstools.lang.pSS.data_declaration
 import net.sf.psstools.lang.pSS.data_instantiation
 import net.sf.psstools.lang.pSS.enum_declaration
+import net.sf.psstools.lang.pSS.exec_block_stmt
 import net.sf.psstools.lang.pSS.object_bind_stmt
 import net.sf.psstools.lang.pSS.overrides_declaration
 import net.sf.psstools.lang.pSS.struct_declaration
@@ -33,12 +36,13 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider
 //	def _isLeaf(symbol_definition e) { true }
 	def _isLeaf(typedef_declaration e) { true }
 	def _isLeaf(data_instantiation e) { true }
-	def _isLeaf(action_declaration e) { true }
+//	def _isLeaf(action_declaration e) { true }
 	def _isLeaf(bins_declaration e) { true }
 //	def _isLeaf(bin_scheme_declaration e) { true }
 	def _isLeaf(overrides_declaration e) { true }
 	def _isLeaf(enum_declaration e) { true }
 	def _isLeaf(object_bind_stmt e) { true }
+	def _isLeaf(exec_block_stmt b) { true }
 	
 	def _createChildren(IOutlineNode parentNode, struct_declaration struct) {
 		for (EObject child : struct.body) {
@@ -55,8 +59,8 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider
 	
 	def _createChildren(IOutlineNode parentNode, action_declaration struct) {
 		for (EObject child : struct.body) {
-			if (child instanceof struct_field_declaration) {
-				var field = child as struct_field_declaration;
+			if (child instanceof action_field_declaration) {
+				var field = child as action_field_declaration;
 				for (EObject value : field.declaration.instances) {
 					createNode(parentNode, value);
 				}
@@ -65,15 +69,23 @@ class PSSOutlineTreeProvider extends DefaultOutlineTreeProvider
 			}
 		}
 	}
+
+	def _createChildren(IOutlineNode parentNode, coverspec_declaration cs) {
+		for (EObject child : cs.body_items) {
+			createNode(parentNode, child);
+		}
+	}
 	
 	def _createChildren(IOutlineNode parentNode, component_declaration component) {
 		for (EObject child : component.body) {
 			if (child instanceof component_field_declaration) {
 				var field = child as component_field_declaration;
-			
+				
 				_createChildren(parentNode, field.declaration);	
 			} else {
-				createNode(parentNode, child);
+				if (!(child instanceof object_bind_stmt)) {
+					createNode(parentNode, child);
+				}
 			}
 		}
 	}

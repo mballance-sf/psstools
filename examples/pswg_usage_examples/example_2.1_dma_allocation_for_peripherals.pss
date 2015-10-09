@@ -73,21 +73,23 @@ component peripheral_c {
 // Abstract test cases
 // ------------------------------------
 component pss_top {
-
-  action parallel_periph_write_read_a {
-    graph {
-      parallel { // automatically manage resources
-        peripheral_c::write_out_a wo1;
-        peripheral_c::write_out_a wo2;
-        peripheral_c::write_out_a wo3;
-      };
-      parallel {
-        peripheral_c::read_in_a ri1;
-        peripheral_c::read_in_a ri2;
-        peripheral_c::read_in_a ri3;
-      }; 
-    };
+  peripheral_c periph_a;
+  peripheral_c periph_b;
+  peripheral_c periph_c;
+  
+  action load_mem_buff_a {
+     output data_buff_s out_buff;
   };
+ 
+  dma_c dma;
+ 
+  // Bind data_buff_s and data_stream_s
+  // pools to periph_* and dma components
+  pool data_buff_s sysmem;
+  bind sysmem *;
+  pool data_stream_s sysfabric;
+  bind sysfabric {*};
+
 };
 
 // ------------------------------------
@@ -116,20 +118,21 @@ package dma_C_implementation {
 // ------------------------------------
 
 extend component pss_top { 
-  peripheral_c periph_a;
-  peripheral_c periph_b;
-  peripheral_c periph_c;
   
-  action load_mem_buff_a {
-     output data_buff_s out_buff;
+  action parallel_periph_write_read_a {
+    graph {
+      parallel { // automatically manage resources
+        peripheral_c::write_out_a wo1;
+        peripheral_c::write_out_a wo2;
+        peripheral_c::write_out_a wo3;
+      };
+      parallel {
+        peripheral_c::read_in_a ri1;
+        peripheral_c::read_in_a ri2;
+        peripheral_c::read_in_a ri3;
+      }; 
+    };
   };
- 
-  dma_c dma;
-  
-  pool data_buff_s sysmem;
-  share sysmem {*};
-  pool data_stream_s sysfabric;
-  share sysfabric {*};
 };
 
 
@@ -149,10 +152,10 @@ extend struct data_stream_s {
 
 // if Peripheral C then must support peripheral
 extend action peripheral_c::write_out_a {
-    constraint comp == DVE.periph_c -> src_data.support_periph_c;
+    constraint comp == pss_top.periph_c -> src_data.support_periph_c;
 };
 
 // if DMA2 component then should not be support peripheral C
 extend action dma_c::mem2queue_xfer_a {
-    constraint comp == DVE.dma2 -> !dst_data.support_periph_c; 
+    constraint comp == pss_top.dma2 -> !dst_data.support_periph_c; 
 };

@@ -18,19 +18,40 @@
  ****************************************************************************/
 package net.sf.psstools.lang.ui;
 
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.folding.IFoldingRegionProvider;
 import org.eclipse.xtext.ui.editor.folding.IFoldingStructureProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.OutlinePage;
 
+import net.sf.psstools.lang.ui.editor.PSSFoldingRegionProvider;
 import net.sf.psstools.lang.ui.editor.PSSFoldingStructureProvider;
 import net.sf.psstools.lang.ui.editor.PSSOutlinePage;
+import net.sf.psstools.lang.ui.internal.PSSActivator;
 
 /**
  * Use this class to register components to be used within the IDE.
  */
 public class PSSUiModule extends net.sf.psstools.lang.ui.AbstractPSSUiModule {
+	private static AbstractUIPlugin		fPlugin;
+	
 	public PSSUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+		fPlugin = plugin;
+	}
+	
+	public static <T> T getInstance(Class<T> type) {
+		return PSSActivator.getInstance().getInjector(
+				PSSActivator.NET_SF_PSSTOOLS_LANG_PSS).getInstance(type);
+	}
+	
+	public static AbstractUIPlugin getPlugin() {
+		return fPlugin;
+	}
+	
+	public static ImageDescriptor getImageDescriptor(String key) {
+		return AbstractUIPlugin.imageDescriptorFromPlugin(
+				"net.sf.psstools.lang.ui", key);
 	}
 	
 	public Class<? extends IFoldingStructureProvider> bindIFoldingStructureProvider() {
@@ -38,11 +59,19 @@ public class PSSUiModule extends net.sf.psstools.lang.ui.AbstractPSSUiModule {
 	}
 	
 	public Class<? extends OutlinePage> bindOutlinePage() {
-		System.out.println("bindOutlinePage");
 		return PSSOutlinePage.class;
 	}
 
 	public Class<? extends org.eclipse.xtext.ui.editor.contentassist.IContentProposalProvider> bindIContentProposalProvider() {
 		return net.sf.psstools.lang.ui.contentassist.BasePSSProposalProvider.class;
+	}
+	
+	public Class<? extends IFoldingRegionProvider> bindIFoldingRegionProvider() {
+		return PSSFoldingRegionProvider.class;
+	}
+
+	// contributed by org.eclipse.xtext.ui.generator.labeling.LabelProviderFragment
+	public Class<? extends org.eclipse.jface.viewers.ILabelProvider> bindILabelProvider() {
+		return net.sf.psstools.lang.ui.labeling.PSSDecoratingLabelProvider.class;
 	}
 }

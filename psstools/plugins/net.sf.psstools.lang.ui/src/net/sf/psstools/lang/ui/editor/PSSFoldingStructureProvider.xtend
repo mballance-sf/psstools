@@ -26,14 +26,17 @@ class PSSFoldingStructureProvider extends DefaultFoldingStructureProvider {
 	
 	override void initialize() {
 		// Disable folding by overriding the initialize method
+		super.initialize();
 	}
 	
-	override void install(XtextEditor editor, ProjectionViewer vieiwer) {
+	override void install(XtextEditor editor, ProjectionViewer viewer) {
 		// Disable
+		super.install(editor, viewer);
 	}
 	
 	override void uninstall() {
 		// Disable
+		super.uninstall();
 	}
 	
 }

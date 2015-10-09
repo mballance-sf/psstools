@@ -119,10 +119,10 @@ component pss_top {
       copy_data_a c1_m2;
       mem2mem_move_a c1_m3;
       check_data_a c1_c;
-      bind(c1_w.out_buff,c1_m1.src_buff);
-      bind(c1_m1.dst_buff,c1_m2.src_buff);
-      bind(c1_m2.dst_buff,c1_m3.src_buff);
-      bind(c1_m3.dst_buff,c1_c.in_buff);
+      bind c1_w.out_buff c1_m1.src_buff;
+      bind c1_m1.dst_buff c1_m2.src_buff;
+      bind c1_m2.dst_buff c1_m3.src_buff;
+      bind c1_m3.dst_buff c1_c.in_buff;
     };
   };
 
@@ -133,10 +133,10 @@ component pss_top {
       copy_data_a c1_m2;
       mem2mem_move_a c1_m3;
       check_data_a c1_c;
-      bind(c1_w.out_buff,c1_m1.src_buff);
-      bind(c1_m1.dst_buff,c1_m2.src_buff);
-      bind(c1_m2.dst_buff,c1_m3.src_buff);
-      bind(c1_m3.dst_buff,c1_c.in_buff);
+      bind c1_w.out_buff c1_m1.src_buff;
+      bind c1_m1.dst_buff c1_m2.src_buff;
+      bind c1_m2.dst_buff c1_m3.src_buff;
+      bind c1_m3.dst_buff c1_c.in_buff;
     };
   };
 
@@ -157,9 +157,9 @@ extend component pss_top {
     dma_c dma;
     dev_A_c dev_A;
     pool data_buff_s sysmem;
-    share sysmem {*};
+    bind sysmem {*};
     pool core_s core_pool;
-    share core_pool {*};
+    bind core_pool {*};
 };
 
 extend struct core_s {

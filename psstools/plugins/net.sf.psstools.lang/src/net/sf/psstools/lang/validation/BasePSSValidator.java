@@ -20,9 +20,9 @@ public class BasePSSValidator extends PSSValidator {
 	@Override
 	public boolean validate(EDataType eDataType, Object value, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
-		System.out.println("--> validate");
+//		System.out.println("--> validate");
 		boolean ret = super.validate(eDataType, value, diagnostics, context);
-		System.out.println("<-- validate");
+//		System.out.println("<-- validate");
 		
 		return ret;
 	}
@@ -40,12 +40,12 @@ public class BasePSSValidator extends PSSValidator {
 	
 	@Check
 	public void checkVariableRefs(exec_block_stmt exec) {
-		System.out.println("check exec: " + exec.getBody());
-		try {
-			throw new Exception();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		System.out.println("check exec: " + exec.getBody());
+//		try {
+//			throw new Exception();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 }

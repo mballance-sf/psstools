@@ -134,7 +134,7 @@ component pss_top {
   // load_vid_data action to feed the video subsystem
   pool video_data_buff_s    vb_pool;
   // Share the pool with this component and the vid_ss
-  share vb_pool {this, vid_ss};
+  bind vb_pool {this, vid_ss};
   
   action load_vid_data {
     output video_data_buff_s out_buff;
