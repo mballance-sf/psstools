@@ -35,6 +35,7 @@ public class IncrementalBuildParticipant implements IXtextBuilderParticipant {
 	public void build(IBuildContext context, IProgressMonitor monitor) throws CoreException {
 		ResourceSet rs = context.getResourceSet();
 		EList<Resource> rl = rs.getResources();
+		System.out.println("build " + context.getBuiltProject());
 //		rl.get(0).
 		// TODO Auto-generated method stub
 		

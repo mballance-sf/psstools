@@ -425,6 +425,24 @@
            commandId="net.sf.psstools.lang.ui.viewGraph">
      </handler>
   </extension>
+  <extension
+        point="org.eclipse.ui.decorators">
+     <decorator
+           class="net.sf.psstools.lang.ui.decorators.PSSDecorator"
+           id="net.sf.psstools.lang.ui.extendsDecorator"
+           label="PSS Decorator"
+           lightweight="true"
+           location="TOP_LEFT"
+           state="true">
+        <enablement>
+           <or>
+              <objectClass
+                    name="net.sf.psstools.lang.pSS.extend_stmt">
+              </objectClass>
+           </or>
+        </enablement>
+     </decorator>
+  </extension>
 <!--  
   <extension
         point="org.eclipse.ui.views">

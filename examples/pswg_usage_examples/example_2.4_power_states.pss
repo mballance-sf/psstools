@@ -17,7 +17,7 @@ component graphics_c {
 
   state struct power_state_s {
     rand bit[0..3] domain_A, domain_B, domain_C;
-        
+    
     constraint (initial) -> {
       domain_A == 0;
       domain_B == 0;

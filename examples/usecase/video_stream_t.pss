@@ -1,6 +1,0 @@
-
-struct video_stream_t {
-	video_format_e				video_format;
-	video_resolution_e			video_resolution;
-	audio_format_e				uadio_format;
-}
