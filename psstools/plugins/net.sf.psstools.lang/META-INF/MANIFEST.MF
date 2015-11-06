@@ -25,7 +25,6 @@ Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: net.sf.psstools.lang,
  net.sf.psstools.lang.builder,
- net.sf.psstools.lang.compiler,
  net.sf.psstools.lang.docbuilder,
  net.sf.psstools.lang.elaborator,
  net.sf.psstools.lang.elaborator.constraints,

@@ -43,6 +43,8 @@ package_body_item:
 	struct_declaration 				|
 	enum_declaration 				|
 	coverspec_declaration 			|
+	dpi_method_decl					|
+	dpi_method_language_spec		|
 	typedef_declaration 			|
 	bins_declaration 				|
 	import_stmt 					|
@@ -71,11 +73,48 @@ extend_stmt:
 ;
 
 import_stmt:
-	'import' package_import_pattern ';'
+	'import' pkg=package_import_pattern ';'
 ;
 
 package_import_pattern:
 	package=type_identifier (wildcard?='::' '*')?
+;
+
+dpi_method_decl:
+	'import' (language=dpi_language_tag)? (symbol_name=identifier '=')? ret_type=dpi_method_return_type name=method_identifier '('
+		(
+			parameters+=dpi_method_parameter (',' parameters+=dpi_method_parameter)*
+		)?
+		')' ';'
+;
+
+dpi_language_tag: DOUBLE_QUOTED_STRING;
+
+dpi_method_language_spec:
+	'import' language=dpi_language_tag (symbol_name=identifier '=')? name=type_identifier ';'
+;
+
+dpi_data_type:
+	dpi_chandle_type 	|
+	integer_type 		|
+	string_type  		|
+	bool_type
+;
+
+dpi_chandle_type:
+	{dpi_chandle_type} 'chandle'
+;
+
+dpi_method_return_type:
+	void='void'|type=dpi_data_type
+;
+
+dpi_method_parameter:
+	dir=dpi_method_parameter_dir? type=dpi_data_type name=identifier
+;
+
+dpi_method_parameter_dir:
+	(input='input'|output='output'|inout='inout')
 ;
 
 /****************************************************************************
@@ -98,6 +137,8 @@ action_body_item:
 	overrides_declaration  		|	
 	constraint_declaration 		|
 	action_field_declaration	|
+	dpi_method_decl				|
+	dpi_method_language_spec	|
 	bins_declaration   			|
 	symbol_declaration			|
 	coverspec_declaration		|
@@ -124,7 +165,18 @@ io_direction:
 
 exec_block_stmt:
 	(inline?='inline')? 'exec' kind=exec_kind_identifier target=target_identifier '=' body=string ';' |
+	native?='exec' kind=exec_kind_identifier '{' body_stmts+=exec_body_stmt* '}' | 
 	(inline?='inline')? 'exec' 'file' target_file_name=string '=' body=string ';'
+;
+
+exec_body_stmt:
+	exec_body_dpi_call
+;
+
+exec_body_dpi_call:
+	(lhs=hierarchical_id '=')? method=type_identifier '('
+		(params+=expression (',' params+=expression)*)?
+		')' ';'	
 ;
 
 /****************************************************************************
@@ -145,7 +197,8 @@ struct_body_item:
 	struct_field_declaration	|
 	typedef_declaration			|
 	bins_declaration			|
-	coverspec_declaration
+	coverspec_declaration		|
+	exec_block_stmt
 ;
 
 struct_field_declaration:
@@ -169,6 +222,8 @@ component_body_item:
 	overrides_declaration		|
 	component_field_declaration	|
 	action_declaration 			|
+	dpi_method_decl				|
+	dpi_method_language_spec	|
 	struct_declaration 			|
 	import_stmt					|
 	object_bind_stmt			|
@@ -260,15 +315,18 @@ graph_select_stmt:
 
 graph_sequence_stmt:
 	{graph_sequence_stmt} (
-		(type=type_identifier item=identifier 
-			('with' ('{' constraints+=constraint_body_item* '}' | constraints+=constant_expression)?)?
+		(type=type_identifier item=identifier inline_with=inline_with_constraint?
 		) | 
-		(item=identifier ('with' ('{' constraints+=constraint_body_item* '}' | constraints+=constant_expression)?)?
+		(item=identifier inline_with=inline_with_constraint?
 		) | 
 		(items+=identifier ',' items+=identifier (',' items+=identifier)* 
 		) 
 	)
 	';'
+;
+
+inline_with_constraint:
+	{inline_with_constraint} 'with' ('{' constraints+=constraint_body_item* '}' | constraints+=constant_expression)
 ;
 
 graph_select_production:
@@ -624,11 +682,11 @@ condition_expr returns expression:
 	; 
 
 logical_or_expr returns expression:
-	logical_and_expr ({logical_or_expr.left=current} '&&' right=logical_and_expr)*
+	logical_and_expr ({logical_or_expr.left=current} '||' right=logical_and_expr)*
 ;
 
 logical_and_expr returns expression:
-	binary_or_expr ({logical_and_expr.left=current} '||' right=binary_or_expr)*	
+	binary_or_expr ({logical_and_expr.left=current} '&&' right=binary_or_expr)*	
 ;
 
 binary_or_expr returns expression:
@@ -707,6 +765,7 @@ struct_identifier: identifier;
 component_identifier: identifier;
 component_action_identifier: identifier;
 enum_identifier: identifier;
+method_identifier: identifier;
 pool_identifier: identifier;
 variable_identifier: identifier;
 bin_identifier: identifier;
