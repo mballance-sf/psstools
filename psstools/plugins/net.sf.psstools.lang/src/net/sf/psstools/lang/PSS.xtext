@@ -43,8 +43,10 @@ package_body_item:
 	struct_declaration 				|
 	enum_declaration 				|
 	coverspec_declaration 			|
-	dpi_method_decl					|
-	dpi_method_language_spec		|
+	import_method_decl				|
+	import_class_decl				|
+	import_method_qualifiers		|
+	export_action					|
 	typedef_declaration 			|
 	bins_declaration 				|
 	import_stmt 					|
@@ -80,54 +82,104 @@ package_import_pattern:
 	package=type_identifier (wildcard?='::' '*')?
 ;
 
-dpi_method_decl:
-	'import' (language=dpi_language_tag)? (symbol_name=identifier '=')? ret_type=dpi_method_return_type name=method_identifier '('
+import_method_decl:
+	'import' prototype=method_prototype ';'
+;
+
+method_prototype:
+	ret_type=method_return_type name=method_identifier parameter_list=method_parameter_list_prototype
+;
+
+method_parameter_list_prototype: {method_parameter_list_prototype}
+	'('
 		(
-			parameters+=dpi_method_parameter (',' parameters+=dpi_method_parameter)*
+			parameters+=method_parameter (',' parameters+=method_parameter)*
 		)?
-		')' ';'
+	')'
 ;
 
-dpi_language_tag: DOUBLE_QUOTED_STRING;
-
-dpi_method_language_spec:
-	'import' language=dpi_language_tag (symbol_name=identifier '=')? name=type_identifier ';'
+method_parameter_list: {method_parameter_list}
+	'('
+	(
+		parameters+=expression (',' parameters+=expression)*
+	)?
+	')'
 ;
 
-dpi_data_type:
-	dpi_chandle_type 	|
-	integer_type 		|
-	string_type  		|
-	bool_type
+// Method qualifiers
+import_method_qualifiers:
+	import_method_phase_qualifiers |
+	import_method_target_template
+	;
+
+import_method_phase_qualifiers:
+	'import' func_qualifiers=import_function_qualifiers name=type_identifier ';'
 ;
 
-dpi_chandle_type:
-	{dpi_chandle_type} 'chandle'
+import_method_target_template:
+	'import' language=language_identifier prototype=method_prototype '=' string ';'
 ;
 
-dpi_method_return_type:
-	void='void'|type=dpi_data_type
+import_function_qualifiers:
+	(method_qualifiers (language=language_identifier)?) |
+	language=language_identifier
 ;
 
-dpi_method_parameter:
-	dir=dpi_method_parameter_dir? type=dpi_data_type name=identifier
+method_qualifiers: {method_qualifiers}
+	(target='target'|solve='solve')
 ;
 
-dpi_method_parameter_dir:
+method_return_type:
+	void='void'|type=scalar_data_type
+;
+
+method_parameter:
+	dir=method_parameter_dir? type=scalar_data_type name=identifier
+;
+
+method_parameter_dir:
 	(input='input'|output='output'|inout='inout')
+;
+
+import_class_decl:
+	'import' 'class' name=import_class_identifier (extends=import_class_extends)? '{'
+		methods+=import_class_method_decl*
+	'}' (';')?
+	;
+	
+import_class_method_decl:
+	prototype=method_prototype ';'
+;
+
+import_class_extends:
+	':' extends+=type_identifier (',' extends+=type_identifier)*
+;
+
+export_action:
+	'export' (qualifiers=method_qualifiers)? name=action_type_identifier ';'
 ;
 
 /****************************************************************************
  * Heading: Action Declarations
  ****************************************************************************/
 action_declaration:
-	(abstract?='abstract')? 'action' name=action_identifier (':' super=[action_declaration|identifier])? '{'
+	(abstract?='abstract')? 'action' name=action_identifier 
+	(parameter_list=method_parameter_list_prototype)?
+	(super=action_super_spec)?
+	'{'
 		body+=action_body_item*
 	'}' (';')?
 ;
 
+action_super_spec:
+	':' super=[action_declaration|action_identifier] (super_parameters=method_parameter_list)?
+;
+
 abstract_action_declaration returns action_declaration:
-	abstract?='abstract' 'action' name=action_identifier (':' super=[action_declaration|identifier])? '{'
+	abstract?='abstract' 'action' name=action_identifier 
+	(parameter_list=method_parameter_list_prototype)?
+	(super=action_super_spec)?
+	'{'
 		body+=action_body_item*
 	'}' (';')?
 ;
@@ -137,8 +189,6 @@ action_body_item:
 	overrides_declaration  		|	
 	constraint_declaration 		|
 	action_field_declaration	|
-	dpi_method_decl				|
-	dpi_method_language_spec	|
 	bins_declaration   			|
 	symbol_declaration			|
 	coverspec_declaration		|
@@ -156,7 +206,7 @@ action_field_declaration:
 ;
 
 action_field_modifier:
-	rand?='rand'|sample?='sample'|io_direction|lock?='lock'|shared?='share'	
+	rand?='rand'|io_direction|lock?='lock'|shared?='share'	
 ;
 
 io_direction:
@@ -164,19 +214,29 @@ io_direction:
 ;
 
 exec_block_stmt:
-	(inline?='inline')? 'exec' kind=exec_kind_identifier target=target_identifier '=' body=string ';' |
-	native?='exec' kind=exec_kind_identifier '{' body_stmts+=exec_body_stmt* '}' | 
-	(inline?='inline')? 'exec' 'file' target_file_name=string '=' body=string ';'
+	exec_block |
+	target_code_exec_block |
+	target_file_exec_block
+	;
+	
+exec_block:
+	native?='exec' kind=exec_kind_identifier '{' body_stmts+=exec_body_stmt* '}'
+;
+	
+target_code_exec_block:
+	'exec' kind=exec_kind_identifier language=language_identifier '=' body=string ';'
+;
+
+target_file_exec_block:
+	'exec' 'file' target_file_name=string '=' body=string ';'
+;
+
+assign_op:
+	'=' | '+=' | '-=' | '<<=' | '>>=' | '|=' | '&='
 ;
 
 exec_body_stmt:
-	exec_body_dpi_call
-;
-
-exec_body_dpi_call:
-	(lhs=hierarchical_id '=')? method=type_identifier '('
-		(params+=expression (',' params+=expression)*)?
-		')' ';'	
+	lhs=expression (op=assign_op rhs=expression)? ';'
 ;
 
 /****************************************************************************
@@ -206,7 +266,7 @@ struct_field_declaration:
 ;
 
 struct_field_modifier:
-	rand?='rand'|sample?='sample'	
+	rand?='rand'
 ;
 
 /****************************************************************************
@@ -222,9 +282,7 @@ component_body_item:
 	overrides_declaration		|
 	component_field_declaration	|
 	action_declaration 			|
-	dpi_method_decl				|
-	dpi_method_language_spec	|
-	struct_declaration 			|
+	struct_declaration			|
 	import_stmt					|
 	object_bind_stmt			|
 	inline_type_object_declaration
@@ -269,7 +327,12 @@ graph_production:
 	graph_select_stmt				|
 	graph_parallel_stmt				|
 	graph_schedule_stmt				|
-	graph_bind_stmt
+	graph_bind_stmt					|
+	graph_method_call_stmt
+;
+
+graph_method_call_stmt:
+	(lhs=variable_ref op=assign_op)? call=method_function_call ';'
 ;
 
 graph_bind_stmt:
@@ -446,10 +509,18 @@ coverspec_portmap:
  * Heading: Data Types
  ********************************************************************/
 data_type:
+	chandle_type |
 	integer_type |
 	string_type  |
 	bool_type	 |
 	user_defined_type
+;
+
+scalar_data_type:
+	chandle_type 	|
+	integer_type 		|
+	string_type  		|
+	bool_type
 ;
 
 enum_declaration:
@@ -460,6 +531,10 @@ enum_declaration:
   
 bool_type:
 	{bool_type} 'bool'
+;
+
+chandle_type:
+	{chandle_type} 'chandle'
 ;
 
 enum_item:
@@ -742,10 +817,24 @@ unary_expr returns expression:
 ;
 
 primary: //; returns expression:
-	number 			| 
-	bool_literal	|
-	paren_expr 		|
-	variable_ref	
+	number 					| 
+	bool_literal			|
+	paren_expr 				|
+	variable_ref			|
+	method_function_call
+	;
+	
+method_function_call:
+	method_call		|
+	function_call
+;
+
+method_call:
+	hierarchical_id parameters=method_parameter_list
+;
+
+function_call:
+	hierarchical_type_identifier parameters=method_parameter_list	
 ;
 
 paren_expr:
@@ -765,6 +854,8 @@ struct_identifier: identifier;
 component_identifier: identifier;
 component_action_identifier: identifier;
 enum_identifier: identifier;
+import_class_identifier: identifier;
+language_identifier: identifier;
 method_identifier: identifier;
 pool_identifier: identifier;
 variable_identifier: identifier;
@@ -772,13 +863,14 @@ bin_identifier: identifier;
 exec_kind_identifier: identifier;
 constant: number | identifier;
 package_identifier: hierarchical_id;
-target_identifier: identifier;
 
 identifier: ID | ESCAPED_ID;
 
 type_identifier :
 	elems+=ID ('::' elems+=ID)*
 ;
+
+action_type_identifier: type_identifier;
 
 hierarchical_type_identifier:
 	elems+=ID '::' elems+=ID ('::' elems+=ID)*
