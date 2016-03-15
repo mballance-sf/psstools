@@ -31,15 +31,28 @@ portable_stimulus_description:
 	package_declaration
 ;
 
+/****************************************************************************
+ * H1: Package Declarations
+ ****************************************************************************/
 package_declaration:
+//	(attr=attributes)?
 	'package' name=package_identifier '{'
 		body+=package_body_item*
 	'}'	(';')?
 ;
 
+//attributes:
+//	'(*' attrs+=attr (',' attrs+=attr)* '*)'
+//;
+//
+//attr:
+//	name=identifier ('=' value=DOUBLE_QUOTED_STRING)?
+//;
+
+
 package_body_item:
 	abstract_action_declaration 	|
-	component_declaration			| 
+//	component_declaration			| 
 	struct_declaration 				|
 	enum_declaration 				|
 	coverspec_declaration 			|
@@ -82,106 +95,28 @@ package_import_pattern:
 	package=type_identifier (wildcard?='::' '*')?
 ;
 
-import_method_decl:
-	'import' prototype=method_prototype ';'
-;
 
-method_prototype:
-	ret_type=method_return_type name=method_identifier parameter_list=method_parameter_list_prototype
-;
-
-method_parameter_list_prototype: {method_parameter_list_prototype}
-	'('
-		(
-			parameters+=method_parameter (',' parameters+=method_parameter)*
-		)?
-	')'
-;
-
-method_parameter_list: {method_parameter_list}
-	'('
-	(
-		parameters+=expression (',' parameters+=expression)*
-	)?
-	')'
-;
-
-// Method qualifiers
-import_method_qualifiers:
-	import_method_phase_qualifiers |
-	import_method_target_template
-	;
-
-import_method_phase_qualifiers:
-	'import' func_qualifiers=import_function_qualifiers name=type_identifier ';'
-;
-
-import_method_target_template:
-	'import' language=language_identifier prototype=method_prototype '=' string ';'
-;
-
-import_function_qualifiers:
-	(method_qualifiers (language=language_identifier)?) |
-	language=language_identifier
-;
-
-method_qualifiers: {method_qualifiers}
-	(target='target'|solve='solve')
-;
-
-method_return_type:
-	void='void'|type=scalar_data_type
-;
-
-method_parameter:
-	dir=method_parameter_dir? type=scalar_data_type name=identifier
-;
-
-method_parameter_dir:
-	(input='input'|output='output'|inout='inout')
-;
-
-import_class_decl:
-	'import' 'class' name=import_class_identifier (extends=import_class_extends)? '{'
-		methods+=import_class_method_decl*
-	'}' (';')?
-	;
-	
-import_class_method_decl:
-	prototype=method_prototype ';'
-;
-
-import_class_extends:
-	':' extends+=type_identifier (',' extends+=type_identifier)*
-;
-
-export_action:
-	'export' (qualifiers=method_qualifiers)? name=action_type_identifier ';'
-;
 
 /****************************************************************************
- * Heading: Action Declarations
+ * H1: Action Declarations
  ****************************************************************************/
 action_declaration:
-	(abstract?='abstract')? 'action' name=action_identifier 
-	(parameter_list=method_parameter_list_prototype)?
-	(super=action_super_spec)?
+	(abstract?='abstract')? 'action' name=action_identifier (super_spec=action_super_spec)? 
+	'{'
+		body+=action_body_item*
+	'}' (';')?
+;
+
+
+abstract_action_declaration returns action_declaration:
+	abstract?='abstract' 'action' name=action_identifier (super_spec=action_super_spec)?
 	'{'
 		body+=action_body_item*
 	'}' (';')?
 ;
 
 action_super_spec:
-	':' super=[action_declaration|action_identifier] (super_parameters=method_parameter_list)?
-;
-
-abstract_action_declaration returns action_declaration:
-	abstract?='abstract' 'action' name=action_identifier 
-	(parameter_list=method_parameter_list_prototype)?
-	(super=action_super_spec)?
-	'{'
-		body+=action_body_item*
-	'}' (';')?
+	':' super=[action_declaration|action_identifier] 
 ;
 
 action_body_item:
@@ -213,6 +148,10 @@ io_direction:
 	input?='input' | output?='output'
 ;
 
+
+/****************************************************************************
+ * H2: Exec Blocks
+ ****************************************************************************/
 exec_block_stmt:
 	exec_block |
 	target_code_exec_block |
@@ -228,7 +167,7 @@ target_code_exec_block:
 ;
 
 target_file_exec_block:
-	'exec' 'file' target_file_name=string '=' body=string ';'
+	'exec' 'file' target_file_name=filename_string '=' body=string ';'
 ;
 
 assign_op:
@@ -240,7 +179,7 @@ exec_body_stmt:
 ;
 
 /****************************************************************************
- * Heading: Struct Declarations
+ * H1: Struct Declarations
  ****************************************************************************/
 struct_declaration:
 	(qualifier=struct_qualifier)? 'struct' name=identifier (':' super=[struct_declaration|struct_identifier])? '{'
@@ -270,22 +209,116 @@ struct_field_modifier:
 ;
 
 /****************************************************************************
- * Heading: Component Declaration
+ * H1: Procedural Interface
+ ****************************************************************************/
+import_method_decl:
+	'import' prototype=method_prototype ';'
+;
+
+method_prototype:
+	ret_type=method_return_type name=method_identifier parameter_list=method_parameter_list_prototype
+;
+
+method_parameter_list_prototype: {method_parameter_list_prototype}
+	'('
+		(
+			parameters+=method_parameter (',' parameters+=method_parameter)*
+		)?
+	')'
+;
+
+method_parameter_list: {method_parameter_list}
+	'('
+	(
+		parameters+=expression (',' parameters+=expression)*
+	)?
+	')'
+;
+
+// Method qualifiers
+import_method_qualifiers:
+	import_method_phase_qualifiers |
+	import_method_target_template
+	;
+
+import_method_phase_qualifiers:
+//	(attr=attributes)?
+	'import' func_qualifiers=import_function_qualifiers name=type_identifier ';'
+;
+
+import_method_target_template:
+//	(attr=attributes)?
+	'import' language=language_identifier prototype=method_prototype '=' string ';'
+;
+
+import_function_qualifiers:
+	(method_qualifiers (language=language_identifier)?) |
+	language=language_identifier
+;
+
+method_qualifiers: {method_qualifiers}
+	(target='target'|solve='solve')
+;
+
+method_return_type:
+	void='void'|type=data_type
+;
+
+method_parameter:
+//	(attr=attributes)?
+	dir=method_parameter_dir? type=data_type name=identifier
+;
+
+method_parameter_dir:
+	(input='input'|output='output'|inout='inout')
+;
+
+/****************************************************************************
+ * H2: Import Class Declaration
+ ****************************************************************************/
+import_class_decl:
+//	(attr=attributes)?
+	'import' 'class' name=import_class_identifier (extends=import_class_extends)? '{'
+		methods+=import_class_method_decl*
+	'}' (';')?
+	;
+	
+import_class_method_decl:
+//	(attr=attributes)?
+	prototype=method_prototype ';'
+;
+
+import_class_extends:
+	':' extends+=type_identifier (',' extends+=type_identifier)*
+;
+
+/****************************************************************************
+ * H2: Export Action
+ ****************************************************************************/
+export_action:
+//	(attr=attributes)?
+	'export' (qualifiers=method_qualifiers)? name=action_type_identifier parameters=method_parameter_list_prototype ';'
+;
+
+/****************************************************************************
+ * H1: Component Declaration
  ****************************************************************************/
 component_declaration:
+//	(attr=attributes)?
 	'component' name=component_identifier (':' super=[component_declaration|component_identifier])? '{'
 	body+=component_body_item*
 	'}' (';')?
 ;
 
 component_body_item:
-	overrides_declaration		|
-	component_field_declaration	|
-	action_declaration 			|
-	struct_declaration			|
-	import_stmt					|
-	object_bind_stmt			|
-	inline_type_object_declaration
+	overrides_declaration			|
+	component_field_declaration		|
+	action_declaration 				|
+	struct_declaration				|
+	import_stmt						|
+	object_bind_stmt				|
+	inline_type_object_declaration	|
+	exec_block
 ;
 
 component_field_declaration:
@@ -316,24 +349,26 @@ component_path_elem:
 ;
 
 /********************************************************************
- * Heading: Graph Productions
+ * H1: Graph Productions
  ********************************************************************/
 graph_production: 
-	graph_if_else_production		|
-	graph_repeat_stmt 				|
-	graph_constraint_stmt			|
-	graph_foreach_stmt				|
-	graph_expr_stmt					|
-	graph_select_stmt				|
-	graph_parallel_stmt				|
-	graph_schedule_stmt				|
-	graph_bind_stmt					|
-	graph_method_call_stmt
+	graph_if_else_production		
+	| graph_repeat_stmt 				
+	| graph_constraint_stmt			
+	| graph_foreach_stmt				
+	| graph_expr_stmt					
+	| graph_select_stmt				
+	| graph_parallel_stmt				
+	| graph_schedule_stmt				
+	| graph_bind_stmt					
+//	| graph_method_call_stmt
 ;
 
+/*
 graph_method_call_stmt:
 	(lhs=variable_ref op=assign_op)? call=method_function_call ';'
 ;
+*/
 
 graph_bind_stmt:
 	'bind' lhs=hierarchical_id rhs=graph_bind_item_or_list ';'
@@ -348,31 +383,11 @@ graph_if_else_production:
 	(=> 'else' else_production=graph_production)?
 ;
 
-graph_select_parallel_schedule_production:
-	graph_repeat_stmt 				|
-	graph_constraint_stmt			|
-	graph_foreach_stmt				|
-	graph_select_stmt				|
-	graph_parallel_stmt				|
-	graph_schedule_stmt				|
-	graph_select_parallel_block			|
-	graph_select_parallel_if_else_stmt	|
-	graph_sequence_stmt					|
-	graph_bind_stmt
-	;
-
-graph_select_parallel_if_else_stmt:
-	'if' '(' expr=expression ')' true_prod=graph_select_parallel_schedule_production
-	(=> 'else' false_prod=graph_select_parallel_schedule_production)?
-;	
-
-graph_select_parallel_block:
-	{graph_select_parallel_block} '{' productions+=graph_select_parallel_schedule_production* '}'
-;
-
 graph_select_stmt:
 	'select' '{'
-		productions+=graph_select_production productions+=graph_select_production*
+		productions+=graph_labeled_production 
+		productions+=graph_labeled_production
+		productions+=graph_labeled_production*
 	'}'
 ;
 
@@ -392,30 +407,31 @@ inline_with_constraint:
 	{inline_with_constraint} 'with' ('{' constraints+=constraint_body_item* '}' | constraints+=constant_expression)
 ;
 
-graph_select_production:
-	(label=identifier /*(':=' weight=graph_select_weight)?*/ ':')? production=graph_select_parallel_schedule_production 
+
+graph_parallel_stmt:
+	{graph_parallel_stmt} 'parallel' '{'
+		productions+=graph_labeled_production*
+	'}' (';')?
 ;
 
+graph_schedule_stmt:
+	{graph_schedule_stmt} 'schedule' '{'
+		productions+=graph_labeled_production*
+	'}' (';')?
+;
+
+//graph_select_production:
+//	(label=identifier /*(':=' weight=graph_select_weight)?*/ ':')? production=graph_production 
+//;
+//
 //graph_select_weight:
 //	value=number |
 //	id=identifier |
 //	'(' expr=expression ')'
 //;
 
-graph_parallel_stmt:
-	{graph_parallel_stmt} 'parallel' '{'
-		productions+=graph_parallel_production*
-	'}' (';')?
-;
-
-graph_schedule_stmt:
-	{graph_schedule_stmt} 'schedule' '{'
-		productions+=graph_select_production*
-	'}' (';')?
-;
-
-graph_parallel_production:
-	(label=identifier ':')? production=graph_select_parallel_schedule_production
+graph_labeled_production:
+	(label=identifier ':')? production=graph_production
 ;
 
 graph_repeat_stmt:
@@ -459,7 +475,7 @@ symbol_paramlist:
 
 
 /********************************************************************
- * Heading: Overrides
+ * H1: Overrides
  ********************************************************************/
 overrides_declaration:
 	{overides_declaration} 'override' '{' overrides+=override_stmt* '}'
@@ -478,7 +494,7 @@ instance_override:
 ;
 
 /********************************************************************
- * Heading: Data Declarations
+ * H1: Data Declarations
  ********************************************************************/
 data_declaration:
 	type=data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
@@ -506,7 +522,7 @@ coverspec_portmap:
 ;
 
 /********************************************************************
- * Heading: Data Types
+ * H1: Data Types
  ********************************************************************/
 data_type:
 	chandle_type |
@@ -576,7 +592,7 @@ open_range_value:
 ;
 
 /********************************************************************
- * Heading: Constraints
+ * H1: Constraints
  ********************************************************************/
 constraint_declaration:
 	{constraint_declaration} 
@@ -624,7 +640,7 @@ unique_constraint_item:
 ;
 
 /********************************************************************
- * Heading: Bins 
+ * H1: Bins 
  ********************************************************************/
  bins_declaration:
  	'bins' name=identifier (item=variable_identifier)? bins=bin_specification ';'
@@ -662,13 +678,13 @@ unique_constraint_item:
  ;
  
 /********************************************************************
- * Heading: Coverspec
+ * H1: Coverspec
  ********************************************************************/
 
 coverspec_declaration:
 	'coverspec' name=identifier '(' ports+=coverspec_port (',' ports+=coverspec_port)* ')' '{'
 		body_items+=coverspec_body_item*
-	'}'
+	'}' (';')?
 ;
 
 coverspec_port:
@@ -734,7 +750,7 @@ coverspec_cross:
 
  
 /********************************************************************
- * Heading: Expressions
+ * H1: Expressions
  ********************************************************************/
 
 /** 
@@ -817,13 +833,13 @@ unary_expr returns expression:
 ;
 
 primary: //; returns expression:
-	number 					| 
-	bool_literal			|
-	paren_expr 				|
-	variable_ref			|
-	method_function_call
+	number 					
+	| bool_literal			
+	| paren_expr 				
+	| variable_ref			
+	| method_function_call
 	;
-	
+
 method_function_call:
 	method_call		|
 	function_call
@@ -847,7 +863,7 @@ variable_ref:
 
 
 /********************************************************************
- * Heading: Identifiers and Literals
+ * H1: Identifiers and Literals
  ********************************************************************/
 action_identifier: identifier;
 struct_identifier: identifier;
@@ -865,6 +881,8 @@ constant: number | identifier;
 package_identifier: hierarchical_id;
 
 identifier: ID | ESCAPED_ID;
+
+filename_string: DOUBLE_QUOTED_STRING;
 
 type_identifier :
 	elems+=ID ('::' elems+=ID)*
@@ -885,7 +903,7 @@ bool_literal:
 ;
 
 /********************************************************************
- * Heading: Numbers
+ * H1: Numbers
  ********************************************************************/
 number:
 	value=based_hex_number 		|
@@ -927,7 +945,7 @@ terminal HEX_LITERAL: '0x' ('0'..'9'|'a'..'f'|'A'..'F') ('0'..'9'|'a'..'f'|'A'..
 terminal WS			: (' '|'\t'|'\r'|'\n')+;
 
 /********************************************************************
- * Heading: Comments
+ * H1: Comments
  ********************************************************************/
  
 /**
