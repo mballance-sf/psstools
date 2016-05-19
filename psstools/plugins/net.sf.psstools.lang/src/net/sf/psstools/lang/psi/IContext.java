@@ -1,6 +1,6 @@
 package net.sf.psstools.lang.psi;
 
-public interface IContext extends IExprFactory {
+public interface IContext extends IExprFactory, IConstraintFactory {
 	
 	IPackage get_global_package();
 

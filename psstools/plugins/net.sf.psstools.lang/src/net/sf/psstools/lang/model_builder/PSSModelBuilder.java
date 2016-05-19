@@ -29,6 +29,7 @@ import net.sf.psstools.lang.pSS.package_body_item;
 import net.sf.psstools.lang.pSS.package_declaration;
 import net.sf.psstools.lang.pSS.struct_declaration;
 import net.sf.psstools.lang.pSS.typedef_declaration;
+import net.sf.psstools.lang.psi.IAction;
 import net.sf.psstools.lang.psi.IComponent;
 import net.sf.psstools.lang.psi.IContext;
 import net.sf.psstools.lang.psi.IPackage;
@@ -56,15 +57,17 @@ public class PSSModelBuilder {
 			for (EObject o : m.eContents()) {
 				
 				if (o instanceof component_declaration) {
-					component_decl((component_declaration)o);
+					IComponent comp = component_decl((component_declaration)o);
+					fContext.add_component(comp);
 				} else if (o instanceof package_declaration) {
-					package_decl((package_declaration)o);
+					IPackage pkg = package_decl((package_declaration)o);
+					fContext.add_package(pkg);
 				}
 			}
 		}
 	}
 	
-	protected void component_decl(component_declaration c) {
+	protected IComponent component_decl(component_declaration c) {
 		IComponent super_c = null;
 		
 		if (c.getSuper() != null) {
@@ -79,6 +82,8 @@ public class PSSModelBuilder {
 				error("unsupported component statement");
 			} else if (bi instanceof component_field_declaration) {
 			} else if (bi instanceof action_declaration) {
+				IAction action = action_decl((action_declaration)bi);
+//				fContext.add_ac);
 			} else if (bi instanceof struct_declaration) {
 			} else if (bi instanceof import_stmt) {
 			} else if (bi instanceof object_bind_stmt) {
@@ -88,17 +93,18 @@ public class PSSModelBuilder {
 			}
 			
 		}
-		fContext.add_component(comp);
+		
+		return comp;
 	}
 	
-	protected void package_decl(package_declaration p) {
+	protected IPackage package_decl(package_declaration p) {
 		IPackage pkg = fContext.mk_package(p.getName().toString());
 		
 		for (package_body_item bi : p.getBody()) {
 			if (bi instanceof action_declaration) {
 				error("unsupported package statement");
-			} else if (bi instanceof component_declaration) {
-				error("unsupported package statement");
+//			} else if (bi instanceof component_declaration) {
+//				error("unsupported package statement");
 			} else if (bi instanceof struct_declaration) {
 				error("unsupported package statement");
 			} else if (bi instanceof enum_declaration) {
@@ -124,7 +130,13 @@ public class PSSModelBuilder {
 			}
 		}
 	
-		fContext.add_package(pkg);
+		return pkg;
+	}
+	
+	protected IAction action_decl(action_declaration action_decl) {
+		IAction action = null; // fContext.mk_ac
+
+		return action;
 	}
 
 	private void error(String msg) {

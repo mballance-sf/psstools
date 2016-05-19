@@ -7,6 +7,11 @@ import org.eclipse.emf.mwe2.language.mwe2.impl.ComponentImplCustom;
 
 import net.sf.psstools.lang.psi.IBinaryExpr;
 import net.sf.psstools.lang.psi.IComponent;
+import net.sf.psstools.lang.psi.IConstraintBlock;
+import net.sf.psstools.lang.psi.IConstraintExprStmt;
+import net.sf.psstools.lang.psi.IConstraintForeachStmt;
+import net.sf.psstools.lang.psi.IConstraintSet;
+import net.sf.psstools.lang.psi.IConstraintStmt;
 import net.sf.psstools.lang.psi.IContext;
 import net.sf.psstools.lang.psi.IExpr;
 import net.sf.psstools.lang.psi.IPackage;
@@ -63,7 +68,49 @@ public class ContextImpl implements IContext {
 	public IUnaryExpr mk_unary_expr(net.sf.psstools.lang.psi.IUnaryExpr.Op op, IExpr expr) {
 		return new UnaryExprImpl(op, expr);
 	}
-	
 
+	@Override
+	public IConstraintSet mk_constraint_set(List<IConstraintStmt> constraints) {
+		return new ConstraintSetImpl(constraints);
+	}
+
+	@Override
+	public IConstraintSet mk_constraint_set(IConstraintStmt... constraints) {
+		return new ConstraintSetImpl(constraints);
+	}
+
+	@Override
+	public IConstraintBlock mk_constraint_block(
+			String 			name, 
+			IConstraintSet 	constraints, 
+			boolean 		is_anonymous,
+			boolean 		is_dynamic) {
+		return new ConstraintBlockImpl(name, is_anonymous, is_dynamic, constraints);
+	}
+
+	@Override
+	public IConstraintBlock mk_constraint_block(String name, IConstraintSet constraints) {
+		return mk_constraint_block(name, constraints, false, false);
+	}
+
+	@Override
+	public IConstraintExprStmt mk_expr_constraint(IExpr expr) {
+		return new ConstraintExprStmtImpl(expr);
+	}
+
+	@Override
+	public IConstraintForeachStmt mk_foreach_constraint(IExpr expr, IConstraintSet constraints) {
+		return new ConstraintForeachStmtImpl(expr, constraints);
+	}
+
+	@Override
+	public IConstraintForeachStmt mk_foreach_constraint(IExpr expr, List<IConstraintStmt> constraints) {
+		return new ConstraintForeachStmtImpl(expr, constraints);
+	}
+
+	@Override
+	public IConstraintForeachStmt mk_foreach_constraint(IExpr expr, IConstraintStmt... constraints) {
+		return new ConstraintForeachStmtImpl(expr, constraints);
+	}
 	
 }

@@ -28,7 +28,8 @@ Model:
 
 portable_stimulus_description: 
 	package_body_item			|
-	package_declaration
+	package_declaration			|
+	component_declaration
 ;
 
 /****************************************************************************
@@ -137,7 +138,7 @@ graph_declaration:
 ;
 
 action_field_declaration:
-	modifiers=action_field_modifier? declaration=data_declaration
+	modifiers=action_field_modifier? declaration=action_data_declaration
 ;
 
 action_field_modifier:
@@ -500,6 +501,10 @@ data_declaration:
 	type=data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
 ;
 
+action_data_declaration returns data_declaration:
+	type=action_data_type instances+=data_instantiation (',' instances+=data_instantiation)* ';' 
+;
+
 data_instantiation:
 	name=identifier ('(' portmap=coverspec_portmap_list ')')? dim=array_dim? ('=' init=constant_expression)?
 ;
@@ -524,18 +529,27 @@ coverspec_portmap:
 /********************************************************************
  * H1: Data Types
  ********************************************************************/
+ 
+/**
+ * BNF: data_type ::= scalar_data_type | struct_identifier
+ */
 data_type:
-	chandle_type |
-	integer_type |
-	string_type  |
-	bool_type	 |
+	scalar_data_type |
+	user_defined_type
+;
+
+/**
+ * BNF: action_data_type ::= scalar_data_type | struct_identifier | action_identifier
+ */
+action_data_type:
+	scalar_data_type |
 	user_defined_type
 ;
 
 scalar_data_type:
 	chandle_type 	|
-	integer_type 		|
-	string_type  		|
+	integer_type 	|
+	string_type  	|
 	bool_type
 ;
 

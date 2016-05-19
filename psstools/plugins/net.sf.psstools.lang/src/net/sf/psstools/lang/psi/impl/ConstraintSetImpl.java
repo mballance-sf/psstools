@@ -13,6 +13,14 @@ public class ConstraintSetImpl extends ConstraintStmtImpl implements IConstraint
 		super(IConstraintStmt.Type.CONSTRAINT_SET);
 		fConstraints = new ArrayList<IConstraintStmt>(constraints);
 	}
+	
+	public ConstraintSetImpl(IConstraintStmt... constraints) {
+		super(IConstraintStmt.Type.CONSTRAINT_SET);
+		fConstraints = new ArrayList<IConstraintStmt>();
+		for (IConstraintStmt s : constraints) {
+			fConstraints.add(s);
+		}
+	}
 
 	@Override
 	public List<IConstraintStmt> get_constraint_stmts() {

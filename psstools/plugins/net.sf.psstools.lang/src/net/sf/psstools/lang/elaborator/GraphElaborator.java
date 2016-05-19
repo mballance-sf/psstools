@@ -8,6 +8,7 @@ import java.util.Stack;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirective;
 import net.sf.psstools.lang.elaborator.processor.GraphProcDirectiveDumper;
@@ -259,7 +260,7 @@ public class GraphElaborator {
 		return dts;
 	}
 	
-	private DataType elaborate_data_type(data_type dt) throws ElabException {
+	private DataType elaborate_data_type(EObject dt) throws ElabException {
 		DataType type = null;
 		
 		if (dt instanceof user_defined_type) {
