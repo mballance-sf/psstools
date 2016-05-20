@@ -4,6 +4,11 @@ ifneq (1,$(RULES))
 
 PSS2XML_DIR := $(PSSTOOLS_DIR)/pss2xml
 PSS2XML_BUILDDIR := $(BUILDDIR)/pss2xml
+
+ifeq (Cygwin,$(UNAME_O))
+PSS2XML_BUILDDIR := $(shell cygpath -w $(PSS2XML_BUILDDIR) | sed -e 's%\\%/%g')
+endif
+
 PSS2XML_EXE_TARGETS += $(BINDIR)/pss2xml$(EXEEXT)
 EXE_TARGETS += $(PSS2XML_EXE_TARGETS)
 PSS2XML_LIB_TARGETS += $(LIBDIR)/pss2xml.jar

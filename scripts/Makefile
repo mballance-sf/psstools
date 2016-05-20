@@ -3,8 +3,7 @@
 #******************************************************************************
 
 include rules_defs.mk
-include $(PSSTOOLS_DIR)/pss2xml/rules_defs.mk
-include $(PSSTOOLS_DIR)/psi/src/rules_defs.mk
+include psstools_mkfiles.mk
 
 all : $(LIB_TARGETS) $(EXE_TARGETS) $(INST_TARGETS)
 	$(Q)echo "SCRIPTS_DIR=$(SCRIPTS_DIR)"
@@ -19,6 +18,5 @@ clean :
 	$(Q)rm -rf $(BUILDDIR)
 
 include rules_defs.mk	
-include $(PSSTOOLS_DIR)/pss2xml/rules_defs.mk
-include $(PSSTOOLS_DIR)/psi/src/rules_defs.mk
+include psstools_mkfiles.mk
 

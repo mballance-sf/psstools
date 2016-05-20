@@ -20,8 +20,14 @@ endif
 
 PSSTOOLS_DIR := $(dir $(SCRIPTS_DIR))
 
+ifeq (,$(BUILDDIR))
 BUILDDIR := $(PSSTOOLS_DIR)/build
+endif
+
+ifeq (,$(BUILDRSULT))
 BUILDRESULT := $(PSSTOOLS_DIR)/build/psstools
+endif
+
 BINDIR := $(BUILDRESULT)/bin
 LIBDIR := $(BUILDRESULT)/lib
 INCDIR := $(BUILDRESULT)/include
@@ -76,11 +82,13 @@ endif
 
 define DO_CXX
 $(TMSG) "CXX $^"
+$(Q)if test ! -d `dirname $@`; then mkdir -p `dirname $@`; fi
 $(Q)$(CXX) -c $(CXXFLAGS) -o $@ $^
 endef
 
 define DO_CXXLINK
 $(TMSG) "CXX $^"
+$(Q)if test ! -d `dirname $@`; then mkdir -p `dirname $@`; fi
 $(Q)$(CXX) $(CXXFLAGS) -o $@ $^
 endef
 
