@@ -1,4 +1,4 @@
-<project default="all">
+<project default="build">
 	
 	<property environment="env"/>
 	<property name="version" value="0.0.1"/>
@@ -17,7 +17,7 @@
 			org.eclipse.xtext.util*.jar,org.antlr.runtime_*.jar,
 			com.google*.jar,javax.inject_*.jar,org.objectweb.asm*.jar,
 			com.ibm.icu*.jar"/>
-		<pathelement path="${basedir}/build/src"/>
+		<pathelement path="${buildDirectory}/src"/>
 		<fileset dir="${basedir}/../psstools/plugins/net.sf.psstools.lang"
 			includes=".*.jar"/>
 	</path>
@@ -49,9 +49,9 @@
 			includes="org.objectweb.asm*.jar"/>
 		<fileset dir="${eclipse.home}/plugins" 
 			includes="org.eclipse.jdt.core_*.jar"/>		
-		<fileset dir="${basedir}/build/plugins/net.sf.psstools.lang"
+		<fileset dir="${buildDirectory}/plugins/net.sf.psstools.lang"
 			includes=".antlr-generator-3.2.0-patch.jar"/>
-		<pathelement location="${basedir}/build/plugins/net.sf.psstools.lang/src"/>
+		<pathelement location="${buildDirectory}/plugins/net.sf.psstools.lang/src"/>
 	</path>	
 	
 	<path id="classpath_a">
@@ -75,21 +75,21 @@
 	
 	<property name="classpath_arg" refid="classpath_a"/>
 
-	<target name="all" depends="init,mwe2,javac,jar"/>
+	<target name="build" depends="init,mwe2,javac,jar"/>
 	<!--
 	<target name="all" depends="javac"/>
 	-->
 	
 	<target name="init">
-		<delete dir="${basedir}/build"/>
-		<mkdir dir="${basedir}/build"/>
+		<delete dir="${buildDirectory}"/>
+		<mkdir dir="${buildDirectory}"/>
 		
-		<copy todir="${basedir}/build">
+		<copy todir="${buildDirectory}">
 			<fileset dir="${basedir}/../psstools/"
 				includes="plugins/**,features/**"
 				excludes="bin,src-gen,xtend-gen"/>
 		</copy>
-		<copy todir="${basedir}/build" overwrite="true">
+		<copy todir="${buildDirectory}" overwrite="true">
 			<fileset dir="${basedir}/../psstools/"
 				includes="plugins/**/*.xml,
 				features/**/*.xml
@@ -105,7 +105,7 @@
     	<java fork="true" failonerror="true"
     		classpathref="classpath"
     		classname="org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher"
-	    	dir="${basedir}/build/plugins/net.sf.psstools.lang">
+	    	dir="${buildDirectory}/plugins/net.sf.psstools.lang">
     		<arg value="src/net/sf/psstools/lang/GeneratePSS.mwe2"/>
     	</java>
 		
@@ -115,31 +115,31 @@
     	<java fork="true" failonerror="true"
     		classpathref="classpath"
     		classname="org.eclipse.xtend.core.compiler.batch.Main"
-	    	dir="${basedir}/build/plugins/net.sf.psstools.lang">
+	    	dir="${buildDirectory}/plugins/net.sf.psstools.lang">
     		<arg value="-d"/>
-    		<arg value="${basedir}/build/plugins/net.sf.psstools.lang/xtend-gen"/>
+    		<arg value="${buildDirectory}/plugins/net.sf.psstools.lang/xtend-gen"/>
     		<arg value="-cp"/>
     		<arg value="${classpath_arg}"/>
-    		<arg value="${basedir}/build/plugins/net.sf.psstools.lang/src-gen"/>
-    		<arg value="${basedir}/build/plugins/net.sf.psstools.lang/src"/>
+    		<arg value="${buildDirectory}/plugins/net.sf.psstools.lang/src-gen"/>
+    		<arg value="${buildDirectory}/plugins/net.sf.psstools.lang/src"/>
     	</java>
 		
 		<eclipse.buildScript
 			elements="${type}@${feature.id}"
-			buildDirectory="${basedir}/build"
+			buildDirectory="${buildDirectory}"
 			baseLocation="${eclipse.home}"
 			configInfo="${os},${ws},${arch}"
 			forceContextQualifier="${forceContextQualifier}"
 			generateFeatureVersionSuffix="true"/>
 
-        <ant antfile="${basedir}/build/features/${feature.id}/build.xml"
-            dir="${basedir}/build/features/${feature.id}"
+        <ant antfile="${buildDirectory}/features/${feature.id}/build.xml"
+            dir="${buildDirectory}/features/${feature.id}"
             target="build.jars"/>
-        <ant antfile="${basedir}/build/assemble.${feature.id}.${os}.${ws}.${arch}.xml"
-             dir="${basedir}/build"/>
+        <ant antfile="${buildDirectory}/assemble.${feature.id}.${os}.${ws}.${arch}.xml"
+             dir="${buildDirectory}"/>
 	
 		<!--
-   		<copy tofile="${basedir}/build/psstools-feature-${feature.version}.zip"
+   		<copy tofile="${buildDirectory}/psstools-feature-${feature.version}.zip"
    			file="${buildDirectory}/${feature.id}-${feature.version}-${os}.${ws}.${arch}.zip"/>		
    		  -->
 		<mkdir dir="${buildDirectory}/unpack"/>
@@ -150,7 +150,7 @@
 		<java fork="true" failonerror="true"
 			classpathref="classpath"
 			classname="org.eclipse.jdt.internal.compiler.batch.Main"
-			dir="${basedir}/build/plugins/net.sf.psstools.lang">
+			dir="${buildDirectory}/plugins/net.sf.psstools.lang">
 			<arg value="-d"/>
 			<arg value="bin"/>
 			<arg value="-cp"/>
@@ -166,13 +166,13 @@
 	</target>
 
 	<target name="jar">
-		<mkdir dir="${basedir}/build/pssc"/>
-		<mkdir dir="${basedir}/build/pssc/libs"/>
+		<mkdir dir="${buildDirectory}/pssc"/>
+		<mkdir dir="${buildDirectory}/pssc/libs"/>
 		
-		<copy todir="${basedir}/build/pssc/libs" 
+		<copy todir="${buildDirectory}/pssc/libs" 
 			file="${buildDirectory}/unpack/plugins/net.sf.psstools.lang_${feature.version}.jar"/>
 		
-		<copy todir="${basedir}/build/pssc/libs">
+		<copy todir="${buildDirectory}/pssc/libs">
 			<fileset dir="${eclipse.home}/plugins"
 				includes="
 					org.eclipse.equinox.common_*.jar,
@@ -189,14 +189,14 @@
 					org.antlr.runtime_*.jar"/>
 		</copy>
 	
-		<mkdir dir="${basedir}/build/ext"/>
-		<unjar dest="${basedir}/build/ext">
-			<fileset dir="${basedir}/build/pssc/libs"
+		<mkdir dir="${buildDirectory}/ext"/>
+		<unjar dest="${buildDirectory}/ext">
+			<fileset dir="${buildDirectory}/pssc/libs"
 				includes="*.jar"/>
 		</unjar>
 		
-		<jar destfile="${basedir}/build/pssc.jar">
-			<fileset dir="${basedir}/build/ext"
+		<jar destfile="${buildDirectory}/pss2xml.jar">
+			<fileset dir="${buildDirectory}/ext"
 				includes="**/*.class"/>
 		</jar>
 	</target>

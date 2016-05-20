@@ -1,4 +1,4 @@
-package net.sf.psstools.lang.pssc;
+package net.sf.psstools.lang.pss2xml;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

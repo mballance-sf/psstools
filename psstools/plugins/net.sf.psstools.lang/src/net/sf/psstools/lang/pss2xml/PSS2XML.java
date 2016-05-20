@@ -16,7 +16,7 @@
  * the License for the specific language governing
  * permissions and limitations under the License.
  ****************************************************************************/
-package net.sf.psstools.lang.pssc;
+package net.sf.psstools.lang.pss2xml;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,6 +26,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
@@ -36,7 +37,7 @@ import net.sf.psstools.lang.PSSStandaloneSetup;
 import net.sf.psstools.lang.pSS.Model;
 import net.sf.psstools.lang.pSS.portable_stimulus_description;
 
-public class PSSC {
+public class PSS2XML {
 
 	//
 	// - root action
@@ -64,7 +65,7 @@ public class PSSC {
 			} else if (arg.endsWith(".pss")) {
 				File f = new File(arg);
 				String uri = "file://" + f.getAbsolutePath().replace('\\', '/');
-				resource_set.getResource(URI.createURI(uri), true);
+				Resource r = resource_set.getResource(URI.createURI(uri), true);
 			} else {
 				System.out.println("Error: Unknown argument " + arg);
 			}
