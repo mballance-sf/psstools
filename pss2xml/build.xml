@@ -227,9 +227,11 @@
 				includes="*.jar"/>
 		</unjar>
 		
+		<delete dir="${buildDirectory}/ext/META-INF"/>
+		
 		<jar destfile="${buildDirectory}/pss2xml.jar">
 			<fileset dir="${buildDirectory}/ext"
-				includes="**/*.class"/>
+				includes="**/*"/>
 		</jar>
 	</target>
 		

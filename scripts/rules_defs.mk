@@ -24,7 +24,7 @@ ifeq (,$(BUILDDIR))
 BUILDDIR := $(PSSTOOLS_DIR)/build
 endif
 
-ifeq (,$(BUILDRSULT))
+ifeq (,$(BUILDRESULT))
 BUILDRESULT := $(PSSTOOLS_DIR)/build/psstools
 endif
 
@@ -87,7 +87,7 @@ $(Q)$(CXX) -c $(CXXFLAGS) -o $@ $^
 endef
 
 define DO_CXXLINK
-$(TMSG) "CXX $^"
+$(TMSG) "CXXLINK $@"
 $(Q)if test ! -d `dirname $@`; then mkdir -p `dirname $@`; fi
 $(Q)$(CXX) $(CXXFLAGS) -o $@ $^
 endef
