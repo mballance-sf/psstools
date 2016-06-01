@@ -141,7 +141,7 @@ int main(int argc, char **argv) {
 	args.push_back("net.sf.psstools.lang.pss2xml.PSS2XML");
 
 	for (int i=1; i<argc; i++) {
-		args.push_back(argv[i]);
+		args.push_back(toWinPath(argv[i]));
 	}
 
 	char **e_argv = new char *[args.size()+1];

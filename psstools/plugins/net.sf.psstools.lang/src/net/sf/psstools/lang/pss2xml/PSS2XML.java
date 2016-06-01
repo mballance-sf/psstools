@@ -19,6 +19,9 @@
 package net.sf.psstools.lang.pss2xml;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,6 @@ import com.google.inject.Injector;
 
 import net.sf.psstools.lang.PSSStandaloneSetup;
 import net.sf.psstools.lang.pSS.Model;
-import net.sf.psstools.lang.pSS.portable_stimulus_description;
 
 public class PSS2XML {
 
@@ -43,9 +45,7 @@ public class PSS2XML {
 	// - root action
 	// - packages to include
 	public static void main(String args[]) {
-		for (int i=0; i<args.length; i++) {
-			System.out.println("ARG[" + i + "] " + args[i]);
-		}
+		OutputStream out = null;
 	
 		PSSStandaloneSetup setup = new PSSStandaloneSetup();
 		Injector injector = setup.createInjectorAndDoEMFRegistration();
@@ -61,7 +61,21 @@ public class PSS2XML {
 			String arg = args[i];
 			
 			if (arg.charAt(0) == '-') {
-				System.out.println("Error: Unknown option " + arg);
+				if (arg.equals("-o")) {
+					String path = args[++i];
+					if (path.equals("-")) {
+						out = System.out;
+					} else {
+						try {
+							out = new FileOutputStream(path);
+						} catch (IOException e) {
+							System.out.println("Error: Failed to open file " + path);
+							System.exit(1);
+						}
+					}
+				} else {
+					System.out.println("Error: Unknown option " + arg);
+				}
 			} else if (arg.endsWith(".pss")) {
 				File f = new File(arg);
 				String uri = "file://" + f.getAbsolutePath().replace('\\', '/');
@@ -72,11 +86,16 @@ public class PSS2XML {
 			System.out.println("ARG[" + i + "] " + args[i]);
 		}
 		
+		if (out == null) {
+			System.out.println("Error: no output path specified");
+			System.exit(1);
+		}
+		
 		TreeIterator<Notifier> all_contents = resource_set.getAllContents();
 		
 		EcoreUtil.resolveAll(resource_set);
 		
-		Elaborator elab = new Elaborator(System.out);
+		Elaborator elab = new Elaborator(out);
 		
 		while (all_contents.hasNext()) {
 			Notifier n = all_contents.next();
